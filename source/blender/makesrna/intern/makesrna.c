@@ -1838,9 +1838,29 @@ static const char *rna_parameter_type_cpp_name(PropertyRNA *prop)
 	}
 }
 
+static void rna_def_struct_function_comment_cpp(FILE *f, StructRNA *UNUSED(srna), FunctionDefRNA *dfunc,
+												const char *namespace, int close_prototype)
+{
+	PropertyDefRNA *dp;
+	FunctionRNA *func = dfunc->func;
+
+	fprintf(f, "\t/**\n\t * %s\n", func->description);
+
+	for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+		if (dp->prop == func->c_ret)
+			fprintf(f, "\t * @return %s\n", dp->prop->description);
+		else
+			fprintf(f, "\t * @param %s\n", dp->prop->description);
+	}
+
+	fprintf(f, "\t */\n");
+}
+
 static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srna), FunctionDefRNA *dfunc,
                                                   const char *namespace, int close_prototype)
 {
+	rna_def_struct_function_comment_cpp(f, UNUSED(srna), dfunc, namespace, close_prototype);
+
 	PropertyDefRNA *dp;
 	FunctionRNA *func = dfunc->func;
 
@@ -1860,8 +1880,8 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 	if (func->flag & FUNC_USE_MAIN)
 		WRITE_PARAM("void *main");
 
-	if (func->flag & FUNC_USE_CONTEXT)
-		WRITE_PARAM("Context C");
+	// if (func->flag & FUNC_USE_CONTEXT)
+	//	WRITE_PARAM("Context C");
 
 	for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
 		int type, flag, pout;
