@@ -71,6 +71,9 @@ static int file_older(const char *file1, const char *file2)
 }
 static const char *makesrna_path = NULL;
 
+/* fusee build */
+static bool fusee_build;
+
 /* forward declarations */
 static void rna_generate_static_parameter_prototypes(FILE *f, StructRNA *srna, FunctionDefRNA *dfunc,
                                                      const char *name_override, int close_prototype);
@@ -404,6 +407,8 @@ static const char *rna_type_type_name(PropertyRNA *prop)
 {
 	switch (prop->type) {
 		case PROP_BOOLEAN:
+			return (fusee_build) ? "bool" : "int";
+			
 		case PROP_INT:
 		case PROP_ENUM:
 			return "int";
@@ -1859,7 +1864,8 @@ static void rna_def_struct_function_comment_cpp(FILE *f, StructRNA *UNUSED(srna)
 static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srna), FunctionDefRNA *dfunc,
                                                   const char *namespace, int close_prototype)
 {
-	rna_def_struct_function_comment_cpp(f, UNUSED(srna), dfunc, namespace, close_prototype);
+	if (fusee_build)
+		rna_def_struct_function_comment_cpp(f, UNUSED(srna), dfunc, namespace, close_prototype);
 
 	PropertyDefRNA *dp;
 	FunctionRNA *func = dfunc->func;
@@ -1873,15 +1879,18 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 	}
 
 	if (namespace && namespace[0])
-		fprintf(f, "\tinline %s %s::%s(", retval_type, namespace, rna_safe_id(func->identifier));
+		fprintf(f, "\t%s %s %s::%s(", (fusee_build) ? "" : "inline", retval_type, namespace, rna_safe_id(func->identifier));
 	else
-		fprintf(f, "\tinline %s %s(", retval_type, rna_safe_id(func->identifier));
+		fprintf(f, "\t%s %s %s(", (fusee_build) ? "" : "inline", retval_type, rna_safe_id(func->identifier));
+	
+	//if (strcmp(rna_safe_id(func->identifier), "to_mesh") == 0)
+	//	fprintf(f, "// blup");
 
 	if (func->flag & FUNC_USE_MAIN)
 		WRITE_PARAM("void *main");
 
-	// if (func->flag & FUNC_USE_CONTEXT)
-	//	WRITE_PARAM("Context C");
+	 if (func->flag & FUNC_USE_CONTEXT && !fusee_build)
+		WRITE_PARAM("Context C");
 
 	for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
 		int type, flag, pout;
@@ -1916,6 +1925,14 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 		else
 			fprintf(f, "%s %s%s", rna_parameter_type_cpp_name(dp->prop),
 			        ptrstr, rna_safe_id(dp->prop->identifier));
+
+		if (fusee_build) {
+			if (type == PROP_BOOLEAN) {
+				BoolPropertyRNA *bprop = (BoolPropertyRNA *)dp->prop;
+				if (bprop->defaultvalue)
+					fprintf(f, "=%s", (bprop->defaultvalue) ? "true" : "false");
+			}
+		}
 	}
 
 	fprintf(f, ")");
@@ -4089,8 +4106,10 @@ int main(int argc, char **argv)
 		return_status = 1;
 	}
 	else {
-		fprintf(stderr, "Running makesrna\n");
 		makesrna_path = argv[0];
+		fusee_build = (argc == 3 && strcmp(argv[2], "--fusee") == 0);
+
+		fprintf(stderr, "Running makesrna %s\n", fusee_build ? "(FUSEE MODE)" : "");
 		return_status = rna_preprocess(argv[1]);
 	}
 
