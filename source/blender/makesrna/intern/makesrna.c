@@ -405,21 +405,30 @@ static const char *rna_find_dna_type(const char *type)
 
 static const char *rna_type_type_name(PropertyRNA *prop)
 {
+	/*if (prop->type == PROP_ENUM && fusee_build)
+	{
+		EnumPropertyRNA *eprop = (EnumPropertyRNA *)prop;
+		//char * tmp = eprop->;
+		int test = eprop->totitem;
+		return (fusee_build) ? "irgendwas" : "int";
+	}*/
+
 	switch (prop->type) {
 		case PROP_BOOLEAN:
 			return (fusee_build) ? "bool" : "int";
 			
-		case PROP_INT:
 		case PROP_ENUM:
+		case PROP_INT:
 			return "int";
+
 		case PROP_FLOAT:
 			return "float";
 		case PROP_STRING:
 			if (prop->flag & PROP_THICK_WRAP) {
-				return "char *";
+				return (fusee_build) ? "string" : "char *";
 			}
 			else {
-				return "const char *";
+				return (fusee_build) ? "const string" : "const char *";
 			}
 		default:
 			return NULL;
@@ -1926,11 +1935,20 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 			fprintf(f, "%s %s%s", rna_parameter_type_cpp_name(dp->prop),
 			        ptrstr, rna_safe_id(dp->prop->identifier));
 
-		if (fusee_build) {
+		if (!(flag & PROP_REQUIRED) && fusee_build) {
 			if (type == PROP_BOOLEAN) {
 				BoolPropertyRNA *bprop = (BoolPropertyRNA *)dp->prop;
-				if (bprop->defaultvalue)
-					fprintf(f, "=%s", (bprop->defaultvalue) ? "true" : "false");
+				fprintf(f, "=%s", (bprop->defaultvalue) ? "true" : "false");
+			}
+			else if (type == PROP_ENUM) {
+				EnumPropertyRNA *eprop = (EnumPropertyRNA *)dp->prop;
+
+				for (int i = 0; eprop->item[i].identifier; i++) {
+					if (eprop->item[i].identifier[0] && eprop->item[i].value == eprop->defaultvalue) {
+						fprintf(f, "=%s", eprop->item[i].identifier);
+						break;
+					}
+				}
 			}
 		}
 	}
