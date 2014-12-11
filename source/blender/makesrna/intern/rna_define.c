@@ -1487,7 +1487,7 @@ void RNA_def_property_struct_runtime(PropertyRNA *prop, StructRNA *type)
 	}
 }
 
-void RNA_def_property_enum_items(PropertyRNA *prop, const EnumPropertyItem *item)
+void RNA_def_property_enum_items_impl(PropertyRNA *prop, const EnumPropertyItem *item, const char *name)
 {
 	StructRNA *srna = DefRNA.laststruct;
 	int i, defaultfound = 0;
@@ -1497,6 +1497,7 @@ void RNA_def_property_enum_items(PropertyRNA *prop, const EnumPropertyItem *item
 		{
 			EnumPropertyRNA *eprop = (EnumPropertyRNA *)prop;
 			eprop->item = (EnumPropertyItem *)item;
+			eprop->name = name;
 			eprop->totitem = 0;
 			for (i = 0; item[i].identifier; i++) {
 				eprop->totitem++;
@@ -2711,8 +2712,8 @@ PropertyRNA *RNA_def_string_file_name(StructOrFunctionRNA *cont_, const char *id
 	return prop;
 }
 
-PropertyRNA *RNA_def_enum(StructOrFunctionRNA *cont_, const char *identifier, const EnumPropertyItem *items,
-                          int default_value, const char *ui_name, const char *ui_description)
+PropertyRNA *RNA_def_enum_impl(StructOrFunctionRNA *cont_, const char *identifier, const char *items_name,
+						  const EnumPropertyItem *items, int default_value, const char *ui_name, const char *ui_description)
 {
 	ContainerRNA *cont = cont_;
 	PropertyRNA *prop;
@@ -2723,7 +2724,7 @@ PropertyRNA *RNA_def_enum(StructOrFunctionRNA *cont_, const char *identifier, co
 	}
 	
 	prop = RNA_def_property(cont, identifier, PROP_ENUM, PROP_NONE);
-	if (items) RNA_def_property_enum_items(prop, items);
+	if (items) RNA_def_property_enum_items_impl(prop, items, items_name);
 	RNA_def_property_enum_default(prop, default_value);
 	RNA_def_property_ui_text(prop, ui_name, ui_description);
 

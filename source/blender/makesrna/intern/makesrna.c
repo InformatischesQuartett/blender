@@ -405,19 +405,13 @@ static const char *rna_find_dna_type(const char *type)
 
 static const char *rna_type_type_name(PropertyRNA *prop)
 {
-	/*if (prop->type == PROP_ENUM && fusee_build)
-	{
-		EnumPropertyRNA *eprop = (EnumPropertyRNA *)prop;
-		//char * tmp = eprop->;
-		int test = eprop->totitem;
-		return (fusee_build) ? "irgendwas" : "int";
-	}*/
-
 	switch (prop->type) {
 		case PROP_BOOLEAN:
 			return (fusee_build) ? "bool" : "int";
 			
 		case PROP_ENUM:
+			return (fusee_build) ? ((EnumPropertyRNA *)prop)->name : "int";
+
 		case PROP_INT:
 			return "int";
 

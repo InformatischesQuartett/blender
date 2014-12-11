@@ -89,7 +89,8 @@ PropertyRNA *RNA_def_string_file_path(StructOrFunctionRNA *cont, const char *ide
 PropertyRNA *RNA_def_string_dir_path(StructOrFunctionRNA *cont, const char *identifier, const char *default_value, int maxlen, const char *ui_name, const char *ui_description);
 PropertyRNA *RNA_def_string_file_name(StructOrFunctionRNA *cont, const char *identifier, const char *default_value, int maxlen, const char *ui_name, const char *ui_description);
 
-PropertyRNA *RNA_def_enum(StructOrFunctionRNA *cont, const char *identifier, const EnumPropertyItem *items, int default_value, const char *ui_name, const char *ui_description);
+#define RNA_def_enum(cont, id, items, def, name, desc) RNA_def_enum_impl(cont, id, #items, items, def, name, desc)
+PropertyRNA *RNA_def_enum_impl(StructOrFunctionRNA *cont, const char *identifier, const char *item_name, const EnumPropertyItem *items, int default_value, const char *ui_name, const char *ui_description);
 PropertyRNA *RNA_def_enum_flag(StructOrFunctionRNA *cont, const char *identifier, const EnumPropertyItem *items, int default_value, const char *ui_name, const char *ui_description);
 void RNA_def_enum_funcs(PropertyRNA *prop, EnumPropertyItemFunc itemfunc);
 
@@ -142,7 +143,8 @@ void RNA_def_property_array(PropertyRNA *prop, int length);
 void RNA_def_property_multi_array(PropertyRNA *prop, int dimension, const int length[]);
 void RNA_def_property_range(PropertyRNA *prop, double min, double max);
 
-void RNA_def_property_enum_items(PropertyRNA *prop, const EnumPropertyItem *item);
+#define RNA_def_property_enum_items(prop, item) RNA_def_property_enum_items_impl(prop, item, #item)
+void RNA_def_property_enum_items_impl(PropertyRNA *prop, const EnumPropertyItem *item, const char *name);
 void RNA_def_property_string_maxlength(PropertyRNA *prop, int maxlength);
 void RNA_def_property_struct_type(PropertyRNA *prop, const char *type);
 void RNA_def_property_struct_runtime(PropertyRNA *prop, StructRNA *type);
