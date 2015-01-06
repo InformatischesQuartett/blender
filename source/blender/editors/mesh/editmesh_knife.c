@@ -603,6 +603,7 @@ static void prepare_linehits_for_cut(KnifeTool_OpData *kcd)
 {
 	KnifeLineHit *linehits, *lhi, *lhj;
 	int i, j, n;
+	bool is_double = false;
 
 	n = kcd->totlinehit;
 	linehits = kcd->linehits;
@@ -626,7 +627,11 @@ static void prepare_linehits_for_cut(KnifeTool_OpData *kcd)
 				{
 					break;
 				}
-				lhj->l = -1.0f;
+
+				if (lhi->kfe == lhj->kfe) {
+					lhj->l = -1.0f;
+					is_double = true;
+				}
 			}
 			for (j = i + 1; j < n; j++) {
 				lhj = &linehits[j];
@@ -635,37 +640,42 @@ static void prepare_linehits_for_cut(KnifeTool_OpData *kcd)
 				{
 					break;
 				}
-				if (lhj->kfe || lhi->v == lhj->v) {
+				if ((lhj->kfe && (lhi->kfe == lhj->kfe)) ||
+				    (lhi->v == lhj->v))
+				{
 					lhj->l = -1.0f;
+					is_double = true;
 				}
 			}
 		}
 	}
 
-	/* delete-in-place loop: copying from pos j to pos i+1 */
-	i = 0;
-	j = 1;
-	while (j < n) {
-		lhi = &linehits[i];
-		lhj = &linehits[j];
-		if (lhj->l == -1.0f) {
-			j++; /* skip copying this one */
-		}
-		else {
-			/* copy unless a no-op */
-			if (lhi->l == -1.0f) {
-				/* could happen if linehits[0] is being deleted */
-				memcpy(&linehits[i], &linehits[j], sizeof(KnifeLineHit));
+	if (is_double) {
+		/* delete-in-place loop: copying from pos j to pos i+1 */
+		i = 0;
+		j = 1;
+		while (j < n) {
+			lhi = &linehits[i];
+			lhj = &linehits[j];
+			if (lhj->l == -1.0f) {
+				j++; /* skip copying this one */
 			}
 			else {
-				if (i + 1 != j)
-					memcpy(&linehits[i + 1], &linehits[j], sizeof(KnifeLineHit));
-				i++;
+				/* copy unless a no-op */
+				if (lhi->l == -1.0f) {
+					/* could happen if linehits[0] is being deleted */
+					memcpy(&linehits[i], &linehits[j], sizeof(KnifeLineHit));
+				}
+				else {
+					if (i + 1 != j)
+						memcpy(&linehits[i + 1], &linehits[j], sizeof(KnifeLineHit));
+					i++;
+				}
+				j++;
 			}
-			j++;
 		}
+		kcd->totlinehit = i + 1;
 	}
-	kcd->totlinehit = i + 1;
 }
 
 /* Add hit to list of hits in facehits[f], where facehits is a map, if not already there */
@@ -2013,34 +2023,17 @@ static int knife_update_active(KnifeTool_OpData *kcd)
 	return 1;
 }
 
-/* sort list of kverts by fraction along edge e */
-static void sort_by_frac_along(ListBase *lst, BMEdge *e)
+static int sort_verts_by_dist_cb(void *co_p, const void *cur_a_p, const void *cur_b_p)
 {
-	/* note, since we know the point is along the edge, sort from distance to v1co */
-	const float *v1co = e->v1->co;
-	Ref *cur = NULL, *prev = NULL, *next = NULL;
+	const KnifeVert *cur_a = ((const Ref *)cur_a_p)->ref;
+	const KnifeVert *cur_b = ((const Ref *)cur_b_p)->ref;
+	const float *co = co_p;
+	const float a_sq = len_squared_v3v3(co, cur_a->co);
+	const float b_sq = len_squared_v3v3(co, cur_b->co);
 
-	if (lst->first == lst->last)
-		return;
-
-	for (cur = ((Ref *)lst->first)->next; cur; cur = next) {
-		KnifeVert *vcur = cur->ref;
-		const float vcur_fac_sq = len_squared_v3v3(v1co, vcur->co);
-
-		next = cur->next;
-		prev = cur->prev;
-
-		BLI_remlink(lst, cur);
-
-		while (prev) {
-			KnifeVert *vprev = prev->ref;
-			if (len_squared_v3v3(v1co, vprev->co) <= vcur_fac_sq)
-				break;
-			prev = prev->prev;
-		}
-
-		BLI_insertlinkafter(lst, prev, cur);
-	}
+	if      (a_sq < b_sq) return -1;
+	else if (a_sq > b_sq) return  1;
+	else                  return  0;
 }
 
 /* The chain so far goes from an instantiated vertex to kfv (some may be reversed).
@@ -2674,7 +2667,8 @@ static void knife_make_cuts(KnifeTool_OpData *kcd)
 	for (lst = BLI_smallhash_iternew(ehash, &hiter, (uintptr_t *)&e); lst;
 	     lst = BLI_smallhash_iternext(&hiter, (uintptr_t *)&e))
 	{
-		sort_by_frac_along(lst, e);
+		BLI_listbase_sort_r(lst, e->v1->co, sort_verts_by_dist_cb);
+
 		for (ref = lst->first; ref; ref = ref->next) {
 			kfv = ref->ref;
 			pct = line_point_factor_v3(kfv->co, e->v1->co, e->v2->co);

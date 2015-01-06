@@ -462,15 +462,8 @@ static GPUTexture *GPU_texture_create_nD(int w, int h, int n, float *fpixels, in
 	}
 
 	if (tex->target != GL_TEXTURE_1D) {
-		/* CLAMP_TO_BORDER is an OpenGL 1.3 core feature */
-		GLenum wrapmode = (depth || tex->h == 1)? GL_CLAMP_TO_EDGE: GL_CLAMP_TO_BORDER;
-		glTexParameteri(tex->target, GL_TEXTURE_WRAP_S, wrapmode);
-		glTexParameteri(tex->target, GL_TEXTURE_WRAP_T, wrapmode);
-
-#if 0
-		float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor); 
-#endif
+		glTexParameteri(tex->target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(tex->target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	}
 	else
 		glTexParameteri(tex->target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -969,10 +962,16 @@ void GPU_texture_bind_as_framebuffer(GPUTexture *tex)
 	/* bind framebuffer */
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, tex->fb->object);
 
-	/* last bound prevails here, better allow explicit control here too */
-	glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + tex->fb_attachment);
-	glReadBuffer(GL_COLOR_ATTACHMENT0_EXT + tex->fb_attachment);
-
+	if (tex->depth) {
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+	}
+	else {
+		/* last bound prevails here, better allow explicit control here too */
+		glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + tex->fb_attachment);
+		glReadBuffer(GL_COLOR_ATTACHMENT0_EXT + tex->fb_attachment);
+	}
+	
 	/* push matrices and set default viewport and matrix */
 	glViewport(0, 0, tex->w, tex->h);
 	GG.currentfb = tex->fb->object;
