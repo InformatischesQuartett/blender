@@ -1852,7 +1852,7 @@ static void rna_def_struct_function_comment_cpp(FILE *f, StructRNA *UNUSED(srna)
 	PropertyDefRNA *dp;
 	FunctionRNA *func = dfunc->func;
 
-	fprintf(f, "\t/**\n\t * %s\n", func->description);
+	fprintf(f, "\n\t/**\n\t * %s\n", func->description);
 
 	for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
 		if (dp->prop == func->c_ret)
@@ -1882,9 +1882,9 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 	}
 
 	if (namespace && namespace[0])
-		fprintf(f, "\t%s %s %s::%s(", (fusee_build) ? "" : "inline", retval_type, namespace, rna_safe_id(func->identifier));
+		fprintf(f, "\t%s %s %s::%s(", "inline", retval_type, namespace, rna_safe_id(func->identifier));
 	else
-		fprintf(f, "\t%s %s %s(", (fusee_build) ? "" : "inline", retval_type, rna_safe_id(func->identifier));
+		fprintf(f, "\t%s %s %s(", "inline", retval_type, rna_safe_id(func->identifier));
 	
 	//if (strcmp(rna_safe_id(func->identifier), "to_mesh") == 0)
 	//	fprintf(f, "// blup");
@@ -2131,41 +2131,49 @@ static void rna_def_struct_function_impl_cpp(FILE *f, StructRNA *srna, FunctionD
 
 	fprintf(f, " {\n");
 
-	if (func->c_ret) {
-		dp = rna_find_parameter_def(func->c_ret);
+	if (fusee_build) {
+		fprintf(f, "\t\t// not implemented\n");
+	}
+	else {
+		if (func->c_ret) {
+			dp = rna_find_parameter_def(func->c_ret);
 
-		if (dp->prop->type == PROP_POINTER) {
-			pprop = (PointerPropertyRNA *) dp->prop;
+			if (dp->prop->type == PROP_POINTER) {
+				pprop = (PointerPropertyRNA *)dp->prop;
 
-			fprintf(f, "\t\tPointerRNA result;\n");
+				fprintf(f, "\t\tPointerRNA result;\n");
 
-			if ((dp->prop->flag & PROP_RNAPTR) == 0) {
-				StructRNA *ret_srna = rna_find_struct((const char *) pprop->type);
-				fprintf(f, "\t\t::%s *retdata = ", rna_parameter_type_name(dp->prop));
-				rna_def_struct_function_call_impl_cpp(f, srna, dfunc);
-				if (ret_srna->flag & STRUCT_ID)
-					fprintf(f, "\t\tRNA_id_pointer_create((::ID *) retdata, &result);\n");
-				else
-					fprintf(f, "\t\tRNA_pointer_create((::ID *) ptr.id.data, &RNA_%s, retdata, &result);\n", (const char *) pprop->type);
+				if ((dp->prop->flag & PROP_RNAPTR) == 0) {
+					StructRNA *ret_srna = rna_find_struct((const char *)pprop->type);
+					fprintf(f, "\t\t::%s *retdata = ", rna_parameter_type_name(dp->prop));
+					rna_def_struct_function_call_impl_cpp(f, srna, dfunc);
+					if (ret_srna->flag & STRUCT_ID)
+						fprintf(f, "\t\tRNA_id_pointer_create((::ID *) retdata, &result);\n");
+					else
+						fprintf(f, "\t\tRNA_pointer_create((::ID *) ptr.id.data, &RNA_%s, retdata, &result);\n", (const char *)pprop->type);
+				}
+				else {
+					fprintf(f, "\t\tresult = ");
+					rna_def_struct_function_call_impl_cpp(f, srna, dfunc);
+				}
+
+				fprintf(f, "\t\treturn %s(result);\n", (const char *)pprop->type);
 			}
 			else {
-				fprintf(f, "\t\tresult = ");
+				fprintf(f, "\t\treturn ");
 				rna_def_struct_function_call_impl_cpp(f, srna, dfunc);
 			}
-
-			fprintf(f, "\t\treturn %s(result);\n", (const char *) pprop->type);
 		}
 		else {
-			fprintf(f, "\t\treturn ");
+			fprintf(f, "\t\t");
 			rna_def_struct_function_call_impl_cpp(f, srna, dfunc);
 		}
 	}
-	else {
-		fprintf(f, "\t\t");
-		rna_def_struct_function_call_impl_cpp(f, srna, dfunc);
-	}
 
-	fprintf(f, "\t}\n\n");
+	if (fusee_build)
+		fprintf(f, "\t}\n");
+	else
+		fprintf(f, "\t}\n\n");
 }
 
 static void rna_def_property_wrapper_funcs(FILE *f, StructDefRNA *dsrna, PropertyDefRNA *dp)
@@ -3876,18 +3884,20 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 	int all_collection_func_structs = 0;
 	int max_collection_func_structs = sizeof(collection_func_structs) / sizeof(collection_func_structs[0]) - 1;
 
-	fprintf(f, "\n#ifndef __RNA_BLENDER_CPP_H__\n");
-	fprintf(f, "#define __RNA_BLENDER_CPP_H__\n\n");
+	if (!fusee_build) {
+		fprintf(f, "\n#ifndef __RNA_BLENDER_CPP_H__\n");
+		fprintf(f, "#define __RNA_BLENDER_CPP_H__\n\n");
 
-	fprintf(f,
-	        "/* Automatically generated classes for the Data API.\n"
-	        " * Do not edit manually, changes will be overwritten. */\n\n");
-	
-	fprintf(f, "#include \"RNA_blender.h\"\n");
-	fprintf(f, "#include \"RNA_types.h\"\n");
-	fprintf(f, "#include \"RNA_access.h\"\n");
+		fprintf(f,
+			"/* Automatically generated classes for the Data API.\n"
+			" * Do not edit manually, changes will be overwritten. */\n\n");
 
-	fprintf(f, "%s", cpp_classes);
+		fprintf(f, "#include \"RNA_blender.h\"\n");
+		fprintf(f, "#include \"RNA_types.h\"\n");
+		fprintf(f, "#include \"RNA_access.h\"\n");
+
+		fprintf(f, "%s", cpp_classes);
+	}
 
 	fprintf(f, "/**************** Declarations ****************/\n\n");
 
@@ -3946,18 +3956,21 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 			rna_generate_header_class_cpp(ds, f);
 	}
 
-	fprintf(f, "} /* namespace BL */\n");
+	if (!fusee_build)
+		fprintf(f, "} /* namespace BL */\n");
 
 	fprintf(f, "\n");
 	fprintf(f, "/**************** Implementation ****************/\n");
 	fprintf(f, "\n");
 
-	fprintf(f, "/* Structure prototypes */\n\n");
-	fprintf(f, "extern \"C\" {\n");
-	rna_generate_struct_prototypes(f);
-	fprintf(f, "}\n\n");
+	if (!fusee_build){
+		fprintf(f, "/* Structure prototypes */\n\n");
+		fprintf(f, "extern \"C\" {\n");
+		rna_generate_struct_prototypes(f);
+		fprintf(f, "}\n\n");
 
-	fprintf(f, "namespace BL {\n");
+		fprintf(f, "namespace BL {\n");
+	}
 
 	for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
 		srna = ds->srna;
@@ -4016,41 +4029,47 @@ static int rna_preprocess(const char *outfile)
 
 	status = (DefRNA.error != 0);
 
-	/* create rna_gen_*.c files */
-	for (i = 0; PROCESS_ITEMS[i].filename; i++) {
-		strcpy(deffile, outfile);
-		strcat(deffile, PROCESS_ITEMS[i].filename);
-		deffile[strlen(deffile) - 2] = '\0';
-		strcat(deffile, "_gen.c" TMP_EXT);
+	if (!fusee_build) {
+		/* create rna_gen_*.c files */
+		for (i = 0; PROCESS_ITEMS[i].filename; i++) {
+			strcpy(deffile, outfile);
+			strcat(deffile, PROCESS_ITEMS[i].filename);
+			deffile[strlen(deffile) - 2] = '\0';
+			strcat(deffile, "_gen.c" TMP_EXT);
 
-		if (status) {
-			make_bad_file(deffile, __LINE__);
-		}
-		else {
-			file = fopen(deffile, "w");
-
-			if (!file) {
-				fprintf(stderr, "Unable to open file: %s\n", deffile);
-				status = 1;
+			if (status) {
+				make_bad_file(deffile, __LINE__);
 			}
 			else {
-				rna_generate(brna, file, PROCESS_ITEMS[i].filename, PROCESS_ITEMS[i].api_filename);
-				fclose(file);
-				status = (DefRNA.error != 0);
+				file = fopen(deffile, "w");
+
+				if (!file) {
+					fprintf(stderr, "Unable to open file: %s\n", deffile);
+					status = 1;
+				}
+				else {
+					rna_generate(brna, file, PROCESS_ITEMS[i].filename, PROCESS_ITEMS[i].api_filename);
+					fclose(file);
+					status = (DefRNA.error != 0);
+				}
 			}
+
+			/* avoid unneeded rebuilds */
+			deps[0] = PROCESS_ITEMS[i].filename;
+			deps[1] = PROCESS_ITEMS[i].api_filename;
+			deps[2] = NULL;
+
+			replace_if_different(deffile, deps);
 		}
-
-		/* avoid unneeded rebuilds */
-		deps[0] = PROCESS_ITEMS[i].filename;
-		deps[1] = PROCESS_ITEMS[i].api_filename;
-		deps[2] = NULL;
-
-		replace_if_different(deffile, deps);
 	}
 
 	/* create RNA_blender_cpp.h */
 	strcpy(deffile, outfile);
-	strcat(deffile, "RNA_blender_cpp.h" TMP_EXT);
+
+	if (fusee_build)
+		strcat(deffile, "uniplug_blender_api.h" TMP_EXT); 
+	else
+		strcat(deffile, "RNA_blender_cpp.h" TMP_EXT);
 
 	if (status) {
 		make_bad_file(deffile, __LINE__);
@@ -4073,28 +4092,30 @@ static int rna_preprocess(const char *outfile)
 
 	rna_sort(brna);
 
-	/* create RNA_blender.h */
-	strcpy(deffile, outfile);
-	strcat(deffile, "RNA_blender.h" TMP_EXT);
+	if (!fusee_build) {
+		/* create RNA_blender.h */
+		strcpy(deffile, outfile);
+		strcat(deffile, "RNA_blender.h" TMP_EXT);
 
-	if (status) {
-		make_bad_file(deffile, __LINE__);
-	}
-	else {
-		file = fopen(deffile, "w");
-
-		if (!file) {
-			fprintf(stderr, "Unable to open file: %s\n", deffile);
-			status = 1;
+		if (status) {
+			make_bad_file(deffile, __LINE__);
 		}
 		else {
-			rna_generate_header(brna, file);
-			fclose(file);
-			status = (DefRNA.error != 0);
-		}
-	}
+			file = fopen(deffile, "w");
 
-	replace_if_different(deffile, NULL);
+			if (!file) {
+				fprintf(stderr, "Unable to open file: %s\n", deffile);
+				status = 1;
+			}
+			else {
+				rna_generate_header(brna, file);
+				fclose(file);
+				status = (DefRNA.error != 0);
+			}
+		}
+
+		replace_if_different(deffile, NULL);
+	}
 
 	/* free RNA */
 	RNA_define_free(brna);
