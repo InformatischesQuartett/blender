@@ -110,7 +110,7 @@ int ui_but_menu_step(uiBut *but, int direction)
 {
 	/* currenly only RNA buttons */
 	if ((but->rnaprop == NULL) || (RNA_property_type(but->rnaprop) != PROP_ENUM)) {
-		printf("%s: cannot cycle button '%s'", __func__, but->str);
+		printf("%s: cannot cycle button '%s'\n", __func__, but->str);
 		return 0;
 	}
 
@@ -237,8 +237,8 @@ static void ui_tooltip_region_draw_cb(const bContext *UNUSED(C), ARegion *ar)
 
 	/* find the brightness difference between background and text colors */
 	
-	tone_bg = rgb_to_grayscale(background_color);
-	/* tone_fg = rgb_to_grayscale(main_color); */
+	tone_bg = IMB_colormanagement_get_luminance(background_color);
+	/* tone_fg = IMB_colormanagement_get_luminance(main_color); */
 
 	/* mix the colors */
 	rgb_tint(value_color,  0.0f, 0.0f, tone_bg, 0.2f);  /* light grey */
@@ -261,7 +261,7 @@ static void ui_tooltip_region_draw_cb(const bContext *UNUSED(C), ARegion *ar)
 
 			/* override text-style */
 			fstyle_header.shadow = 1;
-			fstyle_header.shadowcolor = rgb_to_luma(tip_colors[UI_TIP_LC_MAIN]);
+			fstyle_header.shadowcolor = IMB_colormanagement_get_luminance(tip_colors[UI_TIP_LC_MAIN]);
 			fstyle_header.shadx = fstyle_header.shady = 0;
 			fstyle_header.shadowalpha = 1.0f;
 
@@ -1919,7 +1919,7 @@ static void ui_update_color_picker_buts_rgb(uiBlock *block, ColorPicker *cpicker
 			ui_but_v3_set(bt, rgb);
 			
 		}
-		else if (strcmp(bt->str, "Hex: ") == 0) {
+		else if (STREQ(bt->str, "Hex: ")) {
 			float rgb_gamma[3];
 			unsigned char rgb_gamma_uchar[3];
 			double intpart;
@@ -2726,7 +2726,8 @@ static uiBlock *ui_block_func_PIE(bContext *UNUSED(C), uiPopupBlockHandle *handl
 
 static float ui_pie_menu_title_width(const char *name, int icon)
 {
-	return (UI_fontstyle_string_width(name) +
+	const uiFontStyle *fstyle = UI_FSTYLE_WIDGET;
+	return (UI_fontstyle_string_width(fstyle, name) +
 	         (UI_UNIT_X * (1.50f + (icon ? 0.25f : 0.0f))));
 }
 
