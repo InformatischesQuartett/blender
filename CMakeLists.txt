@@ -1357,7 +1357,7 @@ elseif(WIN32)
 
 		if(WITH_IMAGE_OPENEXR)
 			set(OPENEXR_ROOT_DIR ${LIBDIR}/openexr)
-			set(OPENEXR_VERSION "2.1")
+			set(OPENEXR_VERSION "2.2")
 			find_package(OPENEXR REQUIRED)
 			if(NOT OPENEXR_FOUND)
 				message(WARNING "Using HARDCODED OpenEXR locations")
