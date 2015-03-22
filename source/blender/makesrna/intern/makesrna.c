@@ -1796,7 +1796,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 		}
 		case PROP_STRING:
 		{
-			fprintf(f, "\tinline std::string %s(void);", rna_safe_id(prop->identifier));
+			fprintf(f, "\tinline std::string %s(void);\n", rna_safe_id(prop->identifier));
 			fprintf(f, "\tinline void %s(const std::string& value);", rna_safe_id(prop->identifier));
 			break;
 		}
@@ -1852,7 +1852,7 @@ static void rna_def_struct_function_comment_cpp(FILE *f, StructRNA *UNUSED(srna)
 	PropertyDefRNA *dp;
 	FunctionRNA *func = dfunc->func;
 
-	fprintf(f, "\n\t/**\n\t * %s\n", func->description);
+	fprintf(f, "\t/**\n\t * %s\n", func->description);
 
 	for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
 		if (dp->prop == func->c_ret)
@@ -1886,9 +1886,6 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 	else
 		fprintf(f, "\t%s %s %s(", "inline", retval_type, rna_safe_id(func->identifier));
 	
-	//if (strcmp(rna_safe_id(func->identifier), "to_mesh") == 0)
-	//	fprintf(f, "// blup");
-
 	if (func->flag & FUNC_USE_MAIN)
 		WRITE_PARAM("void *main");
 
@@ -1948,6 +1945,7 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 	}
 
 	fprintf(f, ")");
+
 	if (close_prototype)
 		fprintf(f, ";\n");
 }
@@ -2001,14 +1999,26 @@ static void rna_def_property_funcs_impl_cpp(FILE *f, StructRNA *srna, PropertyDe
 		}
 		case PROP_FLOAT:
 		{
-			if (!prop->arraydimension)
-				fprintf(f, "\tFLOAT_PROPERTY(%s, %s)", srna->identifier, rna_safe_id(prop->identifier));
-			else if (prop->totarraylength)
-				fprintf(f, "\tFLOAT_ARRAY_PROPERTY(%s, %u, %s)", srna->identifier, prop->totarraylength,
-				        rna_safe_id(prop->identifier));
-			else if (prop->getlength)
-				fprintf(f, "\tFLOAT_DYNAMIC_ARRAY_PROPERTY(%s, %s)", srna->identifier,
-				        rna_safe_id(prop->identifier));
+			if (!fusee_build) {
+				if (!prop->arraydimension)
+					fprintf(f, "\tFLOAT_PROPERTY(%s, %s)", srna->identifier, rna_safe_id(prop->identifier));
+				else if (prop->totarraylength)
+					fprintf(f, "\tFLOAT_ARRAY_PROPERTY(%s, %u, %s)", srna->identifier, prop->totarraylength,
+					rna_safe_id(prop->identifier));
+				else if (prop->getlength)
+					fprintf(f, "\tFLOAT_DYNAMIC_ARRAY_PROPERTY(%s, %s)", srna->identifier,
+					rna_safe_id(prop->identifier));
+			}
+			else
+			{
+				if (!prop->arraydimension)
+					fprintf(f, "\tfloat %s;", rna_safe_id(prop->identifier));
+				else if (prop->totarraylength)
+					fprintf(f, "\tfloat[%u] %s;", prop->totarraylength, rna_safe_id(prop->identifier));
+				else if (prop->getlength)
+					fprintf(f, "\tfloat[] %s;", rna_safe_id(prop->identifier));
+			}
+
 			break;
 		}
 		case PROP_ENUM:
@@ -2020,19 +2030,28 @@ static void rna_def_property_funcs_impl_cpp(FILE *f, StructRNA *srna, PropertyDe
 		}
 		case PROP_STRING:
 		{
-			fprintf(f, "\tSTRING_PROPERTY(%s, %s)", srna->identifier, rna_safe_id(prop->identifier));
+			if (!fusee_build)
+				fprintf(f, "\tSTRING_PROPERTY(%s, %s)", srna->identifier, rna_safe_id(prop->identifier));
+			else
+				fprintf(f, "\tString %s;", rna_safe_id(prop->identifier));
+
 			break;
 		}
 		case PROP_POINTER:
 		{
 			PointerPropertyRNA *pprop = (PointerPropertyRNA *)dp->prop;
 
-			if (pprop->type)
-				fprintf(f, "\tPOINTER_PROPERTY(%s, %s, %s)", (const char *)pprop->type, srna->identifier,
-				        rna_safe_id(prop->identifier));
+			if (!fusee_build) {
+				if (pprop->type)
+					fprintf(f, "\tPOINTER_PROPERTY(%s, %s, %s)", (const char *)pprop->type, srna->identifier,
+					rna_safe_id(prop->identifier));
+				else
+					fprintf(f, "\tPOINTER_PROPERTY(%s, %s, %s)", "UnknownType", srna->identifier,
+					rna_safe_id(prop->identifier));
+			}
 			else
-				fprintf(f, "\tPOINTER_PROPERTY(%s, %s, %s)", "UnknownType", srna->identifier,
-				        rna_safe_id(prop->identifier));
+				fprintf(f, "\t%s* %s;", (const char *)pprop->type, rna_safe_id(prop->identifier));
+
 			break;
 		}
 		case PROP_COLLECTION:
@@ -2127,14 +2146,14 @@ static void rna_def_struct_function_impl_cpp(FILE *f, StructRNA *srna, FunctionD
 	if (!dfunc->call)
 		return;
 
-	rna_def_struct_function_prototype_cpp(f, srna, dfunc, srna->identifier, 0);
-
-	fprintf(f, " {\n");
+	rna_def_struct_function_prototype_cpp(f, srna, dfunc, (fusee_build) ? NULL : srna->identifier, 0);
 
 	if (fusee_build) {
-		fprintf(f, "\t\t// not implemented\n");
+		fprintf(f, "\n\t{\n\t\t// not implemented\n");
 	}
 	else {
+		fprintf(f, " {\n");
+
 		if (func->c_ret) {
 			dp = rna_find_parameter_def(func->c_ret);
 
@@ -2170,10 +2189,7 @@ static void rna_def_struct_function_impl_cpp(FILE *f, StructRNA *srna, FunctionD
 		}
 	}
 
-	if (fusee_build)
-		fprintf(f, "\t}\n");
-	else
-		fprintf(f, "\t}\n\n");
+	fprintf(f, "\t}\n\n");
 }
 
 static void rna_def_property_wrapper_funcs(FILE *f, StructDefRNA *dsrna, PropertyDefRNA *dp)
@@ -3855,6 +3871,10 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 	PropertyDefRNA *dp;
 	FunctionDefRNA *dfunc;
 
+	// TODO: DELETE
+	if (strcmp(srna->identifier, "Object") != 0)
+		return;
+
 	fprintf(f, "/**************** %s ****************/\n\n", srna->name);
 
 	fprintf(f, "class %s : public %s {\n", srna->identifier, (srna->base) ? srna->base->identifier : "Pointer");
@@ -3871,7 +3891,10 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 
 	fprintf(f, "\n");
 	for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
-		rna_def_struct_function_header_cpp(f, srna, dfunc);
+		if (!fusee_build)
+			rna_def_struct_function_header_cpp(f, srna, dfunc);
+		else
+			rna_def_struct_function_impl_cpp(f, srna, dfunc);
 
 	fprintf(f, "};\n\n");
 }
@@ -3904,9 +3927,14 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 
 	fprintf(f, "/**************** Declarations ****************/\n\n");
 
-	for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
+	// TODO: DELETE THIS //
+
+	/* for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
 		fprintf(f, "class %s;\n", ds->srna->identifier);
-	}
+	}*/
+
+	fprintf(f, "// ADD DECLARATIONS...\n");
+
 	fprintf(f, "\n");
 
 	/* first get list of all structures used as collection functions, so they'll be declared first */
@@ -3978,15 +4006,20 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 	for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
 		srna = ds->srna;
 
-		for (dp = ds->cont.properties.first; dp; dp = dp->next)
-			rna_def_property_funcs_impl_cpp(f, ds->srna, dp);
+		// TODO: REMOVE OR REPLACE
 
-		fprintf(f, "\n");
+		//if (strcmp(srna->identifier, "Object") != 0)
+		//	continue;
 
-		for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
-			rna_def_struct_function_impl_cpp(f, srna, dfunc);
+		//for (dp = ds->cont.properties.first; dp; dp = dp->next)
+		//	rna_def_property_funcs_impl_cpp(f, ds->srna, dp);
 
-		fprintf(f, "\n");
+		//fprintf(f, "\n");
+
+		//for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
+		//	rna_def_struct_function_impl_cpp(f, srna, dfunc);
+
+		//fprintf(f, "\n");
 	}
 
 	fprintf(f, "}\n\n#endif /* __RNA_BLENDER_CPP_H__ */\n\n");
@@ -4032,27 +4065,27 @@ static int rna_preprocess(const char *outfile)
 
 	status = (DefRNA.error != 0);
 
-	/* create rna prototype header file */
-	strcpy(deffile, outfile);
-	strcat(deffile, "rna_prototypes_gen.h");
-	if (status) {
-		make_bad_file(deffile, __LINE__);
-	}
-	file = fopen(deffile, "w");
-	if (!file) {
-		fprintf(stderr, "Unable to open file: %s\n", deffile);
-		status = 1;
-	}
-	else {
-		fprintf(file,
-		    "/* Automatically generated function declarations for the Data API.\n"
-		    " * Do not edit manually, changes will be overwritten.              */\n\n");
-		rna_generate_prototypes(brna, file);
-		fclose(file);
-		status = (DefRNA.error != 0);
-	}
-
 	if (!fusee_build) {
+		/* create rna prototype header file */
+		strcpy(deffile, outfile);
+		strcat(deffile, "rna_prototypes_gen.h");
+		if (status) {
+			make_bad_file(deffile, __LINE__);
+		}
+		file = fopen(deffile, "w");
+		if (!file) {
+			fprintf(stderr, "Unable to open file: %s\n", deffile);
+			status = 1;
+		}
+		else {
+			fprintf(file,
+				"/* Automatically generated function declarations for the Data API.\n"
+				" * Do not edit manually, changes will be overwritten.              */\n\n");
+			rna_generate_prototypes(brna, file);
+			fclose(file);
+			status = (DefRNA.error != 0);
+		}
+
 		/* create rna_gen_*.c files */
 		for (i = 0; PROCESS_ITEMS[i].filename; i++) {
 			strcpy(deffile, outfile);
@@ -4158,7 +4191,7 @@ int main(int argc, char **argv)
 	int totblock, return_status = 0;
 
 	if (argc < 2) {
-		fprintf(stderr, "Usage: %s outdirectory/\n", argv[0]);
+		fprintf(stderr, "Usage: %s outdirectory/ [--fusee]\n", argv[0]);
 		return_status = 1;
 	}
 	else {
