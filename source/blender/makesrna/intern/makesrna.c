@@ -3872,7 +3872,7 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 	FunctionDefRNA *dfunc;
 
 	// TODO: DELETE
-	if (strcmp(srna->identifier, "Object") != 0)
+	if (fusee_build && (strcmp(srna->identifier, "Object") != 0))
 		return;
 
 	fprintf(f, "/**************** %s ****************/\n\n", srna->name);
@@ -3929,9 +3929,10 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 
 	// TODO: DELETE THIS //
 
-	/* for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
-		fprintf(f, "class %s;\n", ds->srna->identifier);
-	}*/
+	if (!fusee_build)
+		for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
+			fprintf(f, "class %s;\n", ds->srna->identifier);
+		}
 
 	fprintf(f, "// ADD DECLARATIONS...\n");
 
@@ -4006,20 +4007,22 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 	for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
 		srna = ds->srna;
 
+		if (fusee_build)
+			continue;
 		// TODO: REMOVE OR REPLACE
 
-		//if (strcmp(srna->identifier, "Object") != 0)
-		//	continue;
+		if (strcmp(srna->identifier, "Object") != 0)
+			continue;
 
-		//for (dp = ds->cont.properties.first; dp; dp = dp->next)
-		//	rna_def_property_funcs_impl_cpp(f, ds->srna, dp);
+		for (dp = ds->cont.properties.first; dp; dp = dp->next)
+			rna_def_property_funcs_impl_cpp(f, ds->srna, dp);
 
-		//fprintf(f, "\n");
+		fprintf(f, "\n");
 
-		//for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
-		//	rna_def_struct_function_impl_cpp(f, srna, dfunc);
+		for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
+			rna_def_struct_function_impl_cpp(f, srna, dfunc);
 
-		//fprintf(f, "\n");
+		fprintf(f, "\n");
 	}
 
 	fprintf(f, "}\n\n#endif /* __RNA_BLENDER_CPP_H__ */\n\n");
