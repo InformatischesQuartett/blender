@@ -390,7 +390,12 @@ bool GPU_fx_compositor_initialize_passes(
 
 	/* create textures for dof effect */
 	if (fx_flag & GPU_FX_FLAG_DOF) {
-		bool dof_high_quality = (fx_settings->dof->high_quality != 0);
+		bool dof_high_quality = (fx_settings->dof->high_quality != 0) &&
+								GPU_geometry_shader_support() && GPU_instanced_drawing_support();
+
+		/* cleanup buffers if quality setting has changed (no need to keep more buffers around than necessary ) */
+		if (dof_high_quality != fx->dof_high_quality)
+			cleanup_fx_dof_buffers(fx);
 
 		if (dof_high_quality) {
 			fx->dof_downsampled_w = w / 2;
@@ -469,7 +474,7 @@ bool GPU_fx_compositor_initialize_passes(
 			}
 		}
 
-		fx->dof_high_quality = dof_high_quality && GPU_geometry_shader_support() && GPU_instanced_drawing_support();
+		fx->dof_high_quality = dof_high_quality;
 	}
 	else {
 		/* cleanup unnecessary buffers */
@@ -640,6 +645,7 @@ bool GPU_fx_do_composite_pass(GPUFX *fx, float projmat[4][4], bool is_persp, str
 	int numslots = 0;
 	float invproj[4][4];
 	int i;
+	float dfdyfac[2];
 	/* number of passes left. when there are no more passes, the result is passed to the frambuffer */
 	int passes_left = fx->num_passes;
 	/* view vectors for the corners of the view frustum. Can be used to recreate the world space position easily */
@@ -652,6 +658,7 @@ bool GPU_fx_do_composite_pass(GPUFX *fx, float projmat[4][4], bool is_persp, str
 	if (fx->effects == 0)
 		return false;
 
+	GPU_get_dfdy_factors(dfdyfac);
 	/* first, unbind the render-to-texture framebuffer */
 	GPU_framebuffer_texture_detach(fx->color_buffer);
 	GPU_framebuffer_texture_detach(fx->depth_buffer);
@@ -716,6 +723,8 @@ bool GPU_fx_do_composite_pass(GPUFX *fx, float projmat[4][4], bool is_persp, str
 			/* multiplier so we tile the random texture on screen */
 			sample_params[2] = fx->gbuffer_dim[0] / 64.0;
 			sample_params[3] = fx->gbuffer_dim[1] / 64.0;
+
+			ssao_params[3] = (passes_left == 1) ? dfdyfac[0] : dfdyfac[1];
 
 			ssao_uniform = GPU_shader_get_uniform(ssao_shader, "ssao_params");
 			ssao_color_uniform = GPU_shader_get_uniform(ssao_shader, "ssao_color");

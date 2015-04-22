@@ -662,6 +662,8 @@ void LightManager::device_update_points(Device *device, DeviceScene *dscene, Sce
 
 void LightManager::device_update(Device *device, DeviceScene *dscene, Scene *scene, Progress& progress)
 {
+	VLOG(1) << "Total " << scene->lights.size() << " lights.";
+
 	if(!need_update)
 		return;
 
@@ -699,7 +701,7 @@ void LightManager::device_free(Device *device, DeviceScene *dscene)
 	dscene->light_background_conditional_cdf.clear();
 }
 
-void LightManager::tag_update(Scene *scene)
+void LightManager::tag_update(Scene * /*scene*/)
 {
 	need_update = true;
 }

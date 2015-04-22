@@ -95,14 +95,13 @@ protected:
 	struct Object*						m_pBlenderObject;
 	struct Object*						m_pBlenderGroupObject;
 	
-	bool								m_bSuspendDynamics;
 	bool								m_bUseObjectColor;
 	bool								m_bIsNegativeScaling;
 	MT_Vector4							m_objectColor;
 
 	// Bit fields for user control over physics collisions
-	short								m_userCollisionGroup;
-	short								m_userCollisionMask;
+	unsigned short						m_userCollisionGroup;
+	unsigned short						m_userCollisionMask;
 
 	// visible = user setting
 	// culled = while rendering, depending on camera
@@ -518,8 +517,10 @@ public:
 	 */
 	void ActivateGraphicController(bool recurse);
 
-	void SetUserCollisionGroup(short filter);
-	void SetUserCollisionMask(short mask);
+	void SetUserCollisionGroup(unsigned short filter);
+	void SetUserCollisionMask(unsigned short mask);
+	unsigned short GetUserCollisionGroup();
+	unsigned short GetUserCollisionMask();
 	/**
 	 * Extra broadphase check for user controllable collisions
 	 */
@@ -618,6 +619,8 @@ public:
 	{ 
 		return m_bDyna; 
 	}
+
+	bool IsDynamicsSuspended() const;
 
 	/**
 	 * Should we record animation for this object?
@@ -1039,6 +1042,7 @@ public:
 	static PyObject*	pyattr_get_life(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static PyObject*	pyattr_get_mass(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_mass(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static PyObject*	pyattr_get_is_suspend_dynamics(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static PyObject*	pyattr_get_lin_vel_min(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_lin_vel_min(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_lin_vel_max(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
@@ -1085,6 +1089,10 @@ public:
 	static int			pyattr_set_obcolor(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_collisionCallbacks(void *selv_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_collisionCallbacks(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static PyObject*	pyattr_get_collisionGroup(void *selv_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static int			pyattr_set_collisionGroup(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static PyObject*	pyattr_get_collisionMask(void *selv_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static int			pyattr_set_collisionMask(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_debug(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_debug(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_debugRecursive(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);

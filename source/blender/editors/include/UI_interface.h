@@ -40,14 +40,11 @@
 /* Struct Declarations */
 
 struct ID;
-struct Main;
 struct ListBase;
 struct ARegion;
-struct ARegionType;
 struct ScrArea;
 struct wmEvent;
 struct wmWindow;
-struct wmWindowManager;
 struct wmOperator;
 struct AutoComplete;
 struct bContext;
@@ -58,18 +55,14 @@ struct PointerRNA;
 struct PropertyRNA;
 struct ReportList;
 struct rcti;
-struct rctf;
 struct uiList;
 struct uiStyle;
 struct uiFontStyle;
 struct uiWidgetColors;
-struct ColorBand;
-struct CurveMapping;
 struct Image;
 struct ImageUser;
 struct wmOperatorType;
 struct uiWidgetColors;
-struct Tex;
 struct MTex;
 struct ImBuf;
 struct bNodeTree;
@@ -896,6 +889,9 @@ void uiTemplateGameStates(uiLayout *layout, struct PointerRNA *ptr, const char *
                       PointerRNA *used_ptr, const char *used_propname, int active_state);
 void uiTemplateImage(uiLayout *layout, struct bContext *C, struct PointerRNA *ptr, const char *propname, struct PointerRNA *userptr, int compact);
 void uiTemplateImageSettings(uiLayout *layout, struct PointerRNA *imfptr, int color_management);
+void uiTemplateImageStereo3d(uiLayout *layout, struct PointerRNA *stereo3d_format_ptr);
+void uiTemplateImageViews(uiLayout *layout, struct PointerRNA *imaptr);
+void uiTemplateImageFormatViews(uiLayout *layout, PointerRNA *imfptr, PointerRNA *ptr);
 void uiTemplateImageLayers(uiLayout *layout, struct bContext *C, struct Image *ima, struct ImageUser *iuser);
 void uiTemplateImageInfo(uiLayout *layout, struct bContext *C, Image *ima, ImageUser *iuser);
 void uiTemplateRunningJobs(uiLayout *layout, struct bContext *C);
