@@ -1734,8 +1734,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(int value);", rna_safe_id(prop->identifier));
 				}
 				else {
-					fprintf(f, "\t/* %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tbool %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 				}
 			}
@@ -1745,8 +1746,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(int values[%u]);", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 				else {
-					fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tbool* %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(bool values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 			}
@@ -1764,8 +1766,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(int value);", rna_safe_id(prop->identifier));
 				}
 				else {
-					fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tint %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 				}
 			}
@@ -1775,8 +1778,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(int values[%u]);", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 				else {
-					fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tint* %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 			}
@@ -1795,8 +1799,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(float value);", rna_safe_id(prop->identifier));
 				}
 				else {
-					fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tfloat %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 				}
 			}
@@ -1806,8 +1811,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(float values[%u]);", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 				else {
-					fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tfloat %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 			}
@@ -1841,8 +1847,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				fprintf(f, "\tinline void %s(%s_enum value);", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
 			}
 			else {
-				fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+				fprintf(f, "\t/** Getter: %s */\n", prop->description);
 				fprintf(f, "\t%s_enum %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t/** Setter: %s */\n", prop->description);
 				fprintf(f, "\tvoid %s(%s_enum value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
 			}
 
@@ -1856,8 +1863,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 			}
 			else
 			{
-				fprintf(f, "\t/* Setter/Getter: %s */\n", prop->description);
+				fprintf(f, "\t/** Getter: %s */\n", prop->description);
 				fprintf(f, "\tinline std::string %s(void) { /* not implemented */ return NULL; }\n", rna_safe_id(prop->identifier));
+				fprintf(f, "\t/** Setter: %s */\n", prop->description);
 				fprintf(f, "\tinline void %s(const std::string& value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 			}
 			break;
@@ -1870,7 +1878,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				if (!fusee_build)
 					fprintf(f, "\tinline %s %s(void);", (const char *)pprop->type, rna_safe_id(prop->identifier));
 				else {
-					fprintf(f, "\t/* Getter: %s */\n", prop->description);
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\t%s %s(void) { /* not implemented */ return NULL; }\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
 				}
 			else
@@ -1885,14 +1893,23 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 			if (!(dp->prop->flag & (PROP_IDPROPERTY | PROP_BUILTIN)) && cprop->property.srna)
 				collection_funcs  = (char *)cprop->property.srna;
 
-			if (cprop->item_type)
-				fprintf(f, "\tCOLLECTION_PROPERTY(%s, %s, %s, %s, %s, %s, %s)", collection_funcs, (const char *)cprop->item_type, srna->identifier,
-				        rna_safe_id(prop->identifier), (cprop->length ? "true" : "false"),
-				        (cprop->lookupint ? "true" : "false"), (cprop->lookupstring ? "true" : "false"));
-			else
-				fprintf(f, "\tCOLLECTION_PROPERTY(%s, %s, %s, %s, %s, %s, %s)", collection_funcs, "UnknownType", srna->identifier,
-				        rna_safe_id(prop->identifier), (cprop->length ? "true" : "false"),
-				        (cprop->lookupint ? "true" : "false"), (cprop->lookupstring ? "true" : "false"));
+			if (!fusee_build) {
+				if (cprop->item_type)
+					fprintf(f, "\tCOLLECTION_PROPERTY(%s, %s, %s, %s, %s, %s, %s)", collection_funcs, (const char *)cprop->item_type, srna->identifier,
+					rna_safe_id(prop->identifier), (cprop->length ? "true" : "false"),
+					(cprop->lookupint ? "true" : "false"), (cprop->lookupstring ? "true" : "false"));
+				else
+					fprintf(f, "\tCOLLECTION_PROPERTY(%s, %s, %s, %s, %s, %s, %s)", collection_funcs, "UnknownType", srna->identifier,
+					rna_safe_id(prop->identifier), (cprop->length ? "true" : "false"),
+					(cprop->lookupint ? "true" : "false"), (cprop->lookupstring ? "true" : "false"));
+			}
+			else {
+				fprintf(f, "\t/** Getter: %s */\n", prop->description);
+				fprintf(f, "\tstd::map<string, %s> %s(void) { /* not implemented */ return NULL; }\n", (const char *)cprop->item_type, rna_safe_id(prop->identifier));
+				fprintf(f, "\t/** Setter: %s */\n", prop->description);
+				fprintf(f, "\tvoid %s(map<string, %s> value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), (const char *)cprop->item_type);
+			}
+
 			break;
 		}
 	}
@@ -1925,7 +1942,10 @@ static void rna_def_struct_function_comment_cpp(FILE *f, StructRNA *UNUSED(srna)
 		if (dp->prop == func->c_ret)
 			fprintf(f, "\t * @return %s\n", dp->prop->description);
 		else
-			fprintf(f, "\t * @param %s\n", dp->prop->description);
+			if (dp->prop->description && dp->prop->description[0] != '\0')
+				fprintf(f, "\t * @param %s\n", dp->prop->description);
+			else
+				fprintf(f, "\t * @param Param '%s' (no comment)\n", rna_safe_id(dp->prop->identifier));
 	}
 
 	fprintf(f, "\t */\n");
@@ -1951,7 +1971,10 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *UNUSED(srn
 	if (namespace && namespace[0])
 		fprintf(f, "\t%s %s %s::%s(", "inline", retval_type, namespace, rna_safe_id(func->identifier));
 	else
-		fprintf(f, "\t%s %s %s(", "inline", retval_type, rna_safe_id(func->identifier));
+		if (!fusee_build)
+			fprintf(f, "\t%s %s %s(", "inline", retval_type, rna_safe_id(func->identifier));
+		else
+			fprintf(f, "\t%s %s(", retval_type, rna_safe_id(func->identifier));
 	
 	if (func->flag & FUNC_USE_MAIN)
 		WRITE_PARAM("void *main");
@@ -3951,7 +3974,7 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 	FunctionDefRNA *dfunc;
 
 	// TODO: DELETE
-	if (fusee_build && (strcmp(srna->identifier, "Object") != 0))
+	if (fusee_build && (strcmp(srna->identifier, "ID") != 0))
 		return;
 
 	fprintf(f, "/**************** %s ****************/\n\n", srna->name);
@@ -3966,7 +3989,7 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 		fprintf(f, "\t%s(const PointerRNA &ptr_arg) :\n\t\t%s(ptr_arg)", srna->identifier,
 			    (srna->base) ? srna->base->identifier : "Pointer");
 	else
-		fprintf(f, "\t%s() :\n\t\t%s()", srna->identifier, srna->base->identifier);
+		fprintf(f, "\t%s() :\n\t\t%s()", srna->identifier, (srna->base) ? srna->base->identifier : "");
 
 	for (dp = ds->cont.properties.first; dp; dp = dp->next)
 		if (rna_is_collection_prop(dp->prop))
@@ -4015,6 +4038,10 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 		fprintf(f, "#include \"RNA_blender.h\"\n");
 		fprintf(f, "#include \"RNA_types.h\"\n");
 		fprintf(f, "#include \"RNA_access.h\"\n");
+	}
+	else {
+		fprintf(f, "\n#ifndef __UNIPLUG_BLENDER_CPP_H__\n");
+		fprintf(f, "#define __UNIPLUG_BLENDER_CPP_H__\n");
 	}
 
 	if (!fusee_build)
@@ -4085,44 +4112,39 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 			rna_generate_header_class_cpp(ds, f);
 	}
 
-	if (!fusee_build)
+	if (!fusee_build) {
 		fprintf(f, "} /* namespace BL */\n");
 
-	fprintf(f, "\n");
-	fprintf(f, "/**************** Implementation ****************/\n");
-	fprintf(f, "\n");
+		fprintf(f, "\n");
+		fprintf(f, "/**************** Implementation ****************/\n");
+		fprintf(f, "\n");
 
-	if (!fusee_build){
 		fprintf(f, "/* Structure prototypes */\n\n");
 		fprintf(f, "extern \"C\" {\n");
 		rna_generate_struct_prototypes(f);
 		fprintf(f, "}\n\n");
 
 		fprintf(f, "namespace BL {\n");
+
+		for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
+			srna = ds->srna;
+
+			for (dp = ds->cont.properties.first; dp; dp = dp->next)
+				rna_def_property_funcs_impl_cpp(f, ds->srna, dp);
+
+			fprintf(f, "\n");
+
+			for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
+				rna_def_struct_function_impl_cpp(f, srna, dfunc);
+
+			fprintf(f, "\n");
+		}
 	}
 
-	for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
-		srna = ds->srna;
-
-		if (fusee_build)
-			continue;
-		// TODO: REMOVE OR REPLACE
-
-		if (strcmp(srna->identifier, "Object") != 0)
-			continue;
-
-		for (dp = ds->cont.properties.first; dp; dp = dp->next)
-			rna_def_property_funcs_impl_cpp(f, ds->srna, dp);
-
-		fprintf(f, "\n");
-
-		for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
-			rna_def_struct_function_impl_cpp(f, srna, dfunc);
-
-		fprintf(f, "\n");
-	}
-
-	fprintf(f, "}\n\n#endif /* __RNA_BLENDER_CPP_H__ */\n\n");
+	if (!fusee_build)
+		fprintf(f, "}\n\n#endif /* __RNA_BLENDER_CPP_H__ */\n\n");
+	else
+		fprintf(f, "}\n\n#endif /* __UNIPLUG_BLENDER_CPP_H__ */\n\n");
 }
 
 static void make_bad_file(const char *file, int line)
