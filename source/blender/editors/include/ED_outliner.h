@@ -15,45 +15,22 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
+ * The Original Code is Copyright (C) 2015, Blender Foundation
+ *
  * ***** END GPL LICENSE BLOCK *****
- * */
-
-/** \file blender/blenlib/intern/math_bits_inline.c
- *  \ingroup bli
  */
 
-#ifndef __MATH_BITS_INLINE_C__
-#define __MATH_BITS_INLINE_C__
+/** \file ED_outliner.h
+ *  \ingroup editors
+ */
 
-#include "BLI_math_bits.h"
+#ifndef __ED_OUTLINER_H__
+#define __ED_OUTLINER_H__
 
-MINLINE unsigned int highest_order_bit_i(unsigned int n)
-{
-	n |= (n >>  1);
-	n |= (n >>  2);
-	n |= (n >>  4);
-	n |= (n >>  8);
-	n |= (n >> 16);
-	return n - (n >> 1);
-}
+struct ID;
+struct SpaceOops;
 
-MINLINE unsigned short highest_order_bit_s(unsigned short n)
-{
-	n |= (n >>  1);
-	n |= (n >>  2);
-	n |= (n >>  4);
-	n |= (n >>  8);
-	return (unsigned short)(n - (n >> 1));
-}
+/* Used to check whether a given texture context is valid in current context. */
+void ED_outliner_id_unref(struct SpaceOops *so, const struct ID *id);
 
-#ifndef __GNUC__
-MINLINE int count_bits_i(unsigned int i)
-{
-	/* variable-precision SWAR algorithm. */
-	i = i - ((i >> 1) & 0x55555555);
-	i = (i & 0x33333333) + ((i >> 2) & 0x33333333);
-	return (((i + (i >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
-}
-#endif
-
-#endif /* __MATH_BITS_INLINE_C__ */
+#endif /*  __ED_OUTLINER_H__ */

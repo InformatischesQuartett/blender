@@ -152,6 +152,34 @@ void ED_area_do_refresh(bContext *C, ScrArea *sa)
 }
 
 /**
+ * Action zones are only updated if the mouse is inside of them, but in some cases (currently only fullscreen icon)
+ * it might be needed to update their properties and redraw if the mouse isn't inside.
+ */
+void ED_area_azones_update(ScrArea *sa, const int mouse_xy[2])
+{
+	AZone *az;
+	bool changed = false;
+
+	for (az = sa->actionzones.first; az; az = az->next) {
+		if (az->type == AZONE_FULLSCREEN) {
+			/* only if mouse is not hovering the azone */
+			if (BLI_rcti_isect_pt_v(&az->rect, mouse_xy) == false) {
+				az->alpha = 0.0f;
+				changed = true;
+
+				/* can break since currently only this is handled here */
+				break;
+			}
+		}
+	}
+
+	if (changed) {
+		sa->flag &= ~AREA_FLAG_ACTIONZONES_UPDATE;
+		ED_area_tag_redraw(sa);
+	}
+}
+
+/**
  * \brief Corner widget use for quitting fullscreen.
  */
 static void area_draw_azone_fullscreen(short x1, short y1, short x2, short y2, float alpha)
@@ -369,6 +397,11 @@ static void region_draw_azone_tria(AZone *az)
 	glDisable(GL_BLEND);
 }
 
+static void area_azone_tag_update(ScrArea *sa)
+{
+	sa->flag |= AREA_FLAG_ACTIONZONES_UPDATE;
+}
+
 static void region_draw_azones(ScrArea *sa, ARegion *ar)
 {
 	AZone *az;
@@ -409,6 +442,10 @@ static void region_draw_azones(ScrArea *sa, ARegion *ar)
 			}
 			else if (az->type == AZONE_FULLSCREEN) {
 				area_draw_azone_fullscreen(az->x1, az->y1, az->x2, az->y2, az->alpha);
+
+				if (az->alpha != 0.0f) {
+					area_azone_tag_update(sa);
+				}
 			}
 		}
 	}
@@ -2097,7 +2134,8 @@ static void metadata_draw_imbuf(ImBuf *ibuf, rcti rect, int fontid, const bool i
 			else {
 				len = BLI_snprintf_rlen(temp_str, MAX_METADATA_STR, "%s: ", meta_data_list[i + 1]);
 				if (metadata_is_valid(ibuf, temp_str, i + 1, len)) {
-					BLF_position(fontid, rect.xmax + (0.2f * U.widget_unit),
+					line_width = BLF_width(fontid, temp_str, BLF_DRAW_STR_DUMMY_MAX);
+					BLF_position(fontid, rect.xmax  - line_width -  (0.2f * U.widget_unit),
 					             rect.ymax - factor * (1.5f * U.widget_unit - UI_UNIT_Y) - ofs_y, 0.0f);
 					BLF_draw(fontid, temp_str, BLF_DRAW_STR_DUMMY_MAX);
 					ofs_y += (height + (0.2f * U.widget_unit));
@@ -2112,7 +2150,7 @@ static void metadata_draw_imbuf(ImBuf *ibuf, rcti rect, int fontid, const bool i
 			if (metadata_is_valid(ibuf, temp_str, i, len)) {
 				const int line_height = height;
 				BLF_position(fontid, rect.xmin + (0.2f * U.widget_unit) + ofs_x,
-				             rect.ymin - line_height + factor * (1.5f * U.widget_unit), 0.0f);
+				             rect.ymin - line_height + factor * (U.widget_unit), 0.0f);
 				BLF_draw(fontid, temp_str, BLF_DRAW_STR_DUMMY_MAX);
 	
 				ofs_x += BLF_width(fontid, temp_str, BLF_DRAW_STR_DUMMY_MAX) + UI_UNIT_X;
@@ -2124,26 +2162,29 @@ static void metadata_draw_imbuf(ImBuf *ibuf, rcti rect, int fontid, const bool i
 static float metadata_box_height_get(ImBuf *ibuf, int fontid, const bool is_top)
 {
 	char str[MAX_METADATA_STR];
-	float height = 0;
-	short i;
+	short i, count = 0;
+	const float height = BLF_height_max(fontid) + 0.2f * U.widget_unit;
 
 	if (is_top) {
-		for (i = 0; i < 5 ; i++) {
+		if (metadata_is_valid(ibuf, str, 0, 0) || metadata_is_valid(ibuf, str, 1, 0)) {
+			count++;
+		}
+		for (i = 2; i < 5; i++) {
 			if (metadata_is_valid(ibuf, str, i, 0)) {
-				height += BLF_height(fontid, str, strlen(str));
+				count++;
 			}
 		}
 	}
 	else {
 		for (i = 5; i < 10; i++) {
 			if (metadata_is_valid(ibuf, str, i, 0)) {
-				height += BLF_height(fontid, str, strlen(str));
+				count = 1;
 			}
 		}
 	}
 
-	if (height) {
-		return (height + (0.2f * U.widget_unit));
+	if (count) {
+		return (height * count + (0.2f * U.widget_unit));
 	}
 
 	return 0;
