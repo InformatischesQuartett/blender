@@ -150,6 +150,9 @@ struct FunctionRNA {
 	/* parameter for the return value
 	 * note: this is only the C return value, rna functions can have multiple return values */
 	PropertyRNA *c_ret;
+
+	/* fusee_build: is func already implemented? */
+	int isimplemented;
 };
 
 struct PropertyRNA {
@@ -205,6 +208,9 @@ struct PropertyRNA {
 	/* python handle to hold all callbacks
 	 * (in a pointer array at the moment, may later be a tuple) */
 	void *py_data;
+
+	/* fusee_build: is func already implemented? */
+	int isimplemented;
 };
 
 /* Property Types */
@@ -390,6 +396,9 @@ struct StructRNA {
 
 	/* functions of this struct */
 	ListBase functions;
+
+	/* fusee_build: is type already declared? */
+	int isdeclared;
 };
 
 /* Blender RNA
