@@ -307,6 +307,9 @@ typedef struct EnumPropertyItem {
 	int icon;
 	const char *name;
 	const char *description;
+
+	/* fusee_build: class name in which this enum was declared last */
+	const char *classdecl;
 } EnumPropertyItem;
 
 /* extended versions with PropertyRNA argument */

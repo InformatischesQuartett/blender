@@ -1499,6 +1499,7 @@ void RNA_def_property_enum_items_impl(PropertyRNA *prop, const EnumPropertyItem 
 			eprop->item = (EnumPropertyItem *)item;
 			eprop->name = name;
 			eprop->totitem = 0;
+
 			for (i = 0; item[i].identifier; i++) {
 				eprop->totitem++;
 

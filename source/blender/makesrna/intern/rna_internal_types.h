@@ -151,6 +151,9 @@ struct FunctionRNA {
 	 * note: this is only the C return value, rna functions can have multiple return values */
 	PropertyRNA *c_ret;
 
+	/* fusee_build: is func already declared? */
+	int isdeclared;
+
 	/* fusee_build: is func already implemented? */
 	int isimplemented;
 };
@@ -211,6 +214,9 @@ struct PropertyRNA {
 
 	/* fusee_build: is func already implemented? */
 	int isimplemented;
+
+	/* fusee_build: is this a result struct? */
+	int isresult;
 };
 
 /* Property Types */
