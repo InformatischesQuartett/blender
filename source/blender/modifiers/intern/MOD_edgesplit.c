@@ -91,7 +91,7 @@ static DerivedMesh *doEdgeSplit(DerivedMesh *dm, EdgeSplitModifierData *emd)
 		}
 	}
 	
-	BM_mesh_edgesplit(bm, false, false, true, false);
+	BM_mesh_edgesplit(bm, false, true, false);
 
 	/* BM_mesh_validate(bm); */ /* for troubleshooting */
 
@@ -158,6 +158,7 @@ ModifierTypeInfo modifierType_EdgeSplit = {
 	/* freeData */          NULL,
 	/* isDisabled */        NULL,
 	/* updateDepgraph */    NULL,
+	/* updateDepsgraph */   NULL,
 	/* dependsOnTime */     NULL,
 	/* dependsOnNormals */	NULL,
 	/* foreachObjectLink */ NULL,
