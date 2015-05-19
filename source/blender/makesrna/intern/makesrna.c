@@ -1737,7 +1737,7 @@ static int rna_parameter_type_is_declared(PropertyRNA *prop)
 		PointerPropertyRNA *pprop = (PointerPropertyRNA *)prop;
 
 		for (StructDefRNA *ds = DefRNA.structs.first; ds; ds = ds->cont.next)
-			if (strcmp(ds->srna->identifier, (const char *)pprop->type) == 0)
+			if (STREQ(ds->srna->identifier, (const char *)pprop->type))
 				return ds->srna->isdeclared;
 	}
 
@@ -1777,7 +1777,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tbool %s() { /* not implemented */ throw NULL; }\n", rna_safe_id(prop->identifier));
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(int value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\tvoid %s(bool value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 				}
 			}
 			else if (prop->totarraylength) {
@@ -1815,7 +1815,8 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				}
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
-					fprintf(f, "\tint %s() { /* not implemented */ throw NULL; }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\tint %s() {\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\t\treturn PyLong_AsLong(PyObject_GetAttrString(pyobjref, \"%s\"));\n\t}\n\n", prop->identifier);
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 				}
@@ -1945,15 +1946,21 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					if (!impl) {
 						fprintf(f, "\t/** Getter: %s */\n", prop->description);
 
-						if (rna_parameter_type_is_declared(dp->prop))
-							fprintf(f, "\t%s %s() { /* not implemented */ throw NULL; }\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
+						if (rna_parameter_type_is_declared(dp->prop)) {
+							fprintf(f, "\t%s %s() {\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
+							fprintf(f, "\t\t/* not implemented */ throw NULL;\n");
+							fprintf(f, "\t}\n");
+						}
 						else {
 							prop->isimplemented = 0;
 							fprintf(f, "\t%s %s();\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
 						}
 					}
-					else
-						fprintf(f, "\t%s %s::%s() { /* not implemented */ throw NULL; }\n", (const char *)pprop->type, srna->identifier, rna_safe_id(prop->identifier));
+					else {
+						fprintf(f, "\t%s %s::%s() {\n", (const char *)pprop->type, srna->identifier, rna_safe_id(prop->identifier));
+						fprintf(f, "\t\treturn %s(PyObject_GetAttrString(pyobjref, \"%s\"));\n", (const char *)pprop->type, prop->identifier);
+						fprintf(f, "\t}\n");
+					}
 				}
 			else
 				fprintf(f, "\tinline %s %s(void);", "UnknownType", rna_safe_id(prop->identifier));
@@ -1978,10 +1985,42 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					(cprop->lookupint ? "true" : "false"), (cprop->lookupstring ? "true" : "false"));
 			}
 			else {
-				fprintf(f, "\t/** Getter: %s */\n", prop->description);
-				fprintf(f, "\tstd::map<std::string, %s> %s(void) { /* not implemented */ throw NULL; }\n", (const char *)cprop->item_type, rna_safe_id(prop->identifier));
-				fprintf(f, "\t/** Setter: %s */\n", prop->description);
-				fprintf(f, "\tvoid %s(std::map<std::string, %s> value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), (const char *)cprop->item_type);
+				const char* objtype = (const char*)cprop->item_type;
+				StructRNA *retsrna = rna_find_struct(objtype);
+
+				// GETTER
+				if (!impl && (!retsrna->isdeclared)) {
+					prop->isimplemented = 0;
+
+					fprintf(f, "\t/** Getter: %s */\n", prop->description);
+					fprintf(f, "\tstd::map<std::string, %s> %s();\n", objtype, rna_safe_id(prop->identifier));
+
+					fprintf(f, "\t/** Setter: %s */\n", prop->description);
+					fprintf(f, "\tvoid %s(std::map<std::string, %s> value);\n", rna_safe_id(prop->identifier), objtype);
+				}
+				else {
+					if (!impl) fprintf(f, "\t/** Getter: %s */\n", prop->description);
+					fprintf(f, "\tstd::map<std::string, %s> ", (const char *)cprop->item_type);
+					if (impl) fprintf(f, "%s::", srna->identifier);
+					fprintf(f, "%s() {\n", rna_safe_id(prop->identifier));
+					{
+						fprintf(f, "\t\t// MISSING DEREF!\n");
+						fprintf(f, "\t\tPyObject *seqval = PyObject_GetAttrString(pyobjref, \"%s\");\n", prop->identifier);
+						fprintf(f, "\t\tPyObject *seqkeys = PyObject_CallMethod(seqval, \"keys\", NULL);\n");
+						fprintf(f, "\t\tstd::map<std::string, %s> resmap;\n", objtype);
+						fprintf(f, "\t\tfor (int i = 0; i < PySequence_Length(seqval); i++) {\n");
+						fprintf(f, "\t\t\tPyObject *keyobj = PySequence_GetItem(seqkeys, i);\n");
+						fprintf(f, "\t\t\tstd::string key = PyBytes_AsString(PyUnicode_AsASCIIString(keyobj));\n");
+						fprintf(f, "\t\t\t%s value = %s(PySequence_GetItem(seqval, i));\n", objtype, objtype);
+						fprintf(f, "\t\t\tresmap.insert(std::pair<std::string,%s>(key, value));\n", objtype);
+						fprintf(f, "\t\t}\n\t\treturn resmap;\n");
+					}
+					fprintf(f, "\t}\n\n");
+
+					// SETTER
+					if (!impl) fprintf(f, "\t/** Setter: %s */\n", prop->description);
+					fprintf(f, "\tvoid %s(std::map<std::string, %s> value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), objtype);
+				}
 			}
 
 			break;
@@ -4229,20 +4268,6 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 
 		fprintf(f, "/**\n * %s\n */\n", srna->description);
 
-		/*
-			if (srna->base && (strcmp(srna->base->identifier, "Pointer") != 0)) {
-				fprintf(f, "class %s : public %s {\n", srna->identifier, srna->base->identifier);
-				fprintf(f, "private:\n\tPyObject pyobjref;\n");
-				fprintf(f, "public:\n");
-
-				fprintf(f, "\t%s() : %s()", srna->identifier, srna->base->identifier);
-				fprintf(f, "\n\t{\n\t\t// not implemented\n\t}\n\n");
-				fprintf(f, "\t%s(PyObject pyobj) : %s()", srna->identifier, srna->base->identifier);
-				fprintf(f, "\n\t{\n\t\tpyobjref = pyobj;\n\t}\n\n");
-			}
-			else {
-		*/
-
 		fprintf(f, "class %s : public %s {\n", srna->identifier, 
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
 		fprintf(f, "public:\n");
@@ -4252,20 +4277,11 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 		fprintf(f, "\t%s() : %s(0)\n", srna->identifier,
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
 		fprintf(f, "\t{\n\t\t// not implemented\n\t}\n\n");
-		
-		//}
-
-		/*
-			for (dp = ds->cont.properties.first; dp; dp = dp->next)
-				if (rna_is_collection_prop(dp->prop))
-					fprintf(f, "\t\t%s();\n", dp->prop->identifier);
-
-			fprintf(f, "\t}\n\n");
-		*/
 	}
 
 	for (dp = ds->cont.properties.first; dp; dp = dp->next)
-		rna_def_property_funcs_header_cpp(f, ds->srna, dp, 0);
+		if (!fusee_build || ((!STREQ(dp->prop->identifier, "rna_properties")) && (!STREQ(dp->prop->identifier, "rna_type"))))
+			rna_def_property_funcs_header_cpp(f, ds->srna, dp, 0);
 
 	if (!fusee_build && (ds->functions.first != NULL))
 		fprintf(f, "\n");
@@ -4345,7 +4361,7 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 		}
 	}
 
-	// fusee_build: build base class which handles the PyObject reference
+	// fusee_build: declare base class which handles the PyObject reference
 	if (fusee_build) {
 		fprintf(f, "/**************** pyUniplug Definition ****************/\n\n");
 		fprintf(f, "class pyUniplug {\n");
@@ -4356,7 +4372,11 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 		fprintf(f, "\t{\n");
 		fprintf(f, "\t\tpyobjref = pyobj;\n");
 		fprintf(f, "\t}\n\n");
-		fprintf(f, "\tpyUniplug() {}\n");
+		fprintf(f, "\tpyUniplug()\n");
+		fprintf(f, "\t{\n");
+		fprintf(f, "\t\tpyobjref = PyImport_ImportModule(\"bpy\");\n");
+		fprintf(f, "\t}\n\n");
+		fprintf(f, "\tContext context();\n");
 		fprintf(f, "};\n\n");
 	}
 
@@ -4418,19 +4438,27 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 	{
 		fprintf(f, "namespace UniplugBL {\n");
 
+		// fusee_build: implement base class which handles the PyObject reference
+		if (fusee_build) {
+			fprintf(f, "\t/**************** pyUniplug ****************/\n\n");
+			fprintf(f, "\tContext pyUniplug::context() {\n");
+			fprintf(f, "\t\treturn Context(PyObject_GetAttrString(pyobjref, \"context\"));\n");
+			fprintf(f, "\t}\n\n");
+		}
+
 		for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
 			srna = ds->srna;
 
 			int found = 0;
 
 			for (dp = ds->cont.properties.first; dp; dp = dp->next) {
-				if (!STREQ(dp->prop->identifier, "rna_properties") && !dp->prop->isimplemented) {
+				if (!STREQ(dp->prop->identifier, "rna_properties") && !STREQ(dp->prop->identifier, "rna_type") && !dp->prop->isimplemented) {
 					if (!found) {
 						fprintf(f, "\t/**************** %s ****************/\n\n", srna->name);
 						found = 1;
 					}
 
-					// fprintf(f, "\t// %s\n", dp->prop->identifier);
+					fprintf(f, "\t// %s\n", dp->prop->identifier);
 
 					rna_def_property_funcs_header_cpp(f, ds->srna, dp, 1);
 				}
