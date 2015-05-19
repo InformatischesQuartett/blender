@@ -7,6 +7,7 @@
 #include <vector>
 #include <map>
 #include <string.h> /* for memcpy */
+#include <Python.h>
 
 namespace UniplugBL {
 
@@ -1013,18 +1014,32 @@ class MaskLayer;
 class Mask;
 class MaskLayers;
 
+/**************** pyUniplug Definition ****************/
+
+class pyUniplug {
+protected:
+	PyObject* pyobjref;
+public:
+	pyUniplug(PyObject* pyobj)
+	{
+		pyobjref = pyobj;
+	}
+
+	pyUniplug() {}
+};
+
 /**************** Struct Definition ****************/
 
 /**
  * RNA structure definition
  */
-class Struct {
+class Struct : public pyUniplug {
 public:
-	Struct()
+	Struct(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Struct() : pyUniplug(0)
 	{
 		// not implemented
-		properties();
-		functions();
 	}
 
 	/** Getter: RNA property collection */
@@ -1081,9 +1096,11 @@ public:
 /**
  * RNA property definition
  */
-class Property {
+class Property : public pyUniplug {
 public:
-	Property()
+	Property(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Property() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -1807,7 +1824,9 @@ public:
  */
 class BoolProperty : public Property {
 public:
-	BoolProperty() : Property()
+	BoolProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	BoolProperty() : Property(0)
 	{
 		// not implemented
 	}
@@ -1836,7 +1855,9 @@ public:
  */
 class IntProperty : public Property {
 public:
-	IntProperty() : Property()
+	IntProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	IntProperty() : Property(0)
 	{
 		// not implemented
 	}
@@ -1890,7 +1911,9 @@ public:
  */
 class FloatProperty : public Property {
 public:
-	FloatProperty() : Property()
+	FloatProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	FloatProperty() : Property(0)
 	{
 		// not implemented
 	}
@@ -1949,7 +1972,9 @@ public:
  */
 class StringProperty : public Property {
 public:
-	StringProperty() : Property()
+	StringProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	StringProperty() : Property(0)
 	{
 		// not implemented
 	}
@@ -1973,10 +1998,11 @@ public:
  */
 class EnumProperty : public Property {
 public:
-	EnumProperty() : Property()
+	EnumProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	EnumProperty() : Property(0)
 	{
 		// not implemented
-		enum_items();
 	}
 
 	enum default_value_enum {
@@ -2009,9 +2035,11 @@ public:
 /**
  * Definition of a choice in an RNA enum property
  */
-class EnumPropertyItem {
+class EnumPropertyItem : public pyUniplug {
 public:
-	EnumPropertyItem()
+	EnumPropertyItem(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	EnumPropertyItem() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -2606,7 +2634,9 @@ public:
  */
 class PointerProperty : public Property {
 public:
-	PointerProperty() : Property()
+	PointerProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	PointerProperty() : Property(0)
 	{
 		// not implemented
 	}
@@ -2623,7 +2653,9 @@ public:
  */
 class CollectionProperty : public Property {
 public:
-	CollectionProperty() : Property()
+	CollectionProperty(PyObject* pyobj) : Property(pyobj) {}
+
+	CollectionProperty() : Property(0)
 	{
 		// not implemented
 	}
@@ -2638,12 +2670,13 @@ public:
 /**
  * RNA function definition
  */
-class Function {
+class Function : public pyUniplug {
 public:
-	Function()
+	Function(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Function() : pyUniplug(0)
 	{
 		// not implemented
-		parameters();
 	}
 
 	/** Getter: RNA property collection */
@@ -2696,12 +2729,13 @@ public:
 /**
  * Blender RNA structure definitions
  */
-class BlenderRNA {
+class BlenderRNA : public pyUniplug {
 public:
-	BlenderRNA()
+	BlenderRNA(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlenderRNA() : pyUniplug(0)
 	{
 		// not implemented
-		structs();
 	}
 
 	/** Getter: RNA property collection */
@@ -2724,9 +2758,11 @@ public:
 /**
  * Stub RNA type used for pointers to unknown or internal data
  */
-class UnknownType {
+class UnknownType : public pyUniplug {
 public:
-	UnknownType()
+	UnknownType(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UnknownType() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -2746,9 +2782,11 @@ public:
 /**
  * RNA type used for pointers to any possible data
  */
-class AnyType {
+class AnyType : public pyUniplug {
 public:
-	AnyType()
+	AnyType(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AnyType() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -2768,9 +2806,11 @@ public:
 /**
  * Base type for datablocks, defining a unique name, linking from other libraries and garbage collection
  */
-class ID {
+class ID : public pyUniplug {
 public:
-	ID()
+	ID(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ID() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -2878,9 +2918,11 @@ public:
 /**
  * Preview image and icon
  */
-class ImagePreview {
+class ImagePreview : public pyUniplug {
 public:
-	ImagePreview()
+	ImagePreview(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ImagePreview() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -2943,9 +2985,11 @@ public:
 /**
  * Property that stores arbitrary, user defined properties
  */
-class PropertyGroupItem {
+class PropertyGroupItem : public pyUniplug {
 public:
-	PropertyGroupItem()
+	PropertyGroupItem(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PropertyGroupItem() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -3013,9 +3057,11 @@ public:
 /**
  * Group of ID properties
  */
-class PropertyGroup {
+class PropertyGroup : public pyUniplug {
 public:
-	PropertyGroup()
+	PropertyGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PropertyGroup() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -3042,7 +3088,9 @@ public:
  */
 class Library : public ID {
 public:
-	Library() : ID()
+	Library(PyObject* pyobj) : ID(pyobj) {}
+
+	Library() : ID(0)
 	{
 		// not implemented
 	}
@@ -3067,7 +3115,9 @@ public:
  */
 class Texture : public ID {
 public:
-	Texture() : ID()
+	Texture(PyObject* pyobj) : ID(pyobj) {}
+
+	Texture() : ID(0)
 	{
 		// not implemented
 	}
@@ -3175,7 +3225,9 @@ public:
  */
 class CloudsTexture : public Texture {
 public:
-	CloudsTexture() : Texture()
+	CloudsTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	CloudsTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3242,7 +3294,9 @@ public:
  */
 class WoodTexture : public Texture {
 public:
-	WoodTexture() : Texture()
+	WoodTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	WoodTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3322,7 +3376,9 @@ public:
  */
 class MarbleTexture : public Texture {
 public:
-	MarbleTexture() : Texture()
+	MarbleTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	MarbleTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3406,7 +3462,9 @@ public:
  */
 class MagicTexture : public Texture {
 public:
-	MagicTexture() : Texture()
+	MagicTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	MagicTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3430,7 +3488,9 @@ public:
  */
 class BlendTexture : public Texture {
 public:
-	BlendTexture() : Texture()
+	BlendTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	BlendTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3469,7 +3529,9 @@ public:
  */
 class StucciTexture : public Texture {
 public:
-	StucciTexture() : Texture()
+	StucciTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	StucciTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3532,7 +3594,9 @@ public:
  */
 class NoiseTexture : public Texture {
 public:
-	NoiseTexture() : Texture()
+	NoiseTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	NoiseTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3546,7 +3610,9 @@ public:
  */
 class ImageTexture : public Texture {
 public:
-	ImageTexture() : Texture()
+	ImageTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	ImageTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3711,7 +3777,9 @@ public:
  */
 class EnvironmentMapTexture : public Texture {
 public:
-	EnvironmentMapTexture() : Texture()
+	EnvironmentMapTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	EnvironmentMapTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3776,7 +3844,9 @@ public:
  */
 class MusgraveTexture : public Texture {
 public:
-	MusgraveTexture() : Texture()
+	MusgraveTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	MusgraveTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3861,7 +3931,9 @@ public:
  */
 class VoronoiTexture : public Texture {
 public:
-	VoronoiTexture() : Texture()
+	VoronoiTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	VoronoiTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -3942,7 +4014,9 @@ public:
  */
 class DistortedNoiseTexture : public Texture {
 public:
-	DistortedNoiseTexture() : Texture()
+	DistortedNoiseTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	DistortedNoiseTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -4005,9 +4079,11 @@ public:
 /**
  * Point density settings
  */
-class PointDensity {
+class PointDensity : public pyUniplug {
 public:
-	PointDensity()
+	PointDensity(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PointDensity() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4175,7 +4251,9 @@ public:
  */
 class PointDensityTexture : public Texture {
 public:
-	PointDensityTexture() : Texture()
+	PointDensityTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	PointDensityTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -4190,9 +4268,11 @@ public:
 /**
  * Voxel data settings
  */
-class VoxelData {
+class VoxelData : public pyUniplug {
 public:
-	VoxelData()
+	VoxelData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VoxelData() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4303,7 +4383,9 @@ public:
  */
 class VoxelDataTexture : public Texture {
 public:
-	VoxelDataTexture() : Texture()
+	VoxelDataTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	VoxelDataTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -4324,9 +4406,11 @@ public:
 /**
  * Ocean Texture settings
  */
-class OceanTexData {
+class OceanTexData : public pyUniplug {
 public:
-	OceanTexData()
+	OceanTexData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	OceanTexData() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4364,7 +4448,9 @@ public:
  */
 class OceanTexture : public Texture {
 public:
-	OceanTexture() : Texture()
+	OceanTexture(PyObject* pyobj) : Texture(pyobj) {}
+
+	OceanTexture() : Texture(0)
 	{
 		// not implemented
 	}
@@ -4379,9 +4465,11 @@ public:
 /**
  * Texture slot defining the mapping and influence of a texture
  */
-class TextureSlot {
+class TextureSlot : public pyUniplug {
 public:
-	TextureSlot()
+	TextureSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TextureSlot() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4477,9 +4565,11 @@ public:
 /**
  * Environment map created by the renderer and cached for subsequent renders
  */
-class EnvironmentMap {
+class EnvironmentMap : public pyUniplug {
 public:
-	EnvironmentMap()
+	EnvironmentMap(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	EnvironmentMap() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4574,9 +4664,11 @@ public:
 /**
  * Texture coordinate mapping settings
  */
-class TexMapping {
+class TexMapping : public pyUniplug {
 public:
-	TexMapping()
+	TexMapping(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TexMapping() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4691,9 +4783,11 @@ public:
 /**
  * Color mapping settings
  */
-class ColorMapping {
+class ColorMapping : public pyUniplug {
 public:
-	ColorMapping()
+	ColorMapping(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorMapping() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4770,9 +4864,11 @@ public:
 /**
  * Collection of materials
  */
-class IDMaterials {
+class IDMaterials : public pyUniplug {
 public:
-	IDMaterials()
+	IDMaterials(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	IDMaterials() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4815,9 +4911,11 @@ public:
 /**
  * Collection of action F-Curves
  */
-class ActionFCurves {
+class ActionFCurves : public pyUniplug {
 public:
-	ActionFCurves()
+	ActionFCurves(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ActionFCurves() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4852,9 +4950,11 @@ public:
 /**
  * Collection of action groups
  */
-class ActionGroups {
+class ActionGroups : public pyUniplug {
 public:
-	ActionGroups()
+	ActionGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ActionGroups() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4887,9 +4987,11 @@ public:
 /**
  * Collection of timeline markers
  */
-class ActionPoseMarkers {
+class ActionPoseMarkers : public pyUniplug {
 public:
-	ActionPoseMarkers()
+	ActionPoseMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ActionPoseMarkers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4930,9 +5032,11 @@ public:
 /**
  * Collection of NLA Tracks
  */
-class NlaTracks {
+class NlaTracks : public pyUniplug {
 public:
-	NlaTracks()
+	NlaTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NlaTracks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4968,9 +5072,11 @@ public:
 /**
  * Collection of Driver F-Curves
  */
-class AnimDataDrivers {
+class AnimDataDrivers : public pyUniplug {
 public:
-	AnimDataDrivers()
+	AnimDataDrivers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AnimDataDrivers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -4997,9 +5103,11 @@ public:
 /**
  * Collection of keying set paths
  */
-class KeyingSetPaths {
+class KeyingSetPaths : public pyUniplug {
 public:
-	KeyingSetPaths()
+	KeyingSetPaths(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyingSetPaths() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5061,9 +5169,11 @@ public:
 /**
  * Collection of armature bones
  */
-class ArmatureBones {
+class ArmatureBones : public pyUniplug {
 public:
-	ArmatureBones()
+	ArmatureBones(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ArmatureBones() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5086,9 +5196,11 @@ public:
 /**
  * Collection of armature edit bones
  */
-class ArmatureEditBones {
+class ArmatureEditBones : public pyUniplug {
 public:
-	ArmatureEditBones()
+	ArmatureEditBones(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ArmatureEditBones() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5124,9 +5236,11 @@ public:
 /**
  * Collection of Curve Map Points
  */
-class CurveMapPoints {
+class CurveMapPoints : public pyUniplug {
 public:
-	CurveMapPoints()
+	CurveMapPoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CurveMapPoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5160,9 +5274,11 @@ public:
 /**
  * Collection of Color Ramp Elements
  */
-class ColorRampElements {
+class ColorRampElements : public pyUniplug {
 public:
-	ColorRampElements()
+	ColorRampElements(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorRampElements() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5195,9 +5311,11 @@ public:
 /**
  * Collection of curve splines
  */
-class CurveSplines {
+class CurveSplines : public pyUniplug {
 public:
-	CurveSplines()
+	CurveSplines(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CurveSplines() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5252,9 +5370,11 @@ public:
 /**
  * Collection of spline points
  */
-class SplinePoints {
+class SplinePoints : public pyUniplug {
 public:
-	SplinePoints()
+	SplinePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SplinePoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5283,9 +5403,11 @@ public:
 /**
  * Collection of spline bezirt points
  */
-class SplineBezierPoints {
+class SplineBezierPoints : public pyUniplug {
 public:
-	SplineBezierPoints()
+	SplineBezierPoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SplineBezierPoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5314,9 +5436,11 @@ public:
 /**
  * Collection of Dynamic Paint Canvas surfaces
  */
-class DynamicPaintSurfaces {
+class DynamicPaintSurfaces : public pyUniplug {
 public:
-	DynamicPaintSurfaces()
+	DynamicPaintSurfaces(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DynamicPaintSurfaces() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5344,9 +5468,11 @@ public:
 /**
  * Collection of keyframe points
  */
-class FCurveKeyframePoints {
+class FCurveKeyframePoints : public pyUniplug {
 public:
-	FCurveKeyframePoints()
+	FCurveKeyframePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FCurveKeyframePoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5400,9 +5526,11 @@ public:
 /**
  * Collection of F-Curve Modifiers
  */
-class FCurveModifiers {
+class FCurveModifiers : public pyUniplug {
 public:
-	FCurveModifiers()
+	FCurveModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FCurveModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5422,7 +5550,7 @@ public:
 	 * Enum: fmodifier_type_items
 	 */
 	enum fmodifier_type_items {
-		fmodifier_type_items_UNDEFINED = 0,	
+		fmodifier_type_items_NULL = 0,	
 		fmodifier_type_items_GENERATOR = 1,	/**< Generate a curve using a factorized or expanded polynomial */
 		fmodifier_type_items_FNGENERATOR = 2,	/**< Generate a curve using standard math functions such as sin and cos */
 		fmodifier_type_items_ENVELOPE = 3,	/**< Reshape F-Curve values - e.g. change amplitude of movements */
@@ -5453,9 +5581,11 @@ public:
 /**
  * Collection of channel driver Variables
  */
-class ChannelDriverVariables {
+class ChannelDriverVariables : public pyUniplug {
 public:
-	ChannelDriverVariables()
+	ChannelDriverVariables(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ChannelDriverVariables() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5487,9 +5617,11 @@ public:
 /**
  * Control points defining the shape of the envelope
  */
-class FModifierEnvelopeControlPoints {
+class FModifierEnvelopeControlPoints : public pyUniplug {
 public:
-	FModifierEnvelopeControlPoints()
+	FModifierEnvelopeControlPoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FModifierEnvelopeControlPoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5522,9 +5654,11 @@ public:
 /**
  * Collection of grease pencil layers
  */
-class GreasePencilLayers {
+class GreasePencilLayers : public pyUniplug {
 public:
-	GreasePencilLayers()
+	GreasePencilLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GreasePencilLayers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5566,9 +5700,11 @@ public:
 /**
  * Collection of grease pencil frames
  */
-class GPencilFrames {
+class GPencilFrames : public pyUniplug {
 public:
-	GPencilFrames()
+	GPencilFrames(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilFrames() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5608,9 +5744,11 @@ public:
 /**
  * Collection of grease pencil stroke
  */
-class GPencilStrokes {
+class GPencilStrokes : public pyUniplug {
 public:
-	GPencilStrokes()
+	GPencilStrokes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilStrokes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5642,9 +5780,11 @@ public:
 /**
  * Collection of grease pencil stroke points
  */
-class GPencilStrokePoints {
+class GPencilStrokePoints : public pyUniplug {
 public:
-	GPencilStrokePoints()
+	GPencilStrokePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilStrokePoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5682,9 +5822,11 @@ public:
 /**
  * Collection of group objects
  */
-class GroupObjects {
+class GroupObjects : public pyUniplug {
 public:
-	GroupObjects()
+	GroupObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GroupObjects() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5716,9 +5858,11 @@ public:
 /**
  * Collection of the render slots
  */
-class RenderSlots {
+class RenderSlots : public pyUniplug {
 public:
-	RenderSlots()
+	RenderSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5746,9 +5890,11 @@ public:
 /**
  * Collection of texture slots
  */
-class LampTextureSlots {
+class LampTextureSlots : public pyUniplug {
 public:
-	LampTextureSlots()
+	LampTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LampTextureSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5790,9 +5936,11 @@ public:
 /**
  * Collection of texture slots
  */
-class LineStyleTextureSlots {
+class LineStyleTextureSlots : public pyUniplug {
 public:
-	LineStyleTextureSlots()
+	LineStyleTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LineStyleTextureSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5834,9 +5982,11 @@ public:
 /**
  * Color modifiers for changing line colors
  */
-class LineStyleColorModifiers {
+class LineStyleColorModifiers : public pyUniplug {
 public:
-	LineStyleColorModifiers()
+	LineStyleColorModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LineStyleColorModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5880,9 +6030,11 @@ public:
 /**
  * Alpha modifiers for changing line alphas
  */
-class LineStyleAlphaModifiers {
+class LineStyleAlphaModifiers : public pyUniplug {
 public:
-	LineStyleAlphaModifiers()
+	LineStyleAlphaModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LineStyleAlphaModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5926,9 +6078,11 @@ public:
 /**
  * Thickness modifiers for changing line thicknesss
  */
-class LineStyleThicknessModifiers {
+class LineStyleThicknessModifiers : public pyUniplug {
 public:
-	LineStyleThicknessModifiers()
+	LineStyleThicknessModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LineStyleThicknessModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -5973,9 +6127,11 @@ public:
 /**
  * Geometry modifiers for changing line geometrys
  */
-class LineStyleGeometryModifiers {
+class LineStyleGeometryModifiers : public pyUniplug {
 public:
-	LineStyleGeometryModifiers()
+	LineStyleGeometryModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LineStyleGeometryModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6028,9 +6184,11 @@ public:
 /**
  * Collection of cameras
  */
-class BlendDataCameras {
+class BlendDataCameras : public pyUniplug {
 public:
-	BlendDataCameras()
+	BlendDataCameras(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataCameras() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6077,9 +6235,11 @@ public:
 /**
  * Collection of scenes
  */
-class BlendDataScenes {
+class BlendDataScenes : public pyUniplug {
 public:
-	BlendDataScenes()
+	BlendDataScenes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataScenes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6126,9 +6286,11 @@ public:
 /**
  * Collection of objects
  */
-class BlendDataObjects {
+class BlendDataObjects : public pyUniplug {
 public:
-	BlendDataObjects()
+	BlendDataObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataObjects() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6176,9 +6338,11 @@ public:
 /**
  * Collection of materials
  */
-class BlendDataMaterials {
+class BlendDataMaterials : public pyUniplug {
 public:
-	BlendDataMaterials()
+	BlendDataMaterials(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataMaterials() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6225,9 +6389,11 @@ public:
 /**
  * Collection of node trees
  */
-class BlendDataNodeTrees {
+class BlendDataNodeTrees : public pyUniplug {
 public:
-	BlendDataNodeTrees()
+	BlendDataNodeTrees(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataNodeTrees() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6282,9 +6448,11 @@ public:
 /**
  * Collection of meshes
  */
-class BlendDataMeshes {
+class BlendDataMeshes : public pyUniplug {
 public:
-	BlendDataMeshes()
+	BlendDataMeshes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataMeshes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6351,9 +6519,11 @@ public:
 /**
  * Collection of lamps
  */
-class BlendDataLamps {
+class BlendDataLamps : public pyUniplug {
 public:
-	BlendDataLamps()
+	BlendDataLamps(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataLamps() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6412,9 +6582,11 @@ public:
 /**
  * Collection of libraries
  */
-class BlendDataLibraries {
+class BlendDataLibraries : public pyUniplug {
 public:
-	BlendDataLibraries()
+	BlendDataLibraries(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataLibraries() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6448,9 +6620,11 @@ public:
 /**
  * Collection of screens
  */
-class BlendDataScreens {
+class BlendDataScreens : public pyUniplug {
 public:
-	BlendDataScreens()
+	BlendDataScreens(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataScreens() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6484,9 +6658,11 @@ public:
 /**
  * Collection of window managers
  */
-class BlendDataWindowManagers {
+class BlendDataWindowManagers : public pyUniplug {
 public:
-	BlendDataWindowManagers()
+	BlendDataWindowManagers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataWindowManagers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6520,9 +6696,11 @@ public:
 /**
  * Collection of images
  */
-class BlendDataImages {
+class BlendDataImages : public pyUniplug {
 public:
-	BlendDataImages()
+	BlendDataImages(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataImages() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6581,9 +6759,11 @@ public:
 /**
  * Collection of lattices
  */
-class BlendDataLattices {
+class BlendDataLattices : public pyUniplug {
 public:
-	BlendDataLattices()
+	BlendDataLattices(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataLattices() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6630,9 +6810,11 @@ public:
 /**
  * Collection of curves
  */
-class BlendDataCurves {
+class BlendDataCurves : public pyUniplug {
 public:
-	BlendDataCurves()
+	BlendDataCurves(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataCurves() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6689,9 +6871,11 @@ public:
 /**
  * Collection of metaballs
  */
-class BlendDataMetaBalls {
+class BlendDataMetaBalls : public pyUniplug {
 public:
-	BlendDataMetaBalls()
+	BlendDataMetaBalls(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataMetaBalls() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6738,9 +6922,11 @@ public:
 /**
  * Collection of fonts
  */
-class BlendDataFonts {
+class BlendDataFonts : public pyUniplug {
 public:
-	BlendDataFonts()
+	BlendDataFonts(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataFonts() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6787,9 +6973,11 @@ public:
 /**
  * Collection of groups
  */
-class BlendDataTextures {
+class BlendDataTextures : public pyUniplug {
 public:
-	BlendDataTextures()
+	BlendDataTextures(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataTextures() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6866,9 +7054,11 @@ public:
 /**
  * Collection of brushes
  */
-class BlendDataBrushes {
+class BlendDataBrushes : public pyUniplug {
 public:
-	BlendDataBrushes()
+	BlendDataBrushes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataBrushes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6915,9 +7105,11 @@ public:
 /**
  * Collection of worlds
  */
-class BlendDataWorlds {
+class BlendDataWorlds : public pyUniplug {
 public:
-	BlendDataWorlds()
+	BlendDataWorlds(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataWorlds() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -6964,9 +7156,11 @@ public:
 /**
  * Collection of groups
  */
-class BlendDataGroups {
+class BlendDataGroups : public pyUniplug {
 public:
-	BlendDataGroups()
+	BlendDataGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataGroups() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7013,9 +7207,11 @@ public:
 /**
  * Collection of texts
  */
-class BlendDataTexts {
+class BlendDataTexts : public pyUniplug {
 public:
-	BlendDataTexts()
+	BlendDataTexts(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataTexts() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7070,9 +7266,11 @@ public:
 /**
  * Collection of speakers
  */
-class BlendDataSpeakers {
+class BlendDataSpeakers : public pyUniplug {
 public:
-	BlendDataSpeakers()
+	BlendDataSpeakers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataSpeakers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7119,9 +7317,11 @@ public:
 /**
  * Collection of sounds
  */
-class BlendDataSounds {
+class BlendDataSounds : public pyUniplug {
 public:
-	BlendDataSounds()
+	BlendDataSounds(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataSounds() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7168,9 +7368,11 @@ public:
 /**
  * Collection of armatures
  */
-class BlendDataArmatures {
+class BlendDataArmatures : public pyUniplug {
 public:
-	BlendDataArmatures()
+	BlendDataArmatures(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataArmatures() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7217,9 +7419,11 @@ public:
 /**
  * Collection of actions
  */
-class BlendDataActions {
+class BlendDataActions : public pyUniplug {
 public:
-	BlendDataActions()
+	BlendDataActions(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataActions() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7266,9 +7470,11 @@ public:
 /**
  * Collection of particle settings
  */
-class BlendDataParticles {
+class BlendDataParticles : public pyUniplug {
 public:
-	BlendDataParticles()
+	BlendDataParticles(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataParticles() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7315,9 +7521,11 @@ public:
 /**
  * Collection of palettes
  */
-class BlendDataPalettes {
+class BlendDataPalettes : public pyUniplug {
 public:
-	BlendDataPalettes()
+	BlendDataPalettes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataPalettes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7364,9 +7572,11 @@ public:
 /**
  * Collection of grease pencils
  */
-class BlendDataGreasePencils {
+class BlendDataGreasePencils : public pyUniplug {
 public:
-	BlendDataGreasePencils()
+	BlendDataGreasePencils(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataGreasePencils() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7413,9 +7623,11 @@ public:
 /**
  * Collection of movie clips
  */
-class BlendDataMovieClips {
+class BlendDataMovieClips : public pyUniplug {
 public:
-	BlendDataMovieClips()
+	BlendDataMovieClips(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataMovieClips() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7457,9 +7669,11 @@ public:
 /**
  * Collection of masks
  */
-class BlendDataMasks {
+class BlendDataMasks : public pyUniplug {
 public:
-	BlendDataMasks()
+	BlendDataMasks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataMasks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7501,9 +7715,11 @@ public:
 /**
  * Collection of line styles
  */
-class BlendDataLineStyles {
+class BlendDataLineStyles : public pyUniplug {
 public:
-	BlendDataLineStyles()
+	BlendDataLineStyles(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendDataLineStyles() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7550,9 +7766,11 @@ public:
 /**
  * Collection of texture slots
  */
-class MaterialTextureSlots {
+class MaterialTextureSlots : public pyUniplug {
 public:
-	MaterialTextureSlots()
+	MaterialTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialTextureSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7594,9 +7812,11 @@ public:
 /**
  * Collection of mesh vertices
  */
-class MeshVertices {
+class MeshVertices : public pyUniplug {
 public:
-	MeshVertices()
+	MeshVertices(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertices() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7625,9 +7845,11 @@ public:
 /**
  * Collection of mesh edges
  */
-class MeshEdges {
+class MeshEdges : public pyUniplug {
 public:
-	MeshEdges()
+	MeshEdges(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshEdges() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7656,9 +7878,11 @@ public:
 /**
  * Collection of mesh faces
  */
-class MeshTessFaces {
+class MeshTessFaces : public pyUniplug {
 public:
-	MeshTessFaces()
+	MeshTessFaces(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshTessFaces() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7692,9 +7916,11 @@ public:
 /**
  * Collection of mesh loops
  */
-class MeshLoops {
+class MeshLoops : public pyUniplug {
 public:
-	MeshLoops()
+	MeshLoops(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshLoops() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7723,9 +7949,11 @@ public:
 /**
  * Collection of mesh polygons
  */
-class MeshPolygons {
+class MeshPolygons : public pyUniplug {
 public:
-	MeshPolygons()
+	MeshPolygons(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygons() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7759,9 +7987,11 @@ public:
 /**
  * Collection of uv loop layers
  */
-class UVLoopLayers {
+class UVLoopLayers : public pyUniplug {
 public:
-	UVLoopLayers()
+	UVLoopLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UVLoopLayers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7789,9 +8019,11 @@ public:
 /**
  * Collection of UV maps for tessellated faces
  */
-class TessfaceUVTextures {
+class TessfaceUVTextures : public pyUniplug {
 public:
-	TessfaceUVTextures()
+	TessfaceUVTextures(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TessfaceUVTextures() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7826,9 +8058,11 @@ public:
 /**
  * Collection of UV maps
  */
-class UVTextures {
+class UVTextures : public pyUniplug {
 public:
-	UVTextures()
+	UVTextures(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UVTextures() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7869,9 +8103,11 @@ public:
 /**
  * Collection of vertex colors
  */
-class VertexColors {
+class VertexColors : public pyUniplug {
 public:
-	VertexColors()
+	VertexColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7906,9 +8142,11 @@ public:
 /**
  * Collection of vertex colors
  */
-class LoopColors {
+class LoopColors : public pyUniplug {
 public:
-	LoopColors()
+	LoopColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LoopColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7949,9 +8187,11 @@ public:
 /**
  * Collection of float properties
  */
-class VertexFloatProperties {
+class VertexFloatProperties : public pyUniplug {
 public:
-	VertexFloatProperties()
+	VertexFloatProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexFloatProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -7978,9 +8218,11 @@ public:
 /**
  * Collection of int properties
  */
-class VertexIntProperties {
+class VertexIntProperties : public pyUniplug {
 public:
-	VertexIntProperties()
+	VertexIntProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexIntProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8007,9 +8249,11 @@ public:
 /**
  * Collection of string properties
  */
-class VertexStringProperties {
+class VertexStringProperties : public pyUniplug {
 public:
-	VertexStringProperties()
+	VertexStringProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexStringProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8036,9 +8280,11 @@ public:
 /**
  * Collection of float properties
  */
-class PolygonFloatProperties {
+class PolygonFloatProperties : public pyUniplug {
 public:
-	PolygonFloatProperties()
+	PolygonFloatProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PolygonFloatProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8065,9 +8311,11 @@ public:
 /**
  * Collection of int properties
  */
-class PolygonIntProperties {
+class PolygonIntProperties : public pyUniplug {
 public:
-	PolygonIntProperties()
+	PolygonIntProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PolygonIntProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8094,9 +8342,11 @@ public:
 /**
  * Collection of string properties
  */
-class PolygonStringProperties {
+class PolygonStringProperties : public pyUniplug {
 public:
-	PolygonStringProperties()
+	PolygonStringProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PolygonStringProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8123,9 +8373,11 @@ public:
 /**
  * Collection of metaball elements
  */
-class MetaBallElements {
+class MetaBallElements : public pyUniplug {
 public:
-	MetaBallElements()
+	MetaBallElements(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MetaBallElements() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8180,9 +8432,11 @@ public:
 /**
  * Collection of Nla Strips
  */
-class NlaStrips {
+class NlaStrips : public pyUniplug {
 public:
-	NlaStrips()
+	NlaStrips(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NlaStrips() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8217,9 +8471,11 @@ public:
 /**
  * Collection of Node Sockets
  */
-class NodeInputs {
+class NodeInputs : public pyUniplug {
 public:
-	NodeInputs()
+	NodeInputs(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeInputs() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8272,9 +8528,11 @@ public:
 /**
  * Collection of Node Sockets
  */
-class NodeOutputs {
+class NodeOutputs : public pyUniplug {
 public:
-	NodeOutputs()
+	NodeOutputs(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeOutputs() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8327,9 +8585,11 @@ public:
 /**
  * Collection of Nodes
  */
-class Nodes {
+class Nodes : public pyUniplug {
 public:
-	Nodes()
+	Nodes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Nodes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8373,9 +8633,11 @@ public:
 /**
  * Collection of Node Links
  */
-class NodeLinks {
+class NodeLinks : public pyUniplug {
 public:
-	NodeLinks()
+	NodeLinks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeLinks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8418,9 +8680,11 @@ public:
 /**
  * Collection of Node Tree Sockets
  */
-class NodeTreeInputs {
+class NodeTreeInputs : public pyUniplug {
 public:
-	NodeTreeInputs()
+	NodeTreeInputs(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeTreeInputs() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8472,9 +8736,11 @@ public:
 /**
  * Collection of Node Tree Sockets
  */
-class NodeTreeOutputs {
+class NodeTreeOutputs : public pyUniplug {
 public:
-	NodeTreeOutputs()
+	NodeTreeOutputs(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeTreeOutputs() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8526,9 +8792,11 @@ public:
 /**
  * Collection of File Output node slots
  */
-class CompositorNodeOutputFileFileSlots {
+class CompositorNodeOutputFileFileSlots : public pyUniplug {
 public:
-	CompositorNodeOutputFileFileSlots()
+	CompositorNodeOutputFileFileSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CompositorNodeOutputFileFileSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8579,9 +8847,11 @@ public:
 /**
  * Collection of File Output node slots
  */
-class CompositorNodeOutputFileLayerSlots {
+class CompositorNodeOutputFileLayerSlots : public pyUniplug {
 public:
-	CompositorNodeOutputFileLayerSlots()
+	CompositorNodeOutputFileLayerSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CompositorNodeOutputFileLayerSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8632,9 +8902,11 @@ public:
 /**
  * Collection of object modifiers
  */
-class ObjectModifiers {
+class ObjectModifiers : public pyUniplug {
 public:
-	ObjectModifiers()
+	ObjectModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ObjectModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8736,9 +9008,11 @@ public:
 /**
  * Collection of object constraints
  */
-class ObjectConstraints {
+class ObjectConstraints : public pyUniplug {
 public:
-	ObjectConstraints()
+	ObjectConstraints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ObjectConstraints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8819,9 +9093,11 @@ public:
 /**
  * Collection of vertex groups
  */
-class VertexGroups {
+class VertexGroups : public pyUniplug {
 public:
-	VertexGroups()
+	VertexGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexGroups() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8870,9 +9146,11 @@ public:
 /**
  * Collection of particle systems
  */
-class ParticleSystems {
+class ParticleSystems : public pyUniplug {
 public:
-	ParticleSystems()
+	ParticleSystems(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleSystems() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8900,9 +9178,11 @@ public:
 /**
  * Collection of point caches
  */
-class PointCaches {
+class PointCaches : public pyUniplug {
 public:
-	PointCaches()
+	PointCaches(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PointCaches() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8927,9 +9207,11 @@ public:
 /**
  * Collection of palette colors
  */
-class PaletteColors {
+class PaletteColors : public pyUniplug {
 public:
-	PaletteColors()
+	PaletteColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PaletteColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -8972,9 +9254,11 @@ public:
 /**
  * Collection of texture slots
  */
-class ParticleSettingsTextureSlots {
+class ParticleSettingsTextureSlots : public pyUniplug {
 public:
-	ParticleSettingsTextureSlots()
+	ParticleSettingsTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleSettingsTextureSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9016,9 +9300,11 @@ public:
 /**
  * Collection of bone groups
  */
-class BoneGroups {
+class BoneGroups : public pyUniplug {
 public:
-	BoneGroups()
+	BoneGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BoneGroups() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9059,9 +9345,11 @@ public:
 /**
  * Collection of pose bone constraints
  */
-class PoseBoneConstraints {
+class PoseBoneConstraints : public pyUniplug {
 public:
-	PoseBoneConstraints()
+	PoseBoneConstraints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PoseBoneConstraints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9134,9 +9422,11 @@ public:
 /**
  * Collection of render passes
  */
-class RenderPasses {
+class RenderPasses : public pyUniplug {
 public:
-	RenderPasses()
+	RenderPasses(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderPasses() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9199,9 +9489,11 @@ public:
 /**
  * Collection of scene bases
  */
-class SceneBases {
+class SceneBases : public pyUniplug {
 public:
-	SceneBases()
+	SceneBases(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SceneBases() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9224,9 +9516,11 @@ public:
 /**
  * Collection of scene objects
  */
-class SceneObjects {
+class SceneObjects : public pyUniplug {
 public:
-	SceneObjects()
+	SceneObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SceneObjects() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9262,9 +9556,11 @@ public:
 /**
  * Scene keying sets
  */
-class KeyingSets {
+class KeyingSets : public pyUniplug {
 public:
-	KeyingSets()
+	KeyingSets(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyingSets() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9300,9 +9596,11 @@ public:
 /**
  * All available keying sets
  */
-class KeyingSetsAll {
+class KeyingSetsAll : public pyUniplug {
 public:
-	KeyingSetsAll()
+	KeyingSetsAll(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyingSetsAll() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9330,9 +9628,11 @@ public:
 /**
  * Collection of timeline markers
  */
-class TimelineMarkers {
+class TimelineMarkers : public pyUniplug {
 public:
-	TimelineMarkers()
+	TimelineMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TimelineMarkers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9374,9 +9674,11 @@ public:
 /**
  * Collection of render layers
  */
-class RenderLayers {
+class RenderLayers : public pyUniplug {
 public:
-	RenderLayers()
+	RenderLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderLayers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9417,9 +9719,11 @@ public:
 /**
  * Collection of render views
  */
-class RenderViews {
+class RenderViews : public pyUniplug {
 public:
-	RenderViews()
+	RenderViews(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderViews() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9460,9 +9764,11 @@ public:
 /**
  * A list of style modules (to be applied from top to bottom)
  */
-class FreestyleModules {
+class FreestyleModules : public pyUniplug {
 public:
-	FreestyleModules()
+	FreestyleModules(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FreestyleModules() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9494,9 +9800,11 @@ public:
 /**
  * Line sets for associating lines and style parameters
  */
-class Linesets {
+class Linesets : public pyUniplug {
 public:
-	Linesets()
+	Linesets(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Linesets() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9537,9 +9845,11 @@ public:
 /**
  * Collection of spaces
  */
-class AreaSpaces {
+class AreaSpaces : public pyUniplug {
 public:
-	AreaSpaces()
+	AreaSpaces(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AreaSpaces() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9562,9 +9872,11 @@ public:
 /**
  * Collection of strip modifiers
  */
-class SequenceModifiers {
+class SequenceModifiers : public pyUniplug {
 public:
-	SequenceModifiers()
+	SequenceModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceModifiers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9617,9 +9929,11 @@ public:
 /**
  * Collection of Sequences
  */
-class Sequences {
+class Sequences : public pyUniplug {
 public:
-	Sequences()
+	Sequences(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Sequences() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9741,9 +10055,11 @@ public:
 /**
  * Collection of SequenceElement
  */
-class SequenceElements {
+class SequenceElements : public pyUniplug {
 public:
-	SequenceElements()
+	SequenceElements(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceElements() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9779,9 +10095,11 @@ public:
 /**
  * Collection of background images
  */
-class BackgroundImages {
+class BackgroundImages : public pyUniplug {
 public:
-	BackgroundImages()
+	BackgroundImages(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BackgroundImages() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9821,9 +10139,11 @@ public:
 /**
  * Get the node tree path as a string
  */
-class SpaceNodeEditorPath {
+class SpaceNodeEditorPath : public pyUniplug {
 public:
-	SpaceNodeEditorPath()
+	SpaceNodeEditorPath(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SpaceNodeEditorPath() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9877,9 +10197,11 @@ public:
 /**
  * Collection of add-ons
  */
-class Addons {
+class Addons : public pyUniplug {
 public:
-	Addons()
+	Addons(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Addons() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9911,9 +10233,11 @@ public:
 /**
  * Collection of paths
  */
-class PathCompareCollection {
+class PathCompareCollection : public pyUniplug {
 public:
-	PathCompareCollection()
+	PathCompareCollection(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PathCompareCollection() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9945,9 +10269,11 @@ public:
 /**
  * Collection of KeyConfigs
  */
-class KeyConfigurations {
+class KeyConfigurations : public pyUniplug {
 public:
-	KeyConfigurations()
+	KeyConfigurations(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyConfigurations() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -9992,9 +10318,11 @@ public:
 /**
  * Collection of keymaps
  */
-class KeyMaps {
+class KeyMaps : public pyUniplug {
 public:
-	KeyMaps()
+	KeyMaps(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyMaps() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10089,9 +10417,11 @@ public:
 /**
  * Collection of keymap items
  */
-class KeyMapItems {
+class KeyMapItems : public pyUniplug {
 public:
-	KeyMapItems()
+	KeyMapItems(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyMapItems() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10376,9 +10706,11 @@ public:
 /**
  * Collection of texture slots
  */
-class WorldTextureSlots {
+class WorldTextureSlots : public pyUniplug {
 public:
-	WorldTextureSlots()
+	WorldTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	WorldTextureSlots() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10420,9 +10752,11 @@ public:
 /**
  * Collection of markers for movie tracking track
  */
-class MovieTrackingMarkers {
+class MovieTrackingMarkers : public pyUniplug {
 public:
-	MovieTrackingMarkers()
+	MovieTrackingMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingMarkers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10467,9 +10801,11 @@ public:
 /**
  * Collection of markers for movie tracking plane track
  */
-class MovieTrackingPlaneMarkers {
+class MovieTrackingPlaneMarkers : public pyUniplug {
 public:
-	MovieTrackingPlaneMarkers()
+	MovieTrackingPlaneMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingPlaneMarkers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10513,9 +10849,11 @@ public:
 /**
  * Collection of movie tracking tracks
  */
-class MovieTrackingTracks {
+class MovieTrackingTracks : public pyUniplug {
 public:
-	MovieTrackingTracks()
+	MovieTrackingTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingTracks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10546,9 +10884,11 @@ public:
 /**
  * Collection of movie tracking plane tracks
  */
-class MovieTrackingPlaneTracks {
+class MovieTrackingPlaneTracks : public pyUniplug {
 public:
-	MovieTrackingPlaneTracks()
+	MovieTrackingPlaneTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingPlaneTracks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10571,9 +10911,11 @@ public:
 /**
  * Collection of movie tracking tracks
  */
-class MovieTrackingObjectTracks {
+class MovieTrackingObjectTracks : public pyUniplug {
 public:
-	MovieTrackingObjectTracks()
+	MovieTrackingObjectTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingObjectTracks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10604,9 +10946,11 @@ public:
 /**
  * Collection of tracking plane tracks
  */
-class MovieTrackingObjectPlaneTracks {
+class MovieTrackingObjectPlaneTracks : public pyUniplug {
 public:
-	MovieTrackingObjectPlaneTracks()
+	MovieTrackingObjectPlaneTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingObjectPlaneTracks() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10629,9 +10973,11 @@ public:
 /**
  * Collection of solved cameras
  */
-class MovieTrackingReconstructedCameras {
+class MovieTrackingReconstructedCameras : public pyUniplug {
 public:
-	MovieTrackingReconstructedCameras()
+	MovieTrackingReconstructedCameras(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingReconstructedCameras() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10669,9 +11015,11 @@ public:
 /**
  * Collection of movie trackingobjects
  */
-class MovieTrackingObjects {
+class MovieTrackingObjects : public pyUniplug {
 public:
-	MovieTrackingObjects()
+	MovieTrackingObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingObjects() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10707,9 +11055,11 @@ public:
 /**
  * Collection of masking splines
  */
-class MaskSplines {
+class MaskSplines : public pyUniplug {
 public:
-	MaskSplines()
+	MaskSplines(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskSplines() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10747,9 +11097,11 @@ public:
 /**
  * Collection of masking spline points
  */
-class MaskSplinePoints {
+class MaskSplinePoints : public pyUniplug {
 public:
-	MaskSplinePoints()
+	MaskSplinePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskSplinePoints() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10784,9 +11136,11 @@ public:
 /**
  * Collection of layers used by mask
  */
-class MaskLayers {
+class MaskLayers : public pyUniplug {
 public:
-	MaskLayers()
+	MaskLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskLayers() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -10832,12 +11186,11 @@ public:
  */
 class Action : public ID {
 public:
-	Action() : ID()
+	Action(PyObject* pyobj) : ID(pyobj) {}
+
+	Action() : ID(0)
 	{
 		// not implemented
-		fcurves();
-		groups();
-		pose_markers();
 	}
 
 	/** Getter: The individual F-Curves that make up the action */
@@ -10907,12 +11260,13 @@ public:
 /**
  * Groups of F-Curves
  */
-class ActionGroup {
+class ActionGroup : public pyUniplug {
 public:
-	ActionGroup()
+	ActionGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ActionGroup() : pyUniplug(0)
 	{
 		// not implemented
-		channels();
 	}
 
 	/** Getter: RNA property collection */
@@ -10993,9 +11347,11 @@ public:
 /**
  * Settings for filtering the channels shown in animation editors
  */
-class DopeSheet {
+class DopeSheet : public pyUniplug {
 public:
-	DopeSheet()
+	DopeSheet(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DopeSheet() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11176,13 +11532,13 @@ public:
 /**
  * Animation data for datablock
  */
-class AnimData {
+class AnimData : public pyUniplug {
 public:
-	AnimData()
+	AnimData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AnimData() : pyUniplug(0)
 	{
 		// not implemented
-		nla_tracks();
-		drivers();
 	}
 
 	/** Getter: RNA property collection */
@@ -11246,12 +11602,13 @@ public:
 /**
  * Settings that should be keyframed together
  */
-class KeyingSet {
+class KeyingSet : public pyUniplug {
 public:
-	KeyingSet()
+	KeyingSet(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyingSet() : pyUniplug(0)
 	{
 		// not implemented
-		paths();
 	}
 
 	/** Getter: RNA property collection */
@@ -11335,9 +11692,11 @@ public:
 /**
  * Path to a setting for use in a Keying Set
  */
-class KeyingSetPath {
+class KeyingSetPath : public pyUniplug {
 public:
-	KeyingSetPath()
+	KeyingSetPath(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyingSetPath() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11461,9 +11820,11 @@ public:
 /**
  * Callback function defines for builtin Keying Sets
  */
-class KeyingSetInfo {
+class KeyingSetInfo : public pyUniplug {
 public:
-	KeyingSetInfo()
+	KeyingSetInfo(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyingSetInfo() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11509,9 +11870,11 @@ public:
 /**
  * Settings for the visualization of motion
  */
-class AnimViz {
+class AnimViz : public pyUniplug {
 public:
-	AnimViz()
+	AnimViz(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AnimViz() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11537,9 +11900,11 @@ public:
 /**
  * Onion Skinning settings for animation visualization
  */
-class AnimVizOnionSkinning {
+class AnimVizOnionSkinning : public pyUniplug {
 public:
-	AnimVizOnionSkinning()
+	AnimVizOnionSkinning(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AnimVizOnionSkinning() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11601,9 +11966,11 @@ public:
 /**
  * Motion Path settings for animation visualization
  */
-class AnimVizMotionPaths {
+class AnimVizMotionPaths : public pyUniplug {
 public:
-	AnimVizMotionPaths()
+	AnimVizMotionPaths(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AnimVizMotionPaths() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11688,12 +12055,13 @@ public:
 /**
  * Cache of the worldspace positions of an element over a frame range
  */
-class MotionPath {
+class MotionPath : public pyUniplug {
 public:
-	MotionPath()
+	MotionPath(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MotionPath() : pyUniplug(0)
 	{
 		// not implemented
-		points();
 	}
 
 	/** Getter: RNA property collection */
@@ -11741,9 +12109,11 @@ public:
 /**
  * Cached location on path
  */
-class MotionPathVert {
+class MotionPathVert : public pyUniplug {
 public:
-	MotionPathVert()
+	MotionPathVert(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MotionPathVert() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11773,9 +12143,11 @@ public:
 /**
  * Actuator to apply actions in the game engine
  */
-class Actuator {
+class Actuator : public pyUniplug {
 public:
-	Actuator()
+	Actuator(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Actuator() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -11855,7 +12227,9 @@ public:
  */
 class ActionActuator : public Actuator {
 public:
-	ActionActuator() : Actuator()
+	ActionActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	ActionActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -11961,7 +12335,9 @@ public:
  */
 class ObjectActuator : public Actuator {
 public:
-	ObjectActuator() : Actuator()
+	ObjectActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	ObjectActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12129,7 +12505,9 @@ public:
  */
 class CameraActuator : public Actuator {
 public:
-	CameraActuator() : Actuator()
+	CameraActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	CameraActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12178,7 +12556,9 @@ public:
  */
 class SoundActuator : public Actuator {
 public:
-	SoundActuator() : Actuator()
+	SoundActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	SoundActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12264,7 +12644,9 @@ public:
  */
 class PropertyActuator : public Actuator {
 public:
-	PropertyActuator() : Actuator()
+	PropertyActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	PropertyActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12309,7 +12691,9 @@ public:
  */
 class ConstraintActuator : public Actuator {
 public:
-	ConstraintActuator() : Actuator()
+	ConstraintActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	ConstraintActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12499,7 +12883,9 @@ public:
  */
 class EditObjectActuator : public Actuator {
 public:
-	EditObjectActuator() : Actuator()
+	EditObjectActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	EditObjectActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12618,7 +13004,9 @@ public:
  */
 class SceneActuator : public Actuator {
 public:
-	SceneActuator() : Actuator()
+	SceneActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	SceneActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12654,7 +13042,9 @@ public:
  */
 class RandomActuator : public Actuator {
 public:
-	RandomActuator() : Actuator()
+	RandomActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	RandomActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12756,7 +13146,9 @@ public:
  */
 class MessageActuator : public Actuator {
 public:
-	MessageActuator() : Actuator()
+	MessageActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	MessageActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12800,7 +13192,9 @@ public:
  */
 class GameActuator : public Actuator {
 public:
-	GameActuator() : Actuator()
+	GameActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	GameActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12832,7 +13226,9 @@ public:
  */
 class VisibilityActuator : public Actuator {
 public:
-	VisibilityActuator() : Actuator()
+	VisibilityActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	VisibilityActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12861,7 +13257,9 @@ public:
  */
 class Filter2DActuator : public Actuator {
 public:
-	Filter2DActuator() : Actuator()
+	Filter2DActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	Filter2DActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12916,7 +13314,9 @@ public:
  */
 class ParentActuator : public Actuator {
 public:
-	ParentActuator() : Actuator()
+	ParentActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	ParentActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12953,7 +13353,9 @@ public:
  */
 class StateActuator : public Actuator {
 public:
-	StateActuator() : Actuator()
+	StateActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	StateActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -12984,7 +13386,9 @@ public:
  */
 class ArmatureActuator : public Actuator {
 public:
-	ArmatureActuator() : Actuator()
+	ArmatureActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	ArmatureActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -13038,7 +13442,9 @@ public:
  */
 class SteeringActuator : public Actuator {
 public:
-	SteeringActuator() : Actuator()
+	SteeringActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	SteeringActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -13133,7 +13539,9 @@ public:
  */
 class MouseActuator : public Actuator {
 public:
-	MouseActuator() : Actuator()
+	MouseActuator(PyObject* pyobj) : Actuator(pyobj) {}
+
+	MouseActuator() : Actuator(0)
 	{
 		// not implemented
 	}
@@ -13254,11 +13662,11 @@ public:
  */
 class Armature : public ID {
 public:
-	Armature() : ID()
+	Armature(PyObject* pyobj) : ID(pyobj) {}
+
+	Armature() : ID(0)
 	{
 		// not implemented
-		bones();
-		edit_bones();
 	}
 
 	/** Getter: Animation data for this datablock */
@@ -13409,12 +13817,13 @@ public:
 /**
  * Bone in an Armature datablock
  */
-class Bone {
+class Bone : public pyUniplug {
 public:
-	Bone()
+	Bone(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Bone() : pyUniplug(0)
 	{
 		// not implemented
-		children();
 	}
 
 	/** Getter: RNA property collection */
@@ -13606,9 +14015,11 @@ public:
 /**
  * Editmode bone in an Armature datablock
  */
-class EditBone {
+class EditBone : public pyUniplug {
 public:
-	EditBone()
+	EditBone(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	EditBone() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -13790,9 +14201,11 @@ public:
 /**
  * 
  */
-class BoidRule {
+class BoidRule : public pyUniplug {
 public:
-	BoidRule()
+	BoidRule(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BoidRule() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -13845,7 +14258,9 @@ public:
  */
 class BoidRuleGoal : public BoidRule {
 public:
-	BoidRuleGoal() : BoidRule()
+	BoidRuleGoal(PyObject* pyobj) : BoidRule(pyobj) {}
+
+	BoidRuleGoal() : BoidRule(0)
 	{
 		// not implemented
 	}
@@ -13867,7 +14282,9 @@ public:
  */
 class BoidRuleAvoid : public BoidRule {
 public:
-	BoidRuleAvoid() : BoidRule()
+	BoidRuleAvoid(PyObject* pyobj) : BoidRule(pyobj) {}
+
+	BoidRuleAvoid() : BoidRule(0)
 	{
 		// not implemented
 	}
@@ -13894,7 +14311,9 @@ public:
  */
 class BoidRuleAvoidCollision : public BoidRule {
 public:
-	BoidRuleAvoidCollision() : BoidRule()
+	BoidRuleAvoidCollision(PyObject* pyobj) : BoidRule(pyobj) {}
+
+	BoidRuleAvoidCollision() : BoidRule(0)
 	{
 		// not implemented
 	}
@@ -13923,7 +14342,9 @@ public:
  */
 class BoidRuleFollowLeader : public BoidRule {
 public:
-	BoidRuleFollowLeader() : BoidRule()
+	BoidRuleFollowLeader(PyObject* pyobj) : BoidRule(pyobj) {}
+
+	BoidRuleFollowLeader() : BoidRule(0)
 	{
 		// not implemented
 	}
@@ -13955,7 +14376,9 @@ public:
  */
 class BoidRuleAverageSpeed : public BoidRule {
 public:
-	BoidRuleAverageSpeed() : BoidRule()
+	BoidRuleAverageSpeed(PyObject* pyobj) : BoidRule(pyobj) {}
+
+	BoidRuleAverageSpeed() : BoidRule(0)
 	{
 		// not implemented
 	}
@@ -13984,7 +14407,9 @@ public:
  */
 class BoidRuleFight : public BoidRule {
 public:
-	BoidRuleFight() : BoidRule()
+	BoidRuleFight(PyObject* pyobj) : BoidRule(pyobj) {}
+
+	BoidRuleFight() : BoidRule(0)
 	{
 		// not implemented
 	}
@@ -14006,12 +14431,13 @@ public:
 /**
  * Boid state for boid physics
  */
-class BoidState {
+class BoidState : public pyUniplug {
 public:
-	BoidState()
+	BoidState(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BoidState() : pyUniplug(0)
 	{
 		// not implemented
-		rules();
 	}
 
 	/** Getter: RNA property collection */
@@ -14073,12 +14499,13 @@ public:
 /**
  * Settings for boid physics
  */
-class BoidSettings {
+class BoidSettings : public pyUniplug {
 public:
-	BoidSettings()
+	BoidSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BoidSettings() : pyUniplug(0)
 	{
 		// not implemented
-		states();
 	}
 
 	/** Getter: RNA property collection */
@@ -14226,7 +14653,9 @@ public:
  */
 class Brush : public ID {
 public:
-	Brush() : ID()
+	Brush(PyObject* pyobj) : ID(pyobj) {}
+
+	Brush() : ID(0)
 	{
 		// not implemented
 	}
@@ -14809,9 +15238,11 @@ public:
 /**
  * Read-only indications of which brush operations are supported by the current brush
  */
-class BrushCapabilities {
+class BrushCapabilities : public pyUniplug {
 public:
-	BrushCapabilities()
+	BrushCapabilities(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BrushCapabilities() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -14851,9 +15282,11 @@ public:
 /**
  * Read-only indications of which brush operations are supported by the current sculpt tool
  */
-class SculptToolCapabilities {
+class SculptToolCapabilities : public pyUniplug {
 public:
-	SculptToolCapabilities()
+	SculptToolCapabilities(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SculptToolCapabilities() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -14948,9 +15381,11 @@ public:
 /**
  * Read-only indications of which brush operations are supported by the current image paint brush
  */
-class ImapaintToolCapabilities {
+class ImapaintToolCapabilities : public pyUniplug {
 public:
-	ImapaintToolCapabilities()
+	ImapaintToolCapabilities(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ImapaintToolCapabilities() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -14987,7 +15422,9 @@ public:
  */
 class BrushTextureSlot : public TextureSlot {
 public:
-	BrushTextureSlot() : TextureSlot()
+	BrushTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
+
+	BrushTextureSlot() : TextureSlot(0)
 	{
 		// not implemented
 	}
@@ -15075,7 +15512,9 @@ public:
  */
 class OperatorStrokeElement : public PropertyGroup {
 public:
-	OperatorStrokeElement() : PropertyGroup()
+	OperatorStrokeElement(PyObject* pyobj) : PropertyGroup(pyobj) {}
+
+	OperatorStrokeElement() : PropertyGroup(0)
 	{
 		// not implemented
 	}
@@ -15124,7 +15563,9 @@ public:
  */
 class Camera : public ID {
 public:
-	Camera() : ID()
+	Camera(PyObject* pyobj) : ID(pyobj) {}
+
+	Camera() : ID(0)
 	{
 		// not implemented
 	}
@@ -15318,9 +15759,11 @@ public:
 /**
  * Stereoscopy settings for a Camera datablock
  */
-class CameraStereoData {
+class CameraStereoData : public pyUniplug {
 public:
-	CameraStereoData()
+	CameraStereoData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CameraStereoData() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -15377,9 +15820,11 @@ public:
 /**
  * Result of cloth solver iteration
  */
-class ClothSolverResult {
+class ClothSolverResult : public pyUniplug {
 public:
-	ClothSolverResult()
+	ClothSolverResult(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ClothSolverResult() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -15441,9 +15886,11 @@ public:
 /**
  * Cloth simulation settings for an object
  */
-class ClothSettings {
+class ClothSettings : public pyUniplug {
 public:
-	ClothSettings()
+	ClothSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ClothSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -15629,9 +16076,11 @@ public:
 /**
  * Cloth simulation settings for self collision and collision with other objects
  */
-class ClothCollisionSettings {
+class ClothCollisionSettings : public pyUniplug {
 public:
-	ClothCollisionSettings()
+	ClothCollisionSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ClothCollisionSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -15714,9 +16163,11 @@ public:
 /**
  * Point of a curve used for a curve mapping
  */
-class CurveMapPoint {
+class CurveMapPoint : public pyUniplug {
 public:
-	CurveMapPoint()
+	CurveMapPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CurveMapPoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -15756,12 +16207,13 @@ public:
 /**
  * Curve in a curve mapping
  */
-class CurveMap {
+class CurveMap : public pyUniplug {
 public:
-	CurveMap()
+	CurveMap(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CurveMap() : pyUniplug(0)
 	{
 		// not implemented
-		points();
 	}
 
 	/** Getter: RNA property collection */
@@ -15805,12 +16257,13 @@ public:
 /**
  * Curve mapping to map color, vector and scalar values to other values using a user defined curve
  */
-class CurveMapping {
+class CurveMapping : public pyUniplug {
 public:
-	CurveMapping()
+	CurveMapping(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CurveMapping() : pyUniplug(0)
 	{
 		// not implemented
-		curves();
 	}
 
 	/** Getter: RNA property collection */
@@ -15884,9 +16337,11 @@ public:
 /**
  * Element defining a color at a position in the color ramp
  */
-class ColorRampElement {
+class ColorRampElement : public pyUniplug {
 public:
-	ColorRampElement()
+	ColorRampElement(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorRampElement() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -15921,12 +16376,13 @@ public:
 /**
  * Color ramp mapping a scalar value to a color
  */
-class ColorRamp {
+class ColorRamp : public pyUniplug {
 public:
-	ColorRamp()
+	ColorRamp(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorRamp() : pyUniplug(0)
 	{
 		// not implemented
-		elements();
 	}
 
 	/** Getter: RNA property collection */
@@ -15996,9 +16452,11 @@ public:
 /**
  * Statistical view of the levels of color in an image
  */
-class Histogram {
+class Histogram : public pyUniplug {
 public:
-	Histogram()
+	Histogram(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Histogram() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16037,9 +16495,11 @@ public:
 /**
  * Scopes for statistical view of an image
  */
-class Scopes {
+class Scopes : public pyUniplug {
 public:
-	Scopes()
+	Scopes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Scopes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16095,9 +16555,11 @@ public:
 /**
  * Color management specific to display device
  */
-class ColorManagedDisplaySettings {
+class ColorManagedDisplaySettings : public pyUniplug {
 public:
-	ColorManagedDisplaySettings()
+	ColorManagedDisplaySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorManagedDisplaySettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16126,9 +16588,11 @@ public:
 /**
  * Color management settings used for displaying images on the display
  */
-class ColorManagedViewSettings {
+class ColorManagedViewSettings : public pyUniplug {
 public:
-	ColorManagedViewSettings()
+	ColorManagedViewSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorManagedViewSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16184,9 +16648,11 @@ public:
 /**
  * Input color space settings
  */
-class ColorManagedInputColorspaceSettings {
+class ColorManagedInputColorspaceSettings : public pyUniplug {
 public:
-	ColorManagedInputColorspaceSettings()
+	ColorManagedInputColorspaceSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorManagedInputColorspaceSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16215,9 +16681,11 @@ public:
 /**
  * Input color space settings
  */
-class ColorManagedSequencerColorspaceSettings {
+class ColorManagedSequencerColorspaceSettings : public pyUniplug {
 public:
-	ColorManagedSequencerColorspaceSettings()
+	ColorManagedSequencerColorspaceSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ColorManagedSequencerColorspaceSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16246,9 +16714,11 @@ public:
 /**
  * Constraint modifying the transformation of objects and bones
  */
-class Constraint {
+class Constraint : public pyUniplug {
 public:
-	Constraint()
+	Constraint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Constraint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16372,9 +16842,11 @@ public:
 /**
  * Target object for multi-target constraints
  */
-class ConstraintTarget {
+class ConstraintTarget : public pyUniplug {
 public:
-	ConstraintTarget()
+	ConstraintTarget(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ConstraintTarget() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -16404,7 +16876,9 @@ public:
  */
 class ChildOfConstraint : public Constraint {
 public:
-	ChildOfConstraint() : Constraint()
+	ChildOfConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	ChildOfConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16476,10 +16950,11 @@ public:
  */
 class PythonConstraint : public Constraint {
 public:
-	PythonConstraint() : Constraint()
+	PythonConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	PythonConstraint() : Constraint(0)
 	{
 		// not implemented
-		targets();
 	}
 
 	/** Getter: Target Objects */
@@ -16514,7 +16989,9 @@ public:
  */
 class StretchToConstraint : public Constraint {
 public:
-	StretchToConstraint() : Constraint()
+	StretchToConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	StretchToConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16598,7 +17075,9 @@ public:
  */
 class FollowPathConstraint : public Constraint {
 public:
-	FollowPathConstraint() : Constraint()
+	FollowPathConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	FollowPathConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16665,7 +17144,9 @@ public:
  */
 class LockedTrackConstraint : public Constraint {
 public:
-	LockedTrackConstraint() : Constraint()
+	LockedTrackConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	LockedTrackConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16717,7 +17198,9 @@ public:
  */
 class ActionConstraint : public Constraint {
 public:
-	ActionConstraint() : Constraint()
+	ActionConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	ActionConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16784,7 +17267,9 @@ public:
  */
 class CopyScaleConstraint : public Constraint {
 public:
-	CopyScaleConstraint() : Constraint()
+	CopyScaleConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	CopyScaleConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16826,7 +17311,9 @@ public:
  */
 class MaintainVolumeConstraint : public Constraint {
 public:
-	MaintainVolumeConstraint() : Constraint()
+	MaintainVolumeConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	MaintainVolumeConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16856,7 +17343,9 @@ public:
  */
 class CopyLocationConstraint : public Constraint {
 public:
-	CopyLocationConstraint() : Constraint()
+	CopyLocationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	CopyLocationConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16918,7 +17407,9 @@ public:
  */
 class CopyRotationConstraint : public Constraint {
 public:
-	CopyRotationConstraint() : Constraint()
+	CopyRotationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	CopyRotationConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -16975,7 +17466,9 @@ public:
  */
 class CopyTransformsConstraint : public Constraint {
 public:
-	CopyTransformsConstraint() : Constraint()
+	CopyTransformsConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	CopyTransformsConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17002,7 +17495,9 @@ public:
  */
 class FloorConstraint : public Constraint {
 public:
-	FloorConstraint() : Constraint()
+	FloorConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	FloorConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17053,7 +17548,9 @@ public:
  */
 class TrackToConstraint : public Constraint {
 public:
-	TrackToConstraint() : Constraint()
+	TrackToConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	TrackToConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17110,7 +17607,9 @@ public:
  */
 class KinematicConstraint : public Constraint {
 public:
-	KinematicConstraint() : Constraint()
+	KinematicConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	KinematicConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17251,7 +17750,9 @@ public:
  */
 class RigidBodyJointConstraint : public Constraint {
 public:
-	RigidBodyJointConstraint() : Constraint()
+	RigidBodyJointConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	RigidBodyJointConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17413,7 +17914,9 @@ public:
  */
 class ClampToConstraint : public Constraint {
 public:
-	ClampToConstraint() : Constraint()
+	ClampToConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	ClampToConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17447,7 +17950,9 @@ public:
  */
 class LimitDistanceConstraint : public Constraint {
 public:
-	LimitDistanceConstraint() : Constraint()
+	LimitDistanceConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	LimitDistanceConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17495,7 +18000,9 @@ public:
  */
 class LimitScaleConstraint : public Constraint {
 public:
-	LimitScaleConstraint() : Constraint()
+	LimitScaleConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	LimitScaleConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17574,7 +18081,9 @@ public:
  */
 class LimitRotationConstraint : public Constraint {
 public:
-	LimitRotationConstraint() : Constraint()
+	LimitRotationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	LimitRotationConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17638,7 +18147,9 @@ public:
  */
 class LimitLocationConstraint : public Constraint {
 public:
-	LimitLocationConstraint() : Constraint()
+	LimitLocationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	LimitLocationConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17717,7 +18228,9 @@ public:
  */
 class TransformConstraint : public Constraint {
 public:
-	TransformConstraint() : Constraint()
+	TransformConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	TransformConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -17979,7 +18492,9 @@ public:
  */
 class ShrinkwrapConstraint : public Constraint {
 public:
-	ShrinkwrapConstraint() : Constraint()
+	ShrinkwrapConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	ShrinkwrapConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18043,7 +18558,9 @@ public:
  */
 class DampedTrackConstraint : public Constraint {
 public:
-	DampedTrackConstraint() : Constraint()
+	DampedTrackConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	DampedTrackConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18084,7 +18601,9 @@ public:
  */
 class SplineIKConstraint : public Constraint {
 public:
-	SplineIKConstraint() : Constraint()
+	SplineIKConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	SplineIKConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18173,7 +18692,9 @@ public:
  */
 class PivotConstraint : public Constraint {
 public:
-	PivotConstraint() : Constraint()
+	PivotConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	PivotConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18225,7 +18746,9 @@ public:
  */
 class FollowTrackConstraint : public Constraint {
 public:
-	FollowTrackConstraint() : Constraint()
+	FollowTrackConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	FollowTrackConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18284,7 +18807,9 @@ public:
  */
 class CameraSolverConstraint : public Constraint {
 public:
-	CameraSolverConstraint() : Constraint()
+	CameraSolverConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	CameraSolverConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18306,7 +18831,9 @@ public:
  */
 class ObjectSolverConstraint : public Constraint {
 public:
-	ObjectSolverConstraint() : Constraint()
+	ObjectSolverConstraint(PyObject* pyobj) : Constraint(pyobj) {}
+
+	ObjectSolverConstraint() : Constraint(0)
 	{
 		// not implemented
 	}
@@ -18334,9 +18861,11 @@ public:
 /**
  * Current windowmanager and data context
  */
-class Context {
+class Context : public pyUniplug {
 public:
-	Context()
+	Context(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Context() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -18411,12 +18940,13 @@ public:
 /**
  * Game engine logic brick to process events, connecting sensors to actuators
  */
-class Controller {
+class Controller : public pyUniplug {
 public:
-	Controller()
+	Controller(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Controller() : pyUniplug(0)
 	{
 		// not implemented
-		actuators();
 	}
 
 	/** Getter: RNA property collection */
@@ -18496,7 +19026,9 @@ public:
  */
 class ExpressionController : public Controller {
 public:
-	ExpressionController() : Controller()
+	ExpressionController(PyObject* pyobj) : Controller(pyobj) {}
+
+	ExpressionController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18515,7 +19047,9 @@ public:
  */
 class PythonController : public Controller {
 public:
-	PythonController() : Controller()
+	PythonController(PyObject* pyobj) : Controller(pyobj) {}
+
+	PythonController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18552,7 +19086,9 @@ public:
  */
 class AndController : public Controller {
 public:
-	AndController() : Controller()
+	AndController(PyObject* pyobj) : Controller(pyobj) {}
+
+	AndController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18566,7 +19102,9 @@ public:
  */
 class OrController : public Controller {
 public:
-	OrController() : Controller()
+	OrController(PyObject* pyobj) : Controller(pyobj) {}
+
+	OrController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18580,7 +19118,9 @@ public:
  */
 class NorController : public Controller {
 public:
-	NorController() : Controller()
+	NorController(PyObject* pyobj) : Controller(pyobj) {}
+
+	NorController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18594,7 +19134,9 @@ public:
  */
 class NandController : public Controller {
 public:
-	NandController() : Controller()
+	NandController(PyObject* pyobj) : Controller(pyobj) {}
+
+	NandController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18608,7 +19150,9 @@ public:
  */
 class XorController : public Controller {
 public:
-	XorController() : Controller()
+	XorController(PyObject* pyobj) : Controller(pyobj) {}
+
+	XorController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18622,7 +19166,9 @@ public:
  */
 class XnorController : public Controller {
 public:
-	XnorController() : Controller()
+	XnorController(PyObject* pyobj) : Controller(pyobj) {}
+
+	XnorController() : Controller(0)
 	{
 		// not implemented
 	}
@@ -18636,11 +19182,11 @@ public:
  */
 class Curve : public ID {
 public:
-	Curve() : ID()
+	Curve(PyObject* pyobj) : ID(pyobj) {}
+
+	Curve() : ID(0)
 	{
 		// not implemented
-		splines();
-		materials();
 	}
 
 	/** Getter:  */
@@ -18889,7 +19435,9 @@ public:
  */
 class SurfaceCurve : public Curve {
 public:
-	SurfaceCurve() : Curve()
+	SurfaceCurve(PyObject* pyobj) : Curve(pyobj) {}
+
+	SurfaceCurve() : Curve(0)
 	{
 		// not implemented
 	}
@@ -18908,11 +19456,11 @@ public:
  */
 class TextCurve : public Curve {
 public:
-	TextCurve() : Curve()
+	TextCurve(PyObject* pyobj) : Curve(pyobj) {}
+
+	TextCurve() : Curve(0)
 	{
 		// not implemented
-		text_boxes();
-		body_format();
 	}
 
 	enum align_enum {
@@ -19038,9 +19586,11 @@ public:
 /**
  * Text bounding box for layout
  */
-class TextBox {
+class TextBox : public pyUniplug {
 public:
-	TextBox()
+	TextBox(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TextBox() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -19080,9 +19630,11 @@ public:
 /**
  * Text character formatting settings
  */
-class TextCharacterFormat {
+class TextCharacterFormat : public pyUniplug {
 public:
-	TextCharacterFormat()
+	TextCharacterFormat(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TextCharacterFormat() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -19127,9 +19679,11 @@ public:
 /**
  * Spline point without handles
  */
-class SplinePoint {
+class SplinePoint : public pyUniplug {
 public:
-	SplinePoint()
+	SplinePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SplinePoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -19184,9 +19738,11 @@ public:
 /**
  * Bezier curve point with two handles
  */
-class BezierSplinePoint {
+class BezierSplinePoint : public pyUniplug {
 public:
-	BezierSplinePoint()
+	BezierSplinePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BezierSplinePoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -19280,13 +19836,13 @@ public:
 /**
  * Element of a curve, either NURBS, Bezier or Polyline or a character with text objects
  */
-class Spline {
+class Spline : public pyUniplug {
 public:
-	Spline()
+	Spline(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Spline() : pyUniplug(0)
 	{
 		// not implemented
-		points();
-		bezier_points();
 	}
 
 	/** Getter: RNA property collection */
@@ -19431,9 +19987,11 @@ public:
 /**
  * 
  */
-class Depsgraph {
+class Depsgraph : public pyUniplug {
 public:
-	Depsgraph()
+	Depsgraph(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Depsgraph() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -19478,12 +20036,13 @@ public:
 /**
  * Dynamic Paint canvas settings
  */
-class DynamicPaintCanvasSettings {
+class DynamicPaintCanvasSettings : public pyUniplug {
 public:
-	DynamicPaintCanvasSettings()
+	DynamicPaintCanvasSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DynamicPaintCanvasSettings() : pyUniplug(0)
 	{
 		// not implemented
-		canvas_surfaces();
 	}
 
 	/** Getter: RNA property collection */
@@ -19506,9 +20065,11 @@ public:
 /**
  * Brush settings
  */
-class DynamicPaintBrushSettings {
+class DynamicPaintBrushSettings : public pyUniplug {
 public:
-	DynamicPaintBrushSettings()
+	DynamicPaintBrushSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DynamicPaintBrushSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -19697,9 +20258,11 @@ public:
 /**
  * A canvas surface layer
  */
-class DynamicPaintSurface {
+class DynamicPaintSurface : public pyUniplug {
 public:
-	DynamicPaintSurface()
+	DynamicPaintSurface(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DynamicPaintSurface() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -20036,14 +20599,13 @@ public:
 /**
  * F-Curve defining values of a period of time
  */
-class FCurve {
+class FCurve : public pyUniplug {
 public:
-	FCurve()
+	FCurve(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FCurve() : pyUniplug(0)
 	{
 		// not implemented
-		sampled_points();
-		keyframe_points();
-		modifiers();
 	}
 
 	/** Getter: RNA property collection */
@@ -20201,9 +20763,11 @@ public:
 /**
  * Bezier curve point with two handles defining a Keyframe on an F-Curve
  */
-class Keyframe {
+class Keyframe : public pyUniplug {
 public:
-	Keyframe()
+	Keyframe(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Keyframe() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -20339,9 +20903,11 @@ public:
 /**
  * Sample point for F-Curve
  */
-class FCurveSample {
+class FCurveSample : public pyUniplug {
 public:
-	FCurveSample()
+	FCurveSample(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FCurveSample() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -20371,9 +20937,11 @@ public:
 /**
  * Source of input values for driver variables
  */
-class DriverTarget {
+class DriverTarget : public pyUniplug {
 public:
-	DriverTarget()
+	DriverTarget(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DriverTarget() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -20474,12 +21042,13 @@ public:
 /**
  * Variable from some source/target for driver relationship
  */
-class DriverVariable {
+class DriverVariable : public pyUniplug {
 public:
-	DriverVariable()
+	DriverVariable(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DriverVariable() : pyUniplug(0)
 	{
 		// not implemented
-		targets();
 	}
 
 	/** Getter: RNA property collection */
@@ -20519,12 +21088,13 @@ public:
 /**
  * Driver for the value of a setting based on an external value
  */
-class Driver {
+class Driver : public pyUniplug {
 public:
-	Driver()
+	Driver(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Driver() : pyUniplug(0)
 	{
 		// not implemented
-		variables();
 	}
 
 	/** Getter: RNA property collection */
@@ -20575,9 +21145,11 @@ public:
 /**
  * Modifier for values of F-Curve
  */
-class FModifier {
+class FModifier : public pyUniplug {
 public:
-	FModifier()
+	FModifier(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FModifier() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -20591,7 +21163,7 @@ public:
 	Struct rna_type() { /* not implemented */ throw NULL; }
 
 	enum type_enum {
-		type_UNDEFINED = 0,
+		type_NULL = 0,
 		type_GENERATOR = 1,
 		type_FNGENERATOR = 2,
 		type_ENVELOPE = 3,
@@ -20671,7 +21243,9 @@ public:
  */
 class FModifierGenerator : public FModifier {
 public:
-	FModifierGenerator() : FModifier()
+	FModifierGenerator(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierGenerator() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -20710,7 +21284,9 @@ public:
  */
 class FModifierFunctionGenerator : public FModifier {
 public:
-	FModifierFunctionGenerator() : FModifier()
+	FModifierFunctionGenerator(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierFunctionGenerator() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -20763,10 +21339,11 @@ public:
  */
 class FModifierEnvelope : public FModifier {
 public:
-	FModifierEnvelope() : FModifier()
+	FModifierEnvelope(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierEnvelope() : FModifier(0)
 	{
 		// not implemented
-		control_points();
 	}
 
 	/** Getter: Control points defining the shape of the envelope */
@@ -20796,9 +21373,11 @@ public:
 /**
  * Control point for envelope F-Modifier
  */
-class FModifierEnvelopeControlPoint {
+class FModifierEnvelopeControlPoint : public pyUniplug {
 public:
-	FModifierEnvelopeControlPoint()
+	FModifierEnvelopeControlPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FModifierEnvelopeControlPoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -20835,7 +21414,9 @@ public:
  */
 class FModifierCycles : public FModifier {
 public:
-	FModifierCycles() : FModifier()
+	FModifierCycles(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierCycles() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -20883,7 +21464,9 @@ public:
  */
 class FModifierPython : public FModifier {
 public:
-	FModifierPython() : FModifier()
+	FModifierPython(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierPython() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -20897,7 +21480,9 @@ public:
  */
 class FModifierLimits : public FModifier {
 public:
-	FModifierLimits() : FModifier()
+	FModifierLimits(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierLimits() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -20951,7 +21536,9 @@ public:
  */
 class FModifierNoise : public FModifier {
 public:
-	FModifierNoise() : FModifier()
+	FModifierNoise(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierNoise() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -21002,7 +21589,9 @@ public:
  */
 class FModifierStepped : public FModifier {
 public:
-	FModifierStepped() : FModifier()
+	FModifierStepped(PyObject* pyobj) : FModifier(pyobj) {}
+
+	FModifierStepped() : FModifier(0)
 	{
 		// not implemented
 	}
@@ -21044,9 +21633,11 @@ public:
 /**
  * Fluid simulation settings for an object taking part in the simulation
  */
-class FluidSettings {
+class FluidSettings : public pyUniplug {
 public:
-	FluidSettings()
+	FluidSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FluidSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -21084,10 +21675,11 @@ public:
  */
 class DomainFluidSettings : public FluidSettings {
 public:
-	DomainFluidSettings() : FluidSettings()
+	DomainFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	DomainFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
-		fluid_mesh_vertices();
 	}
 
 	/** Getter: Override number of threads for the simulation, 0 is automatic */
@@ -21255,9 +21847,11 @@ public:
 /**
  * Vertex of a simulated fluid mesh
  */
-class FluidMeshVertex {
+class FluidMeshVertex : public pyUniplug {
 public:
-	FluidMeshVertex()
+	FluidMeshVertex(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FluidMeshVertex() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -21284,7 +21878,9 @@ public:
  */
 class FluidFluidSettings : public FluidSettings {
 public:
-	FluidFluidSettings() : FluidSettings()
+	FluidFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	FluidFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
 	}
@@ -21324,7 +21920,9 @@ public:
  */
 class ObstacleFluidSettings : public FluidSettings {
 public:
-	ObstacleFluidSettings() : FluidSettings()
+	ObstacleFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	ObstacleFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
 	}
@@ -21380,7 +21978,9 @@ public:
  */
 class InflowFluidSettings : public FluidSettings {
 public:
-	InflowFluidSettings() : FluidSettings()
+	InflowFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	InflowFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
 	}
@@ -21425,7 +22025,9 @@ public:
  */
 class OutflowFluidSettings : public FluidSettings {
 public:
-	OutflowFluidSettings() : FluidSettings()
+	OutflowFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	OutflowFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
 	}
@@ -21460,7 +22062,9 @@ public:
  */
 class ParticleFluidSettings : public FluidSettings {
 public:
-	ParticleFluidSettings() : FluidSettings()
+	ParticleFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	ParticleFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
 	}
@@ -21504,7 +22108,9 @@ public:
  */
 class ControlFluidSettings : public FluidSettings {
 public:
-	ControlFluidSettings() : FluidSettings()
+	ControlFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
+
+	ControlFluidSettings() : FluidSettings(0)
 	{
 		// not implemented
 	}
@@ -21563,10 +22169,11 @@ public:
  */
 class GreasePencil : public ID {
 public:
-	GreasePencil() : ID()
+	GreasePencil(PyObject* pyobj) : ID(pyobj) {}
+
+	GreasePencil() : ID(0)
 	{
 		// not implemented
-		layers();
 	}
 
 	/** Getter:  */
@@ -21614,12 +22221,13 @@ public:
 /**
  * Collection of related sketches
  */
-class GPencilLayer {
+class GPencilLayer : public pyUniplug {
 public:
-	GPencilLayer()
+	GPencilLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilLayer() : pyUniplug(0)
 	{
 		// not implemented
-		frames();
 	}
 
 	/** Getter: RNA property collection */
@@ -21758,12 +22366,13 @@ public:
 /**
  * Collection of related sketches on a particular frame
  */
-class GPencilFrame {
+class GPencilFrame : public pyUniplug {
 public:
-	GPencilFrame()
+	GPencilFrame(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilFrame() : pyUniplug(0)
 	{
 		// not implemented
-		strokes();
 	}
 
 	/** Getter: RNA property collection */
@@ -21809,12 +22418,13 @@ public:
 /**
  * Freehand curve defining part of a sketch
  */
-class GPencilStroke {
+class GPencilStroke : public pyUniplug {
 public:
-	GPencilStroke()
+	GPencilStroke(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilStroke() : pyUniplug(0)
 	{
 		// not implemented
-		points();
 	}
 
 	/** Getter: RNA property collection */
@@ -21854,9 +22464,11 @@ public:
 /**
  * Data point for freehand stroke curve
  */
-class GPencilStrokePoint {
+class GPencilStrokePoint : public pyUniplug {
 public:
-	GPencilStrokePoint()
+	GPencilStrokePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPencilStrokePoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -21893,10 +22505,11 @@ public:
  */
 class Group : public ID {
 public:
-	Group() : ID()
+	Group(PyObject* pyobj) : ID(pyobj) {}
+
+	Group() : ID(0)
 	{
 		// not implemented
-		objects();
 	}
 
 	/** Getter: Offset from the origin to use when instancing as DupliGroup */
@@ -21921,9 +22534,11 @@ public:
 /**
  * Parameters defining the render slot
  */
-class RenderSlot {
+class RenderSlot : public pyUniplug {
 public:
-	RenderSlot()
+	RenderSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderSlot() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -21950,11 +22565,11 @@ public:
  */
 class Image : public ID {
 public:
-	Image() : ID()
+	Image(PyObject* pyobj) : ID(pyobj) {}
+
+	Image() : ID(0)
 	{
 		// not implemented
-		packed_files();
-		render_slots();
 	}
 
 	/** Getter: Image/Movie file name */
@@ -22373,9 +22988,11 @@ public:
 /**
  * Parameters defining how an Image datablock is used by another datablock
  */
-class ImageUser {
+class ImageUser : public pyUniplug {
 public:
-	ImageUser()
+	ImageUser(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ImageUser() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -22440,9 +23057,11 @@ public:
 /**
  * 
  */
-class ImagePackedFile {
+class ImagePackedFile : public pyUniplug {
 public:
-	ImagePackedFile()
+	ImagePackedFile(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ImagePackedFile() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -22472,10 +23091,11 @@ public:
  */
 class Key : public ID {
 public:
-	Key() : ID()
+	Key(PyObject* pyobj) : ID(pyobj) {}
+
+	Key() : ID(0)
 	{
 		// not implemented
-		key_blocks();
 	}
 
 	/** Getter:  */
@@ -22509,12 +23129,13 @@ public:
 /**
  * Shape key in a shape keys datablock
  */
-class ShapeKey {
+class ShapeKey : public pyUniplug {
 public:
-	ShapeKey()
+	ShapeKey(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ShapeKey() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -22587,9 +23208,11 @@ public:
 /**
  * Point in a shape key
  */
-class ShapeKeyPoint {
+class ShapeKeyPoint : public pyUniplug {
 public:
-	ShapeKeyPoint()
+	ShapeKeyPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ShapeKeyPoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -22614,9 +23237,11 @@ public:
 /**
  * Point in a shape key for curves
  */
-class ShapeKeyCurvePoint {
+class ShapeKeyCurvePoint : public pyUniplug {
 public:
-	ShapeKeyCurvePoint()
+	ShapeKeyCurvePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ShapeKeyCurvePoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -22646,9 +23271,11 @@ public:
 /**
  * Point in a shape key for Bezier curves
  */
-class ShapeKeyBezierPoint {
+class ShapeKeyBezierPoint : public pyUniplug {
 public:
-	ShapeKeyBezierPoint()
+	ShapeKeyBezierPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ShapeKeyBezierPoint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -22685,10 +23312,11 @@ public:
  */
 class Lamp : public ID {
 public:
-	Lamp() : ID()
+	Lamp(PyObject* pyobj) : ID(pyobj) {}
+
+	Lamp() : ID(0)
 	{
 		// not implemented
-		texture_slots();
 	}
 
 	enum type_enum {
@@ -22772,7 +23400,9 @@ public:
  */
 class PointLamp : public Lamp {
 public:
-	PointLamp() : Lamp()
+	PointLamp(PyObject* pyobj) : Lamp(pyobj) {}
+
+	PointLamp() : Lamp(0)
 	{
 		// not implemented
 	}
@@ -22966,7 +23596,9 @@ public:
  */
 class AreaLamp : public Lamp {
 public:
-	AreaLamp() : Lamp()
+	AreaLamp(PyObject* pyobj) : Lamp(pyobj) {}
+
+	AreaLamp() : Lamp(0)
 	{
 		// not implemented
 	}
@@ -23175,7 +23807,9 @@ public:
  */
 class SpotLamp : public Lamp {
 public:
-	SpotLamp() : Lamp()
+	SpotLamp(PyObject* pyobj) : Lamp(pyobj) {}
+
+	SpotLamp() : Lamp(0)
 	{
 		// not implemented
 	}
@@ -23405,7 +24039,9 @@ public:
  */
 class SunLamp : public Lamp {
 public:
-	SunLamp() : Lamp()
+	SunLamp(PyObject* pyobj) : Lamp(pyobj) {}
+
+	SunLamp() : Lamp(0)
 	{
 		// not implemented
 	}
@@ -23579,9 +24215,11 @@ public:
 /**
  * Sky related settings for a sun lamp
  */
-class LampSkySettings {
+class LampSkySettings : public pyUniplug {
 public:
-	LampSkySettings()
+	LampSkySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LampSkySettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -23710,7 +24348,9 @@ public:
  */
 class HemiLamp : public Lamp {
 public:
-	HemiLamp() : Lamp()
+	HemiLamp(PyObject* pyobj) : Lamp(pyobj) {}
+
+	HemiLamp() : Lamp(0)
 	{
 		// not implemented
 	}
@@ -23724,7 +24364,9 @@ public:
  */
 class LampTextureSlot : public TextureSlot {
 public:
-	LampTextureSlot() : TextureSlot()
+	LampTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
+
+	LampTextureSlot() : TextureSlot(0)
 	{
 		// not implemented
 	}
@@ -23772,10 +24414,11 @@ public:
  */
 class Lattice : public ID {
 public:
-	Lattice() : ID()
+	Lattice(PyObject* pyobj) : ID(pyobj) {}
+
+	Lattice() : ID(0)
 	{
 		// not implemented
-		points();
 	}
 
 	/** Getter: Point in U direction (can't be changed when there are shape keys) */
@@ -23872,12 +24515,13 @@ public:
 /**
  * Point in the lattice grid
  */
-class LatticePoint {
+class LatticePoint : public pyUniplug {
 public:
-	LatticePoint()
+	LatticePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LatticePoint() : pyUniplug(0)
 	{
 		// not implemented
-		groups();
 	}
 
 	/** Getter: RNA property collection */
@@ -23920,9 +24564,11 @@ public:
 /**
  * Base type to define modifiers
  */
-class LineStyleModifier {
+class LineStyleModifier : public pyUniplug {
 public:
-	LineStyleModifier()
+	LineStyleModifier(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LineStyleModifier() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -23944,7 +24590,9 @@ public:
  */
 class LineStyleColorModifier : public LineStyleModifier {
 public:
-	LineStyleColorModifier() : LineStyleModifier()
+	LineStyleColorModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
+
+	LineStyleColorModifier() : LineStyleModifier(0)
 	{
 		// not implemented
 	}
@@ -23958,7 +24606,9 @@ public:
  */
 class LineStyleColorModifier_AlongStroke : public LineStyleColorModifier {
 public:
-	LineStyleColorModifier_AlongStroke() : LineStyleColorModifier()
+	LineStyleColorModifier_AlongStroke(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
+
+	LineStyleColorModifier_AlongStroke() : LineStyleColorModifier(0)
 	{
 		// not implemented
 	}
@@ -24033,7 +24683,9 @@ public:
  */
 class LineStyleColorModifier_DistanceFromCamera : public LineStyleColorModifier {
 public:
-	LineStyleColorModifier_DistanceFromCamera() : LineStyleColorModifier()
+	LineStyleColorModifier_DistanceFromCamera(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
+
+	LineStyleColorModifier_DistanceFromCamera() : LineStyleColorModifier(0)
 	{
 		// not implemented
 	}
@@ -24118,7 +24770,9 @@ public:
  */
 class LineStyleColorModifier_DistanceFromObject : public LineStyleColorModifier {
 public:
-	LineStyleColorModifier_DistanceFromObject() : LineStyleColorModifier()
+	LineStyleColorModifier_DistanceFromObject(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
+
+	LineStyleColorModifier_DistanceFromObject() : LineStyleColorModifier(0)
 	{
 		// not implemented
 	}
@@ -24206,7 +24860,9 @@ public:
  */
 class LineStyleColorModifier_Material : public LineStyleColorModifier {
 public:
-	LineStyleColorModifier_Material() : LineStyleColorModifier()
+	LineStyleColorModifier_Material(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
+
+	LineStyleColorModifier_Material() : LineStyleColorModifier(0)
 	{
 		// not implemented
 	}
@@ -24309,7 +24965,9 @@ public:
  */
 class LineStyleAlphaModifier : public LineStyleModifier {
 public:
-	LineStyleAlphaModifier() : LineStyleModifier()
+	LineStyleAlphaModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
+
+	LineStyleAlphaModifier() : LineStyleModifier(0)
 	{
 		// not implemented
 	}
@@ -24323,7 +24981,9 @@ public:
  */
 class LineStyleAlphaModifier_AlongStroke : public LineStyleAlphaModifier {
 public:
-	LineStyleAlphaModifier_AlongStroke() : LineStyleAlphaModifier()
+	LineStyleAlphaModifier_AlongStroke(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
+
+	LineStyleAlphaModifier_AlongStroke() : LineStyleAlphaModifier(0)
 	{
 		// not implemented
 	}
@@ -24403,7 +25063,9 @@ public:
  */
 class LineStyleAlphaModifier_DistanceFromCamera : public LineStyleAlphaModifier {
 public:
-	LineStyleAlphaModifier_DistanceFromCamera() : LineStyleAlphaModifier()
+	LineStyleAlphaModifier_DistanceFromCamera(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
+
+	LineStyleAlphaModifier_DistanceFromCamera() : LineStyleAlphaModifier(0)
 	{
 		// not implemented
 	}
@@ -24493,7 +25155,9 @@ public:
  */
 class LineStyleAlphaModifier_DistanceFromObject : public LineStyleAlphaModifier {
 public:
-	LineStyleAlphaModifier_DistanceFromObject() : LineStyleAlphaModifier()
+	LineStyleAlphaModifier_DistanceFromObject(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
+
+	LineStyleAlphaModifier_DistanceFromObject() : LineStyleAlphaModifier(0)
 	{
 		// not implemented
 	}
@@ -24586,7 +25250,9 @@ public:
  */
 class LineStyleAlphaModifier_Material : public LineStyleAlphaModifier {
 public:
-	LineStyleAlphaModifier_Material() : LineStyleAlphaModifier()
+	LineStyleAlphaModifier_Material(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
+
+	LineStyleAlphaModifier_Material() : LineStyleAlphaModifier(0)
 	{
 		// not implemented
 	}
@@ -24689,7 +25355,9 @@ public:
  */
 class LineStyleThicknessModifier : public LineStyleModifier {
 public:
-	LineStyleThicknessModifier() : LineStyleModifier()
+	LineStyleThicknessModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
+
+	LineStyleThicknessModifier() : LineStyleModifier(0)
 	{
 		// not implemented
 	}
@@ -24703,7 +25371,9 @@ public:
  */
 class LineStyleThicknessModifier_AlongStroke : public LineStyleThicknessModifier {
 public:
-	LineStyleThicknessModifier_AlongStroke() : LineStyleThicknessModifier()
+	LineStyleThicknessModifier_AlongStroke(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
+
+	LineStyleThicknessModifier_AlongStroke() : LineStyleThicknessModifier(0)
 	{
 		// not implemented
 	}
@@ -24794,7 +25464,9 @@ public:
  */
 class LineStyleThicknessModifier_DistanceFromCamera : public LineStyleThicknessModifier {
 public:
-	LineStyleThicknessModifier_DistanceFromCamera() : LineStyleThicknessModifier()
+	LineStyleThicknessModifier_DistanceFromCamera(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
+
+	LineStyleThicknessModifier_DistanceFromCamera() : LineStyleThicknessModifier(0)
 	{
 		// not implemented
 	}
@@ -24895,7 +25567,9 @@ public:
  */
 class LineStyleThicknessModifier_DistanceFromObject : public LineStyleThicknessModifier {
 public:
-	LineStyleThicknessModifier_DistanceFromObject() : LineStyleThicknessModifier()
+	LineStyleThicknessModifier_DistanceFromObject(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
+
+	LineStyleThicknessModifier_DistanceFromObject() : LineStyleThicknessModifier(0)
 	{
 		// not implemented
 	}
@@ -24999,7 +25673,9 @@ public:
  */
 class LineStyleThicknessModifier_Material : public LineStyleThicknessModifier {
 public:
-	LineStyleThicknessModifier_Material() : LineStyleThicknessModifier()
+	LineStyleThicknessModifier_Material(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
+
+	LineStyleThicknessModifier_Material() : LineStyleThicknessModifier(0)
 	{
 		// not implemented
 	}
@@ -25113,7 +25789,9 @@ public:
  */
 class LineStyleThicknessModifier_Calligraphy : public LineStyleThicknessModifier {
 public:
-	LineStyleThicknessModifier_Calligraphy() : LineStyleThicknessModifier()
+	LineStyleThicknessModifier_Calligraphy(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
+
+	LineStyleThicknessModifier_Calligraphy() : LineStyleThicknessModifier(0)
 	{
 		// not implemented
 	}
@@ -25191,7 +25869,9 @@ public:
  */
 class LineStyleGeometryModifier : public LineStyleModifier {
 public:
-	LineStyleGeometryModifier() : LineStyleModifier()
+	LineStyleGeometryModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
+
+	LineStyleGeometryModifier() : LineStyleModifier(0)
 	{
 		// not implemented
 	}
@@ -25205,7 +25885,9 @@ public:
  */
 class LineStyleGeometryModifier_Sampling : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_Sampling() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_Sampling(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_Sampling() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25260,7 +25942,9 @@ public:
  */
 class LineStyleGeometryModifier_BezierCurve : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_BezierCurve() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_BezierCurve(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_BezierCurve() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25315,7 +25999,9 @@ public:
  */
 class LineStyleGeometryModifier_SinusDisplacement : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_SinusDisplacement() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_SinusDisplacement(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_SinusDisplacement() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25380,7 +26066,9 @@ public:
  */
 class LineStyleGeometryModifier_SpatialNoise : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_SpatialNoise() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_SpatialNoise(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_SpatialNoise() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25455,7 +26143,9 @@ public:
  */
 class LineStyleGeometryModifier_PerlinNoise1D : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_PerlinNoise1D() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_PerlinNoise1D(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_PerlinNoise1D() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25530,7 +26220,9 @@ public:
  */
 class LineStyleGeometryModifier_PerlinNoise2D : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_PerlinNoise2D() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_PerlinNoise2D(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_PerlinNoise2D() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25605,7 +26297,9 @@ public:
  */
 class LineStyleGeometryModifier_BackboneStretcher : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_BackboneStretcher() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_BackboneStretcher(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_BackboneStretcher() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25660,7 +26354,9 @@ public:
  */
 class LineStyleGeometryModifier_TipRemover : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_TipRemover() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_TipRemover(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_TipRemover() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25715,7 +26411,9 @@ public:
  */
 class LineStyleGeometryModifier_Polygonalization : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_Polygonalization() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_Polygonalization(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_Polygonalization() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25770,7 +26468,9 @@ public:
  */
 class LineStyleGeometryModifier_GuidingLines : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_GuidingLines() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_GuidingLines(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_GuidingLines() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25825,7 +26525,9 @@ public:
  */
 class LineStyleGeometryModifier_Blueprint : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_Blueprint() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_Blueprint(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_Blueprint() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25911,7 +26613,9 @@ public:
  */
 class LineStyleGeometryModifier_2DOffset : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_2DOffset() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_2DOffset(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_2DOffset() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -25981,7 +26685,9 @@ public:
  */
 class LineStyleGeometryModifier_2DTransform : public LineStyleGeometryModifier {
 public:
-	LineStyleGeometryModifier_2DTransform() : LineStyleGeometryModifier()
+	LineStyleGeometryModifier_2DTransform(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
+
+	LineStyleGeometryModifier_2DTransform() : LineStyleGeometryModifier(0)
 	{
 		// not implemented
 	}
@@ -26074,14 +26780,11 @@ public:
  */
 class FreestyleLineStyle : public ID {
 public:
-	FreestyleLineStyle() : ID()
+	FreestyleLineStyle(PyObject* pyobj) : ID(pyobj) {}
+
+	FreestyleLineStyle() : ID(0)
 	{
 		// not implemented
-		texture_slots();
-		color_modifiers();
-		alpha_modifiers();
-		thickness_modifiers();
-		geometry_modifiers();
 	}
 
 	/** Getter: Texture slots defining the mapping and influence of textures */
@@ -26401,7 +27104,9 @@ public:
  */
 class LineStyleTextureSlot : public TextureSlot {
 public:
-	LineStyleTextureSlot() : TextureSlot()
+	LineStyleTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
+
+	LineStyleTextureSlot() : TextureSlot(0)
 	{
 		// not implemented
 	}
@@ -26498,43 +27203,13 @@ public:
 /**
  * Main data structure representing a .blend file and all its datablocks
  */
-class BlendData {
+class BlendData : public pyUniplug {
 public:
-	BlendData()
+	BlendData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BlendData() : pyUniplug(0)
 	{
 		// not implemented
-		cameras();
-		scenes();
-		objects();
-		materials();
-		node_groups();
-		meshes();
-		lamps();
-		libraries();
-		screens();
-		window_managers();
-		images();
-		lattices();
-		curves();
-		metaballs();
-		fonts();
-		textures();
-		brushes();
-		worlds();
-		groups();
-		shape_keys();
-		scripts();
-		texts();
-		speakers();
-		sounds();
-		armatures();
-		actions();
-		particles();
-		palettes();
-		grease_pencil();
-		movieclips();
-		masks();
-		linestyles();
 	}
 
 	/** Getter: RNA property collection */
@@ -26739,12 +27414,11 @@ public:
  */
 class Material : public ID {
 public:
-	Material() : ID()
+	Material(PyObject* pyobj) : ID(pyobj) {}
+
+	Material() : ID(0)
 	{
 		// not implemented
-		texture_slots();
-		texture_paint_images();
-		texture_paint_slots();
 	}
 
 	enum type_enum {
@@ -27274,9 +27948,11 @@ public:
 /**
  * Slot that contains information about texture painting
  */
-class TexPaintSlot {
+class TexPaintSlot : public pyUniplug {
 public:
-	TexPaintSlot()
+	TexPaintSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TexPaintSlot() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -27306,9 +27982,11 @@ public:
 /**
  * Raytraced reflection settings for a Material datablock
  */
-class MaterialRaytraceMirror {
+class MaterialRaytraceMirror : public pyUniplug {
 public:
-	MaterialRaytraceMirror()
+	MaterialRaytraceMirror(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialRaytraceMirror() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -27388,9 +28066,11 @@ public:
 /**
  * Raytraced refraction settings for a Material datablock
  */
-class MaterialRaytraceTransparency {
+class MaterialRaytraceTransparency : public pyUniplug {
 public:
-	MaterialRaytraceTransparency()
+	MaterialRaytraceTransparency(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialRaytraceTransparency() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -27460,9 +28140,11 @@ public:
 /**
  * Volume rendering settings for a Material datablock
  */
-class MaterialVolume {
+class MaterialVolume : public pyUniplug {
 public:
-	MaterialVolume()
+	MaterialVolume(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialVolume() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -27590,9 +28272,11 @@ public:
 /**
  * Halo particle effect settings for a Material datablock
  */
-class MaterialHalo {
+class MaterialHalo : public pyUniplug {
 public:
-	MaterialHalo()
+	MaterialHalo(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialHalo() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -27717,9 +28401,11 @@ public:
 /**
  * Diffuse subsurface scattering settings for a Material datablock
  */
-class MaterialSubsurfaceScattering {
+class MaterialSubsurfaceScattering : public pyUniplug {
 public:
-	MaterialSubsurfaceScattering()
+	MaterialSubsurfaceScattering(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialSubsurfaceScattering() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -27791,7 +28477,9 @@ public:
  */
 class MaterialTextureSlot : public TextureSlot {
 public:
-	MaterialTextureSlot() : TextureSlot()
+	MaterialTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
+
+	MaterialTextureSlot() : TextureSlot(0)
 	{
 		// not implemented
 	}
@@ -28143,9 +28831,11 @@ public:
 /**
  * Strand settings for a Material datablock
  */
-class MaterialStrand {
+class MaterialStrand : public pyUniplug {
 public:
-	MaterialStrand()
+	MaterialStrand(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialStrand() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -28215,9 +28905,11 @@ public:
 /**
  * Physics settings for a Material datablock
  */
-class MaterialPhysics {
+class MaterialPhysics : public pyUniplug {
 public:
-	MaterialPhysics()
+	MaterialPhysics(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialPhysics() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -28267,9 +28959,11 @@ public:
 /**
  * Game Engine settings for a Material datablock
  */
-class MaterialGameSettings {
+class MaterialGameSettings : public pyUniplug {
 public:
-	MaterialGameSettings()
+	MaterialGameSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialGameSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -28336,28 +29030,11 @@ public:
  */
 class Mesh : public ID {
 public:
-	Mesh() : ID()
+	Mesh(PyObject* pyobj) : ID(pyobj) {}
+
+	Mesh() : ID(0)
 	{
 		// not implemented
-		vertices();
-		edges();
-		tessfaces();
-		loops();
-		polygons();
-		uv_layers();
-		tessface_uv_textures();
-		uv_textures();
-		tessface_vertex_colors();
-		vertex_colors();
-		vertex_layers_float();
-		vertex_layers_int();
-		vertex_layers_string();
-		polygon_layers_float();
-		polygon_layers_int();
-		polygon_layers_string();
-		skin_vertices();
-		vertex_paint_masks();
-		materials();
 	}
 
 	/** Getter: Vertices of the mesh */
@@ -28839,12 +29516,13 @@ public:
 /**
  * Per-vertex skin data for use with the Skin modifier
  */
-class MeshSkinVertexLayer {
+class MeshSkinVertexLayer : public pyUniplug {
 public:
-	MeshSkinVertexLayer()
+	MeshSkinVertexLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshSkinVertexLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -28872,9 +29550,11 @@ public:
 /**
  * Per-vertex skin data for use with the Skin modifier
  */
-class MeshSkinVertex {
+class MeshSkinVertex : public pyUniplug {
 public:
-	MeshSkinVertex()
+	MeshSkinVertex(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshSkinVertex() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -28909,12 +29589,13 @@ public:
 /**
  * Per-vertex paint mask data
  */
-class MeshPaintMaskLayer {
+class MeshPaintMaskLayer : public pyUniplug {
 public:
-	MeshPaintMaskLayer()
+	MeshPaintMaskLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPaintMaskLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -28937,9 +29618,11 @@ public:
 /**
  * Floating point paint mask value
  */
-class MeshPaintMaskProperty {
+class MeshPaintMaskProperty : public pyUniplug {
 public:
-	MeshPaintMaskProperty()
+	MeshPaintMaskProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPaintMaskProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -28964,12 +29647,13 @@ public:
 /**
  * Vertex in a Mesh datablock
  */
-class MeshVertex {
+class MeshVertex : public pyUniplug {
 public:
-	MeshVertex()
+	MeshVertex(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertex() : pyUniplug(0)
 	{
 		// not implemented
-		groups();
 	}
 
 	/** Getter: RNA property collection */
@@ -29027,9 +29711,11 @@ public:
 /**
  * Weight value of a vertex in a vertex group
  */
-class VertexGroupElement {
+class VertexGroupElement : public pyUniplug {
 public:
-	VertexGroupElement()
+	VertexGroupElement(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexGroupElement() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29059,9 +29745,11 @@ public:
 /**
  * Edge in a Mesh datablock
  */
-class MeshEdge {
+class MeshEdge : public pyUniplug {
 public:
-	MeshEdge()
+	MeshEdge(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshEdge() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29131,9 +29819,11 @@ public:
 /**
  * TessFace in a Mesh datablock
  */
-class MeshTessFace {
+class MeshTessFace : public pyUniplug {
 public:
-	MeshTessFace()
+	MeshTessFace(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshTessFace() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29203,9 +29893,11 @@ public:
 /**
  * Loop in a Mesh datablock
  */
-class MeshLoop {
+class MeshLoop : public pyUniplug {
 public:
-	MeshLoop()
+	MeshLoop(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshLoop() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29260,9 +29952,11 @@ public:
 /**
  * Polygon in a Mesh datablock
  */
-class MeshPolygon {
+class MeshPolygon : public pyUniplug {
 public:
-	MeshPolygon()
+	MeshPolygon(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygon() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29342,12 +30036,13 @@ public:
 /**
  * 
  */
-class MeshUVLoopLayer {
+class MeshUVLoopLayer : public pyUniplug {
 public:
-	MeshUVLoopLayer()
+	MeshUVLoopLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshUVLoopLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29375,9 +30070,11 @@ public:
 /**
  * 
  */
-class MeshUVLoop {
+class MeshUVLoop : public pyUniplug {
 public:
-	MeshUVLoop()
+	MeshUVLoop(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshUVLoop() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29417,12 +30114,13 @@ public:
 /**
  * UV map with assigned image textures in a Mesh datablock
  */
-class MeshTextureFaceLayer {
+class MeshTextureFaceLayer : public pyUniplug {
 public:
-	MeshTextureFaceLayer()
+	MeshTextureFaceLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshTextureFaceLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29465,9 +30163,11 @@ public:
 /**
  * UV map and image texture for a face
  */
-class MeshTextureFace {
+class MeshTextureFace : public pyUniplug {
 public:
-	MeshTextureFace()
+	MeshTextureFace(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshTextureFace() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29520,12 +30220,13 @@ public:
 /**
  * UV map with assigned image textures in a Mesh datablock
  */
-class MeshTexturePolyLayer {
+class MeshTexturePolyLayer : public pyUniplug {
 public:
-	MeshTexturePolyLayer()
+	MeshTexturePolyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshTexturePolyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29568,9 +30269,11 @@ public:
 /**
  * UV map and image texture for a face
  */
-class MeshTexturePoly {
+class MeshTexturePoly : public pyUniplug {
 public:
-	MeshTexturePoly()
+	MeshTexturePoly(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshTexturePoly() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29593,12 +30296,13 @@ public:
 /**
  * Layer of vertex colors in a Mesh datablock
  */
-class MeshColorLayer {
+class MeshColorLayer : public pyUniplug {
 public:
-	MeshColorLayer()
+	MeshColorLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshColorLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29636,9 +30340,11 @@ public:
 /**
  * Vertex colors for a face in a Mesh
  */
-class MeshColor {
+class MeshColor : public pyUniplug {
 public:
-	MeshColor()
+	MeshColor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshColor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29678,12 +30384,13 @@ public:
 /**
  * Layer of vertex colors in a Mesh datablock
  */
-class MeshLoopColorLayer {
+class MeshLoopColorLayer : public pyUniplug {
 public:
-	MeshLoopColorLayer()
+	MeshLoopColorLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshLoopColorLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29721,9 +30428,11 @@ public:
 /**
  * Vertex loop colors in a Mesh
  */
-class MeshLoopColor {
+class MeshLoopColor : public pyUniplug {
 public:
-	MeshLoopColor()
+	MeshLoopColor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshLoopColor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29748,12 +30457,13 @@ public:
 /**
  * User defined layer of floating point number values
  */
-class MeshVertexFloatPropertyLayer {
+class MeshVertexFloatPropertyLayer : public pyUniplug {
 public:
-	MeshVertexFloatPropertyLayer()
+	MeshVertexFloatPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertexFloatPropertyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29781,9 +30491,11 @@ public:
 /**
  * User defined floating point number value in a float properties layer
  */
-class MeshVertexFloatProperty {
+class MeshVertexFloatProperty : public pyUniplug {
 public:
-	MeshVertexFloatProperty()
+	MeshVertexFloatProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertexFloatProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29808,12 +30520,13 @@ public:
 /**
  * User defined layer of floating point number values
  */
-class MeshPolygonFloatPropertyLayer {
+class MeshPolygonFloatPropertyLayer : public pyUniplug {
 public:
-	MeshPolygonFloatPropertyLayer()
+	MeshPolygonFloatPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygonFloatPropertyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29841,9 +30554,11 @@ public:
 /**
  * User defined floating point number value in a float properties layer
  */
-class MeshPolygonFloatProperty {
+class MeshPolygonFloatProperty : public pyUniplug {
 public:
-	MeshPolygonFloatProperty()
+	MeshPolygonFloatProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygonFloatProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29868,12 +30583,13 @@ public:
 /**
  * User defined layer of integer number values
  */
-class MeshVertexIntPropertyLayer {
+class MeshVertexIntPropertyLayer : public pyUniplug {
 public:
-	MeshVertexIntPropertyLayer()
+	MeshVertexIntPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertexIntPropertyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29901,9 +30617,11 @@ public:
 /**
  * User defined integer number value in an integer properties layer
  */
-class MeshVertexIntProperty {
+class MeshVertexIntProperty : public pyUniplug {
 public:
-	MeshVertexIntProperty()
+	MeshVertexIntProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertexIntProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29928,12 +30646,13 @@ public:
 /**
  * User defined layer of integer number values
  */
-class MeshPolygonIntPropertyLayer {
+class MeshPolygonIntPropertyLayer : public pyUniplug {
 public:
-	MeshPolygonIntPropertyLayer()
+	MeshPolygonIntPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygonIntPropertyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -29961,9 +30680,11 @@ public:
 /**
  * User defined integer number value in an integer properties layer
  */
-class MeshPolygonIntProperty {
+class MeshPolygonIntProperty : public pyUniplug {
 public:
-	MeshPolygonIntProperty()
+	MeshPolygonIntProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygonIntProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -29988,12 +30709,13 @@ public:
 /**
  * User defined layer of string text values
  */
-class MeshVertexStringPropertyLayer {
+class MeshVertexStringPropertyLayer : public pyUniplug {
 public:
-	MeshVertexStringPropertyLayer()
+	MeshVertexStringPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertexStringPropertyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -30021,9 +30743,11 @@ public:
 /**
  * User defined string text value in a string properties layer
  */
-class MeshVertexStringProperty {
+class MeshVertexStringProperty : public pyUniplug {
 public:
-	MeshVertexStringProperty()
+	MeshVertexStringProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshVertexStringProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -30048,12 +30772,13 @@ public:
 /**
  * User defined layer of string text values
  */
-class MeshPolygonStringPropertyLayer {
+class MeshPolygonStringPropertyLayer : public pyUniplug {
 public:
-	MeshPolygonStringPropertyLayer()
+	MeshPolygonStringPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygonStringPropertyLayer() : pyUniplug(0)
 	{
 		// not implemented
-		data();
 	}
 
 	/** Getter: RNA property collection */
@@ -30081,9 +30806,11 @@ public:
 /**
  * User defined string text value in a string properties layer
  */
-class MeshPolygonStringProperty {
+class MeshPolygonStringProperty : public pyUniplug {
 public:
-	MeshPolygonStringProperty()
+	MeshPolygonStringProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshPolygonStringProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -30108,9 +30835,11 @@ public:
 /**
  * Blobby element in a Metaball datablock
  */
-class MetaElement {
+class MetaElement : public pyUniplug {
 public:
-	MetaElement()
+	MetaElement(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MetaElement() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -30190,11 +30919,11 @@ public:
  */
 class MetaBall : public ID {
 public:
-	MetaBall() : ID()
+	MetaBall(PyObject* pyobj) : ID(pyobj) {}
+
+	MetaBall() : ID(0)
 	{
 		// not implemented
-		elements();
-		materials();
 	}
 
 	/** Getter: Meta elements */
@@ -30273,9 +31002,11 @@ public:
 /**
  * Modifier affecting the geometry data of an object
  */
-class Modifier {
+class Modifier : public pyUniplug {
 public:
-	Modifier()
+	Modifier(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Modifier() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -30390,7 +31121,9 @@ public:
  */
 class SubsurfModifier : public Modifier {
 public:
-	SubsurfModifier() : Modifier()
+	SubsurfModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SubsurfModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30434,7 +31167,9 @@ public:
  */
 class LatticeModifier : public Modifier {
 public:
-	LatticeModifier() : Modifier()
+	LatticeModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	LatticeModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30461,7 +31196,9 @@ public:
  */
 class CurveModifier : public Modifier {
 public:
-	CurveModifier() : Modifier()
+	CurveModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	CurveModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30497,7 +31234,9 @@ public:
  */
 class BuildModifier : public Modifier {
 public:
-	BuildModifier() : Modifier()
+	BuildModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	BuildModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30536,7 +31275,9 @@ public:
  */
 class MirrorModifier : public Modifier {
 public:
-	MirrorModifier() : Modifier()
+	MirrorModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	MirrorModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30598,7 +31339,9 @@ public:
  */
 class DecimateModifier : public Modifier {
 public:
-	DecimateModifier() : Modifier()
+	DecimateModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	DecimateModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30676,7 +31419,9 @@ public:
  */
 class WaveModifier : public Modifier {
 public:
-	WaveModifier() : Modifier()
+	WaveModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	WaveModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30806,7 +31551,9 @@ public:
  */
 class ArmatureModifier : public Modifier {
 public:
-	ArmatureModifier() : Modifier()
+	ArmatureModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ArmatureModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30853,7 +31600,9 @@ public:
  */
 class HookModifier : public Modifier {
 public:
-	HookModifier() : Modifier()
+	HookModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	HookModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30920,7 +31669,9 @@ public:
  */
 class SoftBodyModifier : public Modifier {
 public:
-	SoftBodyModifier() : Modifier()
+	SoftBodyModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SoftBodyModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30940,7 +31691,9 @@ public:
  */
 class BooleanModifier : public Modifier {
 public:
-	BooleanModifier() : Modifier()
+	BooleanModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	BooleanModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -30968,7 +31721,9 @@ public:
  */
 class ArrayModifier : public Modifier {
 public:
-	ArrayModifier() : Modifier()
+	ArrayModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ArrayModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31055,7 +31810,9 @@ public:
  */
 class EdgeSplitModifier : public Modifier {
 public:
-	EdgeSplitModifier() : Modifier()
+	EdgeSplitModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	EdgeSplitModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31084,7 +31841,9 @@ public:
  */
 class DisplaceModifier : public Modifier {
 public:
-	DisplaceModifier() : Modifier()
+	DisplaceModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	DisplaceModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31149,10 +31908,11 @@ public:
  */
 class UVProjectModifier : public Modifier {
 public:
-	UVProjectModifier() : Modifier()
+	UVProjectModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	UVProjectModifier() : Modifier(0)
 	{
 		// not implemented
-		projectors();
 	}
 
 	/** Getter: UV map name */
@@ -31205,9 +31965,11 @@ public:
 /**
  * UV projector used by the UV project modifier
  */
-class UVProjector {
+class UVProjector : public pyUniplug {
 public:
-	UVProjector()
+	UVProjector(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UVProjector() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -31232,7 +31994,9 @@ public:
  */
 class SmoothModifier : public Modifier {
 public:
-	SmoothModifier() : Modifier()
+	SmoothModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SmoothModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31276,7 +32040,9 @@ public:
  */
 class CorrectiveSmoothModifier : public Modifier {
 public:
-	CorrectiveSmoothModifier() : Modifier()
+	CorrectiveSmoothModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	CorrectiveSmoothModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31345,7 +32111,9 @@ public:
  */
 class CastModifier : public Modifier {
 public:
-	CastModifier() : Modifier()
+	CastModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	CastModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31418,7 +32186,9 @@ public:
  */
 class MeshDeformModifier : public Modifier {
 public:
-	MeshDeformModifier() : Modifier()
+	MeshDeformModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	MeshDeformModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31460,7 +32230,9 @@ public:
  */
 class ParticleSystemModifier : public Modifier {
 public:
-	ParticleSystemModifier() : Modifier()
+	ParticleSystemModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ParticleSystemModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31477,7 +32249,9 @@ public:
  */
 class ParticleInstanceModifier : public Modifier {
 public:
-	ParticleInstanceModifier() : Modifier()
+	ParticleInstanceModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ParticleInstanceModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31560,7 +32334,9 @@ public:
  */
 class ExplodeModifier : public Modifier {
 public:
-	ExplodeModifier() : Modifier()
+	ExplodeModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ExplodeModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31614,7 +32390,9 @@ public:
  */
 class ClothModifier : public Modifier {
 public:
-	ClothModifier() : Modifier()
+	ClothModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ClothModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31655,7 +32433,9 @@ public:
  */
 class CollisionModifier : public Modifier {
 public:
-	CollisionModifier() : Modifier()
+	CollisionModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	CollisionModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31672,7 +32452,9 @@ public:
  */
 class BevelModifier : public Modifier {
 public:
-	BevelModifier() : Modifier()
+	BevelModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	BevelModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31761,7 +32543,9 @@ public:
  */
 class ShrinkwrapModifier : public Modifier {
 public:
-	ShrinkwrapModifier() : Modifier()
+	ShrinkwrapModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ShrinkwrapModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31853,7 +32637,9 @@ public:
  */
 class FluidSimulationModifier : public Modifier {
 public:
-	FluidSimulationModifier() : Modifier()
+	FluidSimulationModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	FluidSimulationModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31870,7 +32656,9 @@ public:
  */
 class MaskModifier : public Modifier {
 public:
-	MaskModifier() : Modifier()
+	MaskModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	MaskModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31907,7 +32695,9 @@ public:
  */
 class SimpleDeformModifier : public Modifier {
 public:
-	SimpleDeformModifier() : Modifier()
+	SimpleDeformModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SimpleDeformModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -31966,7 +32756,9 @@ public:
  */
 class WarpModifier : public Modifier {
 public:
-	WarpModifier() : Modifier()
+	WarpModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	WarpModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32049,7 +32841,9 @@ public:
  */
 class MultiresModifier : public Modifier {
 public:
-	MultiresModifier() : Modifier()
+	MultiresModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	MultiresModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32113,7 +32907,9 @@ public:
  */
 class SurfaceModifier : public Modifier {
 public:
-	SurfaceModifier() : Modifier()
+	SurfaceModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SurfaceModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32127,7 +32923,9 @@ public:
  */
 class SmokeModifier : public Modifier {
 public:
-	SmokeModifier() : Modifier()
+	SmokeModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SmokeModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32162,7 +32960,9 @@ public:
  */
 class SolidifyModifier : public Modifier {
 public:
-	SolidifyModifier() : Modifier()
+	SolidifyModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SolidifyModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32256,7 +33056,9 @@ public:
  */
 class ScrewModifier : public Modifier {
 public:
-	ScrewModifier() : Modifier()
+	ScrewModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	ScrewModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32339,7 +33141,9 @@ public:
  */
 class UVWarpModifier : public Modifier {
 public:
-	UVWarpModifier() : Modifier()
+	UVWarpModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	UVWarpModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32406,7 +33210,9 @@ public:
  */
 class VertexWeightEditModifier : public Modifier {
 public:
-	VertexWeightEditModifier() : Modifier()
+	VertexWeightEditModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	VertexWeightEditModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32518,7 +33324,9 @@ public:
  */
 class VertexWeightMixModifier : public Modifier {
 public:
-	VertexWeightMixModifier() : Modifier()
+	VertexWeightMixModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	VertexWeightMixModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32629,7 +33437,9 @@ public:
  */
 class VertexWeightProximityModifier : public Modifier {
 public:
-	VertexWeightProximityModifier() : Modifier()
+	VertexWeightProximityModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	VertexWeightProximityModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32746,7 +33556,9 @@ public:
  */
 class DynamicPaintModifier : public Modifier {
 public:
-	DynamicPaintModifier() : Modifier()
+	DynamicPaintModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	DynamicPaintModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32776,7 +33588,9 @@ public:
  */
 class OceanModifier : public Modifier {
 public:
-	OceanModifier() : Modifier()
+	OceanModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	OceanModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32920,7 +33734,9 @@ public:
  */
 class RemeshModifier : public Modifier {
 public:
-	RemeshModifier() : Modifier()
+	RemeshModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	RemeshModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -32975,7 +33791,9 @@ public:
  */
 class SkinModifier : public Modifier {
 public:
-	SkinModifier() : Modifier()
+	SkinModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	SkinModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33014,7 +33832,9 @@ public:
  */
 class LaplacianSmoothModifier : public Modifier {
 public:
-	LaplacianSmoothModifier() : Modifier()
+	LaplacianSmoothModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	LaplacianSmoothModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33073,7 +33893,9 @@ public:
  */
 class TriangulateModifier : public Modifier {
 public:
-	TriangulateModifier() : Modifier()
+	TriangulateModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	TriangulateModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33109,7 +33931,9 @@ public:
  */
 class MeshCacheModifier : public Modifier {
 public:
-	MeshCacheModifier() : Modifier()
+	MeshCacheModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	MeshCacheModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33248,7 +34072,9 @@ public:
  */
 class LaplacianDeformModifier : public Modifier {
 public:
-	LaplacianDeformModifier() : Modifier()
+	LaplacianDeformModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	LaplacianDeformModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33277,7 +34103,9 @@ public:
  */
 class WireframeModifier : public Modifier {
 public:
-	WireframeModifier() : Modifier()
+	WireframeModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	WireframeModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33351,7 +34179,9 @@ public:
  */
 class DataTransferModifier : public Modifier {
 public:
-	DataTransferModifier() : Modifier()
+	DataTransferModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	DataTransferModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33634,7 +34464,9 @@ public:
  */
 class NormalEditModifier : public Modifier {
 public:
-	NormalEditModifier() : Modifier()
+	NormalEditModifier(PyObject* pyobj) : Modifier(pyobj) {}
+
+	NormalEditModifier() : Modifier(0)
 	{
 		// not implemented
 	}
@@ -33696,12 +34528,13 @@ public:
 /**
  * A animation layer containing Actions referenced as NLA strips
  */
-class NlaTrack {
+class NlaTrack : public pyUniplug {
 public:
-	NlaTrack()
+	NlaTrack(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NlaTrack() : pyUniplug(0)
 	{
 		// not implemented
-		strips();
 	}
 
 	/** Getter: RNA property collection */
@@ -33754,14 +34587,13 @@ public:
 /**
  * A container referencing an existing Action
  */
-class NlaStrip {
+class NlaStrip : public pyUniplug {
 public:
-	NlaStrip()
+	NlaStrip(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NlaStrip() : pyUniplug(0)
 	{
 		// not implemented
-		fcurves();
-		modifiers();
-		strips();
 	}
 
 	/** Getter: RNA property collection */
@@ -33932,9 +34764,11 @@ public:
 /**
  * Input or output socket of a node
  */
-class NodeSocket {
+class NodeSocket : public pyUniplug {
 public:
-	NodeSocket()
+	NodeSocket(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeSocket() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -34023,9 +34857,11 @@ public:
 /**
  * Parameters to define node sockets
  */
-class NodeSocketInterface {
+class NodeSocketInterface : public pyUniplug {
 public:
-	NodeSocketInterface()
+	NodeSocketInterface(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeSocketInterface() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -34065,14 +34901,13 @@ public:
 /**
  * Node in a node tree
  */
-class Node {
+class Node : public pyUniplug {
 public:
-	Node()
+	Node(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Node() : pyUniplug(0)
 	{
 		// not implemented
-		inputs();
-		outputs();
-		internal_links();
 	}
 
 	/** Getter: RNA property collection */
@@ -34818,9 +35653,11 @@ public:
 /**
  * Link is valid
  */
-class NodeLink {
+class NodeLink : public pyUniplug {
 public:
-	NodeLink()
+	NodeLink(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeLink() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -34862,9 +35699,11 @@ public:
 /**
  * Type and default value of a node socket
  */
-class NodeInternalSocketTemplate {
+class NodeInternalSocketTemplate : public pyUniplug {
 public:
-	NodeInternalSocketTemplate()
+	NodeInternalSocketTemplate(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeInternalSocketTemplate() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -34912,7 +35751,9 @@ public:
  */
 class NodeInternal : public Node {
 public:
-	NodeInternal() : Node()
+	NodeInternal(PyObject* pyobj) : Node(pyobj) {}
+
+	NodeInternal() : Node(0)
 	{
 		// not implemented
 	}
@@ -34962,7 +35803,9 @@ public:
  */
 class ShaderNode : public NodeInternal {
 public:
-	ShaderNode() : NodeInternal()
+	ShaderNode(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	ShaderNode() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -34976,7 +35819,9 @@ public:
  */
 class CompositorNode : public NodeInternal {
 public:
-	CompositorNode() : NodeInternal()
+	CompositorNode(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	CompositorNode() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -34998,7 +35843,9 @@ public:
  */
 class TextureNode : public NodeInternal {
 public:
-	TextureNode() : NodeInternal()
+	TextureNode(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	TextureNode() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -35012,13 +35859,11 @@ public:
  */
 class NodeTree : public ID {
 public:
-	NodeTree() : ID()
+	NodeTree(PyObject* pyobj) : ID(pyobj) {}
+
+	NodeTree() : ID(0)
 	{
 		// not implemented
-		nodes();
-		links();
-		inputs();
-		outputs();
 	}
 
 	/** Getter:  */
@@ -35649,7 +36494,9 @@ public:
  */
 class NodeSocketStandard : public NodeSocket {
 public:
-	NodeSocketStandard() : NodeSocket()
+	NodeSocketStandard(PyObject* pyobj) : NodeSocket(pyobj) {}
+
+	NodeSocketStandard() : NodeSocket(0)
 	{
 		// not implemented
 	}
@@ -35684,7 +36531,9 @@ public:
  */
 class NodeSocketInterfaceStandard : public NodeSocketInterface {
 public:
-	NodeSocketInterfaceStandard() : NodeSocketInterface()
+	NodeSocketInterfaceStandard(PyObject* pyobj) : NodeSocketInterface(pyobj) {}
+
+	NodeSocketInterfaceStandard() : NodeSocketInterface(0)
 	{
 		// not implemented
 	}
@@ -35732,7 +36581,9 @@ public:
  */
 class NodeSocketFloat : public NodeSocketStandard {
 public:
-	NodeSocketFloat() : NodeSocketStandard()
+	NodeSocketFloat(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketFloat() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -35751,7 +36602,9 @@ public:
  */
 class NodeSocketInterfaceFloat : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceFloat() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceFloat(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceFloat() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -35780,7 +36633,9 @@ public:
  */
 class NodeSocketFloatUnsigned : public NodeSocketStandard {
 public:
-	NodeSocketFloatUnsigned() : NodeSocketStandard()
+	NodeSocketFloatUnsigned(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketFloatUnsigned() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -35799,7 +36654,9 @@ public:
  */
 class NodeSocketInterfaceFloatUnsigned : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceFloatUnsigned() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceFloatUnsigned(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceFloatUnsigned() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -35828,7 +36685,9 @@ public:
  */
 class NodeSocketFloatPercentage : public NodeSocketStandard {
 public:
-	NodeSocketFloatPercentage() : NodeSocketStandard()
+	NodeSocketFloatPercentage(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketFloatPercentage() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -35847,7 +36706,9 @@ public:
  */
 class NodeSocketInterfaceFloatPercentage : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceFloatPercentage() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceFloatPercentage(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceFloatPercentage() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -35876,7 +36737,9 @@ public:
  */
 class NodeSocketFloatFactor : public NodeSocketStandard {
 public:
-	NodeSocketFloatFactor() : NodeSocketStandard()
+	NodeSocketFloatFactor(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketFloatFactor() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -35895,7 +36758,9 @@ public:
  */
 class NodeSocketInterfaceFloatFactor : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceFloatFactor() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceFloatFactor(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceFloatFactor() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -35924,7 +36789,9 @@ public:
  */
 class NodeSocketFloatAngle : public NodeSocketStandard {
 public:
-	NodeSocketFloatAngle() : NodeSocketStandard()
+	NodeSocketFloatAngle(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketFloatAngle() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -35943,7 +36810,9 @@ public:
  */
 class NodeSocketInterfaceFloatAngle : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceFloatAngle() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceFloatAngle(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceFloatAngle() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -35972,7 +36841,9 @@ public:
  */
 class NodeSocketFloatTime : public NodeSocketStandard {
 public:
-	NodeSocketFloatTime() : NodeSocketStandard()
+	NodeSocketFloatTime(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketFloatTime() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -35991,7 +36862,9 @@ public:
  */
 class NodeSocketInterfaceFloatTime : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceFloatTime() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceFloatTime(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceFloatTime() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36020,7 +36893,9 @@ public:
  */
 class NodeSocketInt : public NodeSocketStandard {
 public:
-	NodeSocketInt() : NodeSocketStandard()
+	NodeSocketInt(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketInt() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36039,7 +36914,9 @@ public:
  */
 class NodeSocketInterfaceInt : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceInt() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceInt(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceInt() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36068,7 +36945,9 @@ public:
  */
 class NodeSocketIntUnsigned : public NodeSocketStandard {
 public:
-	NodeSocketIntUnsigned() : NodeSocketStandard()
+	NodeSocketIntUnsigned(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketIntUnsigned() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36087,7 +36966,9 @@ public:
  */
 class NodeSocketInterfaceIntUnsigned : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceIntUnsigned() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceIntUnsigned(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceIntUnsigned() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36116,7 +36997,9 @@ public:
  */
 class NodeSocketIntPercentage : public NodeSocketStandard {
 public:
-	NodeSocketIntPercentage() : NodeSocketStandard()
+	NodeSocketIntPercentage(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketIntPercentage() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36135,7 +37018,9 @@ public:
  */
 class NodeSocketInterfaceIntPercentage : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceIntPercentage() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceIntPercentage(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceIntPercentage() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36164,7 +37049,9 @@ public:
  */
 class NodeSocketIntFactor : public NodeSocketStandard {
 public:
-	NodeSocketIntFactor() : NodeSocketStandard()
+	NodeSocketIntFactor(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketIntFactor() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36183,7 +37070,9 @@ public:
  */
 class NodeSocketInterfaceIntFactor : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceIntFactor() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceIntFactor(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceIntFactor() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36212,7 +37101,9 @@ public:
  */
 class NodeSocketBool : public NodeSocketStandard {
 public:
-	NodeSocketBool() : NodeSocketStandard()
+	NodeSocketBool(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketBool() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36231,7 +37122,9 @@ public:
  */
 class NodeSocketInterfaceBool : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceBool() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceBool(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceBool() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36250,7 +37143,9 @@ public:
  */
 class NodeSocketVector : public NodeSocketStandard {
 public:
-	NodeSocketVector() : NodeSocketStandard()
+	NodeSocketVector(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVector() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36269,7 +37164,9 @@ public:
  */
 class NodeSocketInterfaceVector : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVector() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVector(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVector() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36298,7 +37195,9 @@ public:
  */
 class NodeSocketVectorTranslation : public NodeSocketStandard {
 public:
-	NodeSocketVectorTranslation() : NodeSocketStandard()
+	NodeSocketVectorTranslation(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVectorTranslation() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36317,7 +37216,9 @@ public:
  */
 class NodeSocketInterfaceVectorTranslation : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVectorTranslation() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVectorTranslation(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVectorTranslation() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36346,7 +37247,9 @@ public:
  */
 class NodeSocketVectorDirection : public NodeSocketStandard {
 public:
-	NodeSocketVectorDirection() : NodeSocketStandard()
+	NodeSocketVectorDirection(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVectorDirection() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36365,7 +37268,9 @@ public:
  */
 class NodeSocketInterfaceVectorDirection : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVectorDirection() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVectorDirection(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVectorDirection() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36394,7 +37299,9 @@ public:
  */
 class NodeSocketVectorVelocity : public NodeSocketStandard {
 public:
-	NodeSocketVectorVelocity() : NodeSocketStandard()
+	NodeSocketVectorVelocity(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVectorVelocity() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36413,7 +37320,9 @@ public:
  */
 class NodeSocketInterfaceVectorVelocity : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVectorVelocity() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVectorVelocity(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVectorVelocity() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36442,7 +37351,9 @@ public:
  */
 class NodeSocketVectorAcceleration : public NodeSocketStandard {
 public:
-	NodeSocketVectorAcceleration() : NodeSocketStandard()
+	NodeSocketVectorAcceleration(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVectorAcceleration() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36461,7 +37372,9 @@ public:
  */
 class NodeSocketInterfaceVectorAcceleration : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVectorAcceleration() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVectorAcceleration(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVectorAcceleration() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36490,7 +37403,9 @@ public:
  */
 class NodeSocketVectorEuler : public NodeSocketStandard {
 public:
-	NodeSocketVectorEuler() : NodeSocketStandard()
+	NodeSocketVectorEuler(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVectorEuler() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36509,7 +37424,9 @@ public:
  */
 class NodeSocketInterfaceVectorEuler : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVectorEuler() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVectorEuler(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVectorEuler() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36538,7 +37455,9 @@ public:
  */
 class NodeSocketVectorXYZ : public NodeSocketStandard {
 public:
-	NodeSocketVectorXYZ() : NodeSocketStandard()
+	NodeSocketVectorXYZ(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVectorXYZ() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36557,7 +37476,9 @@ public:
  */
 class NodeSocketInterfaceVectorXYZ : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceVectorXYZ() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceVectorXYZ(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceVectorXYZ() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36586,7 +37507,9 @@ public:
  */
 class NodeSocketColor : public NodeSocketStandard {
 public:
-	NodeSocketColor() : NodeSocketStandard()
+	NodeSocketColor(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketColor() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36605,7 +37528,9 @@ public:
  */
 class NodeSocketInterfaceColor : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceColor() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceColor(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceColor() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36624,7 +37549,9 @@ public:
  */
 class NodeSocketString : public NodeSocketStandard {
 public:
-	NodeSocketString() : NodeSocketStandard()
+	NodeSocketString(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketString() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36643,7 +37570,9 @@ public:
  */
 class NodeSocketInterfaceString : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceString() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceString(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceString() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36662,7 +37591,9 @@ public:
  */
 class NodeSocketShader : public NodeSocketStandard {
 public:
-	NodeSocketShader() : NodeSocketStandard()
+	NodeSocketShader(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketShader() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36676,7 +37607,9 @@ public:
  */
 class NodeSocketInterfaceShader : public NodeSocketInterfaceStandard {
 public:
-	NodeSocketInterfaceShader() : NodeSocketInterfaceStandard()
+	NodeSocketInterfaceShader(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
+
+	NodeSocketInterfaceShader() : NodeSocketInterfaceStandard(0)
 	{
 		// not implemented
 	}
@@ -36690,7 +37623,9 @@ public:
  */
 class NodeSocketVirtual : public NodeSocketStandard {
 public:
-	NodeSocketVirtual() : NodeSocketStandard()
+	NodeSocketVirtual(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
+
+	NodeSocketVirtual() : NodeSocketStandard(0)
 	{
 		// not implemented
 	}
@@ -36704,7 +37639,9 @@ public:
  */
 class CompositorNodeTree : public NodeTree {
 public:
-	CompositorNodeTree() : NodeTree()
+	CompositorNodeTree(PyObject* pyobj) : NodeTree(pyobj) {}
+
+	CompositorNodeTree() : NodeTree(0)
 	{
 		// not implemented
 	}
@@ -36774,7 +37711,9 @@ public:
  */
 class ShaderNodeTree : public NodeTree {
 public:
-	ShaderNodeTree() : NodeTree()
+	ShaderNodeTree(PyObject* pyobj) : NodeTree(pyobj) {}
+
+	ShaderNodeTree() : NodeTree(0)
 	{
 		// not implemented
 	}
@@ -36788,7 +37727,9 @@ public:
  */
 class TextureNodeTree : public NodeTree {
 public:
-	TextureNodeTree() : NodeTree()
+	TextureNodeTree(PyObject* pyobj) : NodeTree(pyobj) {}
+
+	TextureNodeTree() : NodeTree(0)
 	{
 		// not implemented
 	}
@@ -36802,7 +37743,9 @@ public:
  */
 class NodeFrame : public NodeInternal {
 public:
-	NodeFrame() : NodeInternal()
+	NodeFrame(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	NodeFrame() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -36861,7 +37804,9 @@ public:
  */
 class NodeGroup : public NodeInternal {
 public:
-	NodeGroup() : NodeInternal()
+	NodeGroup(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	NodeGroup() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -36913,7 +37858,9 @@ public:
  */
 class NodeGroupInput : public NodeInternal {
 public:
-	NodeGroupInput() : NodeInternal()
+	NodeGroupInput(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	NodeGroupInput() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -36962,7 +37909,9 @@ public:
  */
 class NodeGroupOutput : public NodeInternal {
 public:
-	NodeGroupOutput() : NodeInternal()
+	NodeGroupOutput(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	NodeGroupOutput() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -37016,7 +37965,9 @@ public:
  */
 class NodeReroute : public NodeInternal {
 public:
-	NodeReroute() : NodeInternal()
+	NodeReroute(PyObject* pyobj) : NodeInternal(pyobj) {}
+
+	NodeReroute() : NodeInternal(0)
 	{
 		// not implemented
 	}
@@ -37062,7 +38013,9 @@ public:
  */
 class ShaderNodeOutput : public ShaderNode {
 public:
-	ShaderNodeOutput() : ShaderNode()
+	ShaderNodeOutput(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeOutput() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37113,7 +38066,9 @@ public:
  */
 class ShaderNodeMaterial : public ShaderNode {
 public:
-	ShaderNodeMaterial() : ShaderNode()
+	ShaderNodeMaterial(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeMaterial() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37177,7 +38132,9 @@ public:
  */
 class ShaderNodeRGB : public ShaderNode {
 public:
-	ShaderNodeRGB() : ShaderNode()
+	ShaderNodeRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeRGB() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37223,7 +38180,9 @@ public:
  */
 class ShaderNodeValue : public ShaderNode {
 public:
-	ShaderNodeValue() : ShaderNode()
+	ShaderNodeValue(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeValue() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37269,7 +38228,9 @@ public:
  */
 class ShaderNodeMixRGB : public ShaderNode {
 public:
-	ShaderNodeMixRGB() : ShaderNode()
+	ShaderNodeMixRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeMixRGB() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37351,7 +38312,9 @@ public:
  */
 class ShaderNodeValToRGB : public ShaderNode {
 public:
-	ShaderNodeValToRGB() : ShaderNode()
+	ShaderNodeValToRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeValToRGB() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37400,7 +38363,9 @@ public:
  */
 class ShaderNodeRGBToBW : public ShaderNode {
 public:
-	ShaderNodeRGBToBW() : ShaderNode()
+	ShaderNodeRGBToBW(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeRGBToBW() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37446,7 +38411,9 @@ public:
  */
 class ShaderNodeTexture : public ShaderNode {
 public:
-	ShaderNodeTexture() : ShaderNode()
+	ShaderNodeTexture(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexture() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37500,7 +38467,9 @@ public:
  */
 class ShaderNodeNormal : public ShaderNode {
 public:
-	ShaderNodeNormal() : ShaderNode()
+	ShaderNodeNormal(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeNormal() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37546,7 +38515,9 @@ public:
  */
 class ShaderNodeGamma : public ShaderNode {
 public:
-	ShaderNodeGamma() : ShaderNode()
+	ShaderNodeGamma(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeGamma() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37592,7 +38563,9 @@ public:
  */
 class ShaderNodeBrightContrast : public ShaderNode {
 public:
-	ShaderNodeBrightContrast() : ShaderNode()
+	ShaderNodeBrightContrast(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBrightContrast() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37638,7 +38611,9 @@ public:
  */
 class ShaderNodeGeometry : public ShaderNode {
 public:
-	ShaderNodeGeometry() : ShaderNode()
+	ShaderNodeGeometry(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeGeometry() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37694,7 +38669,9 @@ public:
  */
 class ShaderNodeMapping : public ShaderNode {
 public:
-	ShaderNodeMapping() : ShaderNode()
+	ShaderNodeMapping(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeMapping() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37787,7 +38764,9 @@ public:
  */
 class ShaderNodeVectorCurve : public ShaderNode {
 public:
-	ShaderNodeVectorCurve() : ShaderNode()
+	ShaderNodeVectorCurve(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeVectorCurve() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37836,7 +38815,9 @@ public:
  */
 class ShaderNodeRGBCurve : public ShaderNode {
 public:
-	ShaderNodeRGBCurve() : ShaderNode()
+	ShaderNodeRGBCurve(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeRGBCurve() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37885,7 +38866,9 @@ public:
  */
 class ShaderNodeCameraData : public ShaderNode {
 public:
-	ShaderNodeCameraData() : ShaderNode()
+	ShaderNodeCameraData(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeCameraData() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37931,7 +38914,9 @@ public:
  */
 class ShaderNodeLampData : public ShaderNode {
 public:
-	ShaderNodeLampData() : ShaderNode()
+	ShaderNodeLampData(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeLampData() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -37980,7 +38965,9 @@ public:
  */
 class ShaderNodeMath : public ShaderNode {
 public:
-	ShaderNodeMath() : ShaderNode()
+	ShaderNodeMath(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeMath() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38058,7 +39045,9 @@ public:
  */
 class ShaderNodeVectorMath : public ShaderNode {
 public:
-	ShaderNodeVectorMath() : ShaderNode()
+	ShaderNodeVectorMath(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeVectorMath() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38118,7 +39107,9 @@ public:
  */
 class ShaderNodeSqueeze : public ShaderNode {
 public:
-	ShaderNodeSqueeze() : ShaderNode()
+	ShaderNodeSqueeze(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeSqueeze() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38164,7 +39155,9 @@ public:
  */
 class ShaderNodeExtendedMaterial : public ShaderNode {
 public:
-	ShaderNodeExtendedMaterial() : ShaderNode()
+	ShaderNodeExtendedMaterial(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeExtendedMaterial() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38228,7 +39221,9 @@ public:
  */
 class ShaderNodeInvert : public ShaderNode {
 public:
-	ShaderNodeInvert() : ShaderNode()
+	ShaderNodeInvert(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeInvert() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38274,7 +39269,9 @@ public:
  */
 class ShaderNodeSeparateRGB : public ShaderNode {
 public:
-	ShaderNodeSeparateRGB() : ShaderNode()
+	ShaderNodeSeparateRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeSeparateRGB() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38320,7 +39317,9 @@ public:
  */
 class ShaderNodeCombineRGB : public ShaderNode {
 public:
-	ShaderNodeCombineRGB() : ShaderNode()
+	ShaderNodeCombineRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeCombineRGB() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38366,7 +39365,9 @@ public:
  */
 class ShaderNodeHueSaturation : public ShaderNode {
 public:
-	ShaderNodeHueSaturation() : ShaderNode()
+	ShaderNodeHueSaturation(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeHueSaturation() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38412,7 +39413,9 @@ public:
  */
 class ShaderNodeOutputMaterial : public ShaderNode {
 public:
-	ShaderNodeOutputMaterial() : ShaderNode()
+	ShaderNodeOutputMaterial(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeOutputMaterial() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38463,7 +39466,9 @@ public:
  */
 class ShaderNodeOutputLamp : public ShaderNode {
 public:
-	ShaderNodeOutputLamp() : ShaderNode()
+	ShaderNodeOutputLamp(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeOutputLamp() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38514,7 +39519,9 @@ public:
  */
 class ShaderNodeOutputWorld : public ShaderNode {
 public:
-	ShaderNodeOutputWorld() : ShaderNode()
+	ShaderNodeOutputWorld(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeOutputWorld() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38565,7 +39572,9 @@ public:
  */
 class ShaderNodeOutputLineStyle : public ShaderNode {
 public:
-	ShaderNodeOutputLineStyle() : ShaderNode()
+	ShaderNodeOutputLineStyle(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeOutputLineStyle() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38652,7 +39661,9 @@ public:
  */
 class ShaderNodeFresnel : public ShaderNode {
 public:
-	ShaderNodeFresnel() : ShaderNode()
+	ShaderNodeFresnel(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeFresnel() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38698,7 +39709,9 @@ public:
  */
 class ShaderNodeLayerWeight : public ShaderNode {
 public:
-	ShaderNodeLayerWeight() : ShaderNode()
+	ShaderNodeLayerWeight(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeLayerWeight() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38744,7 +39757,9 @@ public:
  */
 class ShaderNodeMixShader : public ShaderNode {
 public:
-	ShaderNodeMixShader() : ShaderNode()
+	ShaderNodeMixShader(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeMixShader() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38790,7 +39805,9 @@ public:
  */
 class ShaderNodeAddShader : public ShaderNode {
 public:
-	ShaderNodeAddShader() : ShaderNode()
+	ShaderNodeAddShader(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeAddShader() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38836,7 +39853,9 @@ public:
  */
 class ShaderNodeAttribute : public ShaderNode {
 public:
-	ShaderNodeAttribute() : ShaderNode()
+	ShaderNodeAttribute(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeAttribute() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38887,7 +39906,9 @@ public:
  */
 class ShaderNodeAmbientOcclusion : public ShaderNode {
 public:
-	ShaderNodeAmbientOcclusion() : ShaderNode()
+	ShaderNodeAmbientOcclusion(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeAmbientOcclusion() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38933,7 +39954,9 @@ public:
  */
 class ShaderNodeBackground : public ShaderNode {
 public:
-	ShaderNodeBackground() : ShaderNode()
+	ShaderNodeBackground(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBackground() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -38979,7 +40002,9 @@ public:
  */
 class ShaderNodeHoldout : public ShaderNode {
 public:
-	ShaderNodeHoldout() : ShaderNode()
+	ShaderNodeHoldout(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeHoldout() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39025,7 +40050,9 @@ public:
  */
 class ShaderNodeBsdfAnisotropic : public ShaderNode {
 public:
-	ShaderNodeBsdfAnisotropic() : ShaderNode()
+	ShaderNodeBsdfAnisotropic(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfAnisotropic() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39082,7 +40109,9 @@ public:
  */
 class ShaderNodeBsdfDiffuse : public ShaderNode {
 public:
-	ShaderNodeBsdfDiffuse() : ShaderNode()
+	ShaderNodeBsdfDiffuse(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfDiffuse() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39128,7 +40157,9 @@ public:
  */
 class ShaderNodeBsdfGlossy : public ShaderNode {
 public:
-	ShaderNodeBsdfGlossy() : ShaderNode()
+	ShaderNodeBsdfGlossy(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfGlossy() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39186,7 +40217,9 @@ public:
  */
 class ShaderNodeBsdfGlass : public ShaderNode {
 public:
-	ShaderNodeBsdfGlass() : ShaderNode()
+	ShaderNodeBsdfGlass(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfGlass() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39243,7 +40276,9 @@ public:
  */
 class ShaderNodeBsdfRefraction : public ShaderNode {
 public:
-	ShaderNodeBsdfRefraction() : ShaderNode()
+	ShaderNodeBsdfRefraction(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfRefraction() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39300,7 +40335,9 @@ public:
  */
 class ShaderNodeBsdfTranslucent : public ShaderNode {
 public:
-	ShaderNodeBsdfTranslucent() : ShaderNode()
+	ShaderNodeBsdfTranslucent(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfTranslucent() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39346,7 +40383,9 @@ public:
  */
 class ShaderNodeBsdfTransparent : public ShaderNode {
 public:
-	ShaderNodeBsdfTransparent() : ShaderNode()
+	ShaderNodeBsdfTransparent(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfTransparent() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39392,7 +40431,9 @@ public:
  */
 class ShaderNodeBsdfVelvet : public ShaderNode {
 public:
-	ShaderNodeBsdfVelvet() : ShaderNode()
+	ShaderNodeBsdfVelvet(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfVelvet() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39438,7 +40479,9 @@ public:
  */
 class ShaderNodeBsdfToon : public ShaderNode {
 public:
-	ShaderNodeBsdfToon() : ShaderNode()
+	ShaderNodeBsdfToon(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfToon() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39494,7 +40537,9 @@ public:
  */
 class ShaderNodeBsdfHair : public ShaderNode {
 public:
-	ShaderNodeBsdfHair() : ShaderNode()
+	ShaderNodeBsdfHair(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBsdfHair() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39550,7 +40595,9 @@ public:
  */
 class ShaderNodeSubsurfaceScattering : public ShaderNode {
 public:
-	ShaderNodeSubsurfaceScattering() : ShaderNode()
+	ShaderNodeSubsurfaceScattering(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeSubsurfaceScattering() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39606,7 +40653,9 @@ public:
  */
 class ShaderNodeVolumeAbsorption : public ShaderNode {
 public:
-	ShaderNodeVolumeAbsorption() : ShaderNode()
+	ShaderNodeVolumeAbsorption(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeVolumeAbsorption() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39652,7 +40701,9 @@ public:
  */
 class ShaderNodeVolumeScatter : public ShaderNode {
 public:
-	ShaderNodeVolumeScatter() : ShaderNode()
+	ShaderNodeVolumeScatter(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeVolumeScatter() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39698,7 +40749,9 @@ public:
  */
 class ShaderNodeEmission : public ShaderNode {
 public:
-	ShaderNodeEmission() : ShaderNode()
+	ShaderNodeEmission(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeEmission() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39744,7 +40797,9 @@ public:
  */
 class ShaderNodeNewGeometry : public ShaderNode {
 public:
-	ShaderNodeNewGeometry() : ShaderNode()
+	ShaderNodeNewGeometry(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeNewGeometry() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39790,7 +40845,9 @@ public:
  */
 class ShaderNodeLightPath : public ShaderNode {
 public:
-	ShaderNodeLightPath() : ShaderNode()
+	ShaderNodeLightPath(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeLightPath() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39836,7 +40893,9 @@ public:
  */
 class ShaderNodeLightFalloff : public ShaderNode {
 public:
-	ShaderNodeLightFalloff() : ShaderNode()
+	ShaderNodeLightFalloff(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeLightFalloff() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39882,7 +40941,9 @@ public:
  */
 class ShaderNodeObjectInfo : public ShaderNode {
 public:
-	ShaderNodeObjectInfo() : ShaderNode()
+	ShaderNodeObjectInfo(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeObjectInfo() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39928,7 +40989,9 @@ public:
  */
 class ShaderNodeParticleInfo : public ShaderNode {
 public:
-	ShaderNodeParticleInfo() : ShaderNode()
+	ShaderNodeParticleInfo(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeParticleInfo() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -39974,7 +41037,9 @@ public:
  */
 class ShaderNodeHairInfo : public ShaderNode {
 public:
-	ShaderNodeHairInfo() : ShaderNode()
+	ShaderNodeHairInfo(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeHairInfo() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40020,7 +41085,9 @@ public:
  */
 class ShaderNodeWireframe : public ShaderNode {
 public:
-	ShaderNodeWireframe() : ShaderNode()
+	ShaderNodeWireframe(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeWireframe() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40071,7 +41138,9 @@ public:
  */
 class ShaderNodeWavelength : public ShaderNode {
 public:
-	ShaderNodeWavelength() : ShaderNode()
+	ShaderNodeWavelength(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeWavelength() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40117,7 +41186,9 @@ public:
  */
 class ShaderNodeBlackbody : public ShaderNode {
 public:
-	ShaderNodeBlackbody() : ShaderNode()
+	ShaderNodeBlackbody(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBlackbody() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40163,7 +41234,9 @@ public:
  */
 class ShaderNodeBump : public ShaderNode {
 public:
-	ShaderNodeBump() : ShaderNode()
+	ShaderNodeBump(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeBump() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40214,7 +41287,9 @@ public:
  */
 class ShaderNodeNormalMap : public ShaderNode {
 public:
-	ShaderNodeNormalMap() : ShaderNode()
+	ShaderNodeNormalMap(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeNormalMap() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40278,7 +41353,9 @@ public:
  */
 class ShaderNodeTangent : public ShaderNode {
 public:
-	ShaderNodeTangent() : ShaderNode()
+	ShaderNodeTangent(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTangent() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40350,7 +41427,9 @@ public:
  */
 class ShaderNodeScript : public ShaderNode {
 public:
-	ShaderNodeScript() : ShaderNode()
+	ShaderNodeScript(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeScript() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40429,7 +41508,9 @@ public:
  */
 class ShaderNodeTexImage : public ShaderNode {
 public:
-	ShaderNodeTexImage() : ShaderNode()
+	ShaderNodeTexImage(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexImage() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40526,7 +41607,9 @@ public:
  */
 class ShaderNodeTexEnvironment : public ShaderNode {
 public:
-	ShaderNodeTexEnvironment() : ShaderNode()
+	ShaderNodeTexEnvironment(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexEnvironment() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40604,7 +41687,9 @@ public:
  */
 class ShaderNodeTexSky : public ShaderNode {
 public:
-	ShaderNodeTexSky() : ShaderNode()
+	ShaderNodeTexSky(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexSky() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40681,7 +41766,9 @@ public:
  */
 class ShaderNodeTexGradient : public ShaderNode {
 public:
-	ShaderNodeTexGradient() : ShaderNode()
+	ShaderNodeTexGradient(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexGradient() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40748,7 +41835,9 @@ public:
  */
 class ShaderNodeTexNoise : public ShaderNode {
 public:
-	ShaderNodeTexNoise() : ShaderNode()
+	ShaderNodeTexNoise(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexNoise() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40800,7 +41889,9 @@ public:
  */
 class ShaderNodeTexMagic : public ShaderNode {
 public:
-	ShaderNodeTexMagic() : ShaderNode()
+	ShaderNodeTexMagic(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexMagic() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40857,7 +41948,9 @@ public:
  */
 class ShaderNodeTexWave : public ShaderNode {
 public:
-	ShaderNodeTexWave() : ShaderNode()
+	ShaderNodeTexWave(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexWave() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40919,7 +42012,9 @@ public:
  */
 class ShaderNodeTexMusgrave : public ShaderNode {
 public:
-	ShaderNodeTexMusgrave() : ShaderNode()
+	ShaderNodeTexMusgrave(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexMusgrave() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -40984,7 +42079,9 @@ public:
  */
 class ShaderNodeTexVoronoi : public ShaderNode {
 public:
-	ShaderNodeTexVoronoi() : ShaderNode()
+	ShaderNodeTexVoronoi(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexVoronoi() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41046,7 +42143,9 @@ public:
  */
 class ShaderNodeTexChecker : public ShaderNode {
 public:
-	ShaderNodeTexChecker() : ShaderNode()
+	ShaderNodeTexChecker(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexChecker() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41098,7 +42197,9 @@ public:
  */
 class ShaderNodeTexBrick : public ShaderNode {
 public:
-	ShaderNodeTexBrick() : ShaderNode()
+	ShaderNodeTexBrick(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexBrick() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41170,7 +42271,9 @@ public:
  */
 class ShaderNodeTexCoord : public ShaderNode {
 public:
-	ShaderNodeTexCoord() : ShaderNode()
+	ShaderNodeTexCoord(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeTexCoord() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41224,7 +42327,9 @@ public:
  */
 class ShaderNodeVectorTransform : public ShaderNode {
 public:
-	ShaderNodeVectorTransform() : ShaderNode()
+	ShaderNodeVectorTransform(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeVectorTransform() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41303,7 +42408,9 @@ public:
  */
 class ShaderNodeSeparateHSV : public ShaderNode {
 public:
-	ShaderNodeSeparateHSV() : ShaderNode()
+	ShaderNodeSeparateHSV(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeSeparateHSV() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41349,7 +42456,9 @@ public:
  */
 class ShaderNodeCombineHSV : public ShaderNode {
 public:
-	ShaderNodeCombineHSV() : ShaderNode()
+	ShaderNodeCombineHSV(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeCombineHSV() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41395,7 +42504,9 @@ public:
  */
 class ShaderNodeUVMap : public ShaderNode {
 public:
-	ShaderNodeUVMap() : ShaderNode()
+	ShaderNodeUVMap(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeUVMap() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41451,7 +42562,9 @@ public:
  */
 class ShaderNodeUVAlongStroke : public ShaderNode {
 public:
-	ShaderNodeUVAlongStroke() : ShaderNode()
+	ShaderNodeUVAlongStroke(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeUVAlongStroke() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41502,7 +42615,9 @@ public:
  */
 class ShaderNodeSeparateXYZ : public ShaderNode {
 public:
-	ShaderNodeSeparateXYZ() : ShaderNode()
+	ShaderNodeSeparateXYZ(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeSeparateXYZ() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41548,7 +42663,9 @@ public:
  */
 class ShaderNodeCombineXYZ : public ShaderNode {
 public:
-	ShaderNodeCombineXYZ() : ShaderNode()
+	ShaderNodeCombineXYZ(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeCombineXYZ() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -41594,7 +42711,9 @@ public:
  */
 class CompositorNodeViewer : public CompositorNode {
 public:
-	CompositorNodeViewer() : CompositorNode()
+	CompositorNodeViewer(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeViewer() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41667,7 +42786,9 @@ public:
  */
 class CompositorNodeRGB : public CompositorNode {
 public:
-	CompositorNodeRGB() : CompositorNode()
+	CompositorNodeRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeRGB() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41713,7 +42834,9 @@ public:
  */
 class CompositorNodeValue : public CompositorNode {
 public:
-	CompositorNodeValue() : CompositorNode()
+	CompositorNodeValue(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeValue() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41759,7 +42882,9 @@ public:
  */
 class CompositorNodeMixRGB : public CompositorNode {
 public:
-	CompositorNodeMixRGB() : CompositorNode()
+	CompositorNodeMixRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMixRGB() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41841,7 +42966,9 @@ public:
  */
 class CompositorNodeValToRGB : public CompositorNode {
 public:
-	CompositorNodeValToRGB() : CompositorNode()
+	CompositorNodeValToRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeValToRGB() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41890,7 +43017,9 @@ public:
  */
 class CompositorNodeRGBToBW : public CompositorNode {
 public:
-	CompositorNodeRGBToBW() : CompositorNode()
+	CompositorNodeRGBToBW(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeRGBToBW() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41936,7 +43065,9 @@ public:
  */
 class CompositorNodeNormal : public CompositorNode {
 public:
-	CompositorNodeNormal() : CompositorNode()
+	CompositorNodeNormal(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeNormal() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -41982,7 +43113,9 @@ public:
  */
 class CompositorNodeCurveVec : public CompositorNode {
 public:
-	CompositorNodeCurveVec() : CompositorNode()
+	CompositorNodeCurveVec(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCurveVec() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42031,7 +43164,9 @@ public:
  */
 class CompositorNodeCurveRGB : public CompositorNode {
 public:
-	CompositorNodeCurveRGB() : CompositorNode()
+	CompositorNodeCurveRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCurveRGB() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42080,7 +43215,9 @@ public:
  */
 class CompositorNodeAlphaOver : public CompositorNode {
 public:
-	CompositorNodeAlphaOver() : CompositorNode()
+	CompositorNodeAlphaOver(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeAlphaOver() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42136,7 +43273,9 @@ public:
  */
 class CompositorNodeBlur : public CompositorNode {
 public:
-	CompositorNodeBlur() : CompositorNode()
+	CompositorNodeBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeBlur() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42254,7 +43393,9 @@ public:
  */
 class CompositorNodeFilter : public CompositorNode {
 public:
-	CompositorNodeFilter() : CompositorNode()
+	CompositorNodeFilter(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeFilter() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42315,7 +43456,9 @@ public:
  */
 class CompositorNodeMapValue : public CompositorNode {
 public:
-	CompositorNodeMapValue() : CompositorNode()
+	CompositorNodeMapValue(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMapValue() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42391,7 +43534,9 @@ public:
  */
 class CompositorNodeMapRange : public CompositorNode {
 public:
-	CompositorNodeMapRange() : CompositorNode()
+	CompositorNodeMapRange(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMapRange() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42442,7 +43587,9 @@ public:
  */
 class CompositorNodeTime : public CompositorNode {
 public:
-	CompositorNodeTime() : CompositorNode()
+	CompositorNodeTime(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeTime() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42501,7 +43648,9 @@ public:
  */
 class CompositorNodeVecBlur : public CompositorNode {
 public:
-	CompositorNodeVecBlur() : CompositorNode()
+	CompositorNodeVecBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeVecBlur() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42572,7 +43721,9 @@ public:
  */
 class CompositorNodeSepRGBA : public CompositorNode {
 public:
-	CompositorNodeSepRGBA() : CompositorNode()
+	CompositorNodeSepRGBA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSepRGBA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42618,7 +43769,9 @@ public:
  */
 class CompositorNodeSepHSVA : public CompositorNode {
 public:
-	CompositorNodeSepHSVA() : CompositorNode()
+	CompositorNodeSepHSVA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSepHSVA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42664,7 +43817,9 @@ public:
  */
 class CompositorNodeSetAlpha : public CompositorNode {
 public:
-	CompositorNodeSetAlpha() : CompositorNode()
+	CompositorNodeSetAlpha(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSetAlpha() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42710,7 +43865,9 @@ public:
  */
 class CompositorNodeHueSat : public CompositorNode {
 public:
-	CompositorNodeHueSat() : CompositorNode()
+	CompositorNodeHueSat(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeHueSat() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42771,7 +43928,9 @@ public:
  */
 class CompositorNodeImage : public CompositorNode {
 public:
-	CompositorNodeImage() : CompositorNode()
+	CompositorNodeImage(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeImage() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42878,7 +44037,9 @@ public:
  */
 class CompositorNodeRLayers : public CompositorNode {
 public:
-	CompositorNodeRLayers() : CompositorNode()
+	CompositorNodeRLayers(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeRLayers() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42936,7 +44097,9 @@ public:
  */
 class CompositorNodeComposite : public CompositorNode {
 public:
-	CompositorNodeComposite() : CompositorNode()
+	CompositorNodeComposite(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeComposite() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -42987,11 +44150,11 @@ public:
  */
 class CompositorNodeOutputFile : public CompositorNode {
 public:
-	CompositorNodeOutputFile() : CompositorNode()
+	CompositorNodeOutputFile(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeOutputFile() : CompositorNode(0)
 	{
 		// not implemented
-		file_slots();
-		layer_slots();
 	}
 
 	/** Getter: Base output path for the image */
@@ -43058,7 +44221,9 @@ public:
  */
 class CompositorNodeTexture : public CompositorNode {
 public:
-	CompositorNodeTexture() : CompositorNode()
+	CompositorNodeTexture(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeTexture() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43112,7 +44277,9 @@ public:
  */
 class CompositorNodeTranslate : public CompositorNode {
 public:
-	CompositorNodeTranslate() : CompositorNode()
+	CompositorNodeTranslate(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeTranslate() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43175,7 +44342,9 @@ public:
  */
 class CompositorNodeZcombine : public CompositorNode {
 public:
-	CompositorNodeZcombine() : CompositorNode()
+	CompositorNodeZcombine(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeZcombine() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43231,7 +44400,9 @@ public:
  */
 class CompositorNodeCombRGBA : public CompositorNode {
 public:
-	CompositorNodeCombRGBA() : CompositorNode()
+	CompositorNodeCombRGBA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCombRGBA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43277,7 +44448,9 @@ public:
  */
 class CompositorNodeDilateErode : public CompositorNode {
 public:
-	CompositorNodeDilateErode() : CompositorNode()
+	CompositorNodeDilateErode(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDilateErode() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43359,7 +44532,9 @@ public:
  */
 class CompositorNodeInpaint : public CompositorNode {
 public:
-	CompositorNodeInpaint() : CompositorNode()
+	CompositorNodeInpaint(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeInpaint() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43410,7 +44585,9 @@ public:
  */
 class CompositorNodeDespeckle : public CompositorNode {
 public:
-	CompositorNodeDespeckle() : CompositorNode()
+	CompositorNodeDespeckle(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDespeckle() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43466,7 +44643,9 @@ public:
  */
 class CompositorNodeRotate : public CompositorNode {
 public:
-	CompositorNodeRotate() : CompositorNode()
+	CompositorNodeRotate(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeRotate() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43523,7 +44702,9 @@ public:
  */
 class CompositorNodeScale : public CompositorNode {
 public:
-	CompositorNodeScale() : CompositorNode()
+	CompositorNodeScale(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeScale() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43602,7 +44783,9 @@ public:
  */
 class CompositorNodeSepYCCA : public CompositorNode {
 public:
-	CompositorNodeSepYCCA() : CompositorNode()
+	CompositorNodeSepYCCA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSepYCCA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43659,7 +44842,9 @@ public:
  */
 class CompositorNodeCombYCCA : public CompositorNode {
 public:
-	CompositorNodeCombYCCA() : CompositorNode()
+	CompositorNodeCombYCCA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCombYCCA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43716,7 +44901,9 @@ public:
  */
 class CompositorNodeSepYUVA : public CompositorNode {
 public:
-	CompositorNodeSepYUVA() : CompositorNode()
+	CompositorNodeSepYUVA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSepYUVA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43762,7 +44949,9 @@ public:
  */
 class CompositorNodeCombYUVA : public CompositorNode {
 public:
-	CompositorNodeCombYUVA() : CompositorNode()
+	CompositorNodeCombYUVA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCombYUVA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43808,7 +44997,9 @@ public:
  */
 class CompositorNodeDiffMatte : public CompositorNode {
 public:
-	CompositorNodeDiffMatte() : CompositorNode()
+	CompositorNodeDiffMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDiffMatte() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43864,7 +45055,9 @@ public:
  */
 class CompositorNodeColorSpill : public CompositorNode {
 public:
-	CompositorNodeColorSpill() : CompositorNode()
+	CompositorNodeColorSpill(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeColorSpill() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -43967,7 +45160,9 @@ public:
  */
 class CompositorNodeChromaMatte : public CompositorNode {
 public:
-	CompositorNodeChromaMatte() : CompositorNode()
+	CompositorNodeChromaMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeChromaMatte() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44038,7 +45233,9 @@ public:
  */
 class CompositorNodeChannelMatte : public CompositorNode {
 public:
-	CompositorNodeChannelMatte() : CompositorNode()
+	CompositorNodeChannelMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeChannelMatte() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44138,7 +45335,9 @@ public:
  */
 class CompositorNodeFlip : public CompositorNode {
 public:
-	CompositorNodeFlip() : CompositorNode()
+	CompositorNodeFlip(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeFlip() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44195,7 +45394,9 @@ public:
  */
 class CompositorNodeSplitViewer : public CompositorNode {
 public:
-	CompositorNodeSplitViewer() : CompositorNode()
+	CompositorNodeSplitViewer(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSplitViewer() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44256,7 +45457,9 @@ public:
  */
 class CompositorNodeMapUV : public CompositorNode {
 public:
-	CompositorNodeMapUV() : CompositorNode()
+	CompositorNodeMapUV(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMapUV() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44307,7 +45510,9 @@ public:
  */
 class CompositorNodeIDMask : public CompositorNode {
 public:
-	CompositorNodeIDMask() : CompositorNode()
+	CompositorNodeIDMask(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeIDMask() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44363,7 +45568,9 @@ public:
  */
 class CompositorNodeDoubleEdgeMask : public CompositorNode {
 public:
-	CompositorNodeDoubleEdgeMask() : CompositorNode()
+	CompositorNodeDoubleEdgeMask(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDoubleEdgeMask() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44429,7 +45636,9 @@ public:
  */
 class CompositorNodeDefocus : public CompositorNode {
 public:
-	CompositorNodeDefocus() : CompositorNode()
+	CompositorNodeDefocus(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDefocus() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44533,7 +45742,9 @@ public:
  */
 class CompositorNodeDisplace : public CompositorNode {
 public:
-	CompositorNodeDisplace() : CompositorNode()
+	CompositorNodeDisplace(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDisplace() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44579,7 +45790,9 @@ public:
  */
 class CompositorNodeCombHSVA : public CompositorNode {
 public:
-	CompositorNodeCombHSVA() : CompositorNode()
+	CompositorNodeCombHSVA(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCombHSVA() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44625,7 +45838,9 @@ public:
  */
 class CompositorNodeMath : public CompositorNode {
 public:
-	CompositorNodeMath() : CompositorNode()
+	CompositorNodeMath(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMath() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44703,7 +45918,9 @@ public:
  */
 class CompositorNodeLumaMatte : public CompositorNode {
 public:
-	CompositorNodeLumaMatte() : CompositorNode()
+	CompositorNodeLumaMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeLumaMatte() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44759,7 +45976,9 @@ public:
  */
 class CompositorNodeBrightContrast : public CompositorNode {
 public:
-	CompositorNodeBrightContrast() : CompositorNode()
+	CompositorNodeBrightContrast(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeBrightContrast() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44805,7 +46024,9 @@ public:
  */
 class CompositorNodeGamma : public CompositorNode {
 public:
-	CompositorNodeGamma() : CompositorNode()
+	CompositorNodeGamma(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeGamma() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44851,7 +46072,9 @@ public:
  */
 class CompositorNodeInvert : public CompositorNode {
 public:
-	CompositorNodeInvert() : CompositorNode()
+	CompositorNodeInvert(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeInvert() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44907,7 +46130,9 @@ public:
  */
 class CompositorNodeNormalize : public CompositorNode {
 public:
-	CompositorNodeNormalize() : CompositorNode()
+	CompositorNodeNormalize(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeNormalize() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -44953,7 +46178,9 @@ public:
  */
 class CompositorNodeCrop : public CompositorNode {
 public:
-	CompositorNodeCrop() : CompositorNode()
+	CompositorNodeCrop(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCrop() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45049,7 +46276,9 @@ public:
  */
 class CompositorNodeDBlur : public CompositorNode {
 public:
-	CompositorNodeDBlur() : CompositorNode()
+	CompositorNodeDBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDBlur() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45135,7 +46364,9 @@ public:
  */
 class CompositorNodeBilateralblur : public CompositorNode {
 public:
-	CompositorNodeBilateralblur() : CompositorNode()
+	CompositorNodeBilateralblur(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeBilateralblur() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45196,7 +46427,9 @@ public:
  */
 class CompositorNodePremulKey : public CompositorNode {
 public:
-	CompositorNodePremulKey() : CompositorNode()
+	CompositorNodePremulKey(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodePremulKey() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45252,7 +46485,9 @@ public:
  */
 class CompositorNodeGlare : public CompositorNode {
 public:
-	CompositorNodeGlare() : CompositorNode()
+	CompositorNodeGlare(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeGlare() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45366,7 +46601,9 @@ public:
  */
 class CompositorNodeTonemap : public CompositorNode {
 public:
-	CompositorNodeTonemap() : CompositorNode()
+	CompositorNodeTonemap(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeTonemap() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45457,7 +46694,9 @@ public:
  */
 class CompositorNodeLensdist : public CompositorNode {
 public:
-	CompositorNodeLensdist() : CompositorNode()
+	CompositorNodeLensdist(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeLensdist() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45518,7 +46757,9 @@ public:
  */
 class CompositorNodeLevels : public CompositorNode {
 public:
-	CompositorNodeLevels() : CompositorNode()
+	CompositorNodeLevels(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeLevels() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45577,7 +46818,9 @@ public:
  */
 class CompositorNodeColorMatte : public CompositorNode {
 public:
-	CompositorNodeColorMatte() : CompositorNode()
+	CompositorNodeColorMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeColorMatte() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45638,7 +46881,9 @@ public:
  */
 class CompositorNodeDistanceMatte : public CompositorNode {
 public:
-	CompositorNodeDistanceMatte() : CompositorNode()
+	CompositorNodeDistanceMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeDistanceMatte() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45704,7 +46949,9 @@ public:
  */
 class CompositorNodeColorBalance : public CompositorNode {
 public:
-	CompositorNodeColorBalance() : CompositorNode()
+	CompositorNodeColorBalance(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeColorBalance() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45790,7 +47037,9 @@ public:
  */
 class CompositorNodeHueCorrect : public CompositorNode {
 public:
-	CompositorNodeHueCorrect() : CompositorNode()
+	CompositorNodeHueCorrect(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeHueCorrect() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45839,7 +47088,9 @@ public:
  */
 class CompositorNodeMovieClip : public CompositorNode {
 public:
-	CompositorNodeMovieClip() : CompositorNode()
+	CompositorNodeMovieClip(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMovieClip() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45888,7 +47139,9 @@ public:
  */
 class CompositorNodeTransform : public CompositorNode {
 public:
-	CompositorNodeTransform() : CompositorNode()
+	CompositorNodeTransform(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeTransform() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -45945,7 +47198,9 @@ public:
  */
 class CompositorNodeStabilize : public CompositorNode {
 public:
-	CompositorNodeStabilize() : CompositorNode()
+	CompositorNodeStabilize(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeStabilize() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46005,7 +47260,9 @@ public:
  */
 class CompositorNodeMovieDistortion : public CompositorNode {
 public:
-	CompositorNodeMovieDistortion() : CompositorNode()
+	CompositorNodeMovieDistortion(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMovieDistortion() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46064,7 +47321,9 @@ public:
  */
 class CompositorNodeBoxMask : public CompositorNode {
 public:
-	CompositorNodeBoxMask() : CompositorNode()
+	CompositorNodeBoxMask(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeBoxMask() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46147,7 +47406,9 @@ public:
  */
 class CompositorNodeEllipseMask : public CompositorNode {
 public:
-	CompositorNodeEllipseMask() : CompositorNode()
+	CompositorNodeEllipseMask(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeEllipseMask() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46230,7 +47491,9 @@ public:
  */
 class CompositorNodeBokehImage : public CompositorNode {
 public:
-	CompositorNodeBokehImage() : CompositorNode()
+	CompositorNodeBokehImage(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeBokehImage() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46301,7 +47564,9 @@ public:
  */
 class CompositorNodeBokehBlur : public CompositorNode {
 public:
-	CompositorNodeBokehBlur() : CompositorNode()
+	CompositorNodeBokehBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeBokehBlur() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46357,7 +47622,9 @@ public:
  */
 class CompositorNodeSwitch : public CompositorNode {
 public:
-	CompositorNodeSwitch() : CompositorNode()
+	CompositorNodeSwitch(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSwitch() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46408,7 +47675,9 @@ public:
  */
 class CompositorNodeSwitchView : public CompositorNode {
 public:
-	CompositorNodeSwitchView() : CompositorNode()
+	CompositorNodeSwitchView(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSwitchView() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46459,7 +47728,9 @@ public:
  */
 class CompositorNodeColorCorrection : public CompositorNode {
 public:
-	CompositorNodeColorCorrection() : CompositorNode()
+	CompositorNodeColorCorrection(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeColorCorrection() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46630,7 +47901,9 @@ public:
  */
 class CompositorNodeMask : public CompositorNode {
 public:
-	CompositorNodeMask() : CompositorNode()
+	CompositorNodeMask(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeMask() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46725,7 +47998,9 @@ public:
  */
 class CompositorNodeKeyingScreen : public CompositorNode {
 public:
-	CompositorNodeKeyingScreen() : CompositorNode()
+	CompositorNodeKeyingScreen(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeKeyingScreen() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46779,7 +48054,9 @@ public:
  */
 class CompositorNodeKeying : public CompositorNode {
 public:
-	CompositorNodeKeying() : CompositorNode()
+	CompositorNodeKeying(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeKeying() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46894,7 +48171,9 @@ public:
  */
 class CompositorNodeTrackPos : public CompositorNode {
 public:
-	CompositorNodeTrackPos() : CompositorNode()
+	CompositorNodeTrackPos(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeTrackPos() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -46970,7 +48249,9 @@ public:
  */
 class CompositorNodePixelate : public CompositorNode {
 public:
-	CompositorNodePixelate() : CompositorNode()
+	CompositorNodePixelate(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodePixelate() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -47016,7 +48297,9 @@ public:
  */
 class CompositorNodePlaneTrackDeform : public CompositorNode {
 public:
-	CompositorNodePlaneTrackDeform() : CompositorNode()
+	CompositorNodePlaneTrackDeform(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodePlaneTrackDeform() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -47090,7 +48373,9 @@ public:
  */
 class CompositorNodeCornerPin : public CompositorNode {
 public:
-	CompositorNodeCornerPin() : CompositorNode()
+	CompositorNodeCornerPin(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeCornerPin() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -47136,7 +48421,9 @@ public:
  */
 class CompositorNodeSunBeams : public CompositorNode {
 public:
-	CompositorNodeSunBeams() : CompositorNode()
+	CompositorNodeSunBeams(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeSunBeams() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -47192,7 +48479,9 @@ public:
  */
 class TextureNodeOutput : public TextureNode {
 public:
-	TextureNodeOutput() : TextureNode()
+	TextureNodeOutput(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeOutput() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47243,7 +48532,9 @@ public:
  */
 class TextureNodeChecker : public TextureNode {
 public:
-	TextureNodeChecker() : TextureNode()
+	TextureNodeChecker(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeChecker() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47289,7 +48580,9 @@ public:
  */
 class TextureNodeTexture : public TextureNode {
 public:
-	TextureNodeTexture() : TextureNode()
+	TextureNodeTexture(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexture() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47343,7 +48636,9 @@ public:
  */
 class TextureNodeBricks : public TextureNode {
 public:
-	TextureNodeBricks() : TextureNode()
+	TextureNodeBricks(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeBricks() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47409,7 +48704,9 @@ public:
  */
 class TextureNodeMath : public TextureNode {
 public:
-	TextureNodeMath() : TextureNode()
+	TextureNodeMath(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeMath() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47487,7 +48784,9 @@ public:
  */
 class TextureNodeMixRGB : public TextureNode {
 public:
-	TextureNodeMixRGB() : TextureNode()
+	TextureNodeMixRGB(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeMixRGB() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47569,7 +48868,9 @@ public:
  */
 class TextureNodeRGBToBW : public TextureNode {
 public:
-	TextureNodeRGBToBW() : TextureNode()
+	TextureNodeRGBToBW(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeRGBToBW() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47615,7 +48916,9 @@ public:
  */
 class TextureNodeValToRGB : public TextureNode {
 public:
-	TextureNodeValToRGB() : TextureNode()
+	TextureNodeValToRGB(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeValToRGB() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47664,7 +48967,9 @@ public:
  */
 class TextureNodeImage : public TextureNode {
 public:
-	TextureNodeImage() : TextureNode()
+	TextureNodeImage(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeImage() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47713,7 +49018,9 @@ public:
  */
 class TextureNodeCurveRGB : public TextureNode {
 public:
-	TextureNodeCurveRGB() : TextureNode()
+	TextureNodeCurveRGB(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeCurveRGB() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47762,7 +49069,9 @@ public:
  */
 class TextureNodeInvert : public TextureNode {
 public:
-	TextureNodeInvert() : TextureNode()
+	TextureNodeInvert(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeInvert() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47808,7 +49117,9 @@ public:
  */
 class TextureNodeHueSaturation : public TextureNode {
 public:
-	TextureNodeHueSaturation() : TextureNode()
+	TextureNodeHueSaturation(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeHueSaturation() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47854,7 +49165,9 @@ public:
  */
 class TextureNodeCurveTime : public TextureNode {
 public:
-	TextureNodeCurveTime() : TextureNode()
+	TextureNodeCurveTime(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeCurveTime() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47913,7 +49226,9 @@ public:
  */
 class TextureNodeRotate : public TextureNode {
 public:
-	TextureNodeRotate() : TextureNode()
+	TextureNodeRotate(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeRotate() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -47959,7 +49274,9 @@ public:
  */
 class TextureNodeViewer : public TextureNode {
 public:
-	TextureNodeViewer() : TextureNode()
+	TextureNodeViewer(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeViewer() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48005,7 +49322,9 @@ public:
  */
 class TextureNodeTranslate : public TextureNode {
 public:
-	TextureNodeTranslate() : TextureNode()
+	TextureNodeTranslate(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTranslate() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48051,7 +49370,9 @@ public:
  */
 class TextureNodeCoordinates : public TextureNode {
 public:
-	TextureNodeCoordinates() : TextureNode()
+	TextureNodeCoordinates(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeCoordinates() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48097,7 +49418,9 @@ public:
  */
 class TextureNodeDistance : public TextureNode {
 public:
-	TextureNodeDistance() : TextureNode()
+	TextureNodeDistance(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeDistance() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48143,7 +49466,9 @@ public:
  */
 class TextureNodeCompose : public TextureNode {
 public:
-	TextureNodeCompose() : TextureNode()
+	TextureNodeCompose(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeCompose() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48189,7 +49514,9 @@ public:
  */
 class TextureNodeDecompose : public TextureNode {
 public:
-	TextureNodeDecompose() : TextureNode()
+	TextureNodeDecompose(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeDecompose() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48235,7 +49562,9 @@ public:
  */
 class TextureNodeValToNor : public TextureNode {
 public:
-	TextureNodeValToNor() : TextureNode()
+	TextureNodeValToNor(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeValToNor() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48281,7 +49610,9 @@ public:
  */
 class TextureNodeScale : public TextureNode {
 public:
-	TextureNodeScale() : TextureNode()
+	TextureNodeScale(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeScale() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48327,7 +49658,9 @@ public:
  */
 class TextureNodeAt : public TextureNode {
 public:
-	TextureNodeAt() : TextureNode()
+	TextureNodeAt(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeAt() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48373,7 +49706,9 @@ public:
  */
 class TextureNodeTexVoronoi : public TextureNode {
 public:
-	TextureNodeTexVoronoi() : TextureNode()
+	TextureNodeTexVoronoi(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexVoronoi() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48419,7 +49754,9 @@ public:
  */
 class TextureNodeTexBlend : public TextureNode {
 public:
-	TextureNodeTexBlend() : TextureNode()
+	TextureNodeTexBlend(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexBlend() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48465,7 +49802,9 @@ public:
  */
 class TextureNodeTexMagic : public TextureNode {
 public:
-	TextureNodeTexMagic() : TextureNode()
+	TextureNodeTexMagic(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexMagic() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48511,7 +49850,9 @@ public:
  */
 class TextureNodeTexMarble : public TextureNode {
 public:
-	TextureNodeTexMarble() : TextureNode()
+	TextureNodeTexMarble(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexMarble() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48557,7 +49898,9 @@ public:
  */
 class TextureNodeTexClouds : public TextureNode {
 public:
-	TextureNodeTexClouds() : TextureNode()
+	TextureNodeTexClouds(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexClouds() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48603,7 +49946,9 @@ public:
  */
 class TextureNodeTexWood : public TextureNode {
 public:
-	TextureNodeTexWood() : TextureNode()
+	TextureNodeTexWood(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexWood() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48649,7 +49994,9 @@ public:
  */
 class TextureNodeTexMusgrave : public TextureNode {
 public:
-	TextureNodeTexMusgrave() : TextureNode()
+	TextureNodeTexMusgrave(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexMusgrave() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48695,7 +50042,9 @@ public:
  */
 class TextureNodeTexNoise : public TextureNode {
 public:
-	TextureNodeTexNoise() : TextureNode()
+	TextureNodeTexNoise(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexNoise() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48741,7 +50090,9 @@ public:
  */
 class TextureNodeTexStucci : public TextureNode {
 public:
-	TextureNodeTexStucci() : TextureNode()
+	TextureNodeTexStucci(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexStucci() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48787,7 +50138,9 @@ public:
  */
 class TextureNodeTexDistNoise : public TextureNode {
 public:
-	TextureNodeTexDistNoise() : TextureNode()
+	TextureNodeTexDistNoise(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeTexDistNoise() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48833,7 +50186,9 @@ public:
  */
 class ShaderNodeGroup : public ShaderNode {
 public:
-	ShaderNodeGroup() : ShaderNode()
+	ShaderNodeGroup(PyObject* pyobj) : ShaderNode(pyobj) {}
+
+	ShaderNodeGroup() : ShaderNode(0)
 	{
 		// not implemented
 	}
@@ -48885,7 +50240,9 @@ public:
  */
 class CompositorNodeGroup : public CompositorNode {
 public:
-	CompositorNodeGroup() : CompositorNode()
+	CompositorNodeGroup(PyObject* pyobj) : CompositorNode(pyobj) {}
+
+	CompositorNodeGroup() : CompositorNode(0)
 	{
 		// not implemented
 	}
@@ -48937,7 +50294,9 @@ public:
  */
 class TextureNodeGroup : public TextureNode {
 public:
-	TextureNodeGroup() : TextureNode()
+	TextureNodeGroup(PyObject* pyobj) : TextureNode(pyobj) {}
+
+	TextureNodeGroup() : TextureNode(0)
 	{
 		// not implemented
 	}
@@ -48989,7 +50348,9 @@ public:
  */
 class NodeCustomGroup : public Node {
 public:
-	NodeCustomGroup() : Node()
+	NodeCustomGroup(PyObject* pyobj) : Node(pyobj) {}
+
+	NodeCustomGroup() : Node(0)
 	{
 		// not implemented
 	}
@@ -49007,9 +50368,11 @@ public:
 /**
  * Single layer file slot of the file output node
  */
-class NodeOutputFileSlotFile {
+class NodeOutputFileSlotFile : public pyUniplug {
 public:
-	NodeOutputFileSlotFile()
+	NodeOutputFileSlotFile(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeOutputFileSlotFile() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -49042,9 +50405,11 @@ public:
 /**
  * Multilayer slot of the file output node
  */
-class NodeOutputFileSlotLayer {
+class NodeOutputFileSlotLayer : public pyUniplug {
 public:
-	NodeOutputFileSlotLayer()
+	NodeOutputFileSlotLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeOutputFileSlotLayer() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -49069,9 +50434,11 @@ public:
 /**
  * Hash table containing node instance data
  */
-class NodeInstanceHash {
+class NodeInstanceHash : public pyUniplug {
 public:
-	NodeInstanceHash()
+	NodeInstanceHash(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeInstanceHash() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -49093,16 +50460,11 @@ public:
  */
 class Object : public ID {
 public:
-	Object() : ID()
+	Object(PyObject* pyobj) : ID(pyobj) {}
+
+	Object() : ID(0)
 	{
 		// not implemented
-		material_slots();
-		modifiers();
-		constraints();
-		vertex_groups();
-		particle_systems();
-		dupli_list();
-		lod_levels();
 	}
 
 	/** Getter: Object data */
@@ -49861,15 +51223,13 @@ public:
 /**
  * Game engine related settings for the object
  */
-class GameObjectSettings {
+class GameObjectSettings : public pyUniplug {
 public:
-	GameObjectSettings()
+	GameObjectSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GameObjectSettings() : pyUniplug(0)
 	{
 		// not implemented
-		sensors();
-		controllers();
-		actuators();
-		properties();
 	}
 
 	/** Getter: RNA property collection */
@@ -50147,9 +51507,11 @@ public:
 /**
  * An object instance in a scene
  */
-class ObjectBase {
+class ObjectBase : public pyUniplug {
 public:
-	ObjectBase()
+	ObjectBase(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ObjectBase() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50193,9 +51555,11 @@ public:
 /**
  * Group of vertices, used for armature deform and other purposes
  */
-class VertexGroup {
+class VertexGroup : public pyUniplug {
 public:
-	VertexGroup()
+	VertexGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	VertexGroup() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50270,9 +51634,11 @@ public:
 /**
  * Material slot in an object
  */
-class MaterialSlot {
+class MaterialSlot : public pyUniplug {
 public:
-	MaterialSlot()
+	MaterialSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaterialSlot() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50310,9 +51676,11 @@ public:
 /**
  * An object duplicate
  */
-class DupliObject {
+class DupliObject : public pyUniplug {
 public:
-	DupliObject()
+	DupliObject(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DupliObject() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50381,9 +51749,11 @@ public:
 /**
  * 
  */
-class LodLevel {
+class LodLevel : public pyUniplug {
 public:
-	LodLevel()
+	LodLevel(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	LodLevel() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50431,12 +51801,13 @@ public:
 /**
  * Point cache for physics simulations
  */
-class PointCache {
+class PointCache : public pyUniplug {
 public:
-	PointCache()
+	PointCache(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PointCache() : pyUniplug(0)
 	{
 		// not implemented
-		point_caches();
 	}
 
 	/** Getter: RNA property collection */
@@ -50540,9 +51911,11 @@ public:
 /**
  * Collision settings for object in physics simulation
  */
-class CollisionSettings {
+class CollisionSettings : public pyUniplug {
 public:
-	CollisionSettings()
+	CollisionSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	CollisionSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50622,9 +51995,11 @@ public:
 /**
  * Effector weights for physics simulation
  */
-class EffectorWeights {
+class EffectorWeights : public pyUniplug {
 public:
-	EffectorWeights()
+	EffectorWeights(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	EffectorWeights() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -50727,9 +52102,11 @@ public:
 /**
  * Field settings for an object in physics simulation
  */
-class FieldSettings {
+class FieldSettings : public pyUniplug {
 public:
-	FieldSettings()
+	FieldSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FieldSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51043,9 +52420,11 @@ public:
 /**
  * Soft body simulation settings for an object in the game engine
  */
-class GameSoftBodySettings {
+class GameSoftBodySettings : public pyUniplug {
 public:
-	GameSoftBodySettings()
+	GameSoftBodySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GameSoftBodySettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51120,9 +52499,11 @@ public:
 /**
  * Soft body simulation settings for an object
  */
-class SoftBodySettings {
+class SoftBodySettings : public pyUniplug {
 public:
-	SoftBodySettings()
+	SoftBodySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SoftBodySettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51368,9 +52749,11 @@ public:
 /**
  * External file packed into the .blend file
  */
-class PackedFile {
+class PackedFile : public pyUniplug {
 public:
-	PackedFile()
+	PackedFile(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PackedFile() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51400,9 +52783,11 @@ public:
 /**
  * 
  */
-class PaletteColor {
+class PaletteColor : public pyUniplug {
 public:
-	PaletteColor()
+	PaletteColor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PaletteColor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51439,10 +52824,11 @@ public:
  */
 class Palette : public ID {
 public:
-	Palette() : ID()
+	Palette(PyObject* pyobj) : ID(pyobj) {}
+
+	Palette() : ID(0)
 	{
 		// not implemented
-		colors();
 	}
 
 	/** Getter:  */
@@ -51457,9 +52843,11 @@ public:
 /**
  * Target particle system
  */
-class ParticleTarget {
+class ParticleTarget : public pyUniplug {
 public:
-	ParticleTarget()
+	ParticleTarget(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleTarget() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51518,9 +52906,11 @@ public:
 /**
  * Settings for particle fluids physics
  */
-class SPHFluidSettings {
+class SPHFluidSettings : public pyUniplug {
 public:
-	SPHFluidSettings()
+	SPHFluidSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SPHFluidSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51645,9 +53035,11 @@ public:
 /**
  * Particle key for hair particle system
  */
-class ParticleHairKey {
+class ParticleHairKey : public pyUniplug {
 public:
-	ParticleHairKey()
+	ParticleHairKey(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleHairKey() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51696,9 +53088,11 @@ public:
 /**
  * Key location for a particle over time
  */
-class ParticleKey {
+class ParticleKey : public pyUniplug {
 public:
-	ParticleKey()
+	ParticleKey(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleKey() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51743,9 +53137,11 @@ public:
 /**
  * Child particle interpolated from simulated or edited particles
  */
-class ChildParticle {
+class ChildParticle : public pyUniplug {
 public:
-	ChildParticle()
+	ChildParticle(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ChildParticle() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51765,13 +53161,13 @@ public:
 /**
  * Particle in a particle system
  */
-class Particle {
+class Particle : public pyUniplug {
 public:
-	Particle()
+	Particle(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Particle() : pyUniplug(0)
 	{
 		// not implemented
-		hair_keys();
-		particle_keys();
 	}
 
 	/** Getter: RNA property collection */
@@ -51892,9 +53288,11 @@ public:
 /**
  * Weight of a particle dupliobject in a group
  */
-class ParticleDupliWeight {
+class ParticleDupliWeight : public pyUniplug {
 public:
-	ParticleDupliWeight()
+	ParticleDupliWeight(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleDupliWeight() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -51924,14 +53322,13 @@ public:
 /**
  * Particle system in an object
  */
-class ParticleSystem {
+class ParticleSystem : public pyUniplug {
 public:
-	ParticleSystem()
+	ParticleSystem(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleSystem() : pyUniplug(0)
 	{
 		// not implemented
-		particles();
-		child_particles();
-		targets();
 	}
 
 	/** Getter: RNA property collection */
@@ -52236,7 +53633,9 @@ public:
  */
 class ParticleSettingsTextureSlot : public TextureSlot {
 public:
-	ParticleSettingsTextureSlot() : TextureSlot()
+	ParticleSettingsTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
+
+	ParticleSettingsTextureSlot() : TextureSlot(0)
 	{
 		// not implemented
 	}
@@ -52449,11 +53848,11 @@ public:
  */
 class ParticleSettings : public ID {
 public:
-	ParticleSettings() : ID()
+	ParticleSettings(PyObject* pyobj) : ID(pyobj) {}
+
+	ParticleSettings() : ID(0)
 	{
 		// not implemented
-		texture_slots();
-		dupli_weights();
 	}
 
 	/** Getter: Texture slots defining the mapping and influence of textures */
@@ -53456,13 +54855,13 @@ public:
 /**
  * A collection of pose channels, including settings for animating bones
  */
-class Pose {
+class Pose : public pyUniplug {
 public:
-	Pose()
+	Pose(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Pose() : pyUniplug(0)
 	{
 		// not implemented
-		bones();
-		bone_groups();
 	}
 
 	/** Getter: RNA property collection */
@@ -53506,12 +54905,13 @@ public:
 /**
  * Channel defining pose data for a bone in a Pose
  */
-class PoseBone {
+class PoseBone : public pyUniplug {
 public:
-	PoseBone()
+	PoseBone(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PoseBone() : pyUniplug(0)
 	{
 		// not implemented
-		constraints();
 	}
 
 	/** Getter: RNA property collection */
@@ -53772,9 +55172,11 @@ public:
 /**
  * Base type for IK solver parameters
  */
-class IKParam {
+class IKParam : public pyUniplug {
 public:
-	IKParam()
+	IKParam(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	IKParam() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -53806,7 +55208,9 @@ public:
  */
 class Itasc : public IKParam {
 public:
-	Itasc() : IKParam()
+	Itasc(PyObject* pyobj) : IKParam(pyobj) {}
+
+	Itasc() : IKParam(0)
 	{
 		// not implemented
 	}
@@ -53899,9 +55303,11 @@ public:
 /**
  * Groups of Pose Channels (Bones)
  */
-class BoneGroup {
+class BoneGroup : public pyUniplug {
 public:
-	BoneGroup()
+	BoneGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BoneGroup() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -53964,9 +55370,11 @@ public:
 /**
  * Game engine user defined object property
  */
-class GameProperty {
+class GameProperty : public pyUniplug {
 public:
-	GameProperty()
+	GameProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GameProperty() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -54011,7 +55419,9 @@ public:
  */
 class GameBooleanProperty : public GameProperty {
 public:
-	GameBooleanProperty() : GameProperty()
+	GameBooleanProperty(PyObject* pyobj) : GameProperty(pyobj) {}
+
+	GameBooleanProperty() : GameProperty(0)
 	{
 		// not implemented
 	}
@@ -54030,7 +55440,9 @@ public:
  */
 class GameIntProperty : public GameProperty {
 public:
-	GameIntProperty() : GameProperty()
+	GameIntProperty(PyObject* pyobj) : GameProperty(pyobj) {}
+
+	GameIntProperty() : GameProperty(0)
 	{
 		// not implemented
 	}
@@ -54049,7 +55461,9 @@ public:
  */
 class GameFloatProperty : public GameProperty {
 public:
-	GameFloatProperty() : GameProperty()
+	GameFloatProperty(PyObject* pyobj) : GameProperty(pyobj) {}
+
+	GameFloatProperty() : GameProperty(0)
 	{
 		// not implemented
 	}
@@ -54068,7 +55482,9 @@ public:
  */
 class GameTimerProperty : public GameProperty {
 public:
-	GameTimerProperty() : GameProperty()
+	GameTimerProperty(PyObject* pyobj) : GameProperty(pyobj) {}
+
+	GameTimerProperty() : GameProperty(0)
 	{
 		// not implemented
 	}
@@ -54087,7 +55503,9 @@ public:
  */
 class GameStringProperty : public GameProperty {
 public:
-	GameStringProperty() : GameProperty()
+	GameStringProperty(PyObject* pyobj) : GameProperty(pyobj) {}
+
+	GameStringProperty() : GameProperty(0)
 	{
 		// not implemented
 	}
@@ -54104,9 +55522,11 @@ public:
 /**
  * Render engine
  */
-class RenderEngine {
+class RenderEngine : public pyUniplug {
 public:
-	RenderEngine()
+	RenderEngine(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderEngine() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -54393,13 +55813,13 @@ public:
 /**
  * Result of rendering, including all layers and passes
  */
-class RenderResult {
+class RenderResult : public pyUniplug {
 public:
-	RenderResult()
+	RenderResult(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderResult() : pyUniplug(0)
 	{
 		// not implemented
-		layers();
-		views();
 	}
 
 	/** Getter: RNA property collection */
@@ -54446,9 +55866,11 @@ public:
 /**
  * 
  */
-class RenderView {
+class RenderView : public pyUniplug {
 public:
-	RenderView()
+	RenderView(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderView() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -54473,12 +55895,13 @@ public:
 /**
  * 
  */
-class RenderLayer {
+class RenderLayer : public pyUniplug {
 public:
-	RenderLayer()
+	RenderLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderLayer() : pyUniplug(0)
 	{
 		// not implemented
-		passes();
 	}
 
 	/** Getter: RNA property collection */
@@ -54783,9 +56206,11 @@ public:
 /**
  * 
  */
-class RenderPass {
+class RenderPass : public pyUniplug {
 public:
-	RenderPass()
+	RenderPass(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderPass() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -54876,9 +56301,11 @@ public:
 /**
  * 
  */
-class BakePixel {
+class BakePixel : public pyUniplug {
 public:
-	BakePixel()
+	BakePixel(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BakePixel() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -54936,9 +56363,11 @@ public:
 /**
  * Self-contained rigid body simulation environment and settings
  */
-class RigidBodyWorld {
+class RigidBodyWorld : public pyUniplug {
 public:
-	RigidBodyWorld()
+	RigidBodyWorld(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RigidBodyWorld() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -55018,9 +56447,11 @@ public:
 /**
  * Settings for object participating in Rigid Body Simulation
  */
-class RigidBodyObject {
+class RigidBodyObject : public pyUniplug {
 public:
-	RigidBodyObject()
+	RigidBodyObject(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RigidBodyObject() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -55151,9 +56582,11 @@ public:
 /**
  * Constraint influencing Objects inside Rigid Body Simulation
  */
-class RigidBodyConstraint {
+class RigidBodyConstraint : public pyUniplug {
 public:
-	RigidBodyConstraint()
+	RigidBodyConstraint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RigidBodyConstraint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -55392,15 +56825,11 @@ public:
  */
 class Scene : public ID {
 public:
-	Scene() : ID()
+	Scene(PyObject* pyobj) : ID(pyobj) {}
+
+	Scene() : ID(0)
 	{
 		// not implemented
-		object_bases();
-		objects();
-		keying_sets();
-		keying_sets_all();
-		timeline_markers();
-		orientations();
 	}
 
 	/** Getter: Active camera, used for rendering the scene */
@@ -55751,9 +57180,11 @@ public:
 /**
  * 
  */
-class ToolSettings {
+class ToolSettings : public pyUniplug {
 public:
-	ToolSettings()
+	ToolSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ToolSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -56172,9 +57603,11 @@ public:
 /**
  * Overrides for some of the active brush's settings
  */
-class UnifiedPaintSettings {
+class UnifiedPaintSettings : public pyUniplug {
 public:
-	UnifiedPaintSettings()
+	UnifiedPaintSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UnifiedPaintSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -56259,9 +57692,11 @@ public:
 /**
  * 
  */
-class MeshStatVis {
+class MeshStatVis : public pyUniplug {
 public:
-	MeshStatVis()
+	MeshStatVis(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MeshStatVis() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -56353,9 +57788,11 @@ public:
 /**
  * 
  */
-class UnitSettings {
+class UnitSettings : public pyUniplug {
 public:
-	UnitSettings()
+	UnitSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UnitSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -56406,9 +57843,11 @@ public:
 /**
  * Settings for stereo output
  */
-class Stereo3dFormat {
+class Stereo3dFormat : public pyUniplug {
 public:
-	Stereo3dFormat()
+	Stereo3dFormat(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Stereo3dFormat() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -56477,9 +57916,11 @@ public:
 /**
  * Settings for image formats
  */
-class ImageFormatSettings {
+class ImageFormatSettings : public pyUniplug {
 public:
-	ImageFormatSettings()
+	ImageFormatSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ImageFormatSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -56653,9 +58094,11 @@ public:
 /**
  * Game data for a Scene datablock
  */
-class SceneGameData {
+class SceneGameData : public pyUniplug {
 public:
-	SceneGameData()
+	SceneGameData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SceneGameData() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -57219,9 +58662,11 @@ public:
 /**
  * Recast data for a Game datablock
  */
-class SceneGameRecastData {
+class SceneGameRecastData : public pyUniplug {
 public:
-	SceneGameRecastData()
+	SceneGameRecastData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SceneGameRecastData() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -57306,9 +58751,11 @@ public:
 /**
  * 
  */
-class TransformOrientation {
+class TransformOrientation : public pyUniplug {
 public:
-	TransformOrientation()
+	TransformOrientation(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TransformOrientation() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -57340,7 +58787,9 @@ public:
  */
 class SelectedUvElement : public PropertyGroup {
 public:
-	SelectedUvElement() : PropertyGroup()
+	SelectedUvElement(PyObject* pyobj) : PropertyGroup(pyobj) {}
+
+	SelectedUvElement() : PropertyGroup(0)
 	{
 		// not implemented
 	}
@@ -57362,9 +58811,11 @@ public:
 /**
  * Safe Areas used in 3D view and the VSE
  */
-class DisplaySafeAreas {
+class DisplaySafeAreas : public pyUniplug {
 public:
-	DisplaySafeAreas()
+	DisplaySafeAreas(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	DisplaySafeAreas() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -57404,9 +58855,11 @@ public:
 /**
  * FFmpeg related settings for the scene
  */
-class FFmpegSettings {
+class FFmpegSettings : public pyUniplug {
 public:
-	FFmpegSettings()
+	FFmpegSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FFmpegSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -57555,14 +59008,13 @@ public:
 /**
  * Rendering settings for a Scene datablock
  */
-class RenderSettings {
+class RenderSettings : public pyUniplug {
 public:
-	RenderSettings()
+	RenderSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RenderSettings() : pyUniplug(0)
 	{
 		// not implemented
-		layers();
-		views();
-		stereo_views();
 	}
 
 	/** Getter: RNA property collection */
@@ -58315,9 +59767,11 @@ public:
 /**
  * Bake data for a Scene datablock
  */
-class BakeSettings {
+class BakeSettings : public pyUniplug {
 public:
-	BakeSettings()
+	BakeSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BakeSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -58457,9 +59911,11 @@ public:
 /**
  * Render layer
  */
-class SceneRenderLayer {
+class SceneRenderLayer : public pyUniplug {
 public:
-	SceneRenderLayer()
+	SceneRenderLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SceneRenderLayer() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -58763,9 +60219,11 @@ public:
 /**
  * Line set for associating lines and style parameters
  */
-class FreestyleLineSet {
+class FreestyleLineSet : public pyUniplug {
 public:
-	FreestyleLineSet()
+	FreestyleLineSet(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FreestyleLineSet() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -58987,9 +60445,11 @@ public:
 /**
  * Style module configuration for specifying a style module
  */
-class FreestyleModuleSettings {
+class FreestyleModuleSettings : public pyUniplug {
 public:
-	FreestyleModuleSettings()
+	FreestyleModuleSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FreestyleModuleSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59017,13 +60477,13 @@ public:
 /**
  * Freestyle settings for a SceneRenderLayer datablock
  */
-class FreestyleSettings {
+class FreestyleSettings : public pyUniplug {
 public:
-	FreestyleSettings()
+	FreestyleSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FreestyleSettings() : pyUniplug(0)
 	{
 		// not implemented
-		modules();
-		linesets();
 	}
 
 	/** Getter: RNA property collection */
@@ -59111,9 +60571,11 @@ public:
 /**
  * Settings for GPU based screen space ambient occlusion
  */
-class GPUSSAOSettings {
+class GPUSSAOSettings : public pyUniplug {
 public:
-	GPUSSAOSettings()
+	GPUSSAOSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPUSSAOSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59158,9 +60620,11 @@ public:
 /**
  * Settings for GPU based depth of field
  */
-class GPUDOFSettings {
+class GPUDOFSettings : public pyUniplug {
 public:
-	GPUDOFSettings()
+	GPUDOFSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPUDOFSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59215,9 +60679,11 @@ public:
 /**
  * Settings for GPU based compositing
  */
-class GPUFXSettings {
+class GPUFXSettings : public pyUniplug {
 public:
-	GPUFXSettings()
+	GPUFXSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	GPUFXSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59253,9 +60719,11 @@ public:
 /**
  * Render viewpoint for 3D stereo and multiview rendering
  */
-class SceneRenderView {
+class SceneRenderView : public pyUniplug {
 public:
-	SceneRenderView()
+	SceneRenderView(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SceneRenderView() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59297,10 +60765,11 @@ public:
  */
 class Screen : public ID {
 public:
-	Screen() : ID()
+	Screen(PyObject* pyobj) : ID(pyobj) {}
+
+	Screen() : ID(0)
 	{
 		// not implemented
-		areas();
 	}
 
 	/** Getter: Active scene to be edited in the screen */
@@ -59373,13 +60842,13 @@ public:
 /**
  * Area in a subdivided screen, containing an editor
  */
-class Area {
+class Area : public pyUniplug {
 public:
-	Area()
+	Area(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Area() : pyUniplug(0)
 	{
 		// not implemented
-		spaces();
-		regions();
 	}
 
 	/** Getter: RNA property collection */
@@ -59475,9 +60944,11 @@ public:
 /**
  * Region in a subdivided screen area
  */
-class Region {
+class Region : public pyUniplug {
 public:
-	Region()
+	Region(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Region() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59549,9 +61020,11 @@ public:
 /**
  * Scroll and zoom for a 2D region
  */
-class View2D {
+class View2D : public pyUniplug {
 public:
-	View2D()
+	View2D(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	View2D() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59598,7 +61071,9 @@ public:
  */
 class PaintCurve : public ID {
 public:
-	PaintCurve() : ID()
+	PaintCurve(PyObject* pyobj) : ID(pyobj) {}
+
+	PaintCurve() : ID(0)
 	{
 		// not implemented
 	}
@@ -59610,9 +61085,11 @@ public:
 /**
  * 
  */
-class Paint {
+class Paint : public pyUniplug {
 public:
-	Paint()
+	Paint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Paint() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -59688,7 +61165,9 @@ public:
  */
 class Sculpt : public Paint {
 public:
-	Sculpt() : Paint()
+	Sculpt(PyObject* pyobj) : Paint(pyobj) {}
+
+	Sculpt() : Paint(0)
 	{
 		// not implemented
 	}
@@ -59801,7 +61280,9 @@ public:
  */
 class UvSculpt : public Paint {
 public:
-	UvSculpt() : Paint()
+	UvSculpt(PyObject* pyobj) : Paint(pyobj) {}
+
+	UvSculpt() : Paint(0)
 	{
 		// not implemented
 	}
@@ -59815,7 +61296,9 @@ public:
  */
 class VertexPaint : public Paint {
 public:
-	VertexPaint() : Paint()
+	VertexPaint(PyObject* pyobj) : Paint(pyobj) {}
+
+	VertexPaint() : Paint(0)
 	{
 		// not implemented
 	}
@@ -59844,7 +61327,9 @@ public:
  */
 class ImagePaint : public Paint {
 public:
-	ImagePaint() : Paint()
+	ImagePaint(PyObject* pyobj) : Paint(pyobj) {}
+
+	ImagePaint() : Paint(0)
 	{
 		// not implemented
 	}
@@ -59960,9 +61445,11 @@ public:
 /**
  * Properties of particle editing mode
  */
-class ParticleEdit {
+class ParticleEdit : public pyUniplug {
 public:
-	ParticleEdit()
+	ParticleEdit(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleEdit() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -60094,9 +61581,11 @@ public:
 /**
  * Particle editing brush
  */
-class ParticleBrush {
+class ParticleBrush : public pyUniplug {
 public:
-	ParticleBrush()
+	ParticleBrush(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ParticleBrush() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -60164,12 +61653,13 @@ public:
 /**
  * Game engine logic brick to detect events
  */
-class Sensor {
+class Sensor : public pyUniplug {
 public:
-	Sensor()
+	Sensor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Sensor() : pyUniplug(0)
 	{
 		// not implemented
-		controllers();
 	}
 
 	/** Getter: RNA property collection */
@@ -60284,7 +61774,9 @@ public:
  */
 class AlwaysSensor : public Sensor {
 public:
-	AlwaysSensor() : Sensor()
+	AlwaysSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	AlwaysSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -60298,7 +61790,9 @@ public:
  */
 class NearSensor : public Sensor {
 public:
-	NearSensor() : Sensor()
+	NearSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	NearSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -60327,7 +61821,9 @@ public:
  */
 class MouseSensor : public Sensor {
 public:
-	MouseSensor() : Sensor()
+	MouseSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	MouseSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -60387,7 +61883,9 @@ public:
  */
 class KeyboardSensor : public Sensor {
 public:
-	KeyboardSensor() : Sensor()
+	KeyboardSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	KeyboardSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -60992,7 +62490,9 @@ public:
  */
 class PropertySensor : public Sensor {
 public:
-	PropertySensor() : Sensor()
+	PropertySensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	PropertySensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61040,7 +62540,9 @@ public:
  */
 class ArmatureSensor : public Sensor {
 public:
-	ArmatureSensor() : Sensor()
+	ArmatureSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	ArmatureSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61082,7 +62584,9 @@ public:
  */
 class ActuatorSensor : public Sensor {
 public:
-	ActuatorSensor() : Sensor()
+	ActuatorSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	ActuatorSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61101,7 +62605,9 @@ public:
  */
 class DelaySensor : public Sensor {
 public:
-	DelaySensor() : Sensor()
+	DelaySensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	DelaySensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61130,7 +62636,9 @@ public:
  */
 class CollisionSensor : public Sensor {
 public:
-	CollisionSensor() : Sensor()
+	CollisionSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	CollisionSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61164,7 +62672,9 @@ public:
  */
 class RadarSensor : public Sensor {
 public:
-	RadarSensor() : Sensor()
+	RadarSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	RadarSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61207,7 +62717,9 @@ public:
  */
 class RandomSensor : public Sensor {
 public:
-	RandomSensor() : Sensor()
+	RandomSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	RandomSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61226,7 +62738,9 @@ public:
  */
 class RaySensor : public Sensor {
 public:
-	RaySensor() : Sensor()
+	RaySensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	RaySensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61284,7 +62798,9 @@ public:
  */
 class MessageSensor : public Sensor {
 public:
-	MessageSensor() : Sensor()
+	MessageSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	MessageSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61303,7 +62819,9 @@ public:
  */
 class JoystickSensor : public Sensor {
 public:
-	JoystickSensor() : Sensor()
+	JoystickSensor(PyObject* pyobj) : Sensor(pyobj) {}
+
+	JoystickSensor() : Sensor(0)
 	{
 		// not implemented
 	}
@@ -61390,9 +62908,11 @@ public:
 /**
  * Color balance parameters for a sequence strip and it's modifiers
  */
-class SequenceColorBalanceData {
+class SequenceColorBalanceData : public pyUniplug {
 public:
-	SequenceColorBalanceData()
+	SequenceColorBalanceData(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceColorBalanceData() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -61442,9 +62962,11 @@ public:
 /**
  * Sequence strip data for a single frame
  */
-class SequenceElement {
+class SequenceElement : public pyUniplug {
 public:
-	SequenceElement()
+	SequenceElement(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceElement() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -61479,9 +63001,11 @@ public:
 /**
  * Proxy parameters for a sequence strip
  */
-class SequenceProxy {
+class SequenceProxy : public pyUniplug {
 public:
-	SequenceProxy()
+	SequenceProxy(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceProxy() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -61581,7 +63105,9 @@ public:
  */
 class SequenceColorBalance : public SequenceColorBalanceData {
 public:
-	SequenceColorBalance() : SequenceColorBalanceData()
+	SequenceColorBalance(PyObject* pyobj) : SequenceColorBalanceData(pyobj) {}
+
+	SequenceColorBalance() : SequenceColorBalanceData(0)
 	{
 		// not implemented
 	}
@@ -61593,9 +63119,11 @@ public:
 /**
  * Cropping parameters for a sequence strip
  */
-class SequenceCrop {
+class SequenceCrop : public pyUniplug {
 public:
-	SequenceCrop()
+	SequenceCrop(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceCrop() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -61635,9 +63163,11 @@ public:
 /**
  * Transform parameters for a sequence strip
  */
-class SequenceTransform {
+class SequenceTransform : public pyUniplug {
 public:
-	SequenceTransform()
+	SequenceTransform(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceTransform() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -61667,12 +63197,13 @@ public:
 /**
  * Sequence strip in the sequence editor
  */
-class Sequence {
+class Sequence : public pyUniplug {
 public:
-	Sequence()
+	Sequence(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Sequence() : pyUniplug(0)
 	{
 		// not implemented
-		modifiers();
 	}
 
 	/** Getter: RNA property collection */
@@ -61877,14 +63408,13 @@ public:
 /**
  * Sequence editing data for a Scene datablock
  */
-class SequenceEditor {
+class SequenceEditor : public pyUniplug {
 public:
-	SequenceEditor()
+	SequenceEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceEditor() : pyUniplug(0)
 	{
 		// not implemented
-		sequences();
-		sequences_all();
-		meta_stack();
 	}
 
 	/** Getter: RNA property collection */
@@ -61952,10 +63482,11 @@ public:
  */
 class ImageSequence : public Sequence {
 public:
-	ImageSequence() : Sequence()
+	ImageSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	ImageSequence() : Sequence(0)
 	{
 		// not implemented
-		elements();
 	}
 
 	/** Getter:  */
@@ -62082,10 +63613,11 @@ public:
  */
 class MetaSequence : public Sequence {
 public:
-	MetaSequence() : Sequence()
+	MetaSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	MetaSequence() : Sequence(0)
 	{
 		// not implemented
-		sequences();
 	}
 
 	/** Getter:  */
@@ -62186,7 +63718,9 @@ public:
  */
 class SceneSequence : public Sequence {
 public:
-	SceneSequence() : Sequence()
+	SceneSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	SceneSequence() : Sequence(0)
 	{
 		// not implemented
 	}
@@ -62295,10 +63829,11 @@ public:
  */
 class MovieSequence : public Sequence {
 public:
-	MovieSequence() : Sequence()
+	MovieSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	MovieSequence() : Sequence(0)
 	{
 		// not implemented
-		elements();
 	}
 
 	/** Getter: For MPEG movies, preseek this many frames */
@@ -62435,7 +63970,9 @@ public:
  */
 class MovieClipSequence : public Sequence {
 public:
-	MovieClipSequence() : Sequence()
+	MovieClipSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	MovieClipSequence() : Sequence(0)
 	{
 		// not implemented
 	}
@@ -62535,7 +64072,9 @@ public:
  */
 class MaskSequence : public Sequence {
 public:
-	MaskSequence() : Sequence()
+	MaskSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	MaskSequence() : Sequence(0)
 	{
 		// not implemented
 	}
@@ -62628,7 +64167,9 @@ public:
  */
 class SoundSequence : public Sequence {
 public:
-	SoundSequence() : Sequence()
+	SoundSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	SoundSequence() : Sequence(0)
 	{
 		// not implemented
 	}
@@ -62680,7 +64221,9 @@ public:
  */
 class EffectSequence : public Sequence {
 public:
-	EffectSequence() : Sequence()
+	EffectSequence(PyObject* pyobj) : Sequence(pyobj) {}
+
+	EffectSequence() : Sequence(0)
 	{
 		// not implemented
 	}
@@ -62768,7 +64311,9 @@ public:
  */
 class AddSequence : public EffectSequence {
 public:
-	AddSequence() : EffectSequence()
+	AddSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	AddSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62793,7 +64338,9 @@ public:
  */
 class AdjustmentSequence : public EffectSequence {
 public:
-	AdjustmentSequence() : EffectSequence()
+	AdjustmentSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	AdjustmentSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62822,7 +64369,9 @@ public:
  */
 class AlphaOverSequence : public EffectSequence {
 public:
-	AlphaOverSequence() : EffectSequence()
+	AlphaOverSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	AlphaOverSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62847,7 +64396,9 @@ public:
  */
 class AlphaUnderSequence : public EffectSequence {
 public:
-	AlphaUnderSequence() : EffectSequence()
+	AlphaUnderSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	AlphaUnderSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62872,7 +64423,9 @@ public:
  */
 class ColorSequence : public EffectSequence {
 public:
-	ColorSequence() : EffectSequence()
+	ColorSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	ColorSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62896,7 +64449,9 @@ public:
  */
 class CrossSequence : public EffectSequence {
 public:
-	CrossSequence() : EffectSequence()
+	CrossSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	CrossSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62921,7 +64476,9 @@ public:
  */
 class GammaCrossSequence : public EffectSequence {
 public:
-	GammaCrossSequence() : EffectSequence()
+	GammaCrossSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	GammaCrossSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62946,7 +64503,9 @@ public:
  */
 class GlowSequence : public EffectSequence {
 public:
-	GlowSequence() : EffectSequence()
+	GlowSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	GlowSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -62998,7 +64557,9 @@ public:
  */
 class MulticamSequence : public EffectSequence {
 public:
-	MulticamSequence() : EffectSequence()
+	MulticamSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	MulticamSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63032,7 +64593,9 @@ public:
  */
 class MultiplySequence : public EffectSequence {
 public:
-	MultiplySequence() : EffectSequence()
+	MultiplySequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	MultiplySequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63057,7 +64620,9 @@ public:
  */
 class OverDropSequence : public EffectSequence {
 public:
-	OverDropSequence() : EffectSequence()
+	OverDropSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	OverDropSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63082,7 +64647,9 @@ public:
  */
 class SpeedControlSequence : public EffectSequence {
 public:
-	SpeedControlSequence() : EffectSequence()
+	SpeedControlSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	SpeedControlSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63119,7 +64686,9 @@ public:
  */
 class SubtractSequence : public EffectSequence {
 public:
-	SubtractSequence() : EffectSequence()
+	SubtractSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	SubtractSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63144,7 +64713,9 @@ public:
  */
 class TransformSequence : public EffectSequence {
 public:
-	TransformSequence() : EffectSequence()
+	TransformSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	TransformSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63217,7 +64788,9 @@ public:
  */
 class WipeSequence : public EffectSequence {
 public:
-	WipeSequence() : EffectSequence()
+	WipeSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	WipeSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63271,7 +64844,9 @@ public:
  */
 class GaussianBlurSequence : public EffectSequence {
 public:
-	GaussianBlurSequence() : EffectSequence()
+	GaussianBlurSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
+
+	GaussianBlurSequence() : EffectSequence(0)
 	{
 		// not implemented
 	}
@@ -63301,9 +64876,11 @@ public:
 /**
  * Modifier for sequence strip
  */
-class SequenceModifier {
+class SequenceModifier : public pyUniplug {
 public:
-	SequenceModifier()
+	SequenceModifier(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SequenceModifier() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -63369,7 +64946,9 @@ public:
  */
 class ColorBalanceModifier : public SequenceModifier {
 public:
-	ColorBalanceModifier() : SequenceModifier()
+	ColorBalanceModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
+
+	ColorBalanceModifier() : SequenceModifier(0)
 	{
 		// not implemented
 	}
@@ -63391,7 +64970,9 @@ public:
  */
 class CurvesModifier : public SequenceModifier {
 public:
-	CurvesModifier() : SequenceModifier()
+	CurvesModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
+
+	CurvesModifier() : SequenceModifier(0)
 	{
 		// not implemented
 	}
@@ -63408,7 +64989,9 @@ public:
  */
 class HueCorrectModifier : public SequenceModifier {
 public:
-	HueCorrectModifier() : SequenceModifier()
+	HueCorrectModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
+
+	HueCorrectModifier() : SequenceModifier(0)
 	{
 		// not implemented
 	}
@@ -63425,7 +65008,9 @@ public:
  */
 class BrightContrastModifier : public SequenceModifier {
 public:
-	BrightContrastModifier() : SequenceModifier()
+	BrightContrastModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
+
+	BrightContrastModifier() : SequenceModifier(0)
 	{
 		// not implemented
 	}
@@ -63447,9 +65032,11 @@ public:
 /**
  * Smoke domain settings
  */
-class SmokeDomainSettings {
+class SmokeDomainSettings : public pyUniplug {
 public:
-	SmokeDomainSettings()
+	SmokeDomainSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SmokeDomainSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -63666,9 +65253,11 @@ public:
 /**
  * Smoke flow settings
  */
-class SmokeFlowSettings {
+class SmokeFlowSettings : public pyUniplug {
 public:
-	SmokeFlowSettings()
+	SmokeFlowSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SmokeFlowSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -63821,9 +65410,11 @@ public:
 /**
  * Smoke collision settings
  */
-class SmokeCollSettings {
+class SmokeCollSettings : public pyUniplug {
 public:
-	SmokeCollSettings()
+	SmokeCollSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SmokeCollSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -63854,9 +65445,11 @@ public:
 /**
  * Space data for a screen area
  */
-class Space {
+class Space : public pyUniplug {
 public:
-	Space()
+	Space(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Space() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -63909,7 +65502,9 @@ public:
  */
 class SpaceImageEditor : public Space {
 public:
-	SpaceImageEditor() : Space()
+	SpaceImageEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceImageEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -64065,9 +65660,11 @@ public:
 /**
  * UV editor data for the image editor space
  */
-class SpaceUVEditor {
+class SpaceUVEditor : public pyUniplug {
 public:
-	SpaceUVEditor()
+	SpaceUVEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	SpaceUVEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -64177,7 +65774,9 @@ public:
  */
 class SpaceSequenceEditor : public Space {
 public:
-	SpaceSequenceEditor() : Space()
+	SpaceSequenceEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceSequenceEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -64329,7 +65928,9 @@ public:
  */
 class SpaceTextEditor : public Space {
 public:
-	SpaceTextEditor() : Space()
+	SpaceTextEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceTextEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -64441,9 +66042,11 @@ public:
 /**
  * File Select Parameters
  */
-class FileSelectParams {
+class FileSelectParams : public pyUniplug {
 public:
-	FileSelectParams()
+	FileSelectParams(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FileSelectParams() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -64578,9 +66181,11 @@ public:
 /**
  * File Select Parameters
  */
-class FileBrowserFSMenuEntry {
+class FileBrowserFSMenuEntry : public pyUniplug {
 public:
-	FileBrowserFSMenuEntry()
+	FileBrowserFSMenuEntry(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	FileBrowserFSMenuEntry() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -64622,13 +66227,11 @@ public:
  */
 class SpaceFileBrowser : public Space {
 public:
-	SpaceFileBrowser() : Space()
+	SpaceFileBrowser(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceFileBrowser() : Space(0)
 	{
 		// not implemented
-		system_folders();
-		system_bookmarks();
-		bookmarks();
-		recent_folders();
 	}
 
 	/** Getter: Parameters and Settings for the Filebrowser */
@@ -64689,7 +66292,9 @@ public:
  */
 class SpaceOutliner : public Space {
 public:
-	SpaceOutliner() : Space()
+	SpaceOutliner(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceOutliner() : Space(0)
 	{
 		// not implemented
 	}
@@ -64746,9 +66351,11 @@ public:
 /**
  * Image and settings for display in the 3D View background
  */
-class BackgroundImage {
+class BackgroundImage : public pyUniplug {
 public:
-	BackgroundImage()
+	BackgroundImage(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	BackgroundImage() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -64884,11 +66491,11 @@ public:
  */
 class SpaceView3D : public Space {
 public:
-	SpaceView3D() : Space()
+	SpaceView3D(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceView3D() : Space(0)
 	{
 		// not implemented
-		background_images();
-		region_quadviews();
 	}
 
 	/** Getter: Active camera used in this view (when unlocked from the scene's active camera) */
@@ -65285,9 +66892,11 @@ public:
 /**
  * 3D View region data
  */
-class RegionView3D {
+class RegionView3D : public pyUniplug {
 public:
-	RegionView3D()
+	RegionView3D(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	RegionView3D() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -65388,7 +66997,9 @@ public:
  */
 class SpaceProperties : public Space {
 public:
-	SpaceProperties() : Space()
+	SpaceProperties(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceProperties() : Space(0)
 	{
 		// not implemented
 	}
@@ -65461,7 +67072,9 @@ public:
  */
 class SpaceDopeSheetEditor : public Space {
 public:
-	SpaceDopeSheetEditor() : Space()
+	SpaceDopeSheetEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceDopeSheetEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -65548,7 +67161,9 @@ public:
  */
 class SpaceGraphEditor : public Space {
 public:
-	SpaceGraphEditor() : Space()
+	SpaceGraphEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceGraphEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -65675,7 +67290,9 @@ public:
  */
 class SpaceNLA : public Space {
 public:
-	SpaceNLA() : Space()
+	SpaceNLA(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceNLA() : Space(0)
 	{
 		// not implemented
 	}
@@ -65726,7 +67343,9 @@ public:
  */
 class SpaceTimeline : public Space {
 public:
-	SpaceTimeline() : Space()
+	SpaceTimeline(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceTimeline() : Space(0)
 	{
 		// not implemented
 	}
@@ -65785,11 +67404,11 @@ public:
  */
 class SpaceConsole : public Space {
 public:
-	SpaceConsole() : Space()
+	SpaceConsole(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceConsole() : Space(0)
 	{
 		// not implemented
-		history();
-		scrollback();
 	}
 
 	/** Getter: Font size to use for displaying the text */
@@ -65834,9 +67453,11 @@ public:
 /**
  * Input line for the interactive console
  */
-class ConsoleLine {
+class ConsoleLine : public pyUniplug {
 public:
-	ConsoleLine()
+	ConsoleLine(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ConsoleLine() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -65880,7 +67501,9 @@ public:
  */
 class SpaceInfo : public Space {
 public:
-	SpaceInfo() : Space()
+	SpaceInfo(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceInfo() : Space(0)
 	{
 		// not implemented
 	}
@@ -65919,7 +67542,9 @@ public:
  */
 class SpaceUserPreferences : public Space {
 public:
-	SpaceUserPreferences() : Space()
+	SpaceUserPreferences(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceUserPreferences() : Space(0)
 	{
 		// not implemented
 	}
@@ -65946,9 +67571,11 @@ public:
 /**
  * Element of the node space tree path
  */
-class NodeTreePath {
+class NodeTreePath : public pyUniplug {
 public:
-	NodeTreePath()
+	NodeTreePath(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	NodeTreePath() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -65973,10 +67600,11 @@ public:
  */
 class SpaceNodeEditor : public Space {
 public:
-	SpaceNodeEditor() : Space()
+	SpaceNodeEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceNodeEditor() : Space(0)
 	{
 		// not implemented
-		path();
 	}
 
 	enum tree_type_enum {
@@ -66106,7 +67734,9 @@ public:
  */
 class SpaceLogicEditor : public Space {
 public:
-	SpaceLogicEditor() : Space()
+	SpaceLogicEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceLogicEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -66175,7 +67805,9 @@ public:
  */
 class SpaceClipEditor : public Space {
 public:
-	SpaceClipEditor() : Space()
+	SpaceClipEditor(PyObject* pyobj) : Space(pyobj) {}
+
+	SpaceClipEditor() : Space(0)
 	{
 		// not implemented
 	}
@@ -66406,7 +68038,9 @@ public:
  */
 class Speaker : public ID {
 public:
-	Speaker() : ID()
+	Speaker(PyObject* pyobj) : ID(pyobj) {}
+
+	Speaker() : ID(0)
 	{
 		// not implemented
 	}
@@ -66484,9 +68118,11 @@ public:
 /**
  * Line of text in a Text datablock
  */
-class TextLine {
+class TextLine : public pyUniplug {
 public:
-	TextLine()
+	TextLine(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TextLine() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -66513,10 +68149,11 @@ public:
  */
 class Text : public ID {
 public:
-	Text() : ID()
+	Text(PyObject* pyobj) : ID(pyobj) {}
+
+	Text() : ID(0)
 	{
 		// not implemented
-		lines();
 	}
 
 	/** Getter: Filename of the text file */
@@ -66599,9 +68236,11 @@ public:
 /**
  * Marker for noting points in the timeline
  */
-class TimelineMarker {
+class TimelineMarker : public pyUniplug {
 public:
-	TimelineMarker()
+	TimelineMarker(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	TimelineMarker() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -66641,7 +68280,9 @@ public:
  */
 class Sound : public ID {
 public:
-	Sound() : ID()
+	Sound(PyObject* pyobj) : ID(pyobj) {}
+
+	Sound() : ID(0)
 	{
 		// not implemented
 	}
@@ -66698,9 +68339,11 @@ public:
 /**
  * User interface layout in a panel or header
  */
-class UILayout {
+class UILayout : public pyUniplug {
 public:
-	UILayout()
+	UILayout(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UILayout() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68058,9 +69701,11 @@ public:
 /**
  * Panel containing UI elements
  */
-class Panel {
+class Panel : public pyUniplug {
 public:
-	Panel()
+	Panel(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Panel() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68170,9 +69815,11 @@ public:
 /**
  * UI list containing the elements of a collection
  */
-class UIList {
+class UIList : public pyUniplug {
 public:
-	UIList()
+	UIList(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UIList() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68238,9 +69885,11 @@ public:
 /**
  * Editor header containing UI elements
  */
-class Header {
+class Header : public pyUniplug {
 public:
-	Header()
+	Header(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Header() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68294,9 +69943,11 @@ public:
 /**
  * Editor menu containing buttons
  */
-class Menu {
+class Menu : public pyUniplug {
 public:
-	Menu()
+	Menu(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Menu() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68339,9 +69990,11 @@ public:
 /**
  * Theme settings for Font
  */
-class ThemeFontStyle {
+class ThemeFontStyle : public pyUniplug {
 public:
-	ThemeFontStyle()
+	ThemeFontStyle(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeFontStyle() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68401,9 +70054,11 @@ public:
 /**
  * Theme settings for style sets
  */
-class ThemeStyle {
+class ThemeStyle : public pyUniplug {
 public:
-	ThemeStyle()
+	ThemeStyle(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeStyle() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68432,9 +70087,11 @@ public:
 /**
  * Theme settings for widget color sets
  */
-class ThemeWidgetColors {
+class ThemeWidgetColors : public pyUniplug {
 public:
-	ThemeWidgetColors()
+	ThemeWidgetColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeWidgetColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68499,9 +70156,11 @@ public:
 /**
  * Theme settings for widget state colors
  */
-class ThemeWidgetStateColors {
+class ThemeWidgetStateColors : public pyUniplug {
 public:
-	ThemeWidgetStateColors()
+	ThemeWidgetStateColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeWidgetStateColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68556,9 +70215,11 @@ public:
 /**
  * Theme settings for panel colors
  */
-class ThemePanelColors {
+class ThemePanelColors : public pyUniplug {
 public:
-	ThemePanelColors()
+	ThemePanelColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemePanelColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68598,9 +70259,11 @@ public:
 /**
  * Theme settings for background colors and gradient
  */
-class ThemeGradientColors {
+class ThemeGradientColors : public pyUniplug {
 public:
-	ThemeGradientColors()
+	ThemeGradientColors(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeGradientColors() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68635,9 +70298,11 @@ public:
 /**
  * Theme settings for user interface elements
  */
-class ThemeUserInterface {
+class ThemeUserInterface : public pyUniplug {
 public:
-	ThemeUserInterface()
+	ThemeUserInterface(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeUserInterface() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68754,9 +70419,11 @@ public:
 /**
  * 
  */
-class ThemeSpaceGeneric {
+class ThemeSpaceGeneric : public pyUniplug {
 public:
-	ThemeSpaceGeneric()
+	ThemeSpaceGeneric(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeSpaceGeneric() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68854,9 +70521,11 @@ public:
 /**
  * 
  */
-class ThemeSpaceGradient {
+class ThemeSpaceGradient : public pyUniplug {
 public:
-	ThemeSpaceGradient()
+	ThemeSpaceGradient(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeSpaceGradient() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68952,9 +70621,11 @@ public:
 /**
  * 
  */
-class ThemeSpaceListGeneric {
+class ThemeSpaceListGeneric : public pyUniplug {
 public:
-	ThemeSpaceListGeneric()
+	ThemeSpaceListGeneric(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeSpaceListGeneric() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -68994,9 +70665,11 @@ public:
 /**
  * Theme settings for the 3D View
  */
-class ThemeView3D {
+class ThemeView3D : public pyUniplug {
 public:
-	ThemeView3D()
+	ThemeView3D(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeView3D() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -69339,9 +71012,11 @@ public:
 /**
  * Theme settings for the graph editor
  */
-class ThemeGraphEditor {
+class ThemeGraphEditor : public pyUniplug {
 public:
-	ThemeGraphEditor()
+	ThemeGraphEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeGraphEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -69497,9 +71172,11 @@ public:
 /**
  * Theme settings for the File Browser
  */
-class ThemeFileBrowser {
+class ThemeFileBrowser : public pyUniplug {
 public:
-	ThemeFileBrowser()
+	ThemeFileBrowser(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeFileBrowser() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -69550,9 +71227,11 @@ public:
 /**
  * Theme settings for the NLA Editor
  */
-class ThemeNLAEditor {
+class ThemeNLAEditor : public pyUniplug {
 public:
-	ThemeNLAEditor()
+	ThemeNLAEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeNLAEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -69663,9 +71342,11 @@ public:
 /**
  * Theme settings for the Dope Sheet
  */
-class ThemeDopeSheet {
+class ThemeDopeSheet : public pyUniplug {
 public:
-	ThemeDopeSheet()
+	ThemeDopeSheet(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeDopeSheet() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -69806,9 +71487,11 @@ public:
 /**
  * Theme settings for the Image Editor
  */
-class ThemeImageEditor {
+class ThemeImageEditor : public pyUniplug {
 public:
-	ThemeImageEditor()
+	ThemeImageEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeImageEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70031,9 +71714,11 @@ public:
 /**
  * Theme settings for the Sequence Editor
  */
-class ThemeSequenceEditor {
+class ThemeSequenceEditor : public pyUniplug {
 public:
-	ThemeSequenceEditor()
+	ThemeSequenceEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeSequenceEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70151,9 +71836,11 @@ public:
 /**
  * Theme settings for the Properties
  */
-class ThemeProperties {
+class ThemeProperties : public pyUniplug {
 public:
-	ThemeProperties()
+	ThemeProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70176,9 +71863,11 @@ public:
 /**
  * Theme settings for the Text Editor
  */
-class ThemeTextEditor {
+class ThemeTextEditor : public pyUniplug {
 public:
-	ThemeTextEditor()
+	ThemeTextEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeTextEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70256,9 +71945,11 @@ public:
 /**
  * Theme settings for the Timeline
  */
-class ThemeTimeline {
+class ThemeTimeline : public pyUniplug {
 public:
-	ThemeTimeline()
+	ThemeTimeline(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeTimeline() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70301,9 +71992,11 @@ public:
 /**
  * Theme settings for the Node Editor
  */
-class ThemeNodeEditor {
+class ThemeNodeEditor : public pyUniplug {
 public:
-	ThemeNodeEditor()
+	ThemeNodeEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeNodeEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70464,9 +72157,11 @@ public:
 /**
  * Theme settings for the Outliner
  */
-class ThemeOutliner {
+class ThemeOutliner : public pyUniplug {
 public:
-	ThemeOutliner()
+	ThemeOutliner(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeOutliner() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70499,9 +72194,11 @@ public:
 /**
  * Theme settings for Info
  */
-class ThemeInfo {
+class ThemeInfo : public pyUniplug {
 public:
-	ThemeInfo()
+	ThemeInfo(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeInfo() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70574,9 +72271,11 @@ public:
 /**
  * Theme settings for the User Preferences
  */
-class ThemeUserPreferences {
+class ThemeUserPreferences : public pyUniplug {
 public:
-	ThemeUserPreferences()
+	ThemeUserPreferences(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeUserPreferences() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70599,9 +72298,11 @@ public:
 /**
  * Theme settings for the Console
  */
-class ThemeConsole {
+class ThemeConsole : public pyUniplug {
 public:
-	ThemeConsole()
+	ThemeConsole(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeConsole() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70654,9 +72355,11 @@ public:
 /**
  * Theme settings for the Logic Editor
  */
-class ThemeLogicEditor {
+class ThemeLogicEditor : public pyUniplug {
 public:
-	ThemeLogicEditor()
+	ThemeLogicEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeLogicEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70679,9 +72382,11 @@ public:
 /**
  * Theme settings for the Movie Clip Editor
  */
-class ThemeClipEditor {
+class ThemeClipEditor : public pyUniplug {
 public:
-	ThemeClipEditor()
+	ThemeClipEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeClipEditor() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70832,9 +72537,11 @@ public:
 /**
  * Theme settings for bone color sets
  */
-class ThemeBoneColorSet {
+class ThemeBoneColorSet : public pyUniplug {
 public:
-	ThemeBoneColorSet()
+	ThemeBoneColorSet(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	ThemeBoneColorSet() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -70874,12 +72581,13 @@ public:
 /**
  * Theme settings defining draw style and colors in the user interface
  */
-class Theme {
+class Theme : public pyUniplug {
 public:
-	Theme()
+	Theme(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Theme() : pyUniplug(0)
 	{
 		// not implemented
-		bone_color_sets();
 	}
 
 	/** Getter: RNA property collection */
@@ -70989,9 +72697,11 @@ public:
 /**
  * Light used for OpenGL lighting in solid draw mode
  */
-class UserSolidLight {
+class UserSolidLight : public pyUniplug {
 public:
-	UserSolidLight()
+	UserSolidLight(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserSolidLight() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -71031,9 +72741,11 @@ public:
 /**
  * Walk navigation settings
  */
-class WalkNavigation {
+class WalkNavigation : public pyUniplug {
 public:
-	WalkNavigation()
+	WalkNavigation(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	WalkNavigation() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -71093,15 +72805,13 @@ public:
 /**
  * Global user preferences
  */
-class UserPreferences {
+class UserPreferences : public pyUniplug {
 public:
-	UserPreferences()
+	UserPreferences(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserPreferences() : pyUniplug(0)
 	{
 		// not implemented
-		themes();
-		ui_styles();
-		addons();
-		autoexec_paths();
 	}
 
 	/** Getter: RNA property collection */
@@ -71169,9 +72879,11 @@ public:
 /**
  * Preferences related to viewing data
  */
-class UserPreferencesView {
+class UserPreferencesView : public pyUniplug {
 public:
-	UserPreferencesView()
+	UserPreferencesView(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserPreferencesView() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -71425,9 +73137,11 @@ public:
 /**
  * Settings for interacting with Blender data
  */
-class UserPreferencesEdit {
+class UserPreferencesEdit : public pyUniplug {
 public:
-	UserPreferencesEdit()
+	UserPreferencesEdit(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserPreferencesEdit() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -71671,9 +73385,11 @@ public:
 /**
  * Settings for input devices
  */
-class UserPreferencesInput {
+class UserPreferencesInput : public pyUniplug {
 public:
-	UserPreferencesInput()
+	UserPreferencesInput(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserPreferencesInput() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -71892,9 +73608,11 @@ public:
 /**
  * Default paths for external files
  */
-class UserPreferencesFilePaths {
+class UserPreferencesFilePaths : public pyUniplug {
 public:
-	UserPreferencesFilePaths()
+	UserPreferencesFilePaths(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserPreferencesFilePaths() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72048,12 +73766,13 @@ public:
 /**
  * Graphics driver and operating system settings
  */
-class UserPreferencesSystem {
+class UserPreferencesSystem : public pyUniplug {
 public:
-	UserPreferencesSystem()
+	UserPreferencesSystem(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UserPreferencesSystem() : pyUniplug(0)
 	{
 		// not implemented
-		solid_lights();
 	}
 
 	/** Getter: RNA property collection */
@@ -72425,9 +74144,11 @@ public:
 /**
  * Python addons to be loaded automatically
  */
-class Addon {
+class Addon : public pyUniplug {
 public:
-	Addon()
+	Addon(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Addon() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72455,9 +74176,11 @@ public:
 /**
  * 
  */
-class AddonPreferences {
+class AddonPreferences : public pyUniplug {
 public:
-	AddonPreferences()
+	AddonPreferences(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	AddonPreferences() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72482,9 +74205,11 @@ public:
 /**
  * Match paths against this value
  */
-class PathCompare {
+class PathCompare : public pyUniplug {
 public:
-	PathCompare()
+	PathCompare(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	PathCompare() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72516,7 +74241,9 @@ public:
  */
 class VectorFont : public ID {
 public:
-	VectorFont() : ID()
+	VectorFont(PyObject* pyobj) : ID(pyobj) {}
+
+	VectorFont() : ID(0)
 	{
 		// not implemented
 	}
@@ -72563,12 +74290,13 @@ public:
 /**
  * Storage of an operator being executed, or registered after execution
  */
-class Operator {
+class Operator : public pyUniplug {
 public:
-	Operator()
+	Operator(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Operator() : pyUniplug(0)
 	{
 		// not implemented
-		macros();
 	}
 
 	/** Getter: RNA property collection */
@@ -72670,9 +74398,11 @@ public:
 /**
  * Input properties of an Operator
  */
-class OperatorProperties {
+class OperatorProperties : public pyUniplug {
 public:
-	OperatorProperties()
+	OperatorProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	OperatorProperties() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72692,9 +74422,11 @@ public:
 /**
  * Runtime options
  */
-class OperatorOptions {
+class OperatorOptions : public pyUniplug {
 public:
-	OperatorOptions()
+	OperatorOptions(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	OperatorOptions() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72731,7 +74463,9 @@ public:
  */
 class OperatorMousePath : public PropertyGroup {
 public:
-	OperatorMousePath() : PropertyGroup()
+	OperatorMousePath(PyObject* pyobj) : PropertyGroup(pyobj) {}
+
+	OperatorMousePath() : PropertyGroup(0)
 	{
 		// not implemented
 	}
@@ -72755,7 +74489,9 @@ public:
  */
 class OperatorFileListElement : public PropertyGroup {
 public:
-	OperatorFileListElement() : PropertyGroup()
+	OperatorFileListElement(PyObject* pyobj) : PropertyGroup(pyobj) {}
+
+	OperatorFileListElement() : PropertyGroup(0)
 	{
 		// not implemented
 	}
@@ -72772,9 +74508,11 @@ public:
 /**
  * Storage of a macro operator being executed, or registered after execution
  */
-class Macro {
+class Macro : public pyUniplug {
 public:
-	Macro()
+	Macro(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Macro() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72862,9 +74600,11 @@ public:
 /**
  * Storage of a sub operator in a macro after it has been added
  */
-class OperatorMacro {
+class OperatorMacro : public pyUniplug {
 public:
-	OperatorMacro()
+	OperatorMacro(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	OperatorMacro() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -72887,9 +74627,11 @@ public:
 /**
  * Window Manager Event
  */
-class Event {
+class Event : public pyUniplug {
 public:
-	Event()
+	Event(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Event() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -73198,9 +74940,11 @@ public:
 /**
  * Window event timer
  */
-class Timer {
+class Timer : public pyUniplug {
 public:
-	Timer()
+	Timer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Timer() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -73235,9 +74979,11 @@ public:
 /**
  * 
  */
-class UIPopupMenu {
+class UIPopupMenu : public pyUniplug {
 public:
-	UIPopupMenu()
+	UIPopupMenu(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UIPopupMenu() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -73260,9 +75006,11 @@ public:
 /**
  * 
  */
-class UIPieMenu {
+class UIPieMenu : public pyUniplug {
 public:
-	UIPieMenu()
+	UIPieMenu(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	UIPieMenu() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -73285,9 +75033,11 @@ public:
 /**
  * Open window
  */
-class Window {
+class Window : public pyUniplug {
 public:
-	Window()
+	Window(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Window() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -73389,9 +75139,11 @@ public:
 /**
  * Settings for stereo 3D display
  */
-class Stereo3dDisplay {
+class Stereo3dDisplay : public pyUniplug {
 public:
-	Stereo3dDisplay()
+	Stereo3dDisplay(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	Stereo3dDisplay() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -73458,12 +75210,11 @@ public:
  */
 class WindowManager : public ID {
 public:
-	WindowManager() : ID()
+	WindowManager(PyObject* pyobj) : ID(pyobj) {}
+
+	WindowManager() : ID(0)
 	{
 		// not implemented
-		operators();
-		windows();
-		keyconfigs();
 	}
 
 	/** Getter: Operator registry */
@@ -74225,12 +75976,13 @@ public:
 /**
  * Input configuration, including keymaps
  */
-class KeyConfig {
+class KeyConfig : public pyUniplug {
 public:
-	KeyConfig()
+	KeyConfig(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyConfig() : pyUniplug(0)
 	{
 		// not implemented
-		keymaps();
 	}
 
 	/** Getter: RNA property collection */
@@ -74263,12 +76015,13 @@ public:
 /**
  * Input configuration, including keymaps
  */
-class KeyMap {
+class KeyMap : public pyUniplug {
 public:
-	KeyMap()
+	KeyMap(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyMap() : pyUniplug(0)
 	{
 		// not implemented
-		keymap_items();
 	}
 
 	/** Getter: RNA property collection */
@@ -74382,9 +76135,11 @@ public:
 /**
  * Item in a Key Map
  */
-class KeyMapItem {
+class KeyMapItem : public pyUniplug {
 public:
-	KeyMapItem()
+	KeyMapItem(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	KeyMapItem() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -74909,10 +76664,11 @@ public:
  */
 class World : public ID {
 public:
-	World() : ID()
+	World(PyObject* pyobj) : ID(pyobj) {}
+
+	World() : ID(0)
 	{
 		// not implemented
-		texture_slots();
 	}
 
 	/** Getter: Animation data for this datablock */
@@ -74992,9 +76748,11 @@ public:
 /**
  * Lighting for a World datablock
  */
-class WorldLighting {
+class WorldLighting : public pyUniplug {
 public:
-	WorldLighting()
+	WorldLighting(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	WorldLighting() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75146,9 +76904,11 @@ public:
 /**
  * Mist settings for a World data-block
  */
-class WorldMistSettings {
+class WorldMistSettings : public pyUniplug {
 public:
-	WorldMistSettings()
+	WorldMistSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	WorldMistSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75206,7 +76966,9 @@ public:
  */
 class WorldTextureSlot : public TextureSlot {
 public:
-	WorldTextureSlot() : TextureSlot()
+	WorldTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
+
+	WorldTextureSlot() : TextureSlot(0)
 	{
 		// not implemented
 	}
@@ -75278,7 +77040,9 @@ public:
  */
 class MovieClip : public ID {
 public:
-	MovieClip() : ID()
+	MovieClip(PyObject* pyobj) : ID(pyobj) {}
+
+	MovieClip() : ID(0)
 	{
 		// not implemented
 	}
@@ -75352,9 +77116,11 @@ public:
 /**
  * Proxy parameters for a movie clip
  */
-class MovieClipProxy {
+class MovieClipProxy : public pyUniplug {
 public:
-	MovieClipProxy()
+	MovieClipProxy(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieClipProxy() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75452,9 +77218,11 @@ public:
 /**
  * Parameters defining how a MovieClip datablock is used by another datablock
  */
-class MovieClipUser {
+class MovieClipUser : public pyUniplug {
 public:
-	MovieClipUser()
+	MovieClipUser(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieClipUser() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75497,9 +77265,11 @@ public:
 /**
  * Scopes for statistical view of a movie clip
  */
-class MovieClipScopes {
+class MovieClipScopes : public pyUniplug {
 public:
-	MovieClipScopes()
+	MovieClipScopes(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieClipScopes() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75519,9 +77289,11 @@ public:
 /**
  * Match moving settings
  */
-class MovieTrackingSettings {
+class MovieTrackingSettings : public pyUniplug {
 public:
-	MovieTrackingSettings()
+	MovieTrackingSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingSettings() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75704,9 +77476,11 @@ public:
 /**
  * Match-moving camera data for tracking
  */
-class MovieTrackingCamera {
+class MovieTrackingCamera : public pyUniplug {
 public:
-	MovieTrackingCamera()
+	MovieTrackingCamera(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingCamera() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75796,9 +77570,11 @@ public:
 /**
  * Match-moving marker data for tracking
  */
-class MovieTrackingMarker {
+class MovieTrackingMarker : public pyUniplug {
 public:
-	MovieTrackingMarker()
+	MovieTrackingMarker(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingMarker() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -75858,12 +77634,13 @@ public:
 /**
  * Match-moving track data for tracking
  */
-class MovieTrackingTrack {
+class MovieTrackingTrack : public pyUniplug {
 public:
-	MovieTrackingTrack()
+	MovieTrackingTrack(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingTrack() : pyUniplug(0)
 	{
 		// not implemented
-		markers();
 	}
 
 	/** Getter: RNA property collection */
@@ -76038,9 +77815,11 @@ public:
 /**
  * Match-moving plane marker data for tracking
  */
-class MovieTrackingPlaneMarker {
+class MovieTrackingPlaneMarker : public pyUniplug {
 public:
-	MovieTrackingPlaneMarker()
+	MovieTrackingPlaneMarker(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingPlaneMarker() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -76075,12 +77854,13 @@ public:
 /**
  * Match-moving plane track data for tracking
  */
-class MovieTrackingPlaneTrack {
+class MovieTrackingPlaneTrack : public pyUniplug {
 public:
-	MovieTrackingPlaneTrack()
+	MovieTrackingPlaneTrack(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingPlaneTrack() : pyUniplug(0)
 	{
 		// not implemented
-		markers();
 	}
 
 	/** Getter: RNA property collection */
@@ -76126,12 +77906,13 @@ public:
 /**
  * Match-moving stabilization data for tracking
  */
-class MovieTrackingStabilization {
+class MovieTrackingStabilization : public pyUniplug {
 public:
-	MovieTrackingStabilization()
+	MovieTrackingStabilization(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingStabilization() : pyUniplug(0)
 	{
 		// not implemented
-		tracks();
 	}
 
 	/** Getter: RNA property collection */
@@ -76208,9 +77989,11 @@ public:
 /**
  * Match-moving reconstructed camera data from tracker
  */
-class MovieReconstructedCamera {
+class MovieReconstructedCamera : public pyUniplug {
 public:
-	MovieReconstructedCamera()
+	MovieReconstructedCamera(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieReconstructedCamera() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -76245,12 +78028,13 @@ public:
 /**
  * Match-moving reconstruction data from tracker
  */
-class MovieTrackingReconstruction {
+class MovieTrackingReconstruction : public pyUniplug {
 public:
-	MovieTrackingReconstruction()
+	MovieTrackingReconstruction(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingReconstruction() : pyUniplug(0)
 	{
 		// not implemented
-		cameras();
 	}
 
 	/** Getter: RNA property collection */
@@ -76283,13 +78067,13 @@ public:
 /**
  * Match-moving object tracking and reconstruction data
  */
-class MovieTrackingObject {
+class MovieTrackingObject : public pyUniplug {
 public:
-	MovieTrackingObject()
+	MovieTrackingObject(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingObject() : pyUniplug(0)
 	{
 		// not implemented
-		tracks();
-		plane_tracks();
 	}
 
 	/** Getter: RNA property collection */
@@ -76345,9 +78129,11 @@ public:
 /**
  * Match-moving dopesheet data
  */
-class MovieTrackingDopesheet {
+class MovieTrackingDopesheet : public pyUniplug {
 public:
-	MovieTrackingDopesheet()
+	MovieTrackingDopesheet(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTrackingDopesheet() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -76394,14 +78180,13 @@ public:
 /**
  * Match-moving data for tracking
  */
-class MovieTracking {
+class MovieTracking : public pyUniplug {
 public:
-	MovieTracking()
+	MovieTracking(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MovieTracking() : pyUniplug(0)
 	{
 		// not implemented
-		tracks();
-		plane_tracks();
-		objects();
 	}
 
 	/** Getter: RNA property collection */
@@ -76454,9 +78239,11 @@ public:
 /**
  * Parenting settings for masking element
  */
-class MaskParent {
+class MaskParent : public pyUniplug {
 public:
-	MaskParent()
+	MaskParent(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskParent() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -76508,9 +78295,11 @@ public:
 /**
  * Single point in spline segment defining feather
  */
-class MaskSplinePointUW {
+class MaskSplinePointUW : public pyUniplug {
 public:
-	MaskSplinePointUW()
+	MaskSplinePointUW(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskSplinePointUW() : pyUniplug(0)
 	{
 		// not implemented
 	}
@@ -76545,12 +78334,13 @@ public:
 /**
  * Single point in spline used for defining mask
  */
-class MaskSplinePoint {
+class MaskSplinePoint : public pyUniplug {
 public:
-	MaskSplinePoint()
+	MaskSplinePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskSplinePoint() : pyUniplug(0)
 	{
 		// not implemented
-		feather_points();
 	}
 
 	/** Getter: RNA property collection */
@@ -76640,12 +78430,13 @@ public:
 /**
  * Single spline used for defining mask shape
  */
-class MaskSpline {
+class MaskSpline : public pyUniplug {
 public:
-	MaskSpline()
+	MaskSpline(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskSpline() : pyUniplug(0)
 	{
 		// not implemented
-		points();
 	}
 
 	/** Getter: RNA property collection */
@@ -76703,12 +78494,13 @@ public:
 /**
  * Single layer used for masking pixels
  */
-class MaskLayer {
+class MaskLayer : public pyUniplug {
 public:
-	MaskLayer()
+	MaskLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
+
+	MaskLayer() : pyUniplug(0)
 	{
 		// not implemented
-		splines();
 	}
 
 	/** Getter: RNA property collection */
@@ -76809,10 +78601,11 @@ public:
  */
 class Mask : public ID {
 public:
-	Mask() : ID()
+	Mask(PyObject* pyobj) : ID(pyobj) {}
+
+	Mask() : ID(0)
 	{
 		// not implemented
-		layers();
 	}
 
 	/** Getter: Collection of layers which defines this mask */

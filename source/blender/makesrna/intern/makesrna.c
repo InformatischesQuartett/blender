@@ -251,6 +251,8 @@ static const char *rna_safe_id(const char *id)
 			return "params_value";
 		else if (STREQ(id, "interface"))
 			return "interface_value";
+		else if (STREQ(id, "Pointer"))
+			return "pyUniplug";
 	}
 
 	return id;
@@ -2011,10 +2013,7 @@ static void rna_generade_header_enum_cpp(StructRNA *srna, PropertyDefRNA *dp, FI
 		fprintf(f, "\tenum %s {\n", eprop->name);
 
 		for (int i = 0; eprop->item[i].identifier; i++) {
-			if (eprop->item[i].identifier[0]) {
-				if (STREQ(eprop->item[i].identifier, "NULL"))
-					eprop->item[i].identifier = "UNDEFINED";
-				
+			if (eprop->item[i].identifier[0]) {				
 				if (eprop->item[i].description && eprop->item[i].description[0]) {
 					fprintf(f, "\t\t%s_%s = %d%s\t/**< %s */\n", eprop->name, eprop->item[i].identifier,
 						eprop->item[i].value, eprop->item[i + 1].identifier ? "," : "", eprop->item[i].description);
@@ -2031,6 +2030,53 @@ static void rna_generade_header_enum_cpp(StructRNA *srna, PropertyDefRNA *dp, FI
 		eprop->item->classdecl = srna->identifier;
 
 		fprintf(f, "\t};\n\n");
+	}
+}
+
+static void rna_generate_header_output_structs_cpp(FILE *f, FunctionDefRNA *dfunc)
+{
+	int outct = 0;
+
+	PropertyDefRNA *dp;
+	FunctionRNA *func = dfunc->func;
+	PropertyRNA *retprop;
+
+	for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+		if (dp->prop->flag & PROP_OUTPUT) {
+			outct++;
+			retprop = dp->prop;
+		}
+	}
+
+	if (outct == 1)
+		func->c_ret = retprop;
+	else if (outct > 1)
+	{
+		// build struct
+		fprintf(f, "\t/**\n\t * Container for the output of %s()\n\t */\n", func->identifier);
+		fprintf(f, "\tstruct %s_result {\n", func->identifier);
+
+		for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+			if (dp->prop->flag & PROP_OUTPUT) {
+				if (dp->prop->description && dp->prop->description[0]) {
+					fprintf(f, "\t\t%s %s;\t/**< %s */\n", rna_parameter_type_cpp_name(dp->prop),
+						rna_safe_id(dp->prop->identifier), dp->prop->description);
+				}
+				else {
+					fprintf(f, "\t\t%s %s;\n", rna_parameter_type_cpp_name(dp->prop),
+						rna_safe_id(dp->prop->identifier));
+				}
+
+				dp->prop->isimplemented = 1;
+			}
+		}
+
+		fprintf(f, "\t};\n\n");
+
+		retprop = RNA_def_pointer(func, func->identifier, func->identifier, "", "");
+		retprop->isresult = 1;
+
+		RNA_def_function_return(func, retprop);
 	}
 }
 
@@ -2082,46 +2128,7 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *srna, Func
 
 	// fusee_build: fix return type / build struct
 	if (fusee_build && !func->c_ret && !func->isdeclared) {
-		int outct = 0;
-		PropertyRNA *retprop;
-
-		for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
-			if (dp->prop->flag & PROP_OUTPUT) {
-				outct++;
-				retprop = dp->prop;
-			}
-		}
-
-		if (outct == 1)
-			func->c_ret = retprop;
-		else if (outct > 1)
-		{
-			// build struct
-			fprintf(f, "\t/**\n\t * Container for the output of %s()\n\t */\n", func->identifier);
-			fprintf(f, "\tstruct %s_result {\n", func->identifier);
-
-			for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
-				if (dp->prop->flag & PROP_OUTPUT) {
-					if (dp->prop->description && dp->prop->description[0]) {
-						fprintf(f, "\t\t%s %s;\t/**< %s */\n", rna_parameter_type_cpp_name(dp->prop),
-							rna_safe_id(dp->prop->identifier), dp->prop->description);
-					}
-					else {
-						fprintf(f, "\t\t%s %s;\n", rna_parameter_type_cpp_name(dp->prop),
-							rna_safe_id(dp->prop->identifier));
-					}
-
-					dp->prop->isimplemented = 1;
-				}
-			}
-
-			fprintf(f, "\t};\n\n");
-
-			retprop = RNA_def_pointer(func, func->identifier, func->identifier, "", "");
-			retprop->isresult = 1;
-
-			RNA_def_function_return(func, retprop);
-		}
+		rna_generate_header_output_structs_cpp(f, dfunc);
 	}
 
 	int first = 1;
@@ -3881,6 +3888,7 @@ static const char *cpp_classes_fu = ""
 "#include <vector>\n"
 "#include <map>\n"
 "#include <string.h> /* for memcpy */\n"
+"#include <Python.h>\n"
 "\n"
 "namespace UniplugBL {\n"
 "\n";
@@ -4221,24 +4229,39 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 
 		fprintf(f, "/**\n * %s\n */\n", srna->description);
 
-		if (srna->base && (strcmp(srna->base->identifier, "Pointer") != 0)) {
-			fprintf(f, "class %s : public %s {\n", srna->identifier, srna->base->identifier);
-			fprintf(f, "public:\n");
-			fprintf(f, "\t%s() : %s()", srna->identifier, srna->base->identifier);
-		}
-		else {
-			fprintf(f, "class %s {\n", srna->identifier);
-			fprintf(f, "public:\n");
-			fprintf(f, "\t%s()", srna->identifier);
-		}
+		/*
+			if (srna->base && (strcmp(srna->base->identifier, "Pointer") != 0)) {
+				fprintf(f, "class %s : public %s {\n", srna->identifier, srna->base->identifier);
+				fprintf(f, "private:\n\tPyObject pyobjref;\n");
+				fprintf(f, "public:\n");
 
-		fprintf(f, "\n\t{\n\t\t// not implemented\n");
+				fprintf(f, "\t%s() : %s()", srna->identifier, srna->base->identifier);
+				fprintf(f, "\n\t{\n\t\t// not implemented\n\t}\n\n");
+				fprintf(f, "\t%s(PyObject pyobj) : %s()", srna->identifier, srna->base->identifier);
+				fprintf(f, "\n\t{\n\t\tpyobjref = pyobj;\n\t}\n\n");
+			}
+			else {
+		*/
 
-		for (dp = ds->cont.properties.first; dp; dp = dp->next)
-			if (rna_is_collection_prop(dp->prop))
-				fprintf(f, "\t\t%s();\n", dp->prop->identifier);
+		fprintf(f, "class %s : public %s {\n", srna->identifier, 
+			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
+		fprintf(f, "public:\n");
 
-		fprintf(f, "\t}\n\n");
+		fprintf(f, "\t%s(PyObject* pyobj) : %s(pyobj) {}\n\n", srna->identifier,
+			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
+		fprintf(f, "\t%s() : %s(0)\n", srna->identifier,
+			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
+		fprintf(f, "\t{\n\t\t// not implemented\n\t}\n\n");
+		
+		//}
+
+		/*
+			for (dp = ds->cont.properties.first; dp; dp = dp->next)
+				if (rna_is_collection_prop(dp->prop))
+					fprintf(f, "\t\t%s();\n", dp->prop->identifier);
+
+			fprintf(f, "\t}\n\n");
+		*/
 	}
 
 	for (dp = ds->cont.properties.first; dp; dp = dp->next)
@@ -4320,6 +4343,21 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 				}
 			}
 		}
+	}
+
+	// fusee_build: build base class which handles the PyObject reference
+	if (fusee_build) {
+		fprintf(f, "/**************** pyUniplug Definition ****************/\n\n");
+		fprintf(f, "class pyUniplug {\n");
+		fprintf(f, "protected:\n");
+		fprintf(f, "\tPyObject* pyobjref;\n");
+		fprintf(f, "public:\n");
+		fprintf(f, "\tpyUniplug(PyObject* pyobj)\n");
+		fprintf(f, "\t{\n");
+		fprintf(f, "\t\tpyobjref = pyobj;\n");
+		fprintf(f, "\t}\n\n");
+		fprintf(f, "\tpyUniplug() {}\n");
+		fprintf(f, "};\n\n");
 	}
 
 	/* declare all structures in such order:
