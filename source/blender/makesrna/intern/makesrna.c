@@ -1868,8 +1868,21 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tinline void %s(float values[%u]);", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
 				else {
+
+					// GETTER
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
-					fprintf(f, "\tstd::array<float, %u> %s() { /* not implemented */ throw NULL; }\n", prop->totarraylength, rna_safe_id(prop->identifier));
+					fprintf(f, "\tstd::array<float, %u> %s() {\n", prop->totarraylength, rna_safe_id(prop->identifier));
+					{
+						fprintf(f, "\t\t// MISSING DEREF!\n");
+						fprintf(f, "\t\tPyObject *seqval = PyObject_GetAttrString(pyobjref, \"%s\");\n", prop->identifier);
+						fprintf(f, "\t\tstd::array<float, %u> resarr;\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (int i = 0; i < %u; i++)\n", prop->totarraylength);
+						fprintf(f, "\t\t\tresarr[i] = (float)PyFloat_AsDouble(PySequence_GetItem(seqval, i));\n");
+						fprintf(f, "\t\treturn resarr;\n");
+					}
+					fprintf(f, "\t}\n\n");
+					
+					// SETTER
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
 				}
@@ -1988,7 +2001,6 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				const char* objtype = (const char*)cprop->item_type;
 				StructRNA *retsrna = rna_find_struct(objtype);
 
-				// GETTER
 				if (!impl && (!retsrna->isdeclared)) {
 					prop->isimplemented = 0;
 
@@ -1999,6 +2011,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\tvoid %s(std::map<std::string, %s> value);\n", rna_safe_id(prop->identifier), objtype);
 				}
 				else {
+					// GETTER
 					if (!impl) fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tstd::map<std::string, %s> ", (const char *)cprop->item_type);
 					if (impl) fprintf(f, "%s::", srna->identifier);
@@ -2019,7 +2032,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					// SETTER
 					if (!impl) fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(std::map<std::string, %s> value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), objtype);
+					fprintf(f, "\tvoid ");
+					if (impl) fprintf(f, "%s::", srna->identifier);
+					fprintf(f, "%s(std::map<std::string, %s> value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), objtype);
 				}
 			}
 
