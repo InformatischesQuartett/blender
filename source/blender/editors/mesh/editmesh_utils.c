@@ -38,6 +38,7 @@
 #include "BLI_math.h"
 #include "BLI_alloca.h"
 #include "BLI_buffer.h"
+#include "BLI_kdtree.h"
 #include "BLI_listbase.h"
 
 #include "BKE_DerivedMesh.h"
@@ -776,18 +777,11 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 	/* vars from original func */
 	UvElementMap *element_map;
 	UvElement *buf;
-	UvElement *islandbuf;
-	/* island number for faces */
-	int *island_number;
 	bool *winding;
 	BLI_buffer_declare_static(vec2f, tf_uv_buf, BLI_BUFFER_NOP, BM_DEFAULT_NGON_STACK_SIZE);
 
 	MLoopUV *luv;
-	int totverts, totfaces, i, totuv, j, nislands = 0, islandbufsize = 0;
-
-	unsigned int *map;
-	BMFace **stack;
-	int stacksize = 0;
+	int totverts, totfaces, i, totuv, j;
 
 	const int cd_loop_uv_offset = CustomData_get_offset(&bm->ldata, CD_MLOOPUV);
 
@@ -797,9 +791,6 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 	totverts = bm->totvert;
 	totuv = 0;
 
-	island_number = MEM_mallocN(sizeof(*stack) * totfaces, "uv_island_number_face");
-	winding = MEM_callocN(sizeof(*winding) * totfaces, "winding");
-
 	/* generate UvElement array */
 	BM_ITER_MESH (efa, &iter, bm, BM_FACES_OF_MESH) {
 		if (!selected || BM_elem_flag_test(efa, BM_ELEM_SELECT)) {
@@ -808,26 +799,20 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 	}
 
 	if (totuv == 0) {
-		MEM_freeN(island_number);
 		return NULL;
 	}
+
 	element_map = (UvElementMap *)MEM_callocN(sizeof(*element_map), "UvElementMap");
-	if (!element_map) {
-		MEM_freeN(island_number);
-		return NULL;
-	}
 	element_map->totalUVs = totuv;
 	element_map->vert = (UvElement **)MEM_callocN(sizeof(*element_map->vert) * totverts, "UvElementVerts");
 	buf = element_map->buf = (UvElement *)MEM_callocN(sizeof(*element_map->buf) * totuv, "UvElement");
 
-	if (!element_map->vert || !element_map->buf) {
-		BM_uv_element_map_free(element_map);
-		MEM_freeN(island_number);
-		return NULL;
-	}
+	winding = MEM_mallocN(sizeof(*winding) * totfaces, "winding");
 
 	BM_ITER_MESH_INDEX (efa, &iter, bm, BM_FACES_OF_MESH, j) {
-		island_number[j] = INVALID_ISLAND;
+
+		winding[j] = false;
+
 		if (!selected || BM_elem_flag_test(efa, BM_ELEM_SELECT)) {
 			float (*tf_uv)[2]     = (float (*)[2])BLI_buffer_resize_data(&tf_uv_buf, vec2f, efa->len);
 
@@ -899,11 +884,24 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 		element_map->vert[i] = newvlist;
 	}
 
+	MEM_freeN(winding);
+
 	if (do_islands) {
+		unsigned int *map;
+		BMFace **stack;
+		int stacksize = 0;
+		UvElement *islandbuf;
+		/* island number for faces */
+		int *island_number = NULL;
+
+		int nislands = 0, islandbufsize = 0;
+
 		/* map holds the map from current vmap->buf to the new, sorted map */
 		map = MEM_mallocN(sizeof(*map) * totuv, "uvelement_remap");
 		stack = MEM_mallocN(sizeof(*stack) * bm->totface, "uv_island_face_stack");
 		islandbuf = MEM_callocN(sizeof(*islandbuf) * totuv, "uvelement_island_buffer");
+		island_number = MEM_mallocN(sizeof(*island_number) * totfaces, "uv_island_number_face");
+		copy_vn_i(island_number, totfaces, INVALID_ISLAND);
 
 		/* at this point, every UvElement in vert points to a UvElement sharing the same vertex. Now we should sort uv's in islands. */
 		for (i = 0; i < totuv; i++) {
@@ -952,6 +950,8 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 			}
 		}
 
+		MEM_freeN(island_number);
+
 		/* remap */
 		for (i = 0; i < bm->totvert; i++) {
 			/* important since we may do selection only. Some of these may be NULL */
@@ -960,14 +960,6 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 		}
 
 		element_map->islandIndices = MEM_callocN(sizeof(*element_map->islandIndices) * nislands, "UvElementMap_island_indices");
-		if (!element_map->islandIndices) {
-			MEM_freeN(islandbuf);
-			MEM_freeN(stack);
-			MEM_freeN(map);
-			BM_uv_element_map_free(element_map);
-			MEM_freeN(island_number);
-		}
-
 		j = 0;
 		for (i = 0; i < totuv; i++) {
 			UvElement *element = element_map->buf[i].next;
@@ -990,8 +982,6 @@ UvElementMap *BM_uv_element_map_create(BMesh *bm, const bool selected, const boo
 		MEM_freeN(map);
 	}
 
-	MEM_freeN(island_number);
-	MEM_freeN(winding);
 	BLI_buffer_free(&tf_uv_buf);
 
 	return element_map;
@@ -1070,26 +1060,19 @@ static BMVert *cache_mirr_intptr_as_bmvert(intptr_t *index_lookup, int index)
 }
 
 /**
- * [note: I've decided to use ideasman's code for non-editmode stuff, but since
- *  it has a big "not for editmode!" disclaimer, I'm going to keep what I have here
- *  - joeedh]
+ * Mirror editing API, usage:
  *
- * x-mirror editing api.  usage:
+ * \code{.c}
+ * EDBM_verts_mirror_cache_begin(em, ...);
  *
- *  EDBM_verts_mirror_cache_begin(em);
- *  ...
- *  ...
- *  BM_ITER_MESH (v, &iter, em->bm, BM_VERTS_OF_MESH) {
- *     mirrorv = EDBM_verts_mirror_get(em, v);
- *  }
- *  ...
- *  ...
- *  EDBM_verts_mirror_cache_end(em);
+ * BM_ITER_MESH (v, &iter, em->bm, BM_VERTS_OF_MESH) {
+ *     v_mirror = EDBM_verts_mirror_get(em, v);
+ *     e_mirror = EDBM_verts_mirror_get_edge(em, e);
+ *     f_mirror = EDBM_verts_mirror_get_face(em, f);
+ * }
  *
- * \param use_self  Allow a vertex to reference its self.
- * \param use_select  Only cache selected verts.
- *
- * \note why do we only allow x axis mirror editing?
+ * EDBM_verts_mirror_cache_end(em);
+ * \endcode
  */
 
 /* BM_SEARCH_MAXDIST is too big, copied from 2.6x MOC_THRESH, should become a
@@ -1114,9 +1097,10 @@ void EDBM_verts_mirror_cache_begin_ex(BMEditMesh *em, const int axis, const bool
 	BMVert *v;
 	int cd_vmirr_offset;
 	int i;
+	const float maxdist_sq = SQUARE(maxdist);
 
 	/* one or the other is used depending if topo is enabled */
-	struct BMBVHTree *tree = NULL;
+	KDTree *tree = NULL;
 	MirrTopoStore_t mesh_topo_store = {NULL, -1, -1, -1};
 
 	BM_mesh_elem_table_ensure(bm, BM_VERT);
@@ -1141,7 +1125,11 @@ void EDBM_verts_mirror_cache_begin_ex(BMEditMesh *em, const int axis, const bool
 		ED_mesh_mirrtopo_init(me, -1, &mesh_topo_store, true);
 	}
 	else {
-		tree = BKE_bmbvh_new_from_editmesh(em, 0, NULL, false);
+		tree = BLI_kdtree_new(bm->totvert);
+		BM_ITER_MESH_INDEX (v, &iter, bm, BM_VERTS_OF_MESH, i) {
+			BLI_kdtree_insert(tree, i, v->co);
+		}
+		BLI_kdtree_balance(tree);
 	}
 
 #define VERT_INTPTR(_v, _i) r_index ? &r_index[_i] : BM_ELEM_CD_GET_VOID_P(_v, cd_vmirr_offset);
@@ -1161,10 +1149,19 @@ void EDBM_verts_mirror_cache_begin_ex(BMEditMesh *em, const int axis, const bool
 				v_mirr = cache_mirr_intptr_as_bmvert(mesh_topo_store.index_lookup, i);
 			}
 			else {
+				int i_mirr;
 				float co[3];
 				copy_v3_v3(co, v->co);
 				co[axis] *= -1.0f;
-				v_mirr = BKE_bmbvh_find_vert_closest(tree, co, maxdist);
+
+				v_mirr = NULL;
+				i_mirr = BLI_kdtree_find_nearest(tree, co, NULL);
+				if (i_mirr != -1) {
+					BMVert *v_test = BM_vert_at_index(bm, i_mirr);
+					if (len_squared_v3v3(co, v_test->co) < maxdist_sq) {
+						v_mirr = v_test;
+					}
+				}
 			}
 
 			if (v_mirr && (use_self || (v_mirr != v))) {
@@ -1186,7 +1183,7 @@ void EDBM_verts_mirror_cache_begin_ex(BMEditMesh *em, const int axis, const bool
 		ED_mesh_mirrtopo_free(&mesh_topo_store);
 	}
 	else {
-		BKE_bmbvh_free(tree);
+		BLI_kdtree_free(tree);
 	}
 }
 

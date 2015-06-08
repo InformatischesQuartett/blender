@@ -720,6 +720,9 @@ void IMAGE_OT_view_all(wmOperatorType *ot)
 	ot->exec = image_view_all_exec;
 	ot->poll = space_image_main_area_poll;
 
+	/* flags */
+	ot->flag = OPTYPE_LOCK_BYPASS;
+
 	/* properties */
 	prop = RNA_def_boolean(ot->srna, "fit_view", 0, "Fit View", "Fit frame to the viewport");
 	RNA_def_property_flag(prop, PROP_SKIP_SAVE);
@@ -1537,6 +1540,8 @@ static void save_image_post(wmOperator *op, ImBuf *ibuf, Image *ima, int ok, int
 {
 	if (ok) {
 		if (!save_copy) {
+			ColorManagedColorspaceSettings old_colorspace_settings;
+
 			if (do_newpath) {
 				BLI_strncpy(ibuf->name, filepath, sizeof(ibuf->name));
 				BLI_strncpy(ima->name, filepath, sizeof(ima->name));
@@ -1570,8 +1575,14 @@ static void save_image_post(wmOperator *op, ImBuf *ibuf, Image *ima, int ok, int
 				BLI_path_rel(ima->name, relbase); /* only after saving */
 			}
 
+			BKE_color_managed_colorspace_settings_copy(&old_colorspace_settings,
+			                                           &ima->colorspace_settings);
 			IMB_colormanagment_colorspace_from_ibuf_ftype(&ima->colorspace_settings, ibuf);
-
+			if (!BKE_color_managed_colorspace_settings_equals(&old_colorspace_settings,
+			                                                  &ima->colorspace_settings))
+			{
+				BKE_image_signal(ima, NULL, IMA_SIGNAL_COLORMANAGE);
+			}
 		}
 	}
 	else {

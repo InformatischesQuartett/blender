@@ -3042,7 +3042,7 @@ static void draw_dm_faces_sel(BMEditMesh *em, DerivedMesh *dm, unsigned char *ba
 		data.orig_index_mf_to_mpoly = data.orig_index_mp_to_orig = NULL;
 	}
 
-	dm->drawMappedFaces(dm, draw_dm_faces_sel__setDrawOptions, GPU_enable_material, draw_dm_faces_sel__compareDrawOptions, &data, 0);
+	dm->drawMappedFaces(dm, draw_dm_faces_sel__setDrawOptions, NULL, draw_dm_faces_sel__compareDrawOptions, &data, 0);
 }
 
 static DMDrawOption draw_dm_creases__setDrawOptions(void *userData, int index)
@@ -4285,7 +4285,9 @@ static bool draw_mesh_object(Scene *scene, ARegion *ar, View3D *v3d, RegionView3
 			                                              scene->customdata_mask);
 
 		DM_update_materials(finalDM, ob);
-		DM_update_materials(cageDM, ob);
+		if (cageDM != finalDM) {
+			DM_update_materials(cageDM, ob);
+		}
 
 		if (dt > OB_WIRE) {
 			const bool glsl = draw_glsl_material(scene, ob, v3d, dt);
@@ -5776,7 +5778,7 @@ static void draw_ptcache_edit(Scene *scene, View3D *v3d, PTCacheEdit *edit)
 	PTCacheEditPoint *point;
 	PTCacheEditKey *key;
 	ParticleEditSettings *pset = PE_settings(scene);
-	int i, k, totpoint = edit->totpoint, timed = pset->flag & PE_FADE_TIME ? pset->fade_frames : 0;
+	int i, k, totpoint = edit->totpoint, timed = (pset->flag & PE_FADE_TIME) ? pset->fade_frames : 0;
 	int totkeys = 1;
 	float sel_col[3];
 	float nosel_col[3];
@@ -5916,7 +5918,7 @@ static void draw_ptcache_edit(Scene *scene, View3D *v3d, PTCacheEdit *edit)
 						glColor3fv(nosel_col);
 					/* has to be like this.. otherwise selection won't work, have try glArrayElement later..*/
 					glBegin(GL_POINTS);
-					glVertex3fv(key->flag & PEK_USE_WCO ? key->world_co : key->co);
+					glVertex3fv((key->flag & PEK_USE_WCO) ? key->world_co : key->co);
 					glEnd();
 				}
 			}
@@ -7998,14 +8000,15 @@ void draw_object(Scene *scene, ARegion *ar, View3D *v3d, Base *base, const short
 		/* only draw domains */
 		if (smd->domain) {
 			SmokeDomainSettings *sds = smd->domain;
-			float p0[3], p1[3], viewnormal[3];
-			BoundBox bb;
+			float viewnormal[3];
 
 			glLoadMatrixf(rv3d->viewmat);
 			glMultMatrixf(ob->obmat);
 
 			/* draw adaptive domain bounds */
-			if (sds->flags & MOD_SMOKE_ADAPTIVE_DOMAIN) {
+			if ((sds->flags & MOD_SMOKE_ADAPTIVE_DOMAIN) && !render_override) {
+				float p0[3], p1[3];
+				BoundBox bb;
 				/* draw domain max bounds */
 				VECSUBFAC(p0, sds->p0, sds->cell_size, sds->adapt_res);
 				VECADDFAC(p1, sds->p1, sds->cell_size, sds->adapt_res);
@@ -8021,6 +8024,8 @@ void draw_object(Scene *scene, ARegion *ar, View3D *v3d, Base *base, const short
 
 			/* don't show smoke before simulation starts, this could be made an option in the future */
 			if (smd->domain->fluid && CFRA >= smd->domain->point_cache[0]->startframe) {
+				float p0[3], p1[3];
+
 				/* get view vector */
 				invert_m4_m4(ob->imat, ob->obmat);
 				mul_v3_mat3_m4v3(viewnormal, ob->imat, rv3d->viewinv[2]);
