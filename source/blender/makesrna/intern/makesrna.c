@@ -1801,7 +1801,15 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(bool values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
+					fprintf(f, "\tvoid %s(bool values[%u]) {\n", rna_safe_id(prop->identifier), prop->totarraylength);
+					{
+						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
+						fprintf(f, "\t\tPyObject* seq = PyList_New(%u);\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (bool& value : values)\n");
+						fprintf(f, "\t\t\tPySequence_SetItem(seq, 0, Py_BuildValue(\"i\", value));\n");
+						fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", seq);\n", prop->identifier);
+					}
+					fprintf(f, "\t}\n");
 				}
 			}
 			else if (prop->getlength) {
@@ -1811,7 +1819,6 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				}
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
-
 					fprintf(f, "\tstd::vector<bool> %s() {\n", rna_safe_id(prop->identifier));
 					{
 						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
@@ -1824,7 +1831,16 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(bool values[]) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\tvoid %s(bool values[]) {\n", rna_safe_id(prop->identifier));
+					{
+						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
+						fprintf(f, "\t\tint length = sizeof(values)/sizeof(values[0]);\n");
+						fprintf(f, "\t\tPyObject* seq = PyList_New(length);\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (bool& value : values)\n");
+						fprintf(f, "\t\t\tPySequence_SetItem(seq, 0, Py_BuildValue(\"i\", value));\n");
+						fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", seq);\n", prop->identifier);
+					}
+					fprintf(f, "\t}\n");
 				}
 			}
 			break;
@@ -1864,7 +1880,15 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(int values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
+					fprintf(f, "\tvoid %s(int values[%u]) {\n", rna_safe_id(prop->identifier), prop->totarraylength);
+					{
+						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
+						fprintf(f, "\t\tPyObject* seq = PyList_New(%u);\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (int& value : values)\n");
+						fprintf(f, "\t\t\tPySequence_SetItem(seq, 0, Py_BuildValue(\"i\", value));\n");
+						fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", seq);\n", prop->identifier);
+					}
+					fprintf(f, "\t}\n");
 				}
 			}
 			else if (prop->getlength) {
@@ -1886,7 +1910,16 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(int values[]) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\tvoid %s(int values[]) {\n", rna_safe_id(prop->identifier));
+					{
+						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
+						fprintf(f, "\t\tint length = sizeof(values)/sizeof(values[0]);\n");
+						fprintf(f, "\t\tPyObject* seq = PyList_New(length);\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (int& value : values)\n");
+						fprintf(f, "\t\t\tPySequence_SetItem(seq, 0, Py_BuildValue(\"i\", value));\n");
+						fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", seq);\n", prop->identifier);
+					}
+					fprintf(f, "\t}\n");
 				}
 			}
 			break;
@@ -1928,7 +1961,15 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					
 					// SETTER
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(float values[%u]) { /* not implemented */ }\n", rna_safe_id(prop->identifier), prop->totarraylength);
+					fprintf(f, "\tvoid %s(float values[%u]) {\n", rna_safe_id(prop->identifier), prop->totarraylength);
+					{
+						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
+						fprintf(f, "\t\tPyObject* seq = PyList_New(%u);\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (int i = 0; i < %u; i++)\n", prop->totarraylength);
+						fprintf(f, "\t\t\tPySequence_SetItem(seq, 0, Py_BuildValue(\"f\", values[i]));\n");
+						fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", seq);\n", prop->identifier);
+					}
+					fprintf(f, "\t}\n");
 				}
 			}
 			else if (prop->getlength) {
@@ -1950,7 +1991,16 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
-					fprintf(f, "\tvoid %s(float values[]) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
+					fprintf(f, "\tvoid %s(float values[]) {\n", rna_safe_id(prop->identifier));
+					{
+						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
+						fprintf(f, "\t\tint length = sizeof(values)/sizeof(values[0]);\n");
+						fprintf(f, "\t\tPyObject* seq = PyList_New(length);\n", prop->totarraylength);
+						fprintf(f, "\t\tfor (float& value : values)\n");
+						fprintf(f, "\t\t\tPySequence_SetItem(seq, 0, Py_BuildValue(\"f\", value));\n");
+						fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", seq);\n", prop->identifier);
+					}
+					fprintf(f, "\t}\n");
 				}
 			}
 
