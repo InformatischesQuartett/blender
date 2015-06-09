@@ -1968,7 +1968,17 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 			else
 			{
 				fprintf(f, "\t/** Getter: %s */\n", prop->description);
-				fprintf(f, "\tstd::string %s() { /* not implemented */ throw NULL; }\n", rna_safe_id(prop->identifier));
+				fprintf(f, "\tstd::string %s() {\n", rna_safe_id(prop->identifier));
+				{
+					fprintf(f, "\t\tPyObject *attr = PyObject_GetAttrString(pyobjref, \"%s\");\n", prop->identifier);
+					fprintf(f, "\t\tPyObject *str = PyUnicode_AsUTF8String(attr);\n");
+					fprintf(f, "\t\tstd::string resstr(PyBytes_AsString(str));\n");
+					fprintf(f, "\t\tPy_DECREF(attr);\n");
+					fprintf(f, "\t\tPy_DECREF(str);\n");
+					fprintf(f, "\t\treturn resstr;\n");
+				}
+				fprintf(f, "\t}\n\n");
+
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
 				fprintf(f, "\tvoid %s(const std::string& value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
 			}
