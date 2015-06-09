@@ -1776,12 +1776,12 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tbool %s() {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\treturn PyLong_AsLong(PyObject_GetAttrString(pyobjref, \"%s\")) == 1;\n", prop->identifier);
+					fprintf(f, "\t\tPRIMTIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, \"%s\")\n", prop->identifier);
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(bool value) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", Py_BuildValue(\"i\", value));\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\")\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1798,7 +1798,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(bool values[%u]) {\n", rna_safe_id(prop->identifier), prop->totarraylength);
-					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(bool, \"i\", \"%s\", %u)\n", prop->identifier, prop->totarraylength);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(\"i\", \"%s\", %u)\n", prop->identifier, prop->totarraylength);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1815,7 +1815,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(bool values[]) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(bool, \"i\", \"%s\", sizeof(values)/sizeof(values[0]))\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(\"i\", \"%s\", sizeof(values)/sizeof(values[0]))\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1831,11 +1831,13 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tint %s() {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\treturn PyLong_AsLong(PyObject_GetAttrString(pyobjref, \"%s\"));\n\t}\n\n", prop->identifier);
+					fprintf(f, "\t\tPRIMTIVE_TYPES_GETTER(int, PyLong_AsLong(val), \"%s\")\n", prop->identifier);
+					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int value) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", Py_BuildValue(\"i\", value));\n\t}\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\")\n", prop->identifier);
+					fprintf(f, "\t}\n");
 				}
 			}
 			else if (prop->totarraylength) {
@@ -1851,7 +1853,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int values[%u]) {\n", rna_safe_id(prop->identifier), prop->totarraylength);
-					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(int, \"i\", \"%s\", %u)\n", prop->identifier, prop->totarraylength);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(\"i\", \"%s\", %u)\n", prop->identifier, prop->totarraylength);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1868,7 +1870,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int values[]) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(int, \"i\", \"%s\", sizeof(values)/sizeof(values[0]))\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(\"i\", \"%s\", sizeof(values)/sizeof(values[0]))\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1884,11 +1886,13 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tfloat %s() {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\treturn (float)PyFloat_AsDouble(PyObject_GetAttrString(pyobjref, \"%s\"));\n\t}\n\n", prop->identifier);
+					fprintf(f, "\t\tPRIMTIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), \"%s\")\n", prop->identifier);
+					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float value) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPyObject_SetAttrString(pyobjref, \"%s\", Py_BuildValue(\"f\", value));\n\t}\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"f\", \"%s\")\n", prop->identifier);
+					fprintf(f, "\t}\n");
 				}
 			}
 			else if (prop->totarraylength) {
@@ -1904,7 +1908,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float values[%u]) {\n", rna_safe_id(prop->identifier), prop->totarraylength);
-					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(float, \"f\", \"%s\", %u)\n", prop->identifier, prop->totarraylength);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(\"f\", \"%s\", %u)\n", prop->identifier, prop->totarraylength);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1921,7 +1925,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float values[]) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(float, \"f\", \"%s\", sizeof(values)/sizeof(values[0]))\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_ARRAY_SETTER(\"f\", \"%s\", sizeof(values)/sizeof(values[0]))\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1946,15 +1950,34 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					fprintf(f, "\n");
 			}
 
+			if (fusee_build) {
+				fprintf(f, "\t%s_enum string_to_%s_enum(std::string value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tstd::map<std::string, %s_enum> conv;\n", rna_safe_id(prop->identifier));
+
+				for (i = 0; i < eprop->totitem; i++)
+					if (eprop->item[i].identifier[0])
+						fprintf(f, "\t\tconv[\"%s\"] = %s_%s;\n", eprop->item[i].identifier,
+							rna_safe_id(prop->identifier), eprop->item[i].identifier);
+
+				fprintf(f, "\t\treturn conv[value];\n");
+				fprintf(f, "\t};\n\n");
+			}
+
 			if (!fusee_build) {
 				fprintf(f, "\tinline %s_enum %s(void);\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
 				fprintf(f, "\tinline void %s(%s_enum value);", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
 			}
 			else {
 				fprintf(f, "\t/** Getter: %s */\n", prop->description);
-				fprintf(f, "\t%s_enum %s() { /* not implemented */ throw NULL; }\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t%s_enum %s() {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tSTRING_TYPE_GETTER(\"%s\", string_to_%s_enum(resstr))\n",
+					rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t}\n\n");
+
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
-				fprintf(f, "\tvoid %s(%s_enum value) { /* not implemented */ }\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\tvoid %s(%s_enum value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\")\n", prop->identifier);
+				fprintf(f, "\t}\n");
 			}
 
 			break;
@@ -1969,14 +1992,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 			{
 				fprintf(f, "\t/** Getter: %s */\n", prop->description);
 				fprintf(f, "\tstd::string %s() {\n", rna_safe_id(prop->identifier));
-				{
-					fprintf(f, "\t\tPyObject *attr = PyObject_GetAttrString(pyobjref, \"%s\");\n", prop->identifier);
-					fprintf(f, "\t\tPyObject *str = PyUnicode_AsUTF8String(attr);\n");
-					fprintf(f, "\t\tstd::string resstr(PyBytes_AsString(str));\n");
-					fprintf(f, "\t\tPy_DECREF(attr);\n");
-					fprintf(f, "\t\tPy_DECREF(str);\n");
-					fprintf(f, "\t\treturn resstr;\n");
-				}
+				fprintf(f, "\t\tSTRING_TYPE_GETTER(\"%s\", resstr)\n", prop->identifier);
 				fprintf(f, "\t}\n\n");
 
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
@@ -3982,6 +3998,17 @@ static const char *cpp_classes_fu = ""
 "\n"
 "namespace UniplugBL {\n"
 "\n"
+"#define PRIMTIVE_TYPES_GETTER(stype, sconv, sidentifier)\\\n"
+"	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
+"	stype resval = sconv;\\\n"
+"	Py_DECREF(val);\\\n"
+"	return resval;\n"
+"\n"
+"#define PRIMITIVE_TYPES_SETTER(sconv, sidentifier)\\\n"
+"	PyObject *val = Py_BuildValue(sconv, value);\\\n"
+"	PyObject_SetAttrString(pyobjref, sidentifier, val);\\\n"
+"	Py_DECREF(val);\n"
+"\n"
 "#define PRIMITIVE_TYPES_ARRAY_GETTER(stype, sconv, sidentifier, slength)\\\n"
 "	PyObject *seqval = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
 "	std::array<stype, slength> resarr;\\\n"
@@ -3993,12 +4020,12 @@ static const char *cpp_classes_fu = ""
 "	Py_DECREF(seqval);\\\n"
 "	return resarr;\n"
 "\n"
-"#define PRIMITIVE_TYPES_ARRAY_SETTER(stype, sconv, sidentifier, slength)\\\n"
-"	PyObject* items[slength];\\\n"
-"	PyObject* tupleval = PyTuple_New(slength);\\\n"
+"#define PRIMITIVE_TYPES_ARRAY_SETTER(sconv, sidentifier, slength)\\\n"
+"	PyObject *items[slength];\\\n"
+"	PyObject *tupleval = PyTuple_New(slength);\\\n"
 "	for (int i = 0; i < slength; i++) {\\\n"
 "		items[i] = Py_BuildValue(sconv, values[i]);\\\n"
-"		PyList_SetItem(tupleval, i, items[i]);\\\n"
+"		PyTuple_SetItem(tupleval, i, items[i]);\\\n"
 "	}\\\n"
 "	PyObject_SetAttrString(pyobjref, sidentifier, tupleval);\\\n"
 "	for (int i = 0; i < slength; i++)\\\n"
@@ -4009,13 +4036,20 @@ static const char *cpp_classes_fu = ""
 "	PyObject *seqval = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
 "	std::vector<stype> resvec;\\\n"
 "	for (int i = 0; i < PySequence_Length(seqval); i++) {\\\n"
-"		PyObject* item = PySequence_GetItem(seqval, i);\\\n"
+"		PyObject *item = PySequence_GetItem(seqval, i);\\\n"
 "		resvec.push_back(sconv);\\\n"
 "		Py_DECREF(item);\\\n"
 "			}\\\n"
 "	Py_DECREF(seqval);\\\n"
 "	return resvec;\n"
 "\n"
+"#define STRING_TYPE_GETTER(sidentifier, sconv)\\\n"
+"	PyObject *attr = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
+"	PyObject *str = PyUnicode_AsUTF8String(attr);\\\n"
+"	std::string resstr(PyBytes_AsString(str));\\\n"
+"	Py_DECREF(attr);\\\n"
+"	Py_DECREF(str);\\\n"
+"	return sconv;\n"
 "\n";
 
 static const char *cpp_classes_bl = ""
