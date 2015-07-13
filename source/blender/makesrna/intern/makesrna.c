@@ -1781,7 +1781,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(bool value) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\")\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\", value)\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1836,7 +1836,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(int value) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\")\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\", value)\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1891,7 +1891,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(float value) {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"f\", \"%s\")\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"f\", \"%s\", value)\n", prop->identifier);
 					fprintf(f, "\t}\n");
 				}
 			}
@@ -1961,6 +1961,17 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 				fprintf(f, "\t\treturn conv[value];\n");
 				fprintf(f, "\t};\n\n");
+
+				fprintf(f, "\tstd::string %s_enum_to_string(%s_enum value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tstd::map<%s_enum, std::string> conv;\n", rna_safe_id(prop->identifier));
+
+				for (i = 0; i < eprop->totitem; i++)
+					if (eprop->item[i].identifier[0])
+						fprintf(f, "\t\tconv[%s_%s] = \"%s\";\n", rna_safe_id(prop->identifier), eprop->item[i].identifier,
+							eprop->item[i].identifier);
+
+				fprintf(f, "\t\treturn conv[value];\n");
+				fprintf(f, "\t};\n\n");
 			}
 
 			if (!fusee_build) {
@@ -1976,7 +1987,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
 				fprintf(f, "\tvoid %s(%s_enum value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
-				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"i\", \"%s\")\n", prop->identifier);
+				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"s\", \"%s\", %s_enum_to_string(value))\n", prop->identifier, rna_safe_id(prop->identifier));
 				fprintf(f, "\t}\n");
 			}
 
@@ -1996,7 +2007,9 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				fprintf(f, "\t}\n\n");
 
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
-				fprintf(f, "\tvoid %s(const std::string& value) { /* not implemented */ }\n", rna_safe_id(prop->identifier));
+				fprintf(f, "\tvoid %s(const std::string& value) {\n", rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"s\", \"%s\", value)\n", prop->identifier, rna_safe_id(prop->identifier));
+				fprintf(f, "\t}\n");
 			}
 			break;
 		}
@@ -2013,7 +2026,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 						if (rna_parameter_type_is_declared(dp->prop)) {
 							fprintf(f, "\t%s %s() {\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
-							fprintf(f, "\t\t/* not implemented */ throw NULL;\n");
+							fprintf(f, "\t\tCLASS_TYPES_GETTER(%s, \"%s\")\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
 							fprintf(f, "\t}\n");
 						}
 						else {
@@ -2023,8 +2036,8 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					}
 					else {
 						fprintf(f, "\t%s %s::%s() {\n", (const char *)pprop->type, srna->identifier, rna_safe_id(prop->identifier));
-						fprintf(f, "\t\treturn %s(PyObject_GetAttrString(pyobjref, \"%s\"));\n", (const char *)pprop->type, prop->identifier);
-						fprintf(f, "\t}\n");
+						fprintf(f, "\t\tCLASS_TYPES_GETTER(%s, \"%s\")\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
+						fprintf(f, "\t}\n"); 
 					}
 				}
 			else
@@ -4004,7 +4017,7 @@ static const char *cpp_classes_fu = ""
 "	Py_DECREF(val);\\\n"
 "	return resval;\n"
 "\n"
-"#define PRIMITIVE_TYPES_SETTER(sconv, sidentifier)\\\n"
+"#define PRIMITIVE_TYPES_SETTER(sconv, sidentifier, value)\\\n"
 "	PyObject *val = Py_BuildValue(sconv, value);\\\n"
 "	PyObject_SetAttrString(pyobjref, sidentifier, val);\\\n"
 "	Py_DECREF(val);\n"
@@ -4039,7 +4052,7 @@ static const char *cpp_classes_fu = ""
 "		PyObject *item = PySequence_GetItem(seqval, i);\\\n"
 "		resvec.push_back(sconv);\\\n"
 "		Py_DECREF(item);\\\n"
-"			}\\\n"
+"	}\\\n"
 "	Py_DECREF(seqval);\\\n"
 "	return resvec;\n"
 "\n"
@@ -4050,6 +4063,12 @@ static const char *cpp_classes_fu = ""
 "	Py_DECREF(attr);\\\n"
 "	Py_DECREF(str);\\\n"
 "	return sconv;\n"
+"\n"
+"#define CLASS_TYPES_GETTER(stype, sidentifier)\\\n"
+"	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
+"	stype restype(val);\\\n"
+"	Py_DECREF(val);\\\n"
+"	return restype;\n"
 "\n";
 
 static const char *cpp_classes_bl = ""
