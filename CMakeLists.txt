@@ -53,7 +53,9 @@ if(NOT (${CMAKE_VERSION} VERSION_LESS 3.0))
 endif()
 
 if(NOT EXECUTABLE_OUTPUT_PATH)
-	set(FIRST_RUN "TRUE")
+	set(FIRST_RUN TRUE)
+else()
+	set(FIRST_RUN FALSE)
 endif()
 
 # this starts out unset
@@ -70,7 +72,6 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS_DEBUG           DEBUG
 set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS_RELEASE         NDEBUG)
 set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS_MINSIZEREL      NDEBUG)
 set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS_RELWITHDEBINFO  NDEBUG)
-
 
 #-----------------------------------------------------------------------------
 # Set policy
@@ -129,7 +130,7 @@ macro(option_defaults_init)
 		set(${_var} ON)
 		list(APPEND _init_vars "${_var}")
 	endforeach()
-	unset(_INC)
+	unset(_var)
 endmacro()
 
 # remove from namespace
@@ -220,7 +221,11 @@ mark_as_advanced(WITH_SYSTEM_BULLET)
 option(WITH_GAMEENGINE    "Enable Game Engine" ${_init_GAMEENGINE})
 option(WITH_PLAYER        "Build Player" OFF)
 option(WITH_OPENCOLORIO   "Enable OpenColorIO color management" ${_init_OPENCOLORIO})
-option(WITH_COMPOSITOR    "Enable the tile based nodal compositor" ON)
+
+# Compositor
+option(WITH_COMPOSITOR         "Enable the tile based nodal compositor" ON)
+option(WITH_COMPOSITOR_WERROR  "Treat warnings as errors in compositor code" OFF)
+mark_as_advanced(WITH_COMPOSITOR_WERROR)
 
 # GHOST Windowing Library Options
 option(WITH_GHOST_DEBUG   "Enable debugging output for the GHOST library" OFF)
@@ -317,9 +322,11 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # Camera/motion tracking
-option(WITH_LIBMV         "Enable libmv structure from motion library" ON)
+option(WITH_LIBMV         "Enable Libmv structure from motion library" ON)
 option(WITH_LIBMV_SCHUR_SPECIALIZATIONS "Enable fixed-size schur specializations." ${_init_LIBMV_SCHUR_SPECIALIZATION})
+option(WITH_LIBMV_WERROR  "Treat warnings as errors in Libmv (and Blender's motion tracking) code")
 mark_as_advanced(WITH_LIBMV_SCHUR_SPECIALIZATIONS)
+mark_as_advanced(WITH_LIBMV_WERROR)
 
 # Freestyle
 option(WITH_FREESTYLE     "Enable Freestyle (advanced edges rendering)" ON)
@@ -353,18 +360,20 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # Cycles
-option(WITH_CYCLES					"Enable cycles Render Engine" ON)
-option(WITH_CYCLES_STANDALONE		"Build cycles standalone application" OFF)
-option(WITH_CYCLES_STANDALONE_GUI	"Build cycles standalone with GUI" OFF)
+option(WITH_CYCLES					"Enable Cycles Render Engine" ON)
+option(WITH_CYCLES_STANDALONE		"Build Cycles standalone application" OFF)
+option(WITH_CYCLES_STANDALONE_GUI	"Build Cycles standalone with GUI" OFF)
 option(WITH_CYCLES_OSL				"Build Cycles with OSL support" ${_init_CYCLES_OSL})
-option(WITH_CYCLES_CUDA_BINARIES	"Build cycles CUDA binaries" OFF)
+option(WITH_CYCLES_CUDA_BINARIES	"Build Cycles CUDA binaries" OFF)
 set(CYCLES_CUDA_BINARIES_ARCH sm_20 sm_21 sm_30 sm_35 sm_50 sm_52 CACHE STRING "CUDA architectures to build binaries for")
 mark_as_advanced(CYCLES_CUDA_BINARIES_ARCH)
 unset(PLATFORM_DEFAULT)
-option(WITH_CYCLES_LOGGING	"Build cycles with logging support" ON)
-option(WITH_CYCLES_DEBUG	"Build cycles with extra debug capabilities" OFF)
+option(WITH_CYCLES_LOGGING	"Build Cycles with logging support" ON)
+option(WITH_CYCLES_DEBUG	"Build Cycles with extra debug capabilities" OFF)
+option(WITH_CYCLES_WERROR	"Treat warnings as errors in Cycles code" OFF)
 mark_as_advanced(WITH_CYCLES_LOGGING)
 mark_as_advanced(WITH_CYCLES_DEBUG)
+mark_as_advanced(WITH_CYCLES_WERROR)
 
 # LLVM
 option(WITH_LLVM					"Use LLVM" OFF)
@@ -394,7 +403,6 @@ option(WITH_BOOST					"Enable features depending on boost" ON)
 
 # Unit testsing
 option(WITH_GTESTS "Enable GTest unit testing" OFF)
-option(WITH_TESTS_PERFORMANCE "Enable performance tests" OFF)
 
 
 # Documentation
@@ -411,7 +419,6 @@ option(WITH_GL_EGL              "Use the EGL OpenGL system library instead of th
 option(WITH_GL_PROFILE_COMPAT   "Support using the OpenGL 'compatibility' profile. (deprecated)"                                                    ON )
 option(WITH_GL_PROFILE_CORE     "Support using the OpenGL 3.2+ 'core' profile."                                                                     OFF)
 option(WITH_GL_PROFILE_ES20     "Support using OpenGL ES 2.0. (thru either EGL or the AGL/WGL/XGL 'es20' profile)"                                  OFF)
-option(WITH_GPU_DEBUG           "Create a debug OpenGL context (allows inserting custom messages and getting notifications for bad GL use)"         OFF)
 
 mark_as_advanced(
 	WITH_GLEW_MX
@@ -420,7 +427,6 @@ mark_as_advanced(
 	WITH_GL_PROFILE_COMPAT
 	WITH_GL_PROFILE_CORE
 	WITH_GL_PROFILE_ES20
-	WITH_GPU_DEBUG
 )
 
 if(WITH_GL_PROFILE_COMPAT)
@@ -450,6 +456,7 @@ mark_as_advanced(WITH_CPP11)
 
 # Dependency graph
 option(WITH_LEGACY_DEPSGRAPH "Build Blender with legacy dependency graph" ON)
+mark_as_advanced(WITH_LEGACY_DEPSGRAPH)
 
 # avoid using again
 option_defaults_clear()
@@ -654,17 +661,19 @@ endif()
 # auto enable openimageio for cycles
 if(WITH_CYCLES)
 	set(WITH_OPENIMAGEIO ON)
+
+	# auto enable llvm for cycles_osl
+	if(WITH_CYCLES_OSL)
+		set(WITH_LLVM ON CACHE BOOL "" FORCE)
+	endif()
+else()
+	set(WITH_CYCLES_OSL OFF)
 endif()
 
 # auto enable openimageio linking dependencies
 if(WITH_OPENIMAGEIO)
 	set(WITH_IMAGE_OPENEXR ON)
 	set(WITH_IMAGE_TIFF ON)
-endif()
-
-# auto enable llvm for cycles_osl
-if(WITH_CYCLES_OSL)
-	set(WITH_LLVM ON CACHE BOOL "" FORCE)
 endif()
 
 # don't store paths to libs for portable distribution
@@ -1062,9 +1071,9 @@ if(UNIX AND NOT APPLE)
 	endif()
 
 	if(WITH_LLVM)
-        find_package_wrapper(LLVM)
+		find_package_wrapper(LLVM)
 
-        if(NOT LLVM_FOUND)
+		if(NOT LLVM_FOUND)
 			set(WITH_LLVM OFF)
 			message(STATUS "LLVM not found")
 		endif()
@@ -1112,12 +1121,12 @@ if(UNIX AND NOT APPLE)
 		execute_process(
 		        COMMAND ${CMAKE_C_COMPILER} -fuse-ld=gold -Wl,--version
 		        ERROR_QUIET OUTPUT_VARIABLE LD_VERSION)
-		if ("${LD_VERSION}" MATCHES "GNU gold")
+		if("${LD_VERSION}" MATCHES "GNU gold")
 			set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fuse-ld=gold")
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fuse-ld=gold")
-		else ()
-			message(INFO "GNU gold linker isn't available, using the default system linker.")
-		endif ()
+		else()
+			message(STATUS "GNU gold linker isn't available, using the default system linker.")
+		endif()
 		unset(LD_VERSION)
 
 	# CLang is the same as GCC for now.
@@ -2348,10 +2357,6 @@ if(WITH_GL_EGL)
 	list(APPEND GL_DEFINITIONS -DWITH_EGL)
 endif()
 
-if(WITH_GPU_DEBUG)
-	list(APPEND GL_DEFINITIONS -DWITH_GPU_DEBUG)
-endif()
-
 #-----------------------------------------------------------------------------
 # Configure OpenMP.
 if(WITH_OPENMP)
@@ -2758,25 +2763,29 @@ include(build_files/cmake/packaging.cmake)
 # Print Final Configuration
 
 if(FIRST_RUN)
-	set(_config_msg "\n* Blender Configuration *")
-	macro(info_cfg_option
-		_setting)
-		set(_msg "   * ${_setting}")
+
+	set(_config_msg "\nBlender Configuration\n=====================")
+
+	function(info_cfg_option
+		_setting
+		)
+
+		set(_msg "  - ${_setting}")
 		string(LENGTH "${_msg}" _len)
 		while("32" GREATER "${_len}")
 			set(_msg "${_msg} ")
 			 math(EXPR _len "${_len} + 1")
 		endwhile()
 
-		set(_config_msg "${_config_msg}\n${_msg}${${_setting}}")
-	endmacro()
+		set(_config_msg "${_config_msg}\n${_msg}${${_setting}}" PARENT_SCOPE)
+	endfunction()
 
-	macro(info_cfg_text
-		_text)
-		set(_config_msg "${_config_msg}\n\n  ${_text}")
+	function(info_cfg_text
+		_text
+		)
 
-
-	endmacro()
+		set(_config_msg "${_config_msg}\n\n  ${_text}" PARENT_SCOPE)
+	endfunction()
 
 	message(STATUS "C Compiler:   \"${CMAKE_C_COMPILER_ID}\"")
 	message(STATUS "C++ Compiler: \"${CMAKE_CXX_COMPILER_ID}\"")
@@ -2855,7 +2864,6 @@ if(FIRST_RUN)
 	info_cfg_option(WITH_GL_PROFILE_COMPAT)
 	info_cfg_option(WITH_GL_PROFILE_CORE)
 	info_cfg_option(WITH_GL_PROFILE_ES20)
-	info_cfg_option(WITH_GPU_DEBUG)
 	if(WIN32)
 		info_cfg_option(WITH_GL_ANGLE)
 	endif()

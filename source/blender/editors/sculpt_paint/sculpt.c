@@ -1561,7 +1561,7 @@ static void neighbor_average(SculptSession *ss, float avg[3], unsigned vert)
 			const MPoly *p = &ss->mpoly[vert_map->indices[i]];
 			unsigned f_adj_v[2];
 
-			if (poly_get_adj_loops_from_vert(f_adj_v, p, ss->mloop, vert) != -1) {
+			if (poly_get_adj_loops_from_vert(p, ss->mloop, vert, f_adj_v) != -1) {
 				int j;
 				for (j = 0; j < ARRAY_SIZE(f_adj_v); j += 1) {
 					if (vert_map->count != 2 || ss->pmap[f_adj_v[j]].count <= 2) {
@@ -1596,7 +1596,7 @@ static float neighbor_average_mask(SculptSession *ss, unsigned vert)
 		const MPoly *p = &ss->mpoly[ss->pmap[vert].indices[i]];
 		unsigned f_adj_v[2];
 
-		if (poly_get_adj_loops_from_vert(f_adj_v, p, ss->mloop, vert) != -1) {
+		if (poly_get_adj_loops_from_vert(p, ss->mloop, vert, f_adj_v) != -1) {
 			int j;
 			for (j = 0; j < ARRAY_SIZE(f_adj_v); j += 1) {
 				avg += vmask[f_adj_v[j]];
@@ -4132,7 +4132,7 @@ static void sculpt_raycast_detail_cb(PBVHNode *node, void *data_v, float *tmin)
 	if (BKE_pbvh_node_get_tmin(node) < *tmin) {
 		SculptDetailRaycastData *srd = data_v;
 		if (BKE_pbvh_bmesh_node_raycast_detail(node, srd->ray_start, srd->ray_normal,
-		                                       &srd->detail, &srd->dist))
+		                                       &srd->dist, &srd->detail))
 		{
 			srd->hit = 1;
 			*tmin = srd->dist;

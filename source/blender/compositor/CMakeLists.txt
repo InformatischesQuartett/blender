@@ -41,6 +41,7 @@ set(INC
 	../render/intern/include
 	../../../extern/clew/include
 	../../../intern/guardedalloc
+	../../../intern/atomic
 )
 
 set(INC_SYS
@@ -539,6 +540,12 @@ set(SRC
 list(APPEND INC
 	${CMAKE_CURRENT_BINARY_DIR}/operations
 )
+
+if(WITH_COMPOSITOR_WERROR)
+	ADD_CHECK_C_COMPILER_FLAG(CMAKE_C_FLAGS C_WERROR -Werror)
+	ADD_CHECK_CXX_COMPILER_FLAG(CMAKE_CXX_FLAGS C_WERROR -Werror)
+endif()
+
 data_to_c(${CMAKE_CURRENT_SOURCE_DIR}/operations/COM_OpenCLKernels.cl
           ${CMAKE_CURRENT_BINARY_DIR}/operations/COM_OpenCLKernels.cl.h SRC)
 

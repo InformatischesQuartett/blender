@@ -87,11 +87,12 @@ EnumPropertyItem navigation_mode_items[] = {
 #include "DNA_screen_types.h"
 
 #include "BKE_blender.h"
-#include "BKE_DerivedMesh.h"
 #include "BKE_depsgraph.h"
 #include "BKE_global.h"
 #include "BKE_main.h"
 #include "BKE_idprop.h"
+#include "BKE_pbvh.h"
+#include "BKE_paint.h"
 
 #include "GPU_draw.h"
 #include "GPU_select.h"
@@ -104,8 +105,6 @@ EnumPropertyItem navigation_mode_items[] = {
 #include "UI_interface.h"
 
 #include "CCL_api.h"
-
-#include "BKE_addon.h"
 
 #ifdef WITH_SDL_DYNLOAD
 #  include "sdlew.h"
@@ -144,13 +143,23 @@ static void rna_userdef_language_update(Main *UNUSED(bmain), Scene *UNUSED(scene
 	UI_reinit_font();
 }
 
+static void update_cb(PBVHNode *node, void *UNUSED(rebuild))
+{
+	BKE_pbvh_node_mark_rebuild_draw(node);
+}
+
 static void rna_userdef_vbo_update(Main *bmain, Scene *UNUSED(scene), PointerRNA *UNUSED(ptr))
 {
 	Object *ob;
 	
 	for (ob = bmain->object.first; ob; ob = ob->id.next) {
 		GPU_drawobject_free(ob->derivedFinal);
+
+		if (ob->sculpt && ob->sculpt->pbvh) {
+			BKE_pbvh_search_callback(ob->sculpt->pbvh, NULL, NULL, update_cb, NULL);
+		}
 	}
+	GPU_buffer_multires_free(false);
 }
 
 static void rna_userdef_show_manipulator_update(Main *bmain, Scene *scene, PointerRNA *ptr)
@@ -268,6 +277,12 @@ static void rna_userdef_autokeymode_set(PointerRNA *ptr, int value)
 		userdef->autokey_mode |= (AUTOKEY_MODE_EDITKEYS - AUTOKEY_ON);
 		userdef->autokey_mode &= ~(AUTOKEY_MODE_NORMAL - AUTOKEY_ON);
 	}
+}
+
+static void rna_userdef_ndof_deadzone_update(Main *UNUSED(bmain), Scene *UNUSED(scene), PointerRNA *ptr)
+{
+	UserDef *userdef = ptr->data;
+	WM_ndof_deadzone_set(userdef->ndof_deadzone);
 }
 
 static void rna_userdef_timecode_style_set(PointerRNA *ptr, int value)
@@ -3459,8 +3474,8 @@ static void rna_def_userdef_view(BlenderRNA *brna)
 	RNA_def_property_range(prop, 0, 1000);
 	RNA_def_property_ui_text(prop, "Smooth View", "Time to animate the view in milliseconds, zero to disable");
 
-	prop = RNA_def_property(srna, "rotation_angle", PROP_INT, PROP_NONE);
-	RNA_def_property_int_sdna(prop, NULL, "pad_rot_angle");
+	prop = RNA_def_property(srna, "rotation_angle", PROP_FLOAT, PROP_NONE);
+	RNA_def_property_float_sdna(prop, NULL, "pad_rot_angle");
 	RNA_def_property_range(prop, 0, 90);
 	RNA_def_property_ui_text(prop, "Rotation Angle", "Rotation step for numerical pad keys (2 4 6 8)");
 
@@ -4305,6 +4320,11 @@ static void rna_def_userdef_input(BlenderRNA *brna)
 	prop = RNA_def_property(srna, "ndof_orbit_sensitivity", PROP_FLOAT, PROP_NONE);
 	RNA_def_property_range(prop, 0.01f, 40.0f);
 	RNA_def_property_ui_text(prop, "Orbit Sensitivity", "Overall sensitivity of the 3D Mouse for orbiting");
+
+	prop = RNA_def_property(srna, "ndof_deadzone", PROP_FLOAT, PROP_FACTOR);
+	RNA_def_property_range(prop, 0.0f, 1.0f);
+	RNA_def_property_ui_text(prop, "Deadzone", "Deadzone of the 3D Mouse");
+	RNA_def_property_update(prop, 0, "rna_userdef_ndof_deadzone_update");
 
 	prop = RNA_def_property(srna, "ndof_pan_yz_swap_axis", PROP_BOOLEAN, PROP_NONE);
 	RNA_def_property_boolean_sdna(prop, NULL, "ndof_flag", NDOF_PAN_YZ_SWAP_AXIS);

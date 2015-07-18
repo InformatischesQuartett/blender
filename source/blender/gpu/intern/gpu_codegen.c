@@ -118,7 +118,7 @@ static char *gpu_str_skip_token(char *str, char *token, int max)
 		if (ELEM(*str, ' ', '(', ')', ',', '\t', '\n', '\r'))
 			break;
 		else {
-			if (token && len < max-1) {
+			if (token && len < max - 1) {
 				*token = *str;
 				token++;
 				len++;
@@ -184,8 +184,8 @@ static void gpu_parse_functions_string(GHash *hash, char *code)
 				/* add parameter */
 				code = gpu_str_skip_token(code, NULL, 0);
 				code = gpu_str_skip_token(code, NULL, 0);
-				function->paramqual[function->totparam]= qual;
-				function->paramtype[function->totparam]= type;
+				function->paramqual[function->totparam] = qual;
+				function->paramtype[function->totparam] = type;
 				function->totparam++;
 			}
 			else {
@@ -238,7 +238,7 @@ static char *gpu_generate_function_prototyps(GHash *hash)
 			BLI_dynstr_appendf(ds, " param%d", a);
 #  endif
 
-			if (a != function->totparam-1)
+			if (a != function->totparam - 1)
 				BLI_dynstr_append(ds, ", ");
 		}
 		BLI_dynstr_append(ds, ");\n");
@@ -387,6 +387,14 @@ const char *GPU_builtin_name(GPUBuiltin builtin)
 		return "unfobautobumpscale";
 	else if (builtin == GPU_CAMERA_TEXCO_FACTORS)
 		return "unfcameratexfactors";
+	else if (builtin == GPU_PARTICLE_SCALAR_PROPS)
+		return "unfparticlescalarprops";
+	else if (builtin == GPU_PARTICLE_LOCATION)
+		return "unfparticleco";
+	else if (builtin == GPU_PARTICLE_VELOCITY)
+		return "unfparticlevel";
+	else if (builtin == GPU_PARTICLE_ANG_VELOCITY)
+		return "unfparticleangvel";
 	else
 		return "";
 }
