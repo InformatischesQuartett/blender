@@ -1497,7 +1497,13 @@ void RNA_def_property_enum_items_impl(PropertyRNA *prop, const EnumPropertyItem 
 		{
 			EnumPropertyRNA *eprop = (EnumPropertyRNA *)prop;
 			eprop->item = (EnumPropertyItem *)item;
-			eprop->name = name;
+
+			// fusee_build: this is in case of sth like "(prop) ? name1 : name2"
+			if (strstr(name, ":") != NULL)
+				eprop->name = strstr(name, ": ")+2;
+			else
+				eprop->name = name;
+
 			eprop->totitem = 0;
 
 			for (i = 0; item[i].identifier; i++) {
