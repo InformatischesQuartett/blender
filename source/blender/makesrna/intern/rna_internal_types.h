@@ -217,6 +217,9 @@ struct PropertyRNA {
 
 	/* fusee_build: is this a result struct? */
 	int isresult;
+
+	/* fusee_build: ignore return param */
+	int isignored;
 };
 
 /* Property Types */

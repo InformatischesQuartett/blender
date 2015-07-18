@@ -434,7 +434,7 @@ static const char *rna_type_type_name(PropertyRNA *prop)
 			return (fusee_build) ? "bool" : "int";
 			
 		case PROP_ENUM:
-			return (fusee_build) ? ((EnumPropertyRNA *)prop)->name : "int";
+			return (fusee_build) ? rna_safe_id(((EnumPropertyRNA*)prop)->name) : "int";
 
 		case PROP_INT:
 			return "int";
@@ -449,6 +449,32 @@ static const char *rna_type_type_name(PropertyRNA *prop)
 			else {
 				return (fusee_build) ? "const std::string" : "const char *";
 			}
+		default:
+			return NULL;
+	}
+}
+
+static const char *rna_type_type_format_char(PropertyRNA *prop)
+{
+	switch (prop->type) {
+		case PROP_BOOLEAN:
+			return "i";
+
+		case PROP_ENUM:
+			return "s";
+
+		case PROP_INT:
+			return "i";
+
+		case PROP_FLOAT:
+			return (prop->arraydimension) ? "O" : "f";
+
+		case PROP_STRING:
+			return "s";
+
+		case PROP_POINTER:
+			return "O";
+
 		default:
 			return NULL;
 	}
@@ -537,6 +563,7 @@ static void rna_float_print(FILE *f, float num)
 	if (num == -FLT_MAX) fprintf(f, "-FLT_MAX");
 	else if (num == FLT_MAX) fprintf(f, "FLT_MAX");
 	else if ((int)num == num) fprintf(f, "%.1ff", num);
+	else if (fusee_build && num > 100000) fprintf(f, "%ef", num);
 	else fprintf(f, "%.10ff", num);
 }
 
@@ -1744,10 +1771,105 @@ static int rna_parameter_type_is_declared(PropertyRNA *prop)
 	return 1;
 }
 
-static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, PropertyDefRNA *dp, int impl)
+static int rna_is_enum_implemented(StructDefRNA *ds, PropertyDefRNA *dp, FILE *f)
 {
-	PropertyRNA *prop;
+	EnumPropertyRNA *eprop = (EnumPropertyRNA *)dp->prop;
 
+	PropertyDefRNA *odp;
+	FunctionDefRNA *dfunc;
+
+	for (odp = ds->cont.properties.first; odp; odp = odp->next) {
+		if (odp == dp) break;
+		if (odp->prop->type == PROP_ENUM && ((EnumPropertyRNA *)odp->prop)->item == eprop->item)return 1;
+	}
+
+	for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next) {
+		int break_loop = 0;
+		
+		for (odp = dfunc->cont.properties.first; odp; odp = odp->next) {
+			if (odp == dp) { break_loop = 1; break; }
+			if (odp->prop->type == PROP_ENUM && ((EnumPropertyRNA *)odp->prop)->item == eprop->item) return 1;
+		}
+
+		if (break_loop) break;
+	}
+
+	return 0;
+}
+
+static void rna_generate_header_enum_cpp(StructDefRNA *srna, PropertyDefRNA *dp, FILE *f)
+{
+	EnumPropertyRNA *eprop = (EnumPropertyRNA *)dp->prop;
+
+	if (rna_is_enum_implemented(srna, dp, f)) return;
+
+	if (dp->prop->description && dp->prop->description[0])
+		fprintf(f, "\t/**\n\t * Enum: %s\n\t */\n", dp->prop->description);
+
+	fprintf(f, "\tenum %s_enum {\n", rna_safe_id(eprop->name));
+
+	for (int i = 0; eprop->item[i].identifier; i++) {
+		if (eprop->item[i].identifier[0]) {
+			if (eprop->item[i].description && eprop->item[i].description[0]) {
+				fprintf(f, "\t\t%s_%s = %d%s\t/**< %s */\n", rna_safe_id(eprop->name), eprop->item[i].identifier,
+					eprop->item[i].value, eprop->item[i + 1].identifier ? "," : "", eprop->item[i].description);
+			}
+			else {
+				fprintf(f, "\t\t%s_%s = %d%s\t\n", rna_safe_id(eprop->name), eprop->item[i].identifier,
+					eprop->item[i].value, eprop->item[i + 1].identifier ? "," : "");
+			}
+		}
+		else
+			fprintf(f, "\t\t// %s //\n", eprop->item[i].name ? eprop->item[i].name : "--------");
+	}
+
+	fprintf(f, "\t};\n\n");
+
+	// string to enum
+	fprintf(f, "\tstd::map<std::string, int> create_string_to_%s() {\n", rna_safe_id(eprop->name));
+	fprintf(f, "\t\treturn {");
+
+	int el1_ct = 0;
+	for (int i = 0; i < eprop->totitem; i++) {
+		if (eprop->item[i].identifier[0]) {
+			fprintf(f, "%s{\"%s\", %s_%s}", el1_ct == 0 ? "" : ", ", eprop->item[i].identifier,
+				rna_safe_id(eprop->name), eprop->item[i].identifier);
+
+			el1_ct++;
+		}
+	}
+
+	fprintf(f, "};\n");
+	fprintf(f, "\t};\n\n");
+
+	// enum to string
+	fprintf(f, "\tstd::map<int, std::string> create_%s_to_string() {\n", rna_safe_id(eprop->name));
+	fprintf(f, "\t\treturn {");
+
+	int el2_ct = 0;
+	for (int i = 0; i < eprop->totitem; i++) {
+		if (eprop->item[i].identifier[0]) {
+			fprintf(f, "%s{%s_%s, \"%s\"}", el2_ct == 0 ? "" : ", ", rna_safe_id(eprop->name),
+				eprop->item[i].identifier, eprop->item[i].identifier);
+
+			el2_ct++;
+		}
+	}
+
+	fprintf(f, "};\n");
+	fprintf(f, "\t};\n\n");
+
+	fprintf(f, "\tconst std::map<std::string, int> string_to_%s = create_string_to_%s();\n",
+		rna_safe_id(eprop->name), rna_safe_id(eprop->name));
+	fprintf(f, "\tconst std::map<int, std::string> %s_to_string = create_%s_to_string();\n\n",
+		rna_safe_id(eprop->name), rna_safe_id(eprop->name));
+}
+
+static void rna_def_property_funcs_header_cpp(FILE *f, StructDefRNA *ds, PropertyDefRNA *dp, int impl, int last)
+{
+	StructRNA *srna = ds->srna;
+
+	PropertyRNA *prop;
 	prop = dp->prop;
 
 	if ((!fusee_build) && prop->flag & (PROP_IDPROPERTY | PROP_BUILTIN))
@@ -1776,7 +1898,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tbool %s() {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMTIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, \"%s\")\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, \"%s\")\n", prop->identifier);
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
@@ -1831,7 +1953,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tint %s() {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMTIVE_TYPES_GETTER(int, PyLong_AsLong(val), \"%s\")\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), \"%s\")\n", prop->identifier);
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
@@ -1886,7 +2008,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 				else {
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tfloat %s() {\n", rna_safe_id(prop->identifier));
-					fprintf(f, "\t\tPRIMTIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), \"%s\")\n", prop->identifier);
+					fprintf(f, "\t\tPRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), \"%s\")\n", prop->identifier);
 					fprintf(f, "\t}\n\n");
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
@@ -1937,57 +2059,33 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 			EnumPropertyRNA *eprop = (EnumPropertyRNA *)prop;
 			int i;
 
-			if (eprop->item) {
-				fprintf(f, "\tenum %s_enum {\n", rna_safe_id(prop->identifier));
-
-				for (i = 0; i < eprop->totitem; i++)
-					if (eprop->item[i].identifier[0])
-						fprintf(f, "\t\t%s_%s = %d,\n", rna_safe_id(prop->identifier), eprop->item[i].identifier,
-						        eprop->item[i].value);
-
-				fprintf(f, "\t};\n");
-				if (fusee_build)
-					fprintf(f, "\n");
-			}
-
-			if (fusee_build) {
-				fprintf(f, "\t%s_enum string_to_%s_enum(std::string value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
-				fprintf(f, "\t\tstd::map<std::string, %s_enum> conv;\n", rna_safe_id(prop->identifier));
-
-				for (i = 0; i < eprop->totitem; i++)
-					if (eprop->item[i].identifier[0])
-						fprintf(f, "\t\tconv[\"%s\"] = %s_%s;\n", eprop->item[i].identifier,
-							rna_safe_id(prop->identifier), eprop->item[i].identifier);
-
-				fprintf(f, "\t\treturn conv[value];\n");
-				fprintf(f, "\t};\n\n");
-
-				fprintf(f, "\tstd::string %s_enum_to_string(%s_enum value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
-				fprintf(f, "\t\tstd::map<%s_enum, std::string> conv;\n", rna_safe_id(prop->identifier));
-
-				for (i = 0; i < eprop->totitem; i++)
-					if (eprop->item[i].identifier[0])
-						fprintf(f, "\t\tconv[%s_%s] = \"%s\";\n", rna_safe_id(prop->identifier), eprop->item[i].identifier,
-							eprop->item[i].identifier);
-
-				fprintf(f, "\t\treturn conv[value];\n");
-				fprintf(f, "\t};\n\n");
-			}
-
 			if (!fusee_build) {
+				if (eprop->item) {
+					fprintf(f, "\tenum %s_enum {\n", rna_safe_id(prop->identifier));
+
+					for (i = 0; i < eprop->totitem; i++)
+						if (eprop->item[i].identifier[0])
+							fprintf(f, "\t\t%s_%s = %d,\n", rna_safe_id(prop->identifier), eprop->item[i].identifier,
+							eprop->item[i].value);
+
+					fprintf(f, "\t};\n");
+				}
+
 				fprintf(f, "\tinline %s_enum %s(void);\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
 				fprintf(f, "\tinline void %s(%s_enum value);", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
 			}
 			else {
+				rna_generate_header_enum_cpp(ds, dp, f);
+
 				fprintf(f, "\t/** Getter: %s */\n", prop->description);
-				fprintf(f, "\t%s_enum %s() {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
-				fprintf(f, "\t\tSTRING_TYPE_GETTER(\"%s\", string_to_%s_enum(resstr))\n",
-					rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
+				fprintf(f, "\t%s_enum %s() {\n", rna_safe_id(eprop->name), rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tSTRING_TYPE_GETTER(\"%s\", static_cast<%s_enum>(string_to_%s.at(resstr)))\n",
+					rna_safe_id(prop->identifier), rna_safe_id(eprop->name), rna_safe_id(eprop->name));
 				fprintf(f, "\t}\n\n");
 
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
-				fprintf(f, "\tvoid %s(%s_enum value) {\n", rna_safe_id(prop->identifier), rna_safe_id(prop->identifier));
-				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"s\", \"%s\", %s_enum_to_string(value))\n", prop->identifier, rna_safe_id(prop->identifier));
+				fprintf(f, "\tvoid %s(%s_enum value) {\n", rna_safe_id(prop->identifier), rna_safe_id(eprop->name));
+				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"s\", \"%s\", %s_to_string.at(value))\n", prop->identifier, rna_safe_id(eprop->name));
 				fprintf(f, "\t}\n");
 			}
 
@@ -2008,7 +2106,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 				fprintf(f, "\t/** Setter: %s */\n", prop->description);
 				fprintf(f, "\tvoid %s(const std::string& value) {\n", rna_safe_id(prop->identifier));
-				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"s\", \"%s\", value)\n", prop->identifier, rna_safe_id(prop->identifier));
+				fprintf(f, "\t\tPRIMITIVE_TYPES_SETTER(\"s\", \"%s\", value)\n", prop->identifier);
 				fprintf(f, "\t}\n");
 			}
 			break;
@@ -2026,7 +2124,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 
 						if (rna_parameter_type_is_declared(dp->prop)) {
 							fprintf(f, "\t%s %s() {\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
-							fprintf(f, "\t\tCLASS_TYPES_GETTER(%s, \"%s\")\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
+							fprintf(f, "\t\tCLASS_TYPES_GETTER(%s, \"%s\")\n", rna_safe_id((const char *)pprop->type), prop->identifier);
 							fprintf(f, "\t}\n");
 						}
 						else {
@@ -2036,7 +2134,7 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					}
 					else {
 						fprintf(f, "\t%s %s::%s() {\n", (const char *)pprop->type, srna->identifier, rna_safe_id(prop->identifier));
-						fprintf(f, "\t\tCLASS_TYPES_GETTER(%s, \"%s\")\n", (const char *)pprop->type, rna_safe_id(prop->identifier));
+						fprintf(f, "\t\tCLASS_TYPES_GETTER(%s, \"%s\")\n", rna_safe_id((const char *)pprop->type), prop->identifier);
 						fprintf(f, "\t}\n"); 
 					}
 				}
@@ -2070,29 +2168,17 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 					prop->isimplemented = 0;
 
 					fprintf(f, "\t/** Getter: %s */\n", prop->description);
-					fprintf(f, "\tstd::map<std::string, %s> %s();\n", objtype, rna_safe_id(prop->identifier));
+					fprintf(f, "\tstd::map<std::string, %s> %s();\n\n", objtype, rna_safe_id(prop->identifier));
 
 					fprintf(f, "\t/** Setter: %s */\n", prop->description);
 					fprintf(f, "\tvoid %s(std::map<std::string, %s> value);\n", rna_safe_id(prop->identifier), objtype);
 				}
 				else {
-					// GETTER
 					if (!impl) fprintf(f, "\t/** Getter: %s */\n", prop->description);
 					fprintf(f, "\tstd::map<std::string, %s> ", (const char *)cprop->item_type);
 					if (impl) fprintf(f, "%s::", srna->identifier);
 					fprintf(f, "%s() {\n", rna_safe_id(prop->identifier));
-					{
-						fprintf(f, "\t\t// TODO: MISSING DEREF! USE #DEFINE!\n");
-						fprintf(f, "\t\tPyObject *seqval = PyObject_GetAttrString(pyobjref, \"%s\");\n", prop->identifier);
-						fprintf(f, "\t\tPyObject *seqkeys = PyObject_CallMethod(seqval, \"keys\", NULL);\n");
-						fprintf(f, "\t\tstd::map<std::string, %s> resmap;\n", objtype);
-						fprintf(f, "\t\tfor (int i = 0; i < PySequence_Length(seqval); i++) {\n");
-						fprintf(f, "\t\t\tPyObject *keyobj = PySequence_GetItem(seqkeys, i);\n");
-						fprintf(f, "\t\t\tstd::string key = PyBytes_AsString(PyUnicode_AsASCIIString(keyobj));\n");
-						fprintf(f, "\t\t\t%s value = %s(PySequence_GetItem(seqval, i));\n", objtype, objtype);
-						fprintf(f, "\t\t\tresmap.insert(std::pair<std::string,%s>(key, value));\n", objtype);
-						fprintf(f, "\t\t}\n\t\treturn resmap;\n");
-					}
+					fprintf(f, "\t\tMAP_TYPE_GETTER(\"%s\", %s)\n", prop->identifier, objtype);
 					fprintf(f, "\t}\n\n");
 
 					// SETTER
@@ -2107,7 +2193,8 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructRNA *srna, Property
 		}
 	}
 
-	fprintf(f, "\n");
+	if (!fusee_build || !last)
+		fprintf(f, "\n");
 }
 
 static const char *rna_parameter_type_cpp_name(PropertyRNA *prop)
@@ -2120,35 +2207,6 @@ static const char *rna_parameter_type_cpp_name(PropertyRNA *prop)
 	}
 	else {
 		return rna_parameter_type_name(prop);
-	}
-}
-
-static void rna_generade_header_enum_cpp(StructRNA *srna, PropertyDefRNA *dp, FILE *f)
-{
-	EnumPropertyRNA *eprop = (EnumPropertyRNA *)dp->prop;
-
-	if (eprop->item->classdecl != srna->identifier) {
-		fprintf(f, "\t/**\n\t * Enum: %s\n\t */\n", eprop->name);
-		fprintf(f, "\tenum %s {\n", eprop->name);
-
-		for (int i = 0; eprop->item[i].identifier; i++) {
-			if (eprop->item[i].identifier[0]) {				
-				if (eprop->item[i].description && eprop->item[i].description[0]) {
-					fprintf(f, "\t\t%s_%s = %d%s\t/**< %s */\n", eprop->name, eprop->item[i].identifier,
-						eprop->item[i].value, eprop->item[i + 1].identifier ? "," : "", eprop->item[i].description);
-				}
-				else {
-					fprintf(f, "\t\t%s_%s = %d%s\t\n", eprop->name, eprop->item[i].identifier,
-						eprop->item[i].value, eprop->item[i + 1].identifier ? "," : "");
-				}
-			}
-			else
-				fprintf(f, "\t\t// %s //\n", eprop->item[i].name ? eprop->item[i].name : "--------");
-		}
-
-		eprop->item->classdecl = srna->identifier;
-
-		fprintf(f, "\t};\n\n");
 	}
 }
 
@@ -2187,6 +2245,7 @@ static void rna_generate_header_output_structs_cpp(FILE *f, FunctionDefRNA *dfun
 				}
 
 				dp->prop->isimplemented = 1;
+				dp->prop->isresult = 1;
 			}
 		}
 
@@ -2194,6 +2253,7 @@ static void rna_generate_header_output_structs_cpp(FILE *f, FunctionDefRNA *dfun
 
 		retprop = RNA_def_pointer(func, func->identifier, func->identifier, "", "");
 		retprop->isresult = 1;
+		retprop->isignored = 1;
 
 		RNA_def_function_return(func, retprop);
 	}
@@ -2229,26 +2289,26 @@ static void rna_def_struct_function_comment_cpp(FILE *f, FunctionDefRNA *dfunc,
 	fprintf(f, "\t */\n");
 }
 
-static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *srna, FunctionDefRNA *dfunc,
+static void rna_def_struct_function_prototype_cpp(FILE *f, StructDefRNA *ds, FunctionDefRNA *dfunc,
 	const char *namespace, int close_prototype)
 {
 	PropertyDefRNA *dp;
 	FunctionRNA *func = dfunc->func;
+	StructRNA *srna = ds->srna;
 
 	// fusee_build: declare all enums
 	if (fusee_build && !(namespace && namespace[0])) {
 		if (dfunc->func->c_ret && dfunc->func->c_ret->type == PROP_ENUM)
-			rna_generade_header_enum_cpp(srna, rna_find_parameter_def(dfunc->func->c_ret), f);
+			rna_generate_header_enum_cpp(ds, rna_find_parameter_def(dfunc->func->c_ret), f);
 
 		for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
-			if (dp->prop->type == PROP_ENUM)
-				rna_generade_header_enum_cpp(srna, dp, f);
+			if (dp->prop != func->c_ret && dp->prop->type == PROP_ENUM)
+				rna_generate_header_enum_cpp(ds, dp, f);
 	}
 
 	// fusee_build: fix return type / build struct
-	if (fusee_build && !func->c_ret && !func->isdeclared) {
+	if (fusee_build && !func->c_ret && !func->isdeclared)
 		rna_generate_header_output_structs_cpp(f, dfunc);
-	}
 
 	int first = 1;
 
@@ -2263,11 +2323,12 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *srna, Func
 
 		if (!fusee_build || !dp->prop->arraydimension) {
 			const char *resname = (fusee_build && func->c_ret->isresult) ? "_result" : "";
+			const char *enum_pfix = (fusee_build && func->c_ret->type == PROP_ENUM) ? "_enum" : "";
 
 			if ((fusee_build) && (namespace && namespace[0]) && (func->c_ret->isresult))
-				fprintf(f, "%s::%s%s ", srna->identifier, ret_val, resname);
+				fprintf(f, "%s::%s%s%s ", srna->identifier, ret_val, resname, enum_pfix);
 			else
-				fprintf(f, "%s%s ", ret_val, resname);
+				fprintf(f, "%s%s%s ", ret_val, resname, enum_pfix);
 		}
 		else
 			fprintf(f, "std::array<%s, %u> ", ret_val, dp->prop->totarraylength);
@@ -2314,15 +2375,28 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *srna, Func
 
 		WRITE_COMMA;
 
-		if (flag & PROP_DYNAMIC)
+		if (!fusee_build && flag & PROP_DYNAMIC)
 			fprintf(f, "int %s%s_len, ", (flag & PROP_OUTPUT) ? "*" : "", dp->prop->identifier);
 
 		if (!(flag & PROP_DYNAMIC) && dp->prop->arraydimension)
 			fprintf(f, "%s%s %s[%u]", (fusee_build && pout) ? "r" : "", rna_parameter_type_cpp_name(dp->prop),
 			rna_safe_id(dp->prop->identifier), dp->prop->totarraylength);
-		else
-			fprintf(f, "%s %s%s", rna_parameter_type_cpp_name(dp->prop),
-			ptrstr, rna_safe_id(dp->prop->identifier));
+		else {
+			if (!fusee_build)
+				fprintf(f, "%s %s%s", rna_parameter_type_cpp_name(dp->prop), ptrstr, rna_safe_id(dp->prop->identifier));
+			else {
+				const char *enum_pfix = dp->prop->type == PROP_ENUM ? "_enum" : "";
+
+				if (!dp->prop->totarraylength) {
+					fprintf(f, "%s%s %s%s", rna_parameter_type_cpp_name(dp->prop), enum_pfix,
+						ptrstr, rna_safe_id(dp->prop->identifier));
+				}
+				else {
+					fprintf(f, "%s%s %s[%u]", rna_parameter_type_cpp_name(dp->prop), enum_pfix,
+						rna_safe_id(dp->prop->identifier), dp->prop->totarraylength);
+				}
+			}
+		}
 
 		int use_defaults = fusee_build && !(namespace && namespace[0]);
 		use_defaults &= !(flag & PROP_REQUIRED) && !pout && !dp->prop->arraydimension;
@@ -2339,21 +2413,20 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *srna, Func
 
 				for (int i = 0; eprop->item[i].identifier; i++) {
 					if (eprop->item[i].identifier[0] && eprop->item[i].value == eprop->defaultvalue) {
-						fprintf(f, " = %s_%s", eprop->name, eprop->item[i].identifier);
+						fprintf(f, " = %s_%s", rna_safe_id(eprop->name), eprop->item[i].identifier);
 						break;
 					}
 				}
 			}
 			else if (type == PROP_INT) {
 				IntPropertyRNA *iprop = (IntPropertyRNA *)dp->prop;
-				fprintf(f, " = %i", iprop->defaultvalue);
+				fprintf(f, " = ");
+				rna_int_print(f, iprop->defaultvalue);
 			}
 			else if (type == PROP_FLOAT) {
 				FloatPropertyRNA *fprop = (FloatPropertyRNA *)dp->prop;
-				if (fprop->defaultvalue >= 100000)
-					fprintf(f, " = %ef", fprop->defaultvalue);
-				else
-					fprintf(f, " = %ff", fprop->defaultvalue);
+				fprintf(f, " = ");
+				rna_float_print(f, fprop->defaultvalue);
 			}
 			else if (type == PROP_STRING) {
 				StringPropertyRNA *sprop = (StringPropertyRNA *)dp->prop;
@@ -2371,8 +2444,10 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructRNA *srna, Func
 		fprintf(f, ";\n");
 }
 
-static void rna_def_struct_function_header_cpp(FILE *f, StructRNA *srna, FunctionDefRNA *dfunc)
+static void rna_def_struct_function_header_cpp(FILE *f, StructDefRNA *ds, FunctionDefRNA *dfunc)
 {
+	StructRNA *srna = ds->srna;
+
 	if (dfunc->call) {
 		/* disabled for now to avoid msvc compiler error due to large file size */
 #if 0
@@ -2380,7 +2455,7 @@ static void rna_def_struct_function_header_cpp(FILE *f, StructRNA *srna, Functio
 		fprintf(f, "\n\t/* %s */\n", func->description);
 #endif
 
-		rna_def_struct_function_prototype_cpp(f, srna, dfunc, NULL, 1);
+		rna_def_struct_function_prototype_cpp(f, ds, dfunc, NULL, 1);
 	}
 }
 
@@ -2540,8 +2615,10 @@ static void rna_def_struct_function_call_impl_cpp(FILE *f, StructRNA *srna, Func
 	fprintf(f, ");\n");
 }
 
-static void rna_def_struct_function_impl_cpp(FILE *f, StructRNA *srna, FunctionDefRNA *dfunc, int impl)
+static void rna_def_struct_function_impl_cpp(FILE *f, StructDefRNA *ds, FunctionDefRNA *dfunc, int impl, int last)
 {
+	StructRNA *srna = ds->srna;
+
 	PropertyDefRNA *dp;
 	PointerPropertyRNA *pprop;
 
@@ -2562,32 +2639,199 @@ static void rna_def_struct_function_impl_cpp(FILE *f, StructRNA *srna, FunctionD
 			isdecl &= rna_parameter_type_is_declared(dp->prop);
 	}
 
-	rna_def_struct_function_prototype_cpp(f, srna, dfunc, (fusee_build && !impl) ? NULL : srna->identifier, !isdecl);
+	rna_def_struct_function_prototype_cpp(f, ds, dfunc, (fusee_build && !impl) ? NULL : srna->identifier, !isdecl);
 
 	if (fusee_build) {
-		dfunc->func->isdeclared = 1;
+		func->isdeclared = 1;
 
 		if (isdecl) {
 			func->isimplemented = 1;
 
-			if (dfunc->func->c_ret) {
-				PropertyType rettype = dfunc->func->c_ret->type;
+			fprintf(f, " {");
 
-				if (rettype == PROP_POINTER) {
+			// count args and prepare arrays
+			int arg_count = 0;
+
+			for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+				if (dp->prop != func->c_ret && !dp->prop->isresult) {
+					arg_count++;
+
+					if (dp->prop->totarraylength) {
+						fprintf(f, "\n\t\tARRAY_TO_PYOBJ(%s, \"%s\", %u)", rna_safe_id(dp->prop->identifier),
+							rna_type_type_format_char(dp->prop), dp->prop->totarraylength);
+					}
+					else if (dp->prop->getlength) {
+						fprintf(f, "\n\t\tARRAY_TO_PYOBJ(%s, \"%s\", sizeof(%s) / sizeof(%s[0])",
+							rna_safe_id(dp->prop->identifier), rna_type_type_format_char(dp->prop),
+							rna_safe_id(dp->prop->identifier), rna_safe_id(dp->prop->identifier));
+					}
+				}
+			}
+
+			// call python function
+			fprintf(f, "\n\t\tPYTHON_FUNCTION_%sCALL(\"%s\"%s", arg_count > 0 ? "ARGS_" : "", func->identifier,
+				arg_count > 0 ? ", \"" : "");
+
+			// conv format
+			for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
+				if (dp->prop != func->c_ret && !dp->prop->isresult)
+					fprintf(f, "%s", rna_type_type_format_char(dp->prop));
+
+			if (arg_count > 0)
+				fprintf(f, "\"");
+
+			// arguments
+			for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+				if (dp->prop != func->c_ret && !dp->prop->isresult) {
+					if (!dp->prop->arraydimension) {
+						if (dp->prop->type == PROP_ENUM) {
+							fprintf(f, ", %s_to_string.at(%s)", rna_safe_id(((EnumPropertyRNA *)dp->prop)->name),
+								rna_safe_id(dp->prop->identifier));
+						}
+						else if (dp->prop->type == PROP_POINTER)
+							fprintf(f, ", %s.get_pyobjref()", rna_safe_id(dp->prop->identifier));
+						else
+							fprintf(f, ", %s", rna_safe_id(dp->prop->identifier));
+					}
+					else if (dp->prop->totarraylength || dp->prop->getlength)
+						fprintf(f, ", %s_tupleval", rna_safe_id(dp->prop->identifier));
+				}
+			}
+
+			fprintf(f, ")");
+
+			// decref
+			for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
+				if (dp->prop != func->c_ret && !dp->prop->isresult)
+					if (dp->prop->arraydimension)
+						fprintf(f, "\n\t\tDECREF_ARRAY_ITEMS(%s, %u)", dp->prop->identifier, dp->prop->totarraylength);
+
+			// has return value
+			if (dfunc->func->c_ret) {
+				PropertyRNA* retprop = dfunc->func->c_ret;
+				PropertyType rettype = retprop->type;
+
+				// object creation must be handled differently ("stype sidentifier(...)")
+				// while types and structs can be returned as "stype sidentifier = { ... }"
+				if (rettype == PROP_POINTER && !func->c_ret->isresult) {
 					dp = rna_find_parameter_def(func->c_ret);
 					const char* ret_val = rna_parameter_type_cpp_name(dp->prop);
-					const char *resname = (fusee_build && func->c_ret->isresult) ? "_result" : "";
 
-					fprintf(f, "\n\t{\n\t\t// not implemented\n\t\treturn %s%s();\n\t}\n", ret_val, resname);
+					fprintf(f, "\n\t\tCLASS_TYPES_RETURN(%s)", ret_val);
 				}
-				else if (rettype == PROP_BOOLEAN) {
-					fprintf(f, "\n\t{\n\t\t// not implemented\n\t\treturn true;\n\t}\n");
+				else {
+					// count amount of return values
+					int ret_vals = 0;
+					PropertyRNA *first_prop;
+
+					for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+						if (!dp->prop->isignored && (dp->prop == func->c_ret || dp->prop->isresult)) {
+							if (ret_vals == 0) first_prop = dp->prop;
+							ret_vals++;
+						}
+					}
+
+					// unpack tuple
+					if (ret_vals == 1) {
+						fprintf(f, "\n\t\tCREATE_SINGLE_PYOBJ(%s)", rna_safe_id(first_prop->identifier));
+					} else {
+						fprintf(f, "\n\t\tCREATE_MULTIPLE_PYOBJS(");
+
+						for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
+							if (!dp->prop->isignored && (dp->prop == func->c_ret || dp->prop->isresult))
+								fprintf(f, "%s*%s_obj", (dp->prop == first_prop) ? "" : ", ", rna_safe_id(dp->prop->identifier));
+
+						fprintf(f, ")");
+						fprintf(f, "\n\t\tUNPACK_TUPLE_TO_OBJS(\"%s\", %d, ", rna_safe_id(dfunc->func->identifier), ret_vals);
+
+						for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
+							if (!dp->prop->isignored && (dp->prop == func->c_ret || dp->prop->isresult))
+								fprintf(f, "%s&%s_obj", (dp->prop == first_prop) ? "" : ", ", rna_safe_id(dp->prop->identifier));
+
+						fprintf(f, ")");
+					}
+
+					// convert objects to C/C++ types
+					for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+						if (!dp->prop->isignored && (dp->prop == func->c_ret || dp->prop->isresult)) {
+							const char *pname = rna_safe_id(dp->prop->identifier);
+
+							switch (dp->prop->type) {
+								case PROP_BOOLEAN:
+								{
+									if (!retprop->arraydimension)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_CONV(%s, bool, PyLong_AsLong(%s_obj)==1)", pname, pname);
+									else if (retprop->totarraylength)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_ARRAY_CONV(%s, bool, PyLong_AsLong(item)==1, %u)", pname, retprop->totarraylength);
+									else if (retprop->getlength)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_VECTOR_CONV(%s, bool, PyLong_AsLong(item)==1", pname);
+
+									break;
+								}
+								case PROP_INT:
+								{
+									if (!retprop->arraydimension)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_CONV(%s, int, PyLong_AsLong(%s_obj))", pname, pname);
+									else if (retprop->totarraylength)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_ARRAY_CONV(%s, int, PyLong_AsLong(item), %u)", pname, retprop->totarraylength);
+									else if (retprop->getlength)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_VECTOR_CONV(%s, int, PyLong_AsLong(item)", pname);
+
+									break;
+								}
+								case PROP_FLOAT:
+								{
+									if (!retprop->arraydimension)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_CONV(%s, float, (float)PyFloat_AsDouble(%s_obj))", pname, pname);
+									else if (retprop->totarraylength)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_ARRAY_CONV(%s, float, (float)PyFloat_AsDouble(item), %u)", pname, retprop->totarraylength);
+									else if (retprop->getlength)
+										fprintf(f, "\n\t\tPRIMITIVE_TYPES_VECTOR_CONV(%s, float, (float)PyFloat_AsDouble(item)", pname);
+
+									break;
+								}
+								case PROP_ENUM:
+								{
+									EnumPropertyRNA *eprop = (EnumPropertyRNA *)retprop;
+									fprintf(f, "\n\t\tENUM_TYPES_CONV(%s, %s)", pname, rna_safe_id(eprop->name));
+									break;
+								}
+								case PROP_STRING:
+								{
+									fprintf(f, "\n\t\tSTRING_TYPE_CONV(%s)", pname);
+									break;
+								}
+								case PROP_POINTER:
+								{
+									const char* ret_val = rna_parameter_type_cpp_name(dp->prop);
+									fprintf(f, "\n\t\tCLASS_TYPES_CONV(%s, %s)", pname, ret_val);
+									break;
+								}
+								case PROP_COLLECTION:
+								{
+									fprintf(f, "\n\t\t// not implemented");
+									break;
+								}
+							}
+						}
+					}
+
+					fprintf(f, "\n\t\tNONCLASS_TYPES_RETURN(");
+					int first_arg = 1;
+
+					for (dp = dfunc->cont.properties.first; dp; dp = dp->next) {
+						if (!dp->prop->isignored && (dp->prop == func->c_ret || dp->prop->isresult)) {
+							fprintf(f, "%s%s_res", first_arg ? "" : ", ", rna_safe_id(dp->prop->identifier));
+							first_arg = 0;
+						}
+					}
+
+					fprintf(f, ")");
 				}
-				else
-					fprintf(f, "\n\t{\n\t\t// not implemented\n\t\tthrow NULL;\n\t}\n");
 			}
-			else
-				fprintf(f, "\n\t{\n\t\t// not implemented\n\t}\n");
+
+
+			fprintf(f, "\n\t}\n");
 		}
 		else
 			func->isimplemented = 0;
@@ -2630,7 +2874,8 @@ static void rna_def_struct_function_impl_cpp(FILE *f, StructRNA *srna, FunctionD
 		fprintf(f, "\t}\n");
 	}
 
-	fprintf(f, "\n");
+	if (!fusee_build || !last)
+		fprintf(f, "\n");
 }
 
 static void rna_def_property_wrapper_funcs(FILE *f, StructDefRNA *dsrna, PropertyDefRNA *dp)
@@ -4000,7 +4245,7 @@ static void rna_generate_header(BlenderRNA *UNUSED(brna), FILE *f)
 	fprintf(f, "#endif /* __RNA_BLENDER_H__ */\n\n");
 }
 
-static const char *cpp_classes_fu = ""
+static const char *cpp_classes_uniplug = ""
 "\n"
 "#include <string>\n"
 "#include <array>\n"
@@ -4011,7 +4256,8 @@ static const char *cpp_classes_fu = ""
 "\n"
 "namespace UniplugBL {\n"
 "\n"
-"#define PRIMTIVE_TYPES_GETTER(stype, sconv, sidentifier)\\\n"
+"// PROPERTY MACROS\n"
+"#define PRIMITIVE_TYPES_GETTER(stype, sconv, sidentifier)\\\n"
 "	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
 "	stype resval = sconv;\\\n"
 "	Py_DECREF(val);\\\n"
@@ -4069,7 +4315,99 @@ static const char *cpp_classes_fu = ""
 "	stype restype(val);\\\n"
 "	Py_DECREF(val);\\\n"
 "	return restype;\n"
+"\n"
+"#define MAP_TYPE_GETTER(sidentifier, stype)\\\n"
+"	PyObject *seqval = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
+"	PyObject *seqkeys = PyObject_CallMethod(seqval, \"keys\", NULL);\\\n"
+"	std::map<std::string, stype> resmap;\\\n"
+"	for (int i = 0; i < PySequence_Length(seqval); i++) {\\\n"
+"		PyObject *keyobj = PySequence_GetItem(seqkeys, i);\\\n"
+"		PyObject *str = PyUnicode_AsUTF8String(keyobj);\\\n"
+"		std::string key = PyBytes_AsString(str);\\\n"
+"		PyObject *item = PySequence_GetItem(seqval, i);\\\n"
+"		stype value = stype(item);\\\n"
+"		resmap.insert(std::pair<std::string, stype>(key, value));\\\n"
+"		Py_DECREF(item);\\\n"
+"		Py_DECREF(str);\\\n"
+"		Py_DECREF(keyobj);\\\n"
+"	}\\\n"
+"	Py_DECREF(seqval);\\\n"
+"	Py_DECREF(seqkeys);\\\n"
+"	return resmap;\n"
+"\n\n"
+"// FUNCTIONS MACROS\n"
+"#define ARRAY_TO_PYOBJ(svalues, sconv, slength)\\\n"
+"	PyObject *svalues##_items[slength];\\\n"
+"	PyObject *svalues##_tupleval = PyTuple_New(slength);\\\n"
+"	for (int i = 0; i < slength; i++) {\\\n"
+"		svalues##_items[i] = Py_BuildValue(sconv, svalues[i]);\\\n"
+"		PyTuple_SetItem(svalues##_tupleval, i, svalues##_items[i]);\\\n"
+"	}\n"
+"\n"
+"#define DECREF_ARRAY_ITEMS(svalues, slength)\\\n"
+"	for (int i = 0; i < slength; i++)\\\n"
+"		Py_DECREF(svalues##_items[i]);\\\n"
+"	Py_DECREF(svalues##_tupleval);\n"
+"\n"
+"#define PYTHON_FUNCTION_CALL(sidentifier)\\\n"
+"	PyObject *pyobj = PyObject_CallMethod(pyobjref, sidentifier, NULL);\n"
+"\n"
+"#define PYTHON_FUNCTION_ARGS_CALL(sidentifier, sconv, ...)\\\n"
+"	PyObject *pyobj = PyObject_CallMethod(pyobjref, sidentifier, sconv, __VA_ARGS__);\n"
+"\n"
+"#define CLASS_TYPES_RETURN(stype)\\\n"
+"	stype restype(pyobj);\\\n"
+"	Py_DECREF(pyobj);\\\n"
+"	return restype;\n"
+"\n"
+"#define NONCLASS_TYPES_RETURN(...)\\\n"
+"	Py_DECREF(pyobj);\\\n"
+"	return { __VA_ARGS__ };\n"
+"\n"
+"#define CREATE_SINGLE_PYOBJ(sidentifier)\\\n"
+"	PyObject *sidentifier##_obj = pyobj;\n"
+"\n"
+"#define CREATE_MULTIPLE_PYOBJS(...)\\\n"
+"	PyObject __VA_ARGS__;\n"
+"\n"
+"#define UNPACK_TUPLE_TO_OBJS(sidentifier, scount, ...)\\\n"
+"	PyArg_UnpackTuple(pyobj, sidentifier, 1, scount, __VA_ARGS__);\n"
+"\n"
+"#define PRIMITIVE_TYPES_CONV(sidentifier, stype, sconv)\\\n"
+"	stype sidentifier##_res = sconv;\\\n"
+"\n"
+"#define CLASS_TYPES_CONV(sidentifier, stype)\\\n"
+"	stype sidentifier##_res(sidentifier##_obj);\\\n"
+"\n"
+"#define STRING_TYPE_CONV(sidentifier)\\\n"
+"	PyObject *sidentifier##_str_obj = PyUnicode_AsUTF8String(sidentifier##_obj);\\\n"
+"	std::string sidentifier##_res(PyBytes_AsString(sidentifier##_str_obj));\\\n"
+"	Py_DECREF(sidentifier##_str_obj);\\\n"
+"\n"
+"#define ENUM_TYPES_CONV(sidentifier, senum)"
+"	PyObject *sidentifier##_str_obj = PyUnicode_AsUTF8String(sidentifier##_obj);\\\n"
+"	std::string sidentifier##_str(PyBytes_AsString(sidentifier##_str_obj));\\\n"
+"	senum##_enum sidentifier##_res = static_cast<senum##_enum>(string_to_##senum.at(sidentifier##_str));\\\n"
+"	Py_DECREF(sidentifier##_str_obj);\\\n"
+"\n"
+"#define PRIMITIVE_TYPES_ARRAY_CONV(sidentifier, stype, sconv, slength)\\\n"
+"	std::array<stype, slength> sidentifier##_res;\\\n"
+"	for (int i = 0; i < slength; i++) {\\\n"
+"		PyObject* item = PySequence_GetItem(sidentifier##_obj, i);\\\n"
+"		sidentifier##_res[i] = sconv;\\\n"
+"		Py_DECREF(item);\\\n"
+"	}\\\n"
 "\n";
+/*
+"#define PRIMITIVE_TYPES_VECTOR_CONV(sidentifier, stype, sconv)\\\n"
+"	std::vector<stype> sidentifier;\\\n"
+"	for (int i = 0; i < PySequence_Length(val); i++) {\\\n"
+"		PyObject *item = PySequence_GetItem(val, i);\\\n"
+"		sidentifier.push_back(sconv);\\\n"
+"		Py_DECREF(item);\\\n"
+"	}\\\n"
+"\n"
+*/
 
 static const char *cpp_classes_bl = ""
 "\n"
@@ -4411,28 +4749,29 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
 		fprintf(f, "public:\n");
 
-		fprintf(f, "\t%s(PyObject* pyobj) : %s(pyobj) {}\n\n", srna->identifier,
+		fprintf(f, "\t%s(PyObject* pyobj) : %s(pyobj) {}\n", srna->identifier,
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
-		fprintf(f, "\t%s() : %s(0)\n", srna->identifier,
+		fprintf(f, "\t%s() : %s(0) { }\n", srna->identifier,
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
-		fprintf(f, "\t{\n\t\t// not implemented\n\t}\n\n");
+
+		if (ds->cont.properties.first != NULL || ds->functions.first != NULL)
+			fprintf(f, "\n");
 	}
 
 	for (dp = ds->cont.properties.first; dp; dp = dp->next)
 		if (!fusee_build || ((!STREQ(dp->prop->identifier, "rna_properties")) && (!STREQ(dp->prop->identifier, "rna_type"))))
-			rna_def_property_funcs_header_cpp(f, ds->srna, dp, 0);
+			rna_def_property_funcs_header_cpp(f, ds, dp, 0, (dp == ds->cont.properties.last && ds->functions.first == NULL));
 
 	if (!fusee_build && (ds->functions.first != NULL))
 		fprintf(f, "\n");
 
 	for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
 		if (!fusee_build)
-			rna_def_struct_function_header_cpp(f, srna, dfunc);
+			rna_def_struct_function_header_cpp(f, ds, dfunc);
 		else {
 			dfunc->func->isdeclared = 0;
-			rna_def_struct_function_impl_cpp(f, srna, dfunc, 0);
+			rna_def_struct_function_impl_cpp(f, ds, dfunc, 0, dfunc == ds->functions.last);
 		}
-			
 
 	fprintf(f, "};\n\n");
 }
@@ -4466,7 +4805,7 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 		fprintf(f, "\n#ifndef __UNIPLUG_BLENDER_CPP_H__\n");
 		fprintf(f, "#define __UNIPLUG_BLENDER_CPP_H__\n");
 
-		fprintf(f, "%s", cpp_classes_fu);
+		fprintf(f, "%s", cpp_classes_uniplug);
 	}
 
 	fprintf(f, "/**************** Declarations ****************/\n\n");
@@ -4505,15 +4844,16 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 		fprintf(f, "/**************** pyUniplug Definition ****************/\n\n");
 		fprintf(f, "class pyUniplug {\n");
 		fprintf(f, "protected:\n");
-		fprintf(f, "\tPyObject* pyobjref;\n");
+		fprintf(f, "\tPyObject *pyobjref;\n");
 		fprintf(f, "public:\n");
-		fprintf(f, "\tpyUniplug(PyObject* pyobj)\n");
-		fprintf(f, "\t{\n");
+		fprintf(f, "\tpyUniplug(PyObject* pyobj) {\n");
 		fprintf(f, "\t\tpyobjref = pyobj;\n");
 		fprintf(f, "\t}\n\n");
-		fprintf(f, "\tpyUniplug()\n");
-		fprintf(f, "\t{\n");
+		fprintf(f, "\tpyUniplug() {\n");
 		fprintf(f, "\t\tpyobjref = PyImport_ImportModule(\"bpy\");\n");
+		fprintf(f, "\t}\n\n");
+		fprintf(f, "\tPyObject* get_pyobjref() {\n");
+		fprintf(f, "\t\treturn pyobjref;");
 		fprintf(f, "\t}\n\n");
 		fprintf(f, "\tContext context();\n");
 		fprintf(f, "};\n\n");
@@ -4568,7 +4908,7 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 			fprintf(f, "\n");
 
 			for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
-				rna_def_struct_function_impl_cpp(f, srna, dfunc, 0);
+				rna_def_struct_function_impl_cpp(f, ds, dfunc, 0, dfunc == ds->functions.last);
 
 			fprintf(f, "\n");
 		}
@@ -4599,13 +4939,13 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 
 					fprintf(f, "\t// %s\n", dp->prop->identifier);
 
-					rna_def_property_funcs_header_cpp(f, ds->srna, dp, 1);
+					rna_def_property_funcs_header_cpp(f, ds, dp, 1, 0);
 				}
 			}
 
 			for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
 				if (!dfunc->func->isimplemented)
-					rna_def_struct_function_impl_cpp(f, srna, dfunc, 1);
+					rna_def_struct_function_impl_cpp(f, ds, dfunc, 1, dfunc == ds->functions.last);
 		}
 	}
 
