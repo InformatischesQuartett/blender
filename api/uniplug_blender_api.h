@@ -1324,8 +1324,8 @@ public:
 		return {{property_type_items_BOOLEAN, "BOOLEAN"}, {property_type_items_INT, "INT"}, {property_type_items_FLOAT, "FLOAT"}, {property_type_items_STRING, "STRING"}, {property_type_items_ENUM, "ENUM"}, {property_type_items_POINTER, "POINTER"}, {property_type_items_COLLECTION, "COLLECTION"}};
 	};
 
-	const std::map<std::string, int> string_to_property_type_items = create_string_to_property_type_items();
-	const std::map<int, std::string> property_type_items_to_string = create_property_type_items_to_string();
+	static const std::map<std::string, int> string_to_property_type_items = create_string_to_property_type_items();
+	static const std::map<int, std::string> property_type_items_to_string = create_property_type_items_to_string();
 
 	property_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<property_type_items_enum>(string_to_property_type_items.at(resstr)))
@@ -1367,8 +1367,8 @@ public:
 		return {{subtype_items_NONE, "NONE"}, {subtype_items_FILE_PATH, "FILE_PATH"}, {subtype_items_DIR_PATH, "DIR_PATH"}, {subtype_items_PIXEL, "PIXEL"}, {subtype_items_UNSIGNED, "UNSIGNED"}, {subtype_items_PERCENTAGE, "PERCENTAGE"}, {subtype_items_FACTOR, "FACTOR"}, {subtype_items_ANGLE, "ANGLE"}, {subtype_items_TIME, "TIME"}, {subtype_items_DISTANCE, "DISTANCE"}, {subtype_items_COLOR, "COLOR"}, {subtype_items_TRANSLATION, "TRANSLATION"}, {subtype_items_DIRECTION, "DIRECTION"}, {subtype_items_MATRIX, "MATRIX"}, {subtype_items_EULER, "EULER"}, {subtype_items_QUATERNION, "QUATERNION"}, {subtype_items_XYZ, "XYZ"}, {subtype_items_COLOR_GAMMA, "COLOR_GAMMA"}, {subtype_items_COORDINATES, "COORDINATES"}, {subtype_items_LAYER, "LAYER"}, {subtype_items_LAYER_MEMBERSHIP, "LAYER_MEMBERSHIP"}};
 	};
 
-	const std::map<std::string, int> string_to_subtype_items = create_string_to_subtype_items();
-	const std::map<int, std::string> subtype_items_to_string = create_subtype_items_to_string();
+	static const std::map<std::string, int> string_to_subtype_items = create_string_to_subtype_items();
+	static const std::map<int, std::string> subtype_items_to_string = create_subtype_items_to_string();
 
 	subtype_items_enum subtype() {
 		STRING_TYPE_GETTER("subtype", static_cast<subtype_items_enum>(string_to_subtype_items.at(resstr)))
@@ -1402,8 +1402,8 @@ public:
 		return {{property_unit_items_NONE, "NONE"}, {property_unit_items_LENGTH, "LENGTH"}, {property_unit_items_AREA, "AREA"}, {property_unit_items_VOLUME, "VOLUME"}, {property_unit_items_ROTATION, "ROTATION"}, {property_unit_items_TIME, "TIME"}, {property_unit_items_VELOCITY, "VELOCITY"}, {property_unit_items_ACCELERATION, "ACCELERATION"}, {property_unit_items_CAMERA, "CAMERA"}};
 	};
 
-	const std::map<std::string, int> string_to_property_unit_items = create_string_to_property_unit_items();
-	const std::map<int, std::string> property_unit_items_to_string = create_property_unit_items_to_string();
+	static const std::map<std::string, int> string_to_property_unit_items = create_string_to_property_unit_items();
+	static const std::map<int, std::string> property_unit_items_to_string = create_property_unit_items_to_string();
 
 	property_unit_items_enum unit() {
 		STRING_TYPE_GETTER("unit", static_cast<property_unit_items_enum>(string_to_property_unit_items.at(resstr)))
@@ -1970,8 +1970,8 @@ public:
 		return {{icon_items_NONE, "NONE"}, {icon_items_QUESTION, "QUESTION"}, {icon_items_ERROR, "ERROR"}, {icon_items_CANCEL, "CANCEL"}, {icon_items_TRIA_RIGHT, "TRIA_RIGHT"}, {icon_items_TRIA_DOWN, "TRIA_DOWN"}, {icon_items_TRIA_LEFT, "TRIA_LEFT"}, {icon_items_TRIA_UP, "TRIA_UP"}, {icon_items_ARROW_LEFTRIGHT, "ARROW_LEFTRIGHT"}, {icon_items_PLUS, "PLUS"}, {icon_items_DISCLOSURE_TRI_DOWN, "DISCLOSURE_TRI_DOWN"}, {icon_items_DISCLOSURE_TRI_RIGHT, "DISCLOSURE_TRI_RIGHT"}, {icon_items_RADIOBUT_OFF, "RADIOBUT_OFF"}, {icon_items_RADIOBUT_ON, "RADIOBUT_ON"}, {icon_items_MENU_PANEL, "MENU_PANEL"}, {icon_items_BLENDER, "BLENDER"}, {icon_items_GRIP, "GRIP"}, {icon_items_DOT, "DOT"}, {icon_items_COLLAPSEMENU, "COLLAPSEMENU"}, {icon_items_X, "X"}, {icon_items_GO_LEFT, "GO_LEFT"}, {icon_items_PLUG, "PLUG"}, {icon_items_UI, "UI"}, {icon_items_NODE, "NODE"}, {icon_items_NODE_SEL, "NODE_SEL"}, {icon_items_FULLSCREEN, "FULLSCREEN"}, {icon_items_SPLITSCREEN, "SPLITSCREEN"}, {icon_items_RIGHTARROW_THIN, "RIGHTARROW_THIN"}, {icon_items_BORDERMOVE, "BORDERMOVE"}, {icon_items_VIEWZOOM, "VIEWZOOM"}, {icon_items_ZOOMIN, "ZOOMIN"}, {icon_items_ZOOMOUT, "ZOOMOUT"}, {icon_items_PANEL_CLOSE, "PANEL_CLOSE"}, {icon_items_COPY_ID, "COPY_ID"}, {icon_items_EYEDROPPER, "EYEDROPPER"}, {icon_items_LINK_AREA, "LINK_AREA"}, {icon_items_AUTO, "AUTO"}, {icon_items_CHECKBOX_DEHLT, "CHECKBOX_DEHLT"}, {icon_items_CHECKBOX_HLT, "CHECKBOX_HLT"}, {icon_items_UNLOCKED, "UNLOCKED"}, {icon_items_LOCKED, "LOCKED"}, {icon_items_UNPINNED, "UNPINNED"}, {icon_items_PINNED, "PINNED"}, {icon_items_SCREEN_BACK, "SCREEN_BACK"}, {icon_items_RIGHTARROW, "RIGHTARROW"}, {icon_items_DOWNARROW_HLT, "DOWNARROW_HLT"}, {icon_items_DOTSUP, "DOTSUP"}, {icon_items_DOTSDOWN, "DOTSDOWN"}, {icon_items_LINK, "LINK"}, {icon_items_INLINK, "INLINK"}, {icon_items_PLUGIN, "PLUGIN"}, {icon_items_HELP, "HELP"}, {icon_items_GHOST_ENABLED, "GHOST_ENABLED"}, {icon_items_COLOR, "COLOR"}, {icon_items_LINKED, "LINKED"}, {icon_items_UNLINKED, "UNLINKED"}, {icon_items_HAND, "HAND"}, {icon_items_ZOOM_ALL, "ZOOM_ALL"}, {icon_items_ZOOM_SELECTED, "ZOOM_SELECTED"}, {icon_items_ZOOM_PREVIOUS, "ZOOM_PREVIOUS"}, {icon_items_ZOOM_IN, "ZOOM_IN"}, {icon_items_ZOOM_OUT, "ZOOM_OUT"}, {icon_items_RENDER_REGION, "RENDER_REGION"}, {icon_items_BORDER_RECT, "BORDER_RECT"}, {icon_items_BORDER_LASSO, "BORDER_LASSO"}, {icon_items_FREEZE, "FREEZE"}, {icon_items_STYLUS_PRESSURE, "STYLUS_PRESSURE"}, {icon_items_GHOST_DISABLED, "GHOST_DISABLED"}, {icon_items_NEW, "NEW"}, {icon_items_FILE_TICK, "FILE_TICK"}, {icon_items_QUIT, "QUIT"}, {icon_items_URL, "URL"}, {icon_items_RECOVER_LAST, "RECOVER_LAST"}, {icon_items_FULLSCREEN_ENTER, "FULLSCREEN_ENTER"}, {icon_items_FULLSCREEN_EXIT, "FULLSCREEN_EXIT"}, {icon_items_BLANK1, "BLANK1"}, {icon_items_LAMP, "LAMP"}, {icon_items_MATERIAL, "MATERIAL"}, {icon_items_TEXTURE, "TEXTURE"}, {icon_items_ANIM, "ANIM"}, {icon_items_WORLD, "WORLD"}, {icon_items_SCENE, "SCENE"}, {icon_items_EDIT, "EDIT"}, {icon_items_GAME, "GAME"}, {icon_items_RADIO, "RADIO"}, {icon_items_SCRIPT, "SCRIPT"}, {icon_items_PARTICLES, "PARTICLES"}, {icon_items_PHYSICS, "PHYSICS"}, {icon_items_SPEAKER, "SPEAKER"}, {icon_items_TEXTURE_SHADED, "TEXTURE_SHADED"}, {icon_items_VIEW3D, "VIEW3D"}, {icon_items_IPO, "IPO"}, {icon_items_OOPS, "OOPS"}, {icon_items_BUTS, "BUTS"}, {icon_items_FILESEL, "FILESEL"}, {icon_items_IMAGE_COL, "IMAGE_COL"}, {icon_items_INFO, "INFO"}, {icon_items_SEQUENCE, "SEQUENCE"}, {icon_items_TEXT, "TEXT"}, {icon_items_IMASEL, "IMASEL"}, {icon_items_SOUND, "SOUND"}, {icon_items_ACTION, "ACTION"}, {icon_items_NLA, "NLA"}, {icon_items_SCRIPTWIN, "SCRIPTWIN"}, {icon_items_TIME, "TIME"}, {icon_items_NODETREE, "NODETREE"}, {icon_items_LOGIC, "LOGIC"}, {icon_items_CONSOLE, "CONSOLE"}, {icon_items_PREFERENCES, "PREFERENCES"}, {icon_items_CLIP, "CLIP"}, {icon_items_ASSET_MANAGER, "ASSET_MANAGER"}, {icon_items_OBJECT_DATAMODE, "OBJECT_DATAMODE"}, {icon_items_EDITMODE_HLT, "EDITMODE_HLT"}, {icon_items_FACESEL_HLT, "FACESEL_HLT"}, {icon_items_VPAINT_HLT, "VPAINT_HLT"}, {icon_items_TPAINT_HLT, "TPAINT_HLT"}, {icon_items_WPAINT_HLT, "WPAINT_HLT"}, {icon_items_SCULPTMODE_HLT, "SCULPTMODE_HLT"}, {icon_items_POSE_HLT, "POSE_HLT"}, {icon_items_PARTICLEMODE, "PARTICLEMODE"}, {icon_items_LIGHTPAINT, "LIGHTPAINT"}, {icon_items_SCENE_DATA, "SCENE_DATA"}, {icon_items_RENDERLAYERS, "RENDERLAYERS"}, {icon_items_WORLD_DATA, "WORLD_DATA"}, {icon_items_OBJECT_DATA, "OBJECT_DATA"}, {icon_items_MESH_DATA, "MESH_DATA"}, {icon_items_CURVE_DATA, "CURVE_DATA"}, {icon_items_META_DATA, "META_DATA"}, {icon_items_LATTICE_DATA, "LATTICE_DATA"}, {icon_items_LAMP_DATA, "LAMP_DATA"}, {icon_items_MATERIAL_DATA, "MATERIAL_DATA"}, {icon_items_TEXTURE_DATA, "TEXTURE_DATA"}, {icon_items_ANIM_DATA, "ANIM_DATA"}, {icon_items_CAMERA_DATA, "CAMERA_DATA"}, {icon_items_PARTICLE_DATA, "PARTICLE_DATA"}, {icon_items_LIBRARY_DATA_DIRECT, "LIBRARY_DATA_DIRECT"}, {icon_items_GROUP, "GROUP"}, {icon_items_ARMATURE_DATA, "ARMATURE_DATA"}, {icon_items_POSE_DATA, "POSE_DATA"}, {icon_items_BONE_DATA, "BONE_DATA"}, {icon_items_CONSTRAINT, "CONSTRAINT"}, {icon_items_SHAPEKEY_DATA, "SHAPEKEY_DATA"}, {icon_items_CONSTRAINT_BONE, "CONSTRAINT_BONE"}, {icon_items_CAMERA_STEREO, "CAMERA_STEREO"}, {icon_items_PACKAGE, "PACKAGE"}, {icon_items_UGLYPACKAGE, "UGLYPACKAGE"}, {icon_items_BRUSH_DATA, "BRUSH_DATA"}, {icon_items_IMAGE_DATA, "IMAGE_DATA"}, {icon_items_FILE, "FILE"}, {icon_items_FCURVE, "FCURVE"}, {icon_items_FONT_DATA, "FONT_DATA"}, {icon_items_RENDER_RESULT, "RENDER_RESULT"}, {icon_items_SURFACE_DATA, "SURFACE_DATA"}, {icon_items_EMPTY_DATA, "EMPTY_DATA"}, {icon_items_SETTINGS, "SETTINGS"}, {icon_items_RENDER_ANIMATION, "RENDER_ANIMATION"}, {icon_items_RENDER_STILL, "RENDER_STILL"}, {icon_items_LIBRARY_DATA_BROKEN, "LIBRARY_DATA_BROKEN"}, {icon_items_BOIDS, "BOIDS"}, {icon_items_STRANDS, "STRANDS"}, {icon_items_LIBRARY_DATA_INDIRECT, "LIBRARY_DATA_INDIRECT"}, {icon_items_GREASEPENCIL, "GREASEPENCIL"}, {icon_items_LINE_DATA, "LINE_DATA"}, {icon_items_GROUP_BONE, "GROUP_BONE"}, {icon_items_GROUP_VERTEX, "GROUP_VERTEX"}, {icon_items_GROUP_VCOL, "GROUP_VCOL"}, {icon_items_GROUP_UVS, "GROUP_UVS"}, {icon_items_RNA, "RNA"}, {icon_items_RNA_ADD, "RNA_ADD"}, {icon_items_OUTLINER_OB_EMPTY, "OUTLINER_OB_EMPTY"}, {icon_items_OUTLINER_OB_MESH, "OUTLINER_OB_MESH"}, {icon_items_OUTLINER_OB_CURVE, "OUTLINER_OB_CURVE"}, {icon_items_OUTLINER_OB_LATTICE, "OUTLINER_OB_LATTICE"}, {icon_items_OUTLINER_OB_META, "OUTLINER_OB_META"}, {icon_items_OUTLINER_OB_LAMP, "OUTLINER_OB_LAMP"}, {icon_items_OUTLINER_OB_CAMERA, "OUTLINER_OB_CAMERA"}, {icon_items_OUTLINER_OB_ARMATURE, "OUTLINER_OB_ARMATURE"}, {icon_items_OUTLINER_OB_FONT, "OUTLINER_OB_FONT"}, {icon_items_OUTLINER_OB_SURFACE, "OUTLINER_OB_SURFACE"}, {icon_items_OUTLINER_OB_SPEAKER, "OUTLINER_OB_SPEAKER"}, {icon_items_RESTRICT_VIEW_OFF, "RESTRICT_VIEW_OFF"}, {icon_items_RESTRICT_VIEW_ON, "RESTRICT_VIEW_ON"}, {icon_items_RESTRICT_SELECT_OFF, "RESTRICT_SELECT_OFF"}, {icon_items_RESTRICT_SELECT_ON, "RESTRICT_SELECT_ON"}, {icon_items_RESTRICT_RENDER_OFF, "RESTRICT_RENDER_OFF"}, {icon_items_RESTRICT_RENDER_ON, "RESTRICT_RENDER_ON"}, {icon_items_OUTLINER_DATA_EMPTY, "OUTLINER_DATA_EMPTY"}, {icon_items_OUTLINER_DATA_MESH, "OUTLINER_DATA_MESH"}, {icon_items_OUTLINER_DATA_CURVE, "OUTLINER_DATA_CURVE"}, {icon_items_OUTLINER_DATA_LATTICE, "OUTLINER_DATA_LATTICE"}, {icon_items_OUTLINER_DATA_META, "OUTLINER_DATA_META"}, {icon_items_OUTLINER_DATA_LAMP, "OUTLINER_DATA_LAMP"}, {icon_items_OUTLINER_DATA_CAMERA, "OUTLINER_DATA_CAMERA"}, {icon_items_OUTLINER_DATA_ARMATURE, "OUTLINER_DATA_ARMATURE"}, {icon_items_OUTLINER_DATA_FONT, "OUTLINER_DATA_FONT"}, {icon_items_OUTLINER_DATA_SURFACE, "OUTLINER_DATA_SURFACE"}, {icon_items_OUTLINER_DATA_SPEAKER, "OUTLINER_DATA_SPEAKER"}, {icon_items_OUTLINER_DATA_POSE, "OUTLINER_DATA_POSE"}, {icon_items_MESH_PLANE, "MESH_PLANE"}, {icon_items_MESH_CUBE, "MESH_CUBE"}, {icon_items_MESH_CIRCLE, "MESH_CIRCLE"}, {icon_items_MESH_UVSPHERE, "MESH_UVSPHERE"}, {icon_items_MESH_ICOSPHERE, "MESH_ICOSPHERE"}, {icon_items_MESH_GRID, "MESH_GRID"}, {icon_items_MESH_MONKEY, "MESH_MONKEY"}, {icon_items_MESH_CYLINDER, "MESH_CYLINDER"}, {icon_items_MESH_TORUS, "MESH_TORUS"}, {icon_items_MESH_CONE, "MESH_CONE"}, {icon_items_LAMP_POINT, "LAMP_POINT"}, {icon_items_LAMP_SUN, "LAMP_SUN"}, {icon_items_LAMP_SPOT, "LAMP_SPOT"}, {icon_items_LAMP_HEMI, "LAMP_HEMI"}, {icon_items_LAMP_AREA, "LAMP_AREA"}, {icon_items_META_EMPTY, "META_EMPTY"}, {icon_items_META_PLANE, "META_PLANE"}, {icon_items_META_CUBE, "META_CUBE"}, {icon_items_META_BALL, "META_BALL"}, {icon_items_META_ELLIPSOID, "META_ELLIPSOID"}, {icon_items_META_CAPSULE, "META_CAPSULE"}, {icon_items_SURFACE_NCURVE, "SURFACE_NCURVE"}, {icon_items_SURFACE_NCIRCLE, "SURFACE_NCIRCLE"}, {icon_items_SURFACE_NSURFACE, "SURFACE_NSURFACE"}, {icon_items_SURFACE_NCYLINDER, "SURFACE_NCYLINDER"}, {icon_items_SURFACE_NSPHERE, "SURFACE_NSPHERE"}, {icon_items_SURFACE_NTORUS, "SURFACE_NTORUS"}, {icon_items_CURVE_BEZCURVE, "CURVE_BEZCURVE"}, {icon_items_CURVE_BEZCIRCLE, "CURVE_BEZCIRCLE"}, {icon_items_CURVE_NCURVE, "CURVE_NCURVE"}, {icon_items_CURVE_NCIRCLE, "CURVE_NCIRCLE"}, {icon_items_CURVE_PATH, "CURVE_PATH"}, {icon_items_COLOR_RED, "COLOR_RED"}, {icon_items_COLOR_GREEN, "COLOR_GREEN"}, {icon_items_COLOR_BLUE, "COLOR_BLUE"}, {icon_items_TRIA_RIGHT_BAR, "TRIA_RIGHT_BAR"}, {icon_items_TRIA_DOWN_BAR, "TRIA_DOWN_BAR"}, {icon_items_TRIA_LEFT_BAR, "TRIA_LEFT_BAR"}, {icon_items_TRIA_UP_BAR, "TRIA_UP_BAR"}, {icon_items_FORCE_FORCE, "FORCE_FORCE"}, {icon_items_FORCE_WIND, "FORCE_WIND"}, {icon_items_FORCE_VORTEX, "FORCE_VORTEX"}, {icon_items_FORCE_MAGNETIC, "FORCE_MAGNETIC"}, {icon_items_FORCE_HARMONIC, "FORCE_HARMONIC"}, {icon_items_FORCE_CHARGE, "FORCE_CHARGE"}, {icon_items_FORCE_LENNARDJONES, "FORCE_LENNARDJONES"}, {icon_items_FORCE_TEXTURE, "FORCE_TEXTURE"}, {icon_items_FORCE_CURVE, "FORCE_CURVE"}, {icon_items_FORCE_BOID, "FORCE_BOID"}, {icon_items_FORCE_TURBULENCE, "FORCE_TURBULENCE"}, {icon_items_FORCE_DRAG, "FORCE_DRAG"}, {icon_items_FORCE_SMOKEFLOW, "FORCE_SMOKEFLOW"}, {icon_items_MODIFIER, "MODIFIER"}, {icon_items_MOD_WAVE, "MOD_WAVE"}, {icon_items_MOD_BUILD, "MOD_BUILD"}, {icon_items_MOD_DECIM, "MOD_DECIM"}, {icon_items_MOD_MIRROR, "MOD_MIRROR"}, {icon_items_MOD_SOFT, "MOD_SOFT"}, {icon_items_MOD_SUBSURF, "MOD_SUBSURF"}, {icon_items_HOOK, "HOOK"}, {icon_items_MOD_PHYSICS, "MOD_PHYSICS"}, {icon_items_MOD_PARTICLES, "MOD_PARTICLES"}, {icon_items_MOD_BOOLEAN, "MOD_BOOLEAN"}, {icon_items_MOD_EDGESPLIT, "MOD_EDGESPLIT"}, {icon_items_MOD_ARRAY, "MOD_ARRAY"}, {icon_items_MOD_UVPROJECT, "MOD_UVPROJECT"}, {icon_items_MOD_DISPLACE, "MOD_DISPLACE"}, {icon_items_MOD_CURVE, "MOD_CURVE"}, {icon_items_MOD_LATTICE, "MOD_LATTICE"}, {icon_items_CONSTRAINT_DATA, "CONSTRAINT_DATA"}, {icon_items_MOD_ARMATURE, "MOD_ARMATURE"}, {icon_items_MOD_SHRINKWRAP, "MOD_SHRINKWRAP"}, {icon_items_MOD_CAST, "MOD_CAST"}, {icon_items_MOD_MESHDEFORM, "MOD_MESHDEFORM"}, {icon_items_MOD_BEVEL, "MOD_BEVEL"}, {icon_items_MOD_SMOOTH, "MOD_SMOOTH"}, {icon_items_MOD_SIMPLEDEFORM, "MOD_SIMPLEDEFORM"}, {icon_items_MOD_MASK, "MOD_MASK"}, {icon_items_MOD_CLOTH, "MOD_CLOTH"}, {icon_items_MOD_EXPLODE, "MOD_EXPLODE"}, {icon_items_MOD_FLUIDSIM, "MOD_FLUIDSIM"}, {icon_items_MOD_MULTIRES, "MOD_MULTIRES"}, {icon_items_MOD_SMOKE, "MOD_SMOKE"}, {icon_items_MOD_SOLIDIFY, "MOD_SOLIDIFY"}, {icon_items_MOD_SCREW, "MOD_SCREW"}, {icon_items_MOD_VERTEX_WEIGHT, "MOD_VERTEX_WEIGHT"}, {icon_items_MOD_DYNAMICPAINT, "MOD_DYNAMICPAINT"}, {icon_items_MOD_REMESH, "MOD_REMESH"}, {icon_items_MOD_OCEAN, "MOD_OCEAN"}, {icon_items_MOD_WARP, "MOD_WARP"}, {icon_items_MOD_SKIN, "MOD_SKIN"}, {icon_items_MOD_TRIANGULATE, "MOD_TRIANGULATE"}, {icon_items_MOD_WIREFRAME, "MOD_WIREFRAME"}, {icon_items_MOD_DATA_TRANSFER, "MOD_DATA_TRANSFER"}, {icon_items_MOD_NORMALEDIT, "MOD_NORMALEDIT"}, {icon_items_REC, "REC"}, {icon_items_PLAY, "PLAY"}, {icon_items_FF, "FF"}, {icon_items_REW, "REW"}, {icon_items_PAUSE, "PAUSE"}, {icon_items_PREV_KEYFRAME, "PREV_KEYFRAME"}, {icon_items_NEXT_KEYFRAME, "NEXT_KEYFRAME"}, {icon_items_PLAY_AUDIO, "PLAY_AUDIO"}, {icon_items_PLAY_REVERSE, "PLAY_REVERSE"}, {icon_items_PREVIEW_RANGE, "PREVIEW_RANGE"}, {icon_items_ACTION_TWEAK, "ACTION_TWEAK"}, {icon_items_PMARKER_ACT, "PMARKER_ACT"}, {icon_items_PMARKER_SEL, "PMARKER_SEL"}, {icon_items_PMARKER, "PMARKER"}, {icon_items_MARKER_HLT, "MARKER_HLT"}, {icon_items_MARKER, "MARKER"}, {icon_items_SPACE2, "SPACE2"}, {icon_items_SPACE3, "SPACE3"}, {icon_items_KEYINGSET, "KEYINGSET"}, {icon_items_KEY_DEHLT, "KEY_DEHLT"}, {icon_items_KEY_HLT, "KEY_HLT"}, {icon_items_MUTE_IPO_OFF, "MUTE_IPO_OFF"}, {icon_items_MUTE_IPO_ON, "MUTE_IPO_ON"}, {icon_items_VISIBLE_IPO_OFF, "VISIBLE_IPO_OFF"}, {icon_items_VISIBLE_IPO_ON, "VISIBLE_IPO_ON"}, {icon_items_DRIVER, "DRIVER"}, {icon_items_SOLO_OFF, "SOLO_OFF"}, {icon_items_SOLO_ON, "SOLO_ON"}, {icon_items_FRAME_PREV, "FRAME_PREV"}, {icon_items_FRAME_NEXT, "FRAME_NEXT"}, {icon_items_NLA_PUSHDOWN, "NLA_PUSHDOWN"}, {icon_items_IPO_CONSTANT, "IPO_CONSTANT"}, {icon_items_IPO_LINEAR, "IPO_LINEAR"}, {icon_items_IPO_BEZIER, "IPO_BEZIER"}, {icon_items_IPO_SINE, "IPO_SINE"}, {icon_items_IPO_QUAD, "IPO_QUAD"}, {icon_items_IPO_CUBIC, "IPO_CUBIC"}, {icon_items_IPO_QUART, "IPO_QUART"}, {icon_items_IPO_QUINT, "IPO_QUINT"}, {icon_items_IPO_EXPO, "IPO_EXPO"}, {icon_items_IPO_CIRC, "IPO_CIRC"}, {icon_items_IPO_BOUNCE, "IPO_BOUNCE"}, {icon_items_IPO_ELASTIC, "IPO_ELASTIC"}, {icon_items_IPO_BACK, "IPO_BACK"}, {icon_items_IPO_EASE_IN, "IPO_EASE_IN"}, {icon_items_IPO_EASE_OUT, "IPO_EASE_OUT"}, {icon_items_IPO_EASE_IN_OUT, "IPO_EASE_IN_OUT"}, {icon_items_VERTEXSEL, "VERTEXSEL"}, {icon_items_EDGESEL, "EDGESEL"}, {icon_items_FACESEL, "FACESEL"}, {icon_items_LOOPSEL, "LOOPSEL"}, {icon_items_ROTATE, "ROTATE"}, {icon_items_CURSOR, "CURSOR"}, {icon_items_ROTATECOLLECTION, "ROTATECOLLECTION"}, {icon_items_ROTATECENTER, "ROTATECENTER"}, {icon_items_ROTACTIVE, "ROTACTIVE"}, {icon_items_ALIGN, "ALIGN"}, {icon_items_SMOOTHCURVE, "SMOOTHCURVE"}, {icon_items_SPHERECURVE, "SPHERECURVE"}, {icon_items_ROOTCURVE, "ROOTCURVE"}, {icon_items_SHARPCURVE, "SHARPCURVE"}, {icon_items_LINCURVE, "LINCURVE"}, {icon_items_NOCURVE, "NOCURVE"}, {icon_items_RNDCURVE, "RNDCURVE"}, {icon_items_PROP_OFF, "PROP_OFF"}, {icon_items_PROP_ON, "PROP_ON"}, {icon_items_PROP_CON, "PROP_CON"}, {icon_items_SCULPT_DYNTOPO, "SCULPT_DYNTOPO"}, {icon_items_PARTICLE_POINT, "PARTICLE_POINT"}, {icon_items_PARTICLE_TIP, "PARTICLE_TIP"}, {icon_items_PARTICLE_PATH, "PARTICLE_PATH"}, {icon_items_MAN_TRANS, "MAN_TRANS"}, {icon_items_MAN_ROT, "MAN_ROT"}, {icon_items_MAN_SCALE, "MAN_SCALE"}, {icon_items_MANIPUL, "MANIPUL"}, {icon_items_SNAP_OFF, "SNAP_OFF"}, {icon_items_SNAP_ON, "SNAP_ON"}, {icon_items_SNAP_NORMAL, "SNAP_NORMAL"}, {icon_items_SNAP_INCREMENT, "SNAP_INCREMENT"}, {icon_items_SNAP_VERTEX, "SNAP_VERTEX"}, {icon_items_SNAP_EDGE, "SNAP_EDGE"}, {icon_items_SNAP_FACE, "SNAP_FACE"}, {icon_items_SNAP_VOLUME, "SNAP_VOLUME"}, {icon_items_STICKY_UVS_LOC, "STICKY_UVS_LOC"}, {icon_items_STICKY_UVS_DISABLE, "STICKY_UVS_DISABLE"}, {icon_items_STICKY_UVS_VERT, "STICKY_UVS_VERT"}, {icon_items_CLIPUV_DEHLT, "CLIPUV_DEHLT"}, {icon_items_CLIPUV_HLT, "CLIPUV_HLT"}, {icon_items_SNAP_PEEL_OBJECT, "SNAP_PEEL_OBJECT"}, {icon_items_GRID, "GRID"}, {icon_items_PASTEDOWN, "PASTEDOWN"}, {icon_items_COPYDOWN, "COPYDOWN"}, {icon_items_PASTEFLIPUP, "PASTEFLIPUP"}, {icon_items_PASTEFLIPDOWN, "PASTEFLIPDOWN"}, {icon_items_SNAP_SURFACE, "SNAP_SURFACE"}, {icon_items_AUTOMERGE_ON, "AUTOMERGE_ON"}, {icon_items_AUTOMERGE_OFF, "AUTOMERGE_OFF"}, {icon_items_RETOPO, "RETOPO"}, {icon_items_UV_VERTEXSEL, "UV_VERTEXSEL"}, {icon_items_UV_EDGESEL, "UV_EDGESEL"}, {icon_items_UV_FACESEL, "UV_FACESEL"}, {icon_items_UV_ISLANDSEL, "UV_ISLANDSEL"}, {icon_items_UV_SYNC_SELECT, "UV_SYNC_SELECT"}, {icon_items_BBOX, "BBOX"}, {icon_items_WIRE, "WIRE"}, {icon_items_SOLID, "SOLID"}, {icon_items_SMOOTH, "SMOOTH"}, {icon_items_POTATO, "POTATO"}, {icon_items_ORTHO, "ORTHO"}, {icon_items_LOCKVIEW_OFF, "LOCKVIEW_OFF"}, {icon_items_LOCKVIEW_ON, "LOCKVIEW_ON"}, {icon_items_AXIS_SIDE, "AXIS_SIDE"}, {icon_items_AXIS_FRONT, "AXIS_FRONT"}, {icon_items_AXIS_TOP, "AXIS_TOP"}, {icon_items_NDOF_DOM, "NDOF_DOM"}, {icon_items_NDOF_TURN, "NDOF_TURN"}, {icon_items_NDOF_FLY, "NDOF_FLY"}, {icon_items_NDOF_TRANS, "NDOF_TRANS"}, {icon_items_LAYER_USED, "LAYER_USED"}, {icon_items_LAYER_ACTIVE, "LAYER_ACTIVE"}, {icon_items_SORTALPHA, "SORTALPHA"}, {icon_items_SORTBYEXT, "SORTBYEXT"}, {icon_items_SORTTIME, "SORTTIME"}, {icon_items_SORTSIZE, "SORTSIZE"}, {icon_items_LONGDISPLAY, "LONGDISPLAY"}, {icon_items_SHORTDISPLAY, "SHORTDISPLAY"}, {icon_items_GHOST, "GHOST"}, {icon_items_IMGDISPLAY, "IMGDISPLAY"}, {icon_items_SAVE_AS, "SAVE_AS"}, {icon_items_SAVE_COPY, "SAVE_COPY"}, {icon_items_BOOKMARKS, "BOOKMARKS"}, {icon_items_FONTPREVIEW, "FONTPREVIEW"}, {icon_items_FILTER, "FILTER"}, {icon_items_NEWFOLDER, "NEWFOLDER"}, {icon_items_OPEN_RECENT, "OPEN_RECENT"}, {icon_items_FILE_PARENT, "FILE_PARENT"}, {icon_items_FILE_REFRESH, "FILE_REFRESH"}, {icon_items_FILE_FOLDER, "FILE_FOLDER"}, {icon_items_FILE_BLANK, "FILE_BLANK"}, {icon_items_FILE_BLEND, "FILE_BLEND"}, {icon_items_FILE_IMAGE, "FILE_IMAGE"}, {icon_items_FILE_MOVIE, "FILE_MOVIE"}, {icon_items_FILE_SCRIPT, "FILE_SCRIPT"}, {icon_items_FILE_SOUND, "FILE_SOUND"}, {icon_items_FILE_FONT, "FILE_FONT"}, {icon_items_FILE_TEXT, "FILE_TEXT"}, {icon_items_RECOVER_AUTO, "RECOVER_AUTO"}, {icon_items_SAVE_PREFS, "SAVE_PREFS"}, {icon_items_LINK_BLEND, "LINK_BLEND"}, {icon_items_APPEND_BLEND, "APPEND_BLEND"}, {icon_items_IMPORT, "IMPORT"}, {icon_items_EXPORT, "EXPORT"}, {icon_items_EXTERNAL_DATA, "EXTERNAL_DATA"}, {icon_items_LOAD_FACTORY, "LOAD_FACTORY"}, {icon_items_LOOP_BACK, "LOOP_BACK"}, {icon_items_LOOP_FORWARDS, "LOOP_FORWARDS"}, {icon_items_BACK, "BACK"}, {icon_items_FORWARD, "FORWARD"}, {icon_items_FILE_HIDDEN, "FILE_HIDDEN"}, {icon_items_FILE_BACKUP, "FILE_BACKUP"}, {icon_items_DISK_DRIVE, "DISK_DRIVE"}, {icon_items_MATPLANE, "MATPLANE"}, {icon_items_MATSPHERE, "MATSPHERE"}, {icon_items_MATCUBE, "MATCUBE"}, {icon_items_MONKEY, "MONKEY"}, {icon_items_HAIR, "HAIR"}, {icon_items_ALIASED, "ALIASED"}, {icon_items_ANTIALIASED, "ANTIALIASED"}, {icon_items_MAT_SPHERE_SKY, "MAT_SPHERE_SKY"}, {icon_items_WORDWRAP_OFF, "WORDWRAP_OFF"}, {icon_items_WORDWRAP_ON, "WORDWRAP_ON"}, {icon_items_SYNTAX_OFF, "SYNTAX_OFF"}, {icon_items_SYNTAX_ON, "SYNTAX_ON"}, {icon_items_LINENUMBERS_OFF, "LINENUMBERS_OFF"}, {icon_items_LINENUMBERS_ON, "LINENUMBERS_ON"}, {icon_items_SCRIPTPLUGINS, "SCRIPTPLUGINS"}, {icon_items_SEQ_SEQUENCER, "SEQ_SEQUENCER"}, {icon_items_SEQ_PREVIEW, "SEQ_PREVIEW"}, {icon_items_SEQ_LUMA_WAVEFORM, "SEQ_LUMA_WAVEFORM"}, {icon_items_SEQ_CHROMA_SCOPE, "SEQ_CHROMA_SCOPE"}, {icon_items_SEQ_HISTOGRAM, "SEQ_HISTOGRAM"}, {icon_items_SEQ_SPLITVIEW, "SEQ_SPLITVIEW"}, {icon_items_IMAGE_RGB, "IMAGE_RGB"}, {icon_items_IMAGE_RGB_ALPHA, "IMAGE_RGB_ALPHA"}, {icon_items_IMAGE_ALPHA, "IMAGE_ALPHA"}, {icon_items_IMAGE_ZDEPTH, "IMAGE_ZDEPTH"}, {icon_items_IMAGEFILE, "IMAGEFILE"}, {icon_items_BRUSH_ADD, "BRUSH_ADD"}, {icon_items_BRUSH_BLOB, "BRUSH_BLOB"}, {icon_items_BRUSH_BLUR, "BRUSH_BLUR"}, {icon_items_BRUSH_CLAY, "BRUSH_CLAY"}, {icon_items_BRUSH_CLAY_STRIPS, "BRUSH_CLAY_STRIPS"}, {icon_items_BRUSH_CLONE, "BRUSH_CLONE"}, {icon_items_BRUSH_CREASE, "BRUSH_CREASE"}, {icon_items_BRUSH_DARKEN, "BRUSH_DARKEN"}, {icon_items_BRUSH_FILL, "BRUSH_FILL"}, {icon_items_BRUSH_FLATTEN, "BRUSH_FLATTEN"}, {icon_items_BRUSH_GRAB, "BRUSH_GRAB"}, {icon_items_BRUSH_INFLATE, "BRUSH_INFLATE"}, {icon_items_BRUSH_LAYER, "BRUSH_LAYER"}, {icon_items_BRUSH_LIGHTEN, "BRUSH_LIGHTEN"}, {icon_items_BRUSH_MASK, "BRUSH_MASK"}, {icon_items_BRUSH_MIX, "BRUSH_MIX"}, {icon_items_BRUSH_MULTIPLY, "BRUSH_MULTIPLY"}, {icon_items_BRUSH_NUDGE, "BRUSH_NUDGE"}, {icon_items_BRUSH_PINCH, "BRUSH_PINCH"}, {icon_items_BRUSH_SCRAPE, "BRUSH_SCRAPE"}, {icon_items_BRUSH_SCULPT_DRAW, "BRUSH_SCULPT_DRAW"}, {icon_items_BRUSH_SMEAR, "BRUSH_SMEAR"}, {icon_items_BRUSH_SMOOTH, "BRUSH_SMOOTH"}, {icon_items_BRUSH_SNAKE_HOOK, "BRUSH_SNAKE_HOOK"}, {icon_items_BRUSH_SOFTEN, "BRUSH_SOFTEN"}, {icon_items_BRUSH_SUBTRACT, "BRUSH_SUBTRACT"}, {icon_items_BRUSH_TEXDRAW, "BRUSH_TEXDRAW"}, {icon_items_BRUSH_TEXFILL, "BRUSH_TEXFILL"}, {icon_items_BRUSH_TEXMASK, "BRUSH_TEXMASK"}, {icon_items_BRUSH_THUMB, "BRUSH_THUMB"}, {icon_items_BRUSH_ROTATE, "BRUSH_ROTATE"}, {icon_items_BRUSH_VERTEXDRAW, "BRUSH_VERTEXDRAW"}, {icon_items_MATCAP_01, "MATCAP_01"}, {icon_items_MATCAP_02, "MATCAP_02"}, {icon_items_MATCAP_03, "MATCAP_03"}, {icon_items_MATCAP_04, "MATCAP_04"}, {icon_items_MATCAP_05, "MATCAP_05"}, {icon_items_MATCAP_06, "MATCAP_06"}, {icon_items_MATCAP_07, "MATCAP_07"}, {icon_items_MATCAP_08, "MATCAP_08"}, {icon_items_MATCAP_09, "MATCAP_09"}, {icon_items_MATCAP_10, "MATCAP_10"}, {icon_items_MATCAP_11, "MATCAP_11"}, {icon_items_MATCAP_12, "MATCAP_12"}, {icon_items_MATCAP_13, "MATCAP_13"}, {icon_items_MATCAP_14, "MATCAP_14"}, {icon_items_MATCAP_15, "MATCAP_15"}, {icon_items_MATCAP_16, "MATCAP_16"}, {icon_items_MATCAP_17, "MATCAP_17"}, {icon_items_MATCAP_18, "MATCAP_18"}, {icon_items_MATCAP_19, "MATCAP_19"}, {icon_items_MATCAP_20, "MATCAP_20"}, {icon_items_MATCAP_21, "MATCAP_21"}, {icon_items_MATCAP_22, "MATCAP_22"}, {icon_items_MATCAP_23, "MATCAP_23"}, {icon_items_MATCAP_24, "MATCAP_24"}, {icon_items_VIEW3D_VEC, "VIEW3D_VEC"}, {icon_items_EDIT_VEC, "EDIT_VEC"}, {icon_items_EDITMODE_VEC_DEHLT, "EDITMODE_VEC_DEHLT"}, {icon_items_EDITMODE_VEC_HLT, "EDITMODE_VEC_HLT"}, {icon_items_DISCLOSURE_TRI_RIGHT_VEC, "DISCLOSURE_TRI_RIGHT_VEC"}, {icon_items_DISCLOSURE_TRI_DOWN_VEC, "DISCLOSURE_TRI_DOWN_VEC"}, {icon_items_MOVE_UP_VEC, "MOVE_UP_VEC"}, {icon_items_MOVE_DOWN_VEC, "MOVE_DOWN_VEC"}, {icon_items_X_VEC, "X_VEC"}, {icon_items_SMALL_TRI_RIGHT_VEC, "SMALL_TRI_RIGHT_VEC"}};
 	};
 
-	const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
-	const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
+	static const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
+	static const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
 
 	icon_items_enum icon() {
 		STRING_TYPE_GETTER("icon", static_cast<icon_items_enum>(string_to_icon_items.at(resstr)))
@@ -2303,8 +2303,8 @@ public:
 		return {{default_dummy_items_DUMMY, "DUMMY"}};
 	};
 
-	const std::map<std::string, int> string_to_default_dummy_items = create_string_to_default_dummy_items();
-	const std::map<int, std::string> default_dummy_items_to_string = create_default_dummy_items_to_string();
+	static const std::map<std::string, int> string_to_default_dummy_items = create_string_to_default_dummy_items();
+	static const std::map<int, std::string> default_dummy_items_to_string = create_default_dummy_items_to_string();
 
 	default_dummy_items_enum default_value() {
 		STRING_TYPE_GETTER("default_value", static_cast<default_dummy_items_enum>(string_to_default_dummy_items.at(resstr)))
@@ -2919,8 +2919,8 @@ public:
 		return {{icon_items_NONE, "NONE"}, {icon_items_QUESTION, "QUESTION"}, {icon_items_ERROR, "ERROR"}, {icon_items_CANCEL, "CANCEL"}, {icon_items_TRIA_RIGHT, "TRIA_RIGHT"}, {icon_items_TRIA_DOWN, "TRIA_DOWN"}, {icon_items_TRIA_LEFT, "TRIA_LEFT"}, {icon_items_TRIA_UP, "TRIA_UP"}, {icon_items_ARROW_LEFTRIGHT, "ARROW_LEFTRIGHT"}, {icon_items_PLUS, "PLUS"}, {icon_items_DISCLOSURE_TRI_DOWN, "DISCLOSURE_TRI_DOWN"}, {icon_items_DISCLOSURE_TRI_RIGHT, "DISCLOSURE_TRI_RIGHT"}, {icon_items_RADIOBUT_OFF, "RADIOBUT_OFF"}, {icon_items_RADIOBUT_ON, "RADIOBUT_ON"}, {icon_items_MENU_PANEL, "MENU_PANEL"}, {icon_items_BLENDER, "BLENDER"}, {icon_items_GRIP, "GRIP"}, {icon_items_DOT, "DOT"}, {icon_items_COLLAPSEMENU, "COLLAPSEMENU"}, {icon_items_X, "X"}, {icon_items_GO_LEFT, "GO_LEFT"}, {icon_items_PLUG, "PLUG"}, {icon_items_UI, "UI"}, {icon_items_NODE, "NODE"}, {icon_items_NODE_SEL, "NODE_SEL"}, {icon_items_FULLSCREEN, "FULLSCREEN"}, {icon_items_SPLITSCREEN, "SPLITSCREEN"}, {icon_items_RIGHTARROW_THIN, "RIGHTARROW_THIN"}, {icon_items_BORDERMOVE, "BORDERMOVE"}, {icon_items_VIEWZOOM, "VIEWZOOM"}, {icon_items_ZOOMIN, "ZOOMIN"}, {icon_items_ZOOMOUT, "ZOOMOUT"}, {icon_items_PANEL_CLOSE, "PANEL_CLOSE"}, {icon_items_COPY_ID, "COPY_ID"}, {icon_items_EYEDROPPER, "EYEDROPPER"}, {icon_items_LINK_AREA, "LINK_AREA"}, {icon_items_AUTO, "AUTO"}, {icon_items_CHECKBOX_DEHLT, "CHECKBOX_DEHLT"}, {icon_items_CHECKBOX_HLT, "CHECKBOX_HLT"}, {icon_items_UNLOCKED, "UNLOCKED"}, {icon_items_LOCKED, "LOCKED"}, {icon_items_UNPINNED, "UNPINNED"}, {icon_items_PINNED, "PINNED"}, {icon_items_SCREEN_BACK, "SCREEN_BACK"}, {icon_items_RIGHTARROW, "RIGHTARROW"}, {icon_items_DOWNARROW_HLT, "DOWNARROW_HLT"}, {icon_items_DOTSUP, "DOTSUP"}, {icon_items_DOTSDOWN, "DOTSDOWN"}, {icon_items_LINK, "LINK"}, {icon_items_INLINK, "INLINK"}, {icon_items_PLUGIN, "PLUGIN"}, {icon_items_HELP, "HELP"}, {icon_items_GHOST_ENABLED, "GHOST_ENABLED"}, {icon_items_COLOR, "COLOR"}, {icon_items_LINKED, "LINKED"}, {icon_items_UNLINKED, "UNLINKED"}, {icon_items_HAND, "HAND"}, {icon_items_ZOOM_ALL, "ZOOM_ALL"}, {icon_items_ZOOM_SELECTED, "ZOOM_SELECTED"}, {icon_items_ZOOM_PREVIOUS, "ZOOM_PREVIOUS"}, {icon_items_ZOOM_IN, "ZOOM_IN"}, {icon_items_ZOOM_OUT, "ZOOM_OUT"}, {icon_items_RENDER_REGION, "RENDER_REGION"}, {icon_items_BORDER_RECT, "BORDER_RECT"}, {icon_items_BORDER_LASSO, "BORDER_LASSO"}, {icon_items_FREEZE, "FREEZE"}, {icon_items_STYLUS_PRESSURE, "STYLUS_PRESSURE"}, {icon_items_GHOST_DISABLED, "GHOST_DISABLED"}, {icon_items_NEW, "NEW"}, {icon_items_FILE_TICK, "FILE_TICK"}, {icon_items_QUIT, "QUIT"}, {icon_items_URL, "URL"}, {icon_items_RECOVER_LAST, "RECOVER_LAST"}, {icon_items_FULLSCREEN_ENTER, "FULLSCREEN_ENTER"}, {icon_items_FULLSCREEN_EXIT, "FULLSCREEN_EXIT"}, {icon_items_BLANK1, "BLANK1"}, {icon_items_LAMP, "LAMP"}, {icon_items_MATERIAL, "MATERIAL"}, {icon_items_TEXTURE, "TEXTURE"}, {icon_items_ANIM, "ANIM"}, {icon_items_WORLD, "WORLD"}, {icon_items_SCENE, "SCENE"}, {icon_items_EDIT, "EDIT"}, {icon_items_GAME, "GAME"}, {icon_items_RADIO, "RADIO"}, {icon_items_SCRIPT, "SCRIPT"}, {icon_items_PARTICLES, "PARTICLES"}, {icon_items_PHYSICS, "PHYSICS"}, {icon_items_SPEAKER, "SPEAKER"}, {icon_items_TEXTURE_SHADED, "TEXTURE_SHADED"}, {icon_items_VIEW3D, "VIEW3D"}, {icon_items_IPO, "IPO"}, {icon_items_OOPS, "OOPS"}, {icon_items_BUTS, "BUTS"}, {icon_items_FILESEL, "FILESEL"}, {icon_items_IMAGE_COL, "IMAGE_COL"}, {icon_items_INFO, "INFO"}, {icon_items_SEQUENCE, "SEQUENCE"}, {icon_items_TEXT, "TEXT"}, {icon_items_IMASEL, "IMASEL"}, {icon_items_SOUND, "SOUND"}, {icon_items_ACTION, "ACTION"}, {icon_items_NLA, "NLA"}, {icon_items_SCRIPTWIN, "SCRIPTWIN"}, {icon_items_TIME, "TIME"}, {icon_items_NODETREE, "NODETREE"}, {icon_items_LOGIC, "LOGIC"}, {icon_items_CONSOLE, "CONSOLE"}, {icon_items_PREFERENCES, "PREFERENCES"}, {icon_items_CLIP, "CLIP"}, {icon_items_ASSET_MANAGER, "ASSET_MANAGER"}, {icon_items_OBJECT_DATAMODE, "OBJECT_DATAMODE"}, {icon_items_EDITMODE_HLT, "EDITMODE_HLT"}, {icon_items_FACESEL_HLT, "FACESEL_HLT"}, {icon_items_VPAINT_HLT, "VPAINT_HLT"}, {icon_items_TPAINT_HLT, "TPAINT_HLT"}, {icon_items_WPAINT_HLT, "WPAINT_HLT"}, {icon_items_SCULPTMODE_HLT, "SCULPTMODE_HLT"}, {icon_items_POSE_HLT, "POSE_HLT"}, {icon_items_PARTICLEMODE, "PARTICLEMODE"}, {icon_items_LIGHTPAINT, "LIGHTPAINT"}, {icon_items_SCENE_DATA, "SCENE_DATA"}, {icon_items_RENDERLAYERS, "RENDERLAYERS"}, {icon_items_WORLD_DATA, "WORLD_DATA"}, {icon_items_OBJECT_DATA, "OBJECT_DATA"}, {icon_items_MESH_DATA, "MESH_DATA"}, {icon_items_CURVE_DATA, "CURVE_DATA"}, {icon_items_META_DATA, "META_DATA"}, {icon_items_LATTICE_DATA, "LATTICE_DATA"}, {icon_items_LAMP_DATA, "LAMP_DATA"}, {icon_items_MATERIAL_DATA, "MATERIAL_DATA"}, {icon_items_TEXTURE_DATA, "TEXTURE_DATA"}, {icon_items_ANIM_DATA, "ANIM_DATA"}, {icon_items_CAMERA_DATA, "CAMERA_DATA"}, {icon_items_PARTICLE_DATA, "PARTICLE_DATA"}, {icon_items_LIBRARY_DATA_DIRECT, "LIBRARY_DATA_DIRECT"}, {icon_items_GROUP, "GROUP"}, {icon_items_ARMATURE_DATA, "ARMATURE_DATA"}, {icon_items_POSE_DATA, "POSE_DATA"}, {icon_items_BONE_DATA, "BONE_DATA"}, {icon_items_CONSTRAINT, "CONSTRAINT"}, {icon_items_SHAPEKEY_DATA, "SHAPEKEY_DATA"}, {icon_items_CONSTRAINT_BONE, "CONSTRAINT_BONE"}, {icon_items_CAMERA_STEREO, "CAMERA_STEREO"}, {icon_items_PACKAGE, "PACKAGE"}, {icon_items_UGLYPACKAGE, "UGLYPACKAGE"}, {icon_items_BRUSH_DATA, "BRUSH_DATA"}, {icon_items_IMAGE_DATA, "IMAGE_DATA"}, {icon_items_FILE, "FILE"}, {icon_items_FCURVE, "FCURVE"}, {icon_items_FONT_DATA, "FONT_DATA"}, {icon_items_RENDER_RESULT, "RENDER_RESULT"}, {icon_items_SURFACE_DATA, "SURFACE_DATA"}, {icon_items_EMPTY_DATA, "EMPTY_DATA"}, {icon_items_SETTINGS, "SETTINGS"}, {icon_items_RENDER_ANIMATION, "RENDER_ANIMATION"}, {icon_items_RENDER_STILL, "RENDER_STILL"}, {icon_items_LIBRARY_DATA_BROKEN, "LIBRARY_DATA_BROKEN"}, {icon_items_BOIDS, "BOIDS"}, {icon_items_STRANDS, "STRANDS"}, {icon_items_LIBRARY_DATA_INDIRECT, "LIBRARY_DATA_INDIRECT"}, {icon_items_GREASEPENCIL, "GREASEPENCIL"}, {icon_items_LINE_DATA, "LINE_DATA"}, {icon_items_GROUP_BONE, "GROUP_BONE"}, {icon_items_GROUP_VERTEX, "GROUP_VERTEX"}, {icon_items_GROUP_VCOL, "GROUP_VCOL"}, {icon_items_GROUP_UVS, "GROUP_UVS"}, {icon_items_RNA, "RNA"}, {icon_items_RNA_ADD, "RNA_ADD"}, {icon_items_OUTLINER_OB_EMPTY, "OUTLINER_OB_EMPTY"}, {icon_items_OUTLINER_OB_MESH, "OUTLINER_OB_MESH"}, {icon_items_OUTLINER_OB_CURVE, "OUTLINER_OB_CURVE"}, {icon_items_OUTLINER_OB_LATTICE, "OUTLINER_OB_LATTICE"}, {icon_items_OUTLINER_OB_META, "OUTLINER_OB_META"}, {icon_items_OUTLINER_OB_LAMP, "OUTLINER_OB_LAMP"}, {icon_items_OUTLINER_OB_CAMERA, "OUTLINER_OB_CAMERA"}, {icon_items_OUTLINER_OB_ARMATURE, "OUTLINER_OB_ARMATURE"}, {icon_items_OUTLINER_OB_FONT, "OUTLINER_OB_FONT"}, {icon_items_OUTLINER_OB_SURFACE, "OUTLINER_OB_SURFACE"}, {icon_items_OUTLINER_OB_SPEAKER, "OUTLINER_OB_SPEAKER"}, {icon_items_RESTRICT_VIEW_OFF, "RESTRICT_VIEW_OFF"}, {icon_items_RESTRICT_VIEW_ON, "RESTRICT_VIEW_ON"}, {icon_items_RESTRICT_SELECT_OFF, "RESTRICT_SELECT_OFF"}, {icon_items_RESTRICT_SELECT_ON, "RESTRICT_SELECT_ON"}, {icon_items_RESTRICT_RENDER_OFF, "RESTRICT_RENDER_OFF"}, {icon_items_RESTRICT_RENDER_ON, "RESTRICT_RENDER_ON"}, {icon_items_OUTLINER_DATA_EMPTY, "OUTLINER_DATA_EMPTY"}, {icon_items_OUTLINER_DATA_MESH, "OUTLINER_DATA_MESH"}, {icon_items_OUTLINER_DATA_CURVE, "OUTLINER_DATA_CURVE"}, {icon_items_OUTLINER_DATA_LATTICE, "OUTLINER_DATA_LATTICE"}, {icon_items_OUTLINER_DATA_META, "OUTLINER_DATA_META"}, {icon_items_OUTLINER_DATA_LAMP, "OUTLINER_DATA_LAMP"}, {icon_items_OUTLINER_DATA_CAMERA, "OUTLINER_DATA_CAMERA"}, {icon_items_OUTLINER_DATA_ARMATURE, "OUTLINER_DATA_ARMATURE"}, {icon_items_OUTLINER_DATA_FONT, "OUTLINER_DATA_FONT"}, {icon_items_OUTLINER_DATA_SURFACE, "OUTLINER_DATA_SURFACE"}, {icon_items_OUTLINER_DATA_SPEAKER, "OUTLINER_DATA_SPEAKER"}, {icon_items_OUTLINER_DATA_POSE, "OUTLINER_DATA_POSE"}, {icon_items_MESH_PLANE, "MESH_PLANE"}, {icon_items_MESH_CUBE, "MESH_CUBE"}, {icon_items_MESH_CIRCLE, "MESH_CIRCLE"}, {icon_items_MESH_UVSPHERE, "MESH_UVSPHERE"}, {icon_items_MESH_ICOSPHERE, "MESH_ICOSPHERE"}, {icon_items_MESH_GRID, "MESH_GRID"}, {icon_items_MESH_MONKEY, "MESH_MONKEY"}, {icon_items_MESH_CYLINDER, "MESH_CYLINDER"}, {icon_items_MESH_TORUS, "MESH_TORUS"}, {icon_items_MESH_CONE, "MESH_CONE"}, {icon_items_LAMP_POINT, "LAMP_POINT"}, {icon_items_LAMP_SUN, "LAMP_SUN"}, {icon_items_LAMP_SPOT, "LAMP_SPOT"}, {icon_items_LAMP_HEMI, "LAMP_HEMI"}, {icon_items_LAMP_AREA, "LAMP_AREA"}, {icon_items_META_EMPTY, "META_EMPTY"}, {icon_items_META_PLANE, "META_PLANE"}, {icon_items_META_CUBE, "META_CUBE"}, {icon_items_META_BALL, "META_BALL"}, {icon_items_META_ELLIPSOID, "META_ELLIPSOID"}, {icon_items_META_CAPSULE, "META_CAPSULE"}, {icon_items_SURFACE_NCURVE, "SURFACE_NCURVE"}, {icon_items_SURFACE_NCIRCLE, "SURFACE_NCIRCLE"}, {icon_items_SURFACE_NSURFACE, "SURFACE_NSURFACE"}, {icon_items_SURFACE_NCYLINDER, "SURFACE_NCYLINDER"}, {icon_items_SURFACE_NSPHERE, "SURFACE_NSPHERE"}, {icon_items_SURFACE_NTORUS, "SURFACE_NTORUS"}, {icon_items_CURVE_BEZCURVE, "CURVE_BEZCURVE"}, {icon_items_CURVE_BEZCIRCLE, "CURVE_BEZCIRCLE"}, {icon_items_CURVE_NCURVE, "CURVE_NCURVE"}, {icon_items_CURVE_NCIRCLE, "CURVE_NCIRCLE"}, {icon_items_CURVE_PATH, "CURVE_PATH"}, {icon_items_COLOR_RED, "COLOR_RED"}, {icon_items_COLOR_GREEN, "COLOR_GREEN"}, {icon_items_COLOR_BLUE, "COLOR_BLUE"}, {icon_items_TRIA_RIGHT_BAR, "TRIA_RIGHT_BAR"}, {icon_items_TRIA_DOWN_BAR, "TRIA_DOWN_BAR"}, {icon_items_TRIA_LEFT_BAR, "TRIA_LEFT_BAR"}, {icon_items_TRIA_UP_BAR, "TRIA_UP_BAR"}, {icon_items_FORCE_FORCE, "FORCE_FORCE"}, {icon_items_FORCE_WIND, "FORCE_WIND"}, {icon_items_FORCE_VORTEX, "FORCE_VORTEX"}, {icon_items_FORCE_MAGNETIC, "FORCE_MAGNETIC"}, {icon_items_FORCE_HARMONIC, "FORCE_HARMONIC"}, {icon_items_FORCE_CHARGE, "FORCE_CHARGE"}, {icon_items_FORCE_LENNARDJONES, "FORCE_LENNARDJONES"}, {icon_items_FORCE_TEXTURE, "FORCE_TEXTURE"}, {icon_items_FORCE_CURVE, "FORCE_CURVE"}, {icon_items_FORCE_BOID, "FORCE_BOID"}, {icon_items_FORCE_TURBULENCE, "FORCE_TURBULENCE"}, {icon_items_FORCE_DRAG, "FORCE_DRAG"}, {icon_items_FORCE_SMOKEFLOW, "FORCE_SMOKEFLOW"}, {icon_items_MODIFIER, "MODIFIER"}, {icon_items_MOD_WAVE, "MOD_WAVE"}, {icon_items_MOD_BUILD, "MOD_BUILD"}, {icon_items_MOD_DECIM, "MOD_DECIM"}, {icon_items_MOD_MIRROR, "MOD_MIRROR"}, {icon_items_MOD_SOFT, "MOD_SOFT"}, {icon_items_MOD_SUBSURF, "MOD_SUBSURF"}, {icon_items_HOOK, "HOOK"}, {icon_items_MOD_PHYSICS, "MOD_PHYSICS"}, {icon_items_MOD_PARTICLES, "MOD_PARTICLES"}, {icon_items_MOD_BOOLEAN, "MOD_BOOLEAN"}, {icon_items_MOD_EDGESPLIT, "MOD_EDGESPLIT"}, {icon_items_MOD_ARRAY, "MOD_ARRAY"}, {icon_items_MOD_UVPROJECT, "MOD_UVPROJECT"}, {icon_items_MOD_DISPLACE, "MOD_DISPLACE"}, {icon_items_MOD_CURVE, "MOD_CURVE"}, {icon_items_MOD_LATTICE, "MOD_LATTICE"}, {icon_items_CONSTRAINT_DATA, "CONSTRAINT_DATA"}, {icon_items_MOD_ARMATURE, "MOD_ARMATURE"}, {icon_items_MOD_SHRINKWRAP, "MOD_SHRINKWRAP"}, {icon_items_MOD_CAST, "MOD_CAST"}, {icon_items_MOD_MESHDEFORM, "MOD_MESHDEFORM"}, {icon_items_MOD_BEVEL, "MOD_BEVEL"}, {icon_items_MOD_SMOOTH, "MOD_SMOOTH"}, {icon_items_MOD_SIMPLEDEFORM, "MOD_SIMPLEDEFORM"}, {icon_items_MOD_MASK, "MOD_MASK"}, {icon_items_MOD_CLOTH, "MOD_CLOTH"}, {icon_items_MOD_EXPLODE, "MOD_EXPLODE"}, {icon_items_MOD_FLUIDSIM, "MOD_FLUIDSIM"}, {icon_items_MOD_MULTIRES, "MOD_MULTIRES"}, {icon_items_MOD_SMOKE, "MOD_SMOKE"}, {icon_items_MOD_SOLIDIFY, "MOD_SOLIDIFY"}, {icon_items_MOD_SCREW, "MOD_SCREW"}, {icon_items_MOD_VERTEX_WEIGHT, "MOD_VERTEX_WEIGHT"}, {icon_items_MOD_DYNAMICPAINT, "MOD_DYNAMICPAINT"}, {icon_items_MOD_REMESH, "MOD_REMESH"}, {icon_items_MOD_OCEAN, "MOD_OCEAN"}, {icon_items_MOD_WARP, "MOD_WARP"}, {icon_items_MOD_SKIN, "MOD_SKIN"}, {icon_items_MOD_TRIANGULATE, "MOD_TRIANGULATE"}, {icon_items_MOD_WIREFRAME, "MOD_WIREFRAME"}, {icon_items_MOD_DATA_TRANSFER, "MOD_DATA_TRANSFER"}, {icon_items_MOD_NORMALEDIT, "MOD_NORMALEDIT"}, {icon_items_REC, "REC"}, {icon_items_PLAY, "PLAY"}, {icon_items_FF, "FF"}, {icon_items_REW, "REW"}, {icon_items_PAUSE, "PAUSE"}, {icon_items_PREV_KEYFRAME, "PREV_KEYFRAME"}, {icon_items_NEXT_KEYFRAME, "NEXT_KEYFRAME"}, {icon_items_PLAY_AUDIO, "PLAY_AUDIO"}, {icon_items_PLAY_REVERSE, "PLAY_REVERSE"}, {icon_items_PREVIEW_RANGE, "PREVIEW_RANGE"}, {icon_items_ACTION_TWEAK, "ACTION_TWEAK"}, {icon_items_PMARKER_ACT, "PMARKER_ACT"}, {icon_items_PMARKER_SEL, "PMARKER_SEL"}, {icon_items_PMARKER, "PMARKER"}, {icon_items_MARKER_HLT, "MARKER_HLT"}, {icon_items_MARKER, "MARKER"}, {icon_items_SPACE2, "SPACE2"}, {icon_items_SPACE3, "SPACE3"}, {icon_items_KEYINGSET, "KEYINGSET"}, {icon_items_KEY_DEHLT, "KEY_DEHLT"}, {icon_items_KEY_HLT, "KEY_HLT"}, {icon_items_MUTE_IPO_OFF, "MUTE_IPO_OFF"}, {icon_items_MUTE_IPO_ON, "MUTE_IPO_ON"}, {icon_items_VISIBLE_IPO_OFF, "VISIBLE_IPO_OFF"}, {icon_items_VISIBLE_IPO_ON, "VISIBLE_IPO_ON"}, {icon_items_DRIVER, "DRIVER"}, {icon_items_SOLO_OFF, "SOLO_OFF"}, {icon_items_SOLO_ON, "SOLO_ON"}, {icon_items_FRAME_PREV, "FRAME_PREV"}, {icon_items_FRAME_NEXT, "FRAME_NEXT"}, {icon_items_NLA_PUSHDOWN, "NLA_PUSHDOWN"}, {icon_items_IPO_CONSTANT, "IPO_CONSTANT"}, {icon_items_IPO_LINEAR, "IPO_LINEAR"}, {icon_items_IPO_BEZIER, "IPO_BEZIER"}, {icon_items_IPO_SINE, "IPO_SINE"}, {icon_items_IPO_QUAD, "IPO_QUAD"}, {icon_items_IPO_CUBIC, "IPO_CUBIC"}, {icon_items_IPO_QUART, "IPO_QUART"}, {icon_items_IPO_QUINT, "IPO_QUINT"}, {icon_items_IPO_EXPO, "IPO_EXPO"}, {icon_items_IPO_CIRC, "IPO_CIRC"}, {icon_items_IPO_BOUNCE, "IPO_BOUNCE"}, {icon_items_IPO_ELASTIC, "IPO_ELASTIC"}, {icon_items_IPO_BACK, "IPO_BACK"}, {icon_items_IPO_EASE_IN, "IPO_EASE_IN"}, {icon_items_IPO_EASE_OUT, "IPO_EASE_OUT"}, {icon_items_IPO_EASE_IN_OUT, "IPO_EASE_IN_OUT"}, {icon_items_VERTEXSEL, "VERTEXSEL"}, {icon_items_EDGESEL, "EDGESEL"}, {icon_items_FACESEL, "FACESEL"}, {icon_items_LOOPSEL, "LOOPSEL"}, {icon_items_ROTATE, "ROTATE"}, {icon_items_CURSOR, "CURSOR"}, {icon_items_ROTATECOLLECTION, "ROTATECOLLECTION"}, {icon_items_ROTATECENTER, "ROTATECENTER"}, {icon_items_ROTACTIVE, "ROTACTIVE"}, {icon_items_ALIGN, "ALIGN"}, {icon_items_SMOOTHCURVE, "SMOOTHCURVE"}, {icon_items_SPHERECURVE, "SPHERECURVE"}, {icon_items_ROOTCURVE, "ROOTCURVE"}, {icon_items_SHARPCURVE, "SHARPCURVE"}, {icon_items_LINCURVE, "LINCURVE"}, {icon_items_NOCURVE, "NOCURVE"}, {icon_items_RNDCURVE, "RNDCURVE"}, {icon_items_PROP_OFF, "PROP_OFF"}, {icon_items_PROP_ON, "PROP_ON"}, {icon_items_PROP_CON, "PROP_CON"}, {icon_items_SCULPT_DYNTOPO, "SCULPT_DYNTOPO"}, {icon_items_PARTICLE_POINT, "PARTICLE_POINT"}, {icon_items_PARTICLE_TIP, "PARTICLE_TIP"}, {icon_items_PARTICLE_PATH, "PARTICLE_PATH"}, {icon_items_MAN_TRANS, "MAN_TRANS"}, {icon_items_MAN_ROT, "MAN_ROT"}, {icon_items_MAN_SCALE, "MAN_SCALE"}, {icon_items_MANIPUL, "MANIPUL"}, {icon_items_SNAP_OFF, "SNAP_OFF"}, {icon_items_SNAP_ON, "SNAP_ON"}, {icon_items_SNAP_NORMAL, "SNAP_NORMAL"}, {icon_items_SNAP_INCREMENT, "SNAP_INCREMENT"}, {icon_items_SNAP_VERTEX, "SNAP_VERTEX"}, {icon_items_SNAP_EDGE, "SNAP_EDGE"}, {icon_items_SNAP_FACE, "SNAP_FACE"}, {icon_items_SNAP_VOLUME, "SNAP_VOLUME"}, {icon_items_STICKY_UVS_LOC, "STICKY_UVS_LOC"}, {icon_items_STICKY_UVS_DISABLE, "STICKY_UVS_DISABLE"}, {icon_items_STICKY_UVS_VERT, "STICKY_UVS_VERT"}, {icon_items_CLIPUV_DEHLT, "CLIPUV_DEHLT"}, {icon_items_CLIPUV_HLT, "CLIPUV_HLT"}, {icon_items_SNAP_PEEL_OBJECT, "SNAP_PEEL_OBJECT"}, {icon_items_GRID, "GRID"}, {icon_items_PASTEDOWN, "PASTEDOWN"}, {icon_items_COPYDOWN, "COPYDOWN"}, {icon_items_PASTEFLIPUP, "PASTEFLIPUP"}, {icon_items_PASTEFLIPDOWN, "PASTEFLIPDOWN"}, {icon_items_SNAP_SURFACE, "SNAP_SURFACE"}, {icon_items_AUTOMERGE_ON, "AUTOMERGE_ON"}, {icon_items_AUTOMERGE_OFF, "AUTOMERGE_OFF"}, {icon_items_RETOPO, "RETOPO"}, {icon_items_UV_VERTEXSEL, "UV_VERTEXSEL"}, {icon_items_UV_EDGESEL, "UV_EDGESEL"}, {icon_items_UV_FACESEL, "UV_FACESEL"}, {icon_items_UV_ISLANDSEL, "UV_ISLANDSEL"}, {icon_items_UV_SYNC_SELECT, "UV_SYNC_SELECT"}, {icon_items_BBOX, "BBOX"}, {icon_items_WIRE, "WIRE"}, {icon_items_SOLID, "SOLID"}, {icon_items_SMOOTH, "SMOOTH"}, {icon_items_POTATO, "POTATO"}, {icon_items_ORTHO, "ORTHO"}, {icon_items_LOCKVIEW_OFF, "LOCKVIEW_OFF"}, {icon_items_LOCKVIEW_ON, "LOCKVIEW_ON"}, {icon_items_AXIS_SIDE, "AXIS_SIDE"}, {icon_items_AXIS_FRONT, "AXIS_FRONT"}, {icon_items_AXIS_TOP, "AXIS_TOP"}, {icon_items_NDOF_DOM, "NDOF_DOM"}, {icon_items_NDOF_TURN, "NDOF_TURN"}, {icon_items_NDOF_FLY, "NDOF_FLY"}, {icon_items_NDOF_TRANS, "NDOF_TRANS"}, {icon_items_LAYER_USED, "LAYER_USED"}, {icon_items_LAYER_ACTIVE, "LAYER_ACTIVE"}, {icon_items_SORTALPHA, "SORTALPHA"}, {icon_items_SORTBYEXT, "SORTBYEXT"}, {icon_items_SORTTIME, "SORTTIME"}, {icon_items_SORTSIZE, "SORTSIZE"}, {icon_items_LONGDISPLAY, "LONGDISPLAY"}, {icon_items_SHORTDISPLAY, "SHORTDISPLAY"}, {icon_items_GHOST, "GHOST"}, {icon_items_IMGDISPLAY, "IMGDISPLAY"}, {icon_items_SAVE_AS, "SAVE_AS"}, {icon_items_SAVE_COPY, "SAVE_COPY"}, {icon_items_BOOKMARKS, "BOOKMARKS"}, {icon_items_FONTPREVIEW, "FONTPREVIEW"}, {icon_items_FILTER, "FILTER"}, {icon_items_NEWFOLDER, "NEWFOLDER"}, {icon_items_OPEN_RECENT, "OPEN_RECENT"}, {icon_items_FILE_PARENT, "FILE_PARENT"}, {icon_items_FILE_REFRESH, "FILE_REFRESH"}, {icon_items_FILE_FOLDER, "FILE_FOLDER"}, {icon_items_FILE_BLANK, "FILE_BLANK"}, {icon_items_FILE_BLEND, "FILE_BLEND"}, {icon_items_FILE_IMAGE, "FILE_IMAGE"}, {icon_items_FILE_MOVIE, "FILE_MOVIE"}, {icon_items_FILE_SCRIPT, "FILE_SCRIPT"}, {icon_items_FILE_SOUND, "FILE_SOUND"}, {icon_items_FILE_FONT, "FILE_FONT"}, {icon_items_FILE_TEXT, "FILE_TEXT"}, {icon_items_RECOVER_AUTO, "RECOVER_AUTO"}, {icon_items_SAVE_PREFS, "SAVE_PREFS"}, {icon_items_LINK_BLEND, "LINK_BLEND"}, {icon_items_APPEND_BLEND, "APPEND_BLEND"}, {icon_items_IMPORT, "IMPORT"}, {icon_items_EXPORT, "EXPORT"}, {icon_items_EXTERNAL_DATA, "EXTERNAL_DATA"}, {icon_items_LOAD_FACTORY, "LOAD_FACTORY"}, {icon_items_LOOP_BACK, "LOOP_BACK"}, {icon_items_LOOP_FORWARDS, "LOOP_FORWARDS"}, {icon_items_BACK, "BACK"}, {icon_items_FORWARD, "FORWARD"}, {icon_items_FILE_HIDDEN, "FILE_HIDDEN"}, {icon_items_FILE_BACKUP, "FILE_BACKUP"}, {icon_items_DISK_DRIVE, "DISK_DRIVE"}, {icon_items_MATPLANE, "MATPLANE"}, {icon_items_MATSPHERE, "MATSPHERE"}, {icon_items_MATCUBE, "MATCUBE"}, {icon_items_MONKEY, "MONKEY"}, {icon_items_HAIR, "HAIR"}, {icon_items_ALIASED, "ALIASED"}, {icon_items_ANTIALIASED, "ANTIALIASED"}, {icon_items_MAT_SPHERE_SKY, "MAT_SPHERE_SKY"}, {icon_items_WORDWRAP_OFF, "WORDWRAP_OFF"}, {icon_items_WORDWRAP_ON, "WORDWRAP_ON"}, {icon_items_SYNTAX_OFF, "SYNTAX_OFF"}, {icon_items_SYNTAX_ON, "SYNTAX_ON"}, {icon_items_LINENUMBERS_OFF, "LINENUMBERS_OFF"}, {icon_items_LINENUMBERS_ON, "LINENUMBERS_ON"}, {icon_items_SCRIPTPLUGINS, "SCRIPTPLUGINS"}, {icon_items_SEQ_SEQUENCER, "SEQ_SEQUENCER"}, {icon_items_SEQ_PREVIEW, "SEQ_PREVIEW"}, {icon_items_SEQ_LUMA_WAVEFORM, "SEQ_LUMA_WAVEFORM"}, {icon_items_SEQ_CHROMA_SCOPE, "SEQ_CHROMA_SCOPE"}, {icon_items_SEQ_HISTOGRAM, "SEQ_HISTOGRAM"}, {icon_items_SEQ_SPLITVIEW, "SEQ_SPLITVIEW"}, {icon_items_IMAGE_RGB, "IMAGE_RGB"}, {icon_items_IMAGE_RGB_ALPHA, "IMAGE_RGB_ALPHA"}, {icon_items_IMAGE_ALPHA, "IMAGE_ALPHA"}, {icon_items_IMAGE_ZDEPTH, "IMAGE_ZDEPTH"}, {icon_items_IMAGEFILE, "IMAGEFILE"}, {icon_items_BRUSH_ADD, "BRUSH_ADD"}, {icon_items_BRUSH_BLOB, "BRUSH_BLOB"}, {icon_items_BRUSH_BLUR, "BRUSH_BLUR"}, {icon_items_BRUSH_CLAY, "BRUSH_CLAY"}, {icon_items_BRUSH_CLAY_STRIPS, "BRUSH_CLAY_STRIPS"}, {icon_items_BRUSH_CLONE, "BRUSH_CLONE"}, {icon_items_BRUSH_CREASE, "BRUSH_CREASE"}, {icon_items_BRUSH_DARKEN, "BRUSH_DARKEN"}, {icon_items_BRUSH_FILL, "BRUSH_FILL"}, {icon_items_BRUSH_FLATTEN, "BRUSH_FLATTEN"}, {icon_items_BRUSH_GRAB, "BRUSH_GRAB"}, {icon_items_BRUSH_INFLATE, "BRUSH_INFLATE"}, {icon_items_BRUSH_LAYER, "BRUSH_LAYER"}, {icon_items_BRUSH_LIGHTEN, "BRUSH_LIGHTEN"}, {icon_items_BRUSH_MASK, "BRUSH_MASK"}, {icon_items_BRUSH_MIX, "BRUSH_MIX"}, {icon_items_BRUSH_MULTIPLY, "BRUSH_MULTIPLY"}, {icon_items_BRUSH_NUDGE, "BRUSH_NUDGE"}, {icon_items_BRUSH_PINCH, "BRUSH_PINCH"}, {icon_items_BRUSH_SCRAPE, "BRUSH_SCRAPE"}, {icon_items_BRUSH_SCULPT_DRAW, "BRUSH_SCULPT_DRAW"}, {icon_items_BRUSH_SMEAR, "BRUSH_SMEAR"}, {icon_items_BRUSH_SMOOTH, "BRUSH_SMOOTH"}, {icon_items_BRUSH_SNAKE_HOOK, "BRUSH_SNAKE_HOOK"}, {icon_items_BRUSH_SOFTEN, "BRUSH_SOFTEN"}, {icon_items_BRUSH_SUBTRACT, "BRUSH_SUBTRACT"}, {icon_items_BRUSH_TEXDRAW, "BRUSH_TEXDRAW"}, {icon_items_BRUSH_TEXFILL, "BRUSH_TEXFILL"}, {icon_items_BRUSH_TEXMASK, "BRUSH_TEXMASK"}, {icon_items_BRUSH_THUMB, "BRUSH_THUMB"}, {icon_items_BRUSH_ROTATE, "BRUSH_ROTATE"}, {icon_items_BRUSH_VERTEXDRAW, "BRUSH_VERTEXDRAW"}, {icon_items_MATCAP_01, "MATCAP_01"}, {icon_items_MATCAP_02, "MATCAP_02"}, {icon_items_MATCAP_03, "MATCAP_03"}, {icon_items_MATCAP_04, "MATCAP_04"}, {icon_items_MATCAP_05, "MATCAP_05"}, {icon_items_MATCAP_06, "MATCAP_06"}, {icon_items_MATCAP_07, "MATCAP_07"}, {icon_items_MATCAP_08, "MATCAP_08"}, {icon_items_MATCAP_09, "MATCAP_09"}, {icon_items_MATCAP_10, "MATCAP_10"}, {icon_items_MATCAP_11, "MATCAP_11"}, {icon_items_MATCAP_12, "MATCAP_12"}, {icon_items_MATCAP_13, "MATCAP_13"}, {icon_items_MATCAP_14, "MATCAP_14"}, {icon_items_MATCAP_15, "MATCAP_15"}, {icon_items_MATCAP_16, "MATCAP_16"}, {icon_items_MATCAP_17, "MATCAP_17"}, {icon_items_MATCAP_18, "MATCAP_18"}, {icon_items_MATCAP_19, "MATCAP_19"}, {icon_items_MATCAP_20, "MATCAP_20"}, {icon_items_MATCAP_21, "MATCAP_21"}, {icon_items_MATCAP_22, "MATCAP_22"}, {icon_items_MATCAP_23, "MATCAP_23"}, {icon_items_MATCAP_24, "MATCAP_24"}, {icon_items_VIEW3D_VEC, "VIEW3D_VEC"}, {icon_items_EDIT_VEC, "EDIT_VEC"}, {icon_items_EDITMODE_VEC_DEHLT, "EDITMODE_VEC_DEHLT"}, {icon_items_EDITMODE_VEC_HLT, "EDITMODE_VEC_HLT"}, {icon_items_DISCLOSURE_TRI_RIGHT_VEC, "DISCLOSURE_TRI_RIGHT_VEC"}, {icon_items_DISCLOSURE_TRI_DOWN_VEC, "DISCLOSURE_TRI_DOWN_VEC"}, {icon_items_MOVE_UP_VEC, "MOVE_UP_VEC"}, {icon_items_MOVE_DOWN_VEC, "MOVE_DOWN_VEC"}, {icon_items_X_VEC, "X_VEC"}, {icon_items_SMALL_TRI_RIGHT_VEC, "SMALL_TRI_RIGHT_VEC"}};
 	};
 
-	const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
-	const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
+	static const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
+	static const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
 
 	icon_items_enum icon() {
 		STRING_TYPE_GETTER("icon", static_cast<icon_items_enum>(string_to_icon_items.at(resstr)))
@@ -3125,8 +3125,8 @@ public:
 		return {{items_OBJECT, "OBJECT"}, {items_DATA, "DATA"}, {items_TIME, "TIME"}};
 	};
 
-	const std::map<std::string, int> string_to_items = create_string_to_items();
-	const std::map<int, std::string> items_to_string = create_items_to_string();
+	static const std::map<std::string, int> string_to_items = create_string_to_items();
+	static const std::map<int, std::string> items_to_string = create_items_to_string();
 
 	void update_tag(items_enum refresh) {
 		PYTHON_FUNCTION_ARGS_CALL("update_tag", "s", items_to_string.at(refresh))
@@ -3333,8 +3333,8 @@ public:
 		return {{texture_type_items_NONE, "NONE"}, {texture_type_items_BLEND, "BLEND"}, {texture_type_items_CLOUDS, "CLOUDS"}, {texture_type_items_DISTORTED_NOISE, "DISTORTED_NOISE"}, {texture_type_items_ENVIRONMENT_MAP, "ENVIRONMENT_MAP"}, {texture_type_items_IMAGE, "IMAGE"}, {texture_type_items_MAGIC, "MAGIC"}, {texture_type_items_MARBLE, "MARBLE"}, {texture_type_items_MUSGRAVE, "MUSGRAVE"}, {texture_type_items_NOISE, "NOISE"}, {texture_type_items_OCEAN, "OCEAN"}, {texture_type_items_POINT_DENSITY, "POINT_DENSITY"}, {texture_type_items_STUCCI, "STUCCI"}, {texture_type_items_VORONOI, "VORONOI"}, {texture_type_items_VOXEL_DATA, "VOXEL_DATA"}, {texture_type_items_WOOD, "WOOD"}};
 	};
 
-	const std::map<std::string, int> string_to_texture_type_items = create_string_to_texture_type_items();
-	const std::map<int, std::string> texture_type_items_to_string = create_texture_type_items_to_string();
+	static const std::map<std::string, int> string_to_texture_type_items = create_string_to_texture_type_items();
+	static const std::map<int, std::string> texture_type_items_to_string = create_texture_type_items_to_string();
 
 	texture_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<texture_type_items_enum>(string_to_texture_type_items.at(resstr)))
@@ -3482,8 +3482,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -3506,8 +3506,8 @@ public:
 		return {{prop_noise_type_SOFT_NOISE, "SOFT_NOISE"}, {prop_noise_type_HARD_NOISE, "HARD_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
-	const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
+	static const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
 
 	prop_noise_type_enum noise_type() {
 		STRING_TYPE_GETTER("noise_type", static_cast<prop_noise_type_enum>(string_to_prop_noise_type.at(resstr)))
@@ -3530,8 +3530,8 @@ public:
 		return {{prop_clouds_stype_GRAYSCALE, "GRAYSCALE"}, {prop_clouds_stype_COLOR, "COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_clouds_stype = create_string_to_prop_clouds_stype();
-	const std::map<int, std::string> prop_clouds_stype_to_string = create_prop_clouds_stype_to_string();
+	static const std::map<std::string, int> string_to_prop_clouds_stype = create_string_to_prop_clouds_stype();
+	static const std::map<int, std::string> prop_clouds_stype_to_string = create_prop_clouds_stype_to_string();
 
 	prop_clouds_stype_enum cloud_type() {
 		STRING_TYPE_GETTER("cloud_type", static_cast<prop_clouds_stype_enum>(string_to_prop_clouds_stype.at(resstr)))
@@ -3592,8 +3592,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -3616,8 +3616,8 @@ public:
 		return {{prop_noise_type_SOFT_NOISE, "SOFT_NOISE"}, {prop_noise_type_HARD_NOISE, "HARD_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
-	const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
+	static const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
 
 	prop_noise_type_enum noise_type() {
 		STRING_TYPE_GETTER("noise_type", static_cast<prop_noise_type_enum>(string_to_prop_noise_type.at(resstr)))
@@ -3642,8 +3642,8 @@ public:
 		return {{prop_wood_stype_BANDS, "BANDS"}, {prop_wood_stype_RINGS, "RINGS"}, {prop_wood_stype_BANDNOISE, "BANDNOISE"}, {prop_wood_stype_RINGNOISE, "RINGNOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_wood_stype = create_string_to_prop_wood_stype();
-	const std::map<int, std::string> prop_wood_stype_to_string = create_prop_wood_stype_to_string();
+	static const std::map<std::string, int> string_to_prop_wood_stype = create_string_to_prop_wood_stype();
+	static const std::map<int, std::string> prop_wood_stype_to_string = create_prop_wood_stype_to_string();
 
 	prop_wood_stype_enum wood_type() {
 		STRING_TYPE_GETTER("wood_type", static_cast<prop_wood_stype_enum>(string_to_prop_wood_stype.at(resstr)))
@@ -3667,8 +3667,8 @@ public:
 		return {{prop_wood_noisebasis2_SIN, "SIN"}, {prop_wood_noisebasis2_SAW, "SAW"}, {prop_wood_noisebasis2_TRI, "TRI"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_wood_noisebasis2 = create_string_to_prop_wood_noisebasis2();
-	const std::map<int, std::string> prop_wood_noisebasis2_to_string = create_prop_wood_noisebasis2_to_string();
+	static const std::map<std::string, int> string_to_prop_wood_noisebasis2 = create_string_to_prop_wood_noisebasis2();
+	static const std::map<int, std::string> prop_wood_noisebasis2_to_string = create_prop_wood_noisebasis2_to_string();
 
 	prop_wood_noisebasis2_enum noise_basis_2() {
 		STRING_TYPE_GETTER("noise_basis_2", static_cast<prop_wood_noisebasis2_enum>(string_to_prop_wood_noisebasis2.at(resstr)))
@@ -3729,8 +3729,8 @@ public:
 		return {{prop_noise_type_SOFT_NOISE, "SOFT_NOISE"}, {prop_noise_type_HARD_NOISE, "HARD_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
-	const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
+	static const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
 
 	prop_noise_type_enum noise_type() {
 		STRING_TYPE_GETTER("noise_type", static_cast<prop_noise_type_enum>(string_to_prop_noise_type.at(resstr)))
@@ -3754,8 +3754,8 @@ public:
 		return {{prop_marble_stype_SOFT, "SOFT"}, {prop_marble_stype_SHARP, "SHARP"}, {prop_marble_stype_SHARPER, "SHARPER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_marble_stype = create_string_to_prop_marble_stype();
-	const std::map<int, std::string> prop_marble_stype_to_string = create_prop_marble_stype_to_string();
+	static const std::map<std::string, int> string_to_prop_marble_stype = create_string_to_prop_marble_stype();
+	static const std::map<int, std::string> prop_marble_stype_to_string = create_prop_marble_stype_to_string();
 
 	prop_marble_stype_enum marble_type() {
 		STRING_TYPE_GETTER("marble_type", static_cast<prop_marble_stype_enum>(string_to_prop_marble_stype.at(resstr)))
@@ -3786,8 +3786,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -3811,8 +3811,8 @@ public:
 		return {{prop_marble_noisebasis2_SIN, "SIN"}, {prop_marble_noisebasis2_SAW, "SAW"}, {prop_marble_noisebasis2_TRI, "TRI"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_marble_noisebasis2 = create_string_to_prop_marble_noisebasis2();
-	const std::map<int, std::string> prop_marble_noisebasis2_to_string = create_prop_marble_noisebasis2_to_string();
+	static const std::map<std::string, int> string_to_prop_marble_noisebasis2 = create_string_to_prop_marble_noisebasis2();
+	static const std::map<int, std::string> prop_marble_noisebasis2_to_string = create_prop_marble_noisebasis2_to_string();
 
 	prop_marble_noisebasis2_enum noise_basis_2() {
 		STRING_TYPE_GETTER("noise_basis_2", static_cast<prop_marble_noisebasis2_enum>(string_to_prop_marble_noisebasis2.at(resstr)))
@@ -3876,8 +3876,8 @@ public:
 		return {{prop_blend_progression_LINEAR, "LINEAR"}, {prop_blend_progression_QUADRATIC, "QUADRATIC"}, {prop_blend_progression_EASING, "EASING"}, {prop_blend_progression_DIAGONAL, "DIAGONAL"}, {prop_blend_progression_SPHERICAL, "SPHERICAL"}, {prop_blend_progression_QUADRATIC_SPHERE, "QUADRATIC_SPHERE"}, {prop_blend_progression_RADIAL, "RADIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_blend_progression = create_string_to_prop_blend_progression();
-	const std::map<int, std::string> prop_blend_progression_to_string = create_prop_blend_progression_to_string();
+	static const std::map<std::string, int> string_to_prop_blend_progression = create_string_to_prop_blend_progression();
+	static const std::map<int, std::string> prop_blend_progression_to_string = create_prop_blend_progression_to_string();
 
 	prop_blend_progression_enum progression() {
 		STRING_TYPE_GETTER("progression", static_cast<prop_blend_progression_enum>(string_to_prop_blend_progression.at(resstr)))
@@ -3900,8 +3900,8 @@ public:
 		return {{prop_flip_axis_items_HORIZONTAL, "HORIZONTAL"}, {prop_flip_axis_items_VERTICAL, "VERTICAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_flip_axis_items = create_string_to_prop_flip_axis_items();
-	const std::map<int, std::string> prop_flip_axis_items_to_string = create_prop_flip_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_flip_axis_items = create_string_to_prop_flip_axis_items();
+	static const std::map<int, std::string> prop_flip_axis_items_to_string = create_prop_flip_axis_items_to_string();
 
 	prop_flip_axis_items_enum use_flip_axis() {
 		STRING_TYPE_GETTER("use_flip_axis", static_cast<prop_flip_axis_items_enum>(string_to_prop_flip_axis_items.at(resstr)))
@@ -3946,8 +3946,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -3978,8 +3978,8 @@ public:
 		return {{prop_noise_type_SOFT_NOISE, "SOFT_NOISE"}, {prop_noise_type_HARD_NOISE, "HARD_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
-	const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_type = create_string_to_prop_noise_type();
+	static const std::map<int, std::string> prop_noise_type_to_string = create_prop_noise_type_to_string();
 
 	prop_noise_type_enum noise_type() {
 		STRING_TYPE_GETTER("noise_type", static_cast<prop_noise_type_enum>(string_to_prop_noise_type.at(resstr)))
@@ -4003,8 +4003,8 @@ public:
 		return {{prop_stucci_stype_PLASTIC, "PLASTIC"}, {prop_stucci_stype_WALL_IN, "WALL_IN"}, {prop_stucci_stype_WALL_OUT, "WALL_OUT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_stucci_stype = create_string_to_prop_stucci_stype();
-	const std::map<int, std::string> prop_stucci_stype_to_string = create_prop_stucci_stype_to_string();
+	static const std::map<std::string, int> string_to_prop_stucci_stype = create_string_to_prop_stucci_stype();
+	static const std::map<int, std::string> prop_stucci_stype_to_string = create_prop_stucci_stype_to_string();
 
 	prop_stucci_stype_enum stucci_type() {
 		STRING_TYPE_GETTER("stucci_type", static_cast<prop_stucci_stype_enum>(string_to_prop_stucci_stype.at(resstr)))
@@ -4097,8 +4097,8 @@ public:
 		return {{texture_filter_items_BOX, "BOX"}, {texture_filter_items_EWA, "EWA"}, {texture_filter_items_FELINE, "FELINE"}, {texture_filter_items_AREA, "AREA"}};
 	};
 
-	const std::map<std::string, int> string_to_texture_filter_items = create_string_to_texture_filter_items();
-	const std::map<int, std::string> texture_filter_items_to_string = create_texture_filter_items_to_string();
+	static const std::map<std::string, int> string_to_texture_filter_items = create_string_to_texture_filter_items();
+	static const std::map<int, std::string> texture_filter_items_to_string = create_texture_filter_items_to_string();
 
 	texture_filter_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<texture_filter_items_enum>(string_to_texture_filter_items.at(resstr)))
@@ -4156,8 +4156,8 @@ public:
 		return {{prop_image_extension_EXTEND, "EXTEND"}, {prop_image_extension_CLIP, "CLIP"}, {prop_image_extension_CLIP_CUBE, "CLIP_CUBE"}, {prop_image_extension_REPEAT, "REPEAT"}, {prop_image_extension_CHECKER, "CHECKER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_image_extension = create_string_to_prop_image_extension();
-	const std::map<int, std::string> prop_image_extension_to_string = create_prop_image_extension_to_string();
+	static const std::map<std::string, int> string_to_prop_image_extension = create_string_to_prop_image_extension();
+	static const std::map<int, std::string> prop_image_extension_to_string = create_prop_image_extension_to_string();
 
 	prop_image_extension_enum extension() {
 		STRING_TYPE_GETTER("extension", static_cast<prop_image_extension_enum>(string_to_prop_image_extension.at(resstr)))
@@ -4316,8 +4316,8 @@ public:
 		return {{texture_filter_items_BOX, "BOX"}, {texture_filter_items_EWA, "EWA"}, {texture_filter_items_FELINE, "FELINE"}, {texture_filter_items_AREA, "AREA"}};
 	};
 
-	const std::map<std::string, int> string_to_texture_filter_items = create_string_to_texture_filter_items();
-	const std::map<int, std::string> texture_filter_items_to_string = create_texture_filter_items_to_string();
+	static const std::map<std::string, int> string_to_texture_filter_items = create_string_to_texture_filter_items();
+	static const std::map<int, std::string> texture_filter_items_to_string = create_texture_filter_items_to_string();
 
 	texture_filter_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<texture_filter_items_enum>(string_to_texture_filter_items.at(resstr)))
@@ -4383,8 +4383,8 @@ public:
 		return {{prop_musgrave_type_MULTIFRACTAL, "MULTIFRACTAL"}, {prop_musgrave_type_RIDGED_MULTIFRACTAL, "RIDGED_MULTIFRACTAL"}, {prop_musgrave_type_HYBRID_MULTIFRACTAL, "HYBRID_MULTIFRACTAL"}, {prop_musgrave_type_FBM, "FBM"}, {prop_musgrave_type_HETERO_TERRAIN, "HETERO_TERRAIN"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_musgrave_type = create_string_to_prop_musgrave_type();
-	const std::map<int, std::string> prop_musgrave_type_to_string = create_prop_musgrave_type_to_string();
+	static const std::map<std::string, int> string_to_prop_musgrave_type = create_string_to_prop_musgrave_type();
+	static const std::map<int, std::string> prop_musgrave_type_to_string = create_prop_musgrave_type_to_string();
 
 	prop_musgrave_type_enum musgrave_type() {
 		STRING_TYPE_GETTER("musgrave_type", static_cast<prop_musgrave_type_enum>(string_to_prop_musgrave_type.at(resstr)))
@@ -4471,8 +4471,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -4554,8 +4554,8 @@ public:
 		return {{prop_distance_metric_items_DISTANCE, "DISTANCE"}, {prop_distance_metric_items_DISTANCE_SQUARED, "DISTANCE_SQUARED"}, {prop_distance_metric_items_MANHATTAN, "MANHATTAN"}, {prop_distance_metric_items_CHEBYCHEV, "CHEBYCHEV"}, {prop_distance_metric_items_MINKOVSKY_HALF, "MINKOVSKY_HALF"}, {prop_distance_metric_items_MINKOVSKY_FOUR, "MINKOVSKY_FOUR"}, {prop_distance_metric_items_MINKOVSKY, "MINKOVSKY"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_distance_metric_items = create_string_to_prop_distance_metric_items();
-	const std::map<int, std::string> prop_distance_metric_items_to_string = create_prop_distance_metric_items_to_string();
+	static const std::map<std::string, int> string_to_prop_distance_metric_items = create_string_to_prop_distance_metric_items();
+	static const std::map<int, std::string> prop_distance_metric_items_to_string = create_prop_distance_metric_items_to_string();
 
 	prop_distance_metric_items_enum distance_metric() {
 		STRING_TYPE_GETTER("distance_metric", static_cast<prop_distance_metric_items_enum>(string_to_prop_distance_metric_items.at(resstr)))
@@ -4580,8 +4580,8 @@ public:
 		return {{prop_coloring_items_INTENSITY, "INTENSITY"}, {prop_coloring_items_POSITION, "POSITION"}, {prop_coloring_items_POSITION_OUTLINE, "POSITION_OUTLINE"}, {prop_coloring_items_POSITION_OUTLINE_INTENSITY, "POSITION_OUTLINE_INTENSITY"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_coloring_items = create_string_to_prop_coloring_items();
-	const std::map<int, std::string> prop_coloring_items_to_string = create_prop_coloring_items_to_string();
+	static const std::map<std::string, int> string_to_prop_coloring_items = create_string_to_prop_coloring_items();
+	static const std::map<int, std::string> prop_coloring_items_to_string = create_prop_coloring_items_to_string();
 
 	prop_coloring_items_enum color_mode() {
 		STRING_TYPE_GETTER("color_mode", static_cast<prop_coloring_items_enum>(string_to_prop_coloring_items.at(resstr)))
@@ -4658,8 +4658,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -4704,8 +4704,8 @@ public:
 		return {{point_source_items_PARTICLE_SYSTEM, "PARTICLE_SYSTEM"}, {point_source_items_OBJECT, "OBJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_point_source_items = create_string_to_point_source_items();
-	const std::map<int, std::string> point_source_items_to_string = create_point_source_items_to_string();
+	static const std::map<std::string, int> string_to_point_source_items = create_string_to_point_source_items();
+	static const std::map<int, std::string> point_source_items_to_string = create_point_source_items_to_string();
 
 	point_source_items_enum point_source() {
 		STRING_TYPE_GETTER("point_source", static_cast<point_source_items_enum>(string_to_point_source_items.at(resstr)))
@@ -4733,8 +4733,8 @@ public:
 		return {{particle_cache_items_OBJECT_LOCATION, "OBJECT_LOCATION"}, {particle_cache_items_OBJECT_SPACE, "OBJECT_SPACE"}, {particle_cache_items_WORLD_SPACE, "WORLD_SPACE"}};
 	};
 
-	const std::map<std::string, int> string_to_particle_cache_items = create_string_to_particle_cache_items();
-	const std::map<int, std::string> particle_cache_items_to_string = create_particle_cache_items_to_string();
+	static const std::map<std::string, int> string_to_particle_cache_items = create_string_to_particle_cache_items();
+	static const std::map<int, std::string> particle_cache_items_to_string = create_particle_cache_items_to_string();
 
 	particle_cache_items_enum particle_cache_space() {
 		STRING_TYPE_GETTER("particle_cache_space", static_cast<particle_cache_items_enum>(string_to_particle_cache_items.at(resstr)))
@@ -4758,8 +4758,8 @@ public:
 		return {{vertex_cache_items_OBJECT_LOCATION, "OBJECT_LOCATION"}, {vertex_cache_items_OBJECT_SPACE, "OBJECT_SPACE"}, {vertex_cache_items_WORLD_SPACE, "WORLD_SPACE"}};
 	};
 
-	const std::map<std::string, int> string_to_vertex_cache_items = create_string_to_vertex_cache_items();
-	const std::map<int, std::string> vertex_cache_items_to_string = create_vertex_cache_items_to_string();
+	static const std::map<std::string, int> string_to_vertex_cache_items = create_string_to_vertex_cache_items();
+	static const std::map<int, std::string> vertex_cache_items_to_string = create_vertex_cache_items_to_string();
 
 	vertex_cache_items_enum vertex_cache_space() {
 		STRING_TYPE_GETTER("vertex_cache_space", static_cast<vertex_cache_items_enum>(string_to_vertex_cache_items.at(resstr)))
@@ -4795,8 +4795,8 @@ public:
 		return {{falloff_items_STANDARD, "STANDARD"}, {falloff_items_SMOOTH, "SMOOTH"}, {falloff_items_SOFT, "SOFT"}, {falloff_items_CONSTANT, "CONSTANT"}, {falloff_items_ROOT, "ROOT"}, {falloff_items_PARTICLE_AGE, "PARTICLE_AGE"}, {falloff_items_PARTICLE_VELOCITY, "PARTICLE_VELOCITY"}};
 	};
 
-	const std::map<std::string, int> string_to_falloff_items = create_string_to_falloff_items();
-	const std::map<int, std::string> falloff_items_to_string = create_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_falloff_items = create_string_to_falloff_items();
+	static const std::map<int, std::string> falloff_items_to_string = create_falloff_items_to_string();
 
 	falloff_items_enum falloff() {
 		STRING_TYPE_GETTER("falloff", static_cast<falloff_items_enum>(string_to_falloff_items.at(resstr)))
@@ -4829,8 +4829,8 @@ public:
 		return {{color_source_items_CONSTANT, "CONSTANT"}, {color_source_items_PARTICLE_AGE, "PARTICLE_AGE"}, {color_source_items_PARTICLE_SPEED, "PARTICLE_SPEED"}, {color_source_items_PARTICLE_VELOCITY, "PARTICLE_VELOCITY"}};
 	};
 
-	const std::map<std::string, int> string_to_color_source_items = create_string_to_color_source_items();
-	const std::map<int, std::string> color_source_items_to_string = create_color_source_items_to_string();
+	static const std::map<std::string, int> string_to_color_source_items = create_string_to_color_source_items();
+	static const std::map<int, std::string> color_source_items_to_string = create_color_source_items_to_string();
 
 	color_source_items_enum color_source() {
 		STRING_TYPE_GETTER("color_source", static_cast<color_source_items_enum>(string_to_color_source_items.at(resstr)))
@@ -4915,8 +4915,8 @@ public:
 		return {{turbulence_influence_items_STATIC, "STATIC"}, {turbulence_influence_items_PARTICLE_VELOCITY, "PARTICLE_VELOCITY"}, {turbulence_influence_items_PARTICLE_AGE, "PARTICLE_AGE"}, {turbulence_influence_items_GLOBAL_TIME, "GLOBAL_TIME"}};
 	};
 
-	const std::map<std::string, int> string_to_turbulence_influence_items = create_string_to_turbulence_influence_items();
-	const std::map<int, std::string> turbulence_influence_items_to_string = create_turbulence_influence_items_to_string();
+	static const std::map<std::string, int> string_to_turbulence_influence_items = create_string_to_turbulence_influence_items();
+	static const std::map<int, std::string> turbulence_influence_items_to_string = create_turbulence_influence_items_to_string();
 
 	turbulence_influence_items_enum turbulence_influence() {
 		STRING_TYPE_GETTER("turbulence_influence", static_cast<turbulence_influence_items_enum>(string_to_turbulence_influence_items.at(resstr)))
@@ -4947,8 +4947,8 @@ public:
 		return {{prop_noise_basis_items_BLENDER_ORIGINAL, "BLENDER_ORIGINAL"}, {prop_noise_basis_items_ORIGINAL_PERLIN, "ORIGINAL_PERLIN"}, {prop_noise_basis_items_IMPROVED_PERLIN, "IMPROVED_PERLIN"}, {prop_noise_basis_items_VORONOI_F1, "VORONOI_F1"}, {prop_noise_basis_items_VORONOI_F2, "VORONOI_F2"}, {prop_noise_basis_items_VORONOI_F3, "VORONOI_F3"}, {prop_noise_basis_items_VORONOI_F4, "VORONOI_F4"}, {prop_noise_basis_items_VORONOI_F2_F1, "VORONOI_F2_F1"}, {prop_noise_basis_items_VORONOI_CRACKLE, "VORONOI_CRACKLE"}, {prop_noise_basis_items_CELL_NOISE, "CELL_NOISE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
-	const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_basis_items = create_string_to_prop_noise_basis_items();
+	static const std::map<int, std::string> prop_noise_basis_items_to_string = create_prop_noise_basis_items_to_string();
 
 	prop_noise_basis_items_enum noise_basis() {
 		STRING_TYPE_GETTER("noise_basis", static_cast<prop_noise_basis_items_enum>(string_to_prop_noise_basis_items.at(resstr)))
@@ -4990,8 +4990,8 @@ public:
 		return {{interpolation_type_items_NEREASTNEIGHBOR, "NEREASTNEIGHBOR"}, {interpolation_type_items_TRILINEAR, "TRILINEAR"}, {interpolation_type_items_QUADRATIC, "QUADRATIC"}, {interpolation_type_items_TRICUBIC_CATROM, "TRICUBIC_CATROM"}, {interpolation_type_items_TRICUBIC_BSPLINE, "TRICUBIC_BSPLINE"}};
 	};
 
-	const std::map<std::string, int> string_to_interpolation_type_items = create_string_to_interpolation_type_items();
-	const std::map<int, std::string> interpolation_type_items_to_string = create_interpolation_type_items_to_string();
+	static const std::map<std::string, int> string_to_interpolation_type_items = create_string_to_interpolation_type_items();
+	static const std::map<int, std::string> interpolation_type_items_to_string = create_interpolation_type_items_to_string();
 
 	interpolation_type_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<interpolation_type_items_enum>(string_to_interpolation_type_items.at(resstr)))
@@ -5016,8 +5016,8 @@ public:
 		return {{smoked_type_items_SMOKEDENSITY, "SMOKEDENSITY"}, {smoked_type_items_SMOKEFLAME, "SMOKEFLAME"}, {smoked_type_items_SMOKEHEAT, "SMOKEHEAT"}, {smoked_type_items_SMOKEVEL, "SMOKEVEL"}};
 	};
 
-	const std::map<std::string, int> string_to_smoked_type_items = create_string_to_smoked_type_items();
-	const std::map<int, std::string> smoked_type_items_to_string = create_smoked_type_items_to_string();
+	static const std::map<std::string, int> string_to_smoked_type_items = create_string_to_smoked_type_items();
+	static const std::map<int, std::string> smoked_type_items_to_string = create_smoked_type_items_to_string();
 
 	smoked_type_items_enum smoke_data_type() {
 		STRING_TYPE_GETTER("smoke_data_type", static_cast<smoked_type_items_enum>(string_to_smoked_type_items.at(resstr)))
@@ -5042,8 +5042,8 @@ public:
 		return {{hair_type_items_HAIRDENSITY, "HAIRDENSITY"}, {hair_type_items_HAIRRESTDENSITY, "HAIRRESTDENSITY"}, {hair_type_items_HAIRVELOCITY, "HAIRVELOCITY"}, {hair_type_items_HAIRENERGY, "HAIRENERGY"}};
 	};
 
-	const std::map<std::string, int> string_to_hair_type_items = create_string_to_hair_type_items();
-	const std::map<int, std::string> hair_type_items_to_string = create_hair_type_items_to_string();
+	static const std::map<std::string, int> string_to_hair_type_items = create_string_to_hair_type_items();
+	static const std::map<int, std::string> hair_type_items_to_string = create_hair_type_items_to_string();
 
 	hair_type_items_enum hair_data_type() {
 		STRING_TYPE_GETTER("hair_data_type", static_cast<hair_type_items_enum>(string_to_hair_type_items.at(resstr)))
@@ -5067,8 +5067,8 @@ public:
 		return {{voxeldata_extension_EXTEND, "EXTEND"}, {voxeldata_extension_CLIP, "CLIP"}, {voxeldata_extension_REPEAT, "REPEAT"}};
 	};
 
-	const std::map<std::string, int> string_to_voxeldata_extension = create_string_to_voxeldata_extension();
-	const std::map<int, std::string> voxeldata_extension_to_string = create_voxeldata_extension_to_string();
+	static const std::map<std::string, int> string_to_voxeldata_extension = create_string_to_voxeldata_extension();
+	static const std::map<int, std::string> voxeldata_extension_to_string = create_voxeldata_extension_to_string();
 
 	voxeldata_extension_enum extension() {
 		STRING_TYPE_GETTER("extension", static_cast<voxeldata_extension_enum>(string_to_voxeldata_extension.at(resstr)))
@@ -5102,8 +5102,8 @@ public:
 		return {{file_format_items_BLENDER_VOXEL, "BLENDER_VOXEL"}, {file_format_items_RAW_8BIT, "RAW_8BIT"}, {file_format_items_IMAGE_SEQUENCE, "IMAGE_SEQUENCE"}, {file_format_items_SMOKE, "SMOKE"}, {file_format_items_HAIR, "HAIR"}};
 	};
 
-	const std::map<std::string, int> string_to_file_format_items = create_string_to_file_format_items();
-	const std::map<int, std::string> file_format_items_to_string = create_file_format_items_to_string();
+	static const std::map<std::string, int> string_to_file_format_items = create_string_to_file_format_items();
+	static const std::map<int, std::string> file_format_items_to_string = create_file_format_items_to_string();
 
 	file_format_items_enum file_format() {
 		STRING_TYPE_GETTER("file_format", static_cast<file_format_items_enum>(string_to_file_format_items.at(resstr)))
@@ -5183,8 +5183,8 @@ public:
 		return {{ocean_output_items_DISPLACEMENT, "DISPLACEMENT"}, {ocean_output_items_FOAM, "FOAM"}, {ocean_output_items_JPLUS, "JPLUS"}, {ocean_output_items_EMINUS, "EMINUS"}, {ocean_output_items_EPLUS, "EPLUS"}};
 	};
 
-	const std::map<std::string, int> string_to_ocean_output_items = create_string_to_ocean_output_items();
-	const std::map<int, std::string> ocean_output_items_to_string = create_ocean_output_items_to_string();
+	static const std::map<std::string, int> string_to_ocean_output_items = create_string_to_ocean_output_items();
+	static const std::map<int, std::string> ocean_output_items_to_string = create_ocean_output_items_to_string();
 
 	ocean_output_items_enum output() {
 		STRING_TYPE_GETTER("output", static_cast<ocean_output_items_enum>(string_to_ocean_output_items.at(resstr)))
@@ -5275,8 +5275,8 @@ public:
 		return {{blend_type_items_MIX, "MIX"}, {blend_type_items_ADD, "ADD"}, {blend_type_items_SUBTRACT, "SUBTRACT"}, {blend_type_items_MULTIPLY, "MULTIPLY"}, {blend_type_items_SCREEN, "SCREEN"}, {blend_type_items_OVERLAY, "OVERLAY"}, {blend_type_items_DIFFERENCE, "DIFFERENCE"}, {blend_type_items_DIVIDE, "DIVIDE"}, {blend_type_items_DARKEN, "DARKEN"}, {blend_type_items_LIGHTEN, "LIGHTEN"}, {blend_type_items_HUE, "HUE"}, {blend_type_items_SATURATION, "SATURATION"}, {blend_type_items_VALUE, "VALUE"}, {blend_type_items_COLOR, "COLOR"}, {blend_type_items_SOFT_LIGHT, "SOFT_LIGHT"}, {blend_type_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_blend_type_items = create_string_to_blend_type_items();
-	const std::map<int, std::string> blend_type_items_to_string = create_blend_type_items_to_string();
+	static const std::map<std::string, int> string_to_blend_type_items = create_string_to_blend_type_items();
+	static const std::map<int, std::string> blend_type_items_to_string = create_blend_type_items_to_string();
 
 	blend_type_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<blend_type_items_enum>(string_to_blend_type_items.at(resstr)))
@@ -5330,8 +5330,8 @@ public:
 		return {{output_node_items_DUMMY, "DUMMY"}};
 	};
 
-	const std::map<std::string, int> string_to_output_node_items = create_string_to_output_node_items();
-	const std::map<int, std::string> output_node_items_to_string = create_output_node_items_to_string();
+	static const std::map<std::string, int> string_to_output_node_items = create_string_to_output_node_items();
+	static const std::map<int, std::string> output_node_items_to_string = create_output_node_items_to_string();
 
 	output_node_items_enum output_node() {
 		STRING_TYPE_GETTER("output_node", static_cast<output_node_items_enum>(string_to_output_node_items.at(resstr)))
@@ -5361,8 +5361,8 @@ public:
 		return {{prop_source_items_STATIC, "STATIC"}, {prop_source_items_ANIMATED, "ANIMATED"}, {prop_source_items_IMAGE_FILE, "IMAGE_FILE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_source_items = create_string_to_prop_source_items();
-	const std::map<int, std::string> prop_source_items_to_string = create_prop_source_items_to_string();
+	static const std::map<std::string, int> string_to_prop_source_items = create_string_to_prop_source_items();
+	static const std::map<int, std::string> prop_source_items_to_string = create_prop_source_items_to_string();
 
 	prop_source_items_enum source() {
 		STRING_TYPE_GETTER("source", static_cast<prop_source_items_enum>(string_to_prop_source_items.at(resstr)))
@@ -5387,8 +5387,8 @@ public:
 		return {{prop_mapping_items_CUBE, "CUBE"}, {prop_mapping_items_PLANE, "PLANE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
-	const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
+	static const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
 
 	prop_mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<prop_mapping_items_enum>(string_to_prop_mapping_items.at(resstr)))
@@ -5481,8 +5481,8 @@ public:
 		return {{prop_vect_type_items_TEXTURE, "TEXTURE"}, {prop_vect_type_items_POINT, "POINT"}, {prop_vect_type_items_VECTOR, "VECTOR"}, {prop_vect_type_items_NORMAL, "NORMAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_vect_type_items = create_string_to_prop_vect_type_items();
-	const std::map<int, std::string> prop_vect_type_items_to_string = create_prop_vect_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_vect_type_items = create_string_to_prop_vect_type_items();
+	static const std::map<int, std::string> prop_vect_type_items_to_string = create_prop_vect_type_items_to_string();
 
 	prop_vect_type_items_enum vector_type() {
 		STRING_TYPE_GETTER("vector_type", static_cast<prop_vect_type_items_enum>(string_to_prop_vect_type_items.at(resstr)))
@@ -5563,8 +5563,8 @@ public:
 		return {{prop_xyz_mapping_items_NONE, "NONE"}, {prop_xyz_mapping_items_X, "X"}, {prop_xyz_mapping_items_Y, "Y"}, {prop_xyz_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_xyz_mapping_items = create_string_to_prop_xyz_mapping_items();
-	const std::map<int, std::string> prop_xyz_mapping_items_to_string = create_prop_xyz_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_xyz_mapping_items = create_string_to_prop_xyz_mapping_items();
+	static const std::map<int, std::string> prop_xyz_mapping_items_to_string = create_prop_xyz_mapping_items_to_string();
 
 	prop_xyz_mapping_items_enum mapping_x() {
 		STRING_TYPE_GETTER("mapping_x", static_cast<prop_xyz_mapping_items_enum>(string_to_prop_xyz_mapping_items.at(resstr)))
@@ -5605,8 +5605,8 @@ public:
 		return {{prop_mapping_items_FLAT, "FLAT"}, {prop_mapping_items_CUBE, "CUBE"}, {prop_mapping_items_TUBE, "TUBE"}, {prop_mapping_items_SPHERE, "SPHERE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
-	const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
+	static const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
 
 	prop_mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<prop_mapping_items_enum>(string_to_prop_mapping_items.at(resstr)))
@@ -5683,8 +5683,8 @@ public:
 		return {{blend_type_items_MIX, "MIX"}, {blend_type_items_ADD, "ADD"}, {blend_type_items_SUBTRACT, "SUBTRACT"}, {blend_type_items_MULTIPLY, "MULTIPLY"}, {blend_type_items_SCREEN, "SCREEN"}, {blend_type_items_OVERLAY, "OVERLAY"}, {blend_type_items_DIFFERENCE, "DIFFERENCE"}, {blend_type_items_DIVIDE, "DIVIDE"}, {blend_type_items_DARKEN, "DARKEN"}, {blend_type_items_LIGHTEN, "LIGHTEN"}, {blend_type_items_HUE, "HUE"}, {blend_type_items_SATURATION, "SATURATION"}, {blend_type_items_VALUE, "VALUE"}, {blend_type_items_COLOR, "COLOR"}, {blend_type_items_SOFT_LIGHT, "SOFT_LIGHT"}, {blend_type_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_blend_type_items = create_string_to_blend_type_items();
-	const std::map<int, std::string> blend_type_items_to_string = create_blend_type_items_to_string();
+	static const std::map<std::string, int> string_to_blend_type_items = create_string_to_blend_type_items();
+	static const std::map<int, std::string> blend_type_items_to_string = create_blend_type_items_to_string();
 
 	blend_type_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<blend_type_items_enum>(string_to_blend_type_items.at(resstr)))
@@ -5814,8 +5814,8 @@ public:
 		return {{keyingset_path_grouping_items_NAMED, "NAMED"}, {keyingset_path_grouping_items_NONE, "NONE"}, {keyingset_path_grouping_items_KEYINGSET, "KEYINGSET"}};
 	};
 
-	const std::map<std::string, int> string_to_keyingset_path_grouping_items = create_string_to_keyingset_path_grouping_items();
-	const std::map<int, std::string> keyingset_path_grouping_items_to_string = create_keyingset_path_grouping_items_to_string();
+	static const std::map<std::string, int> string_to_keyingset_path_grouping_items = create_string_to_keyingset_path_grouping_items();
+	static const std::map<int, std::string> keyingset_path_grouping_items_to_string = create_keyingset_path_grouping_items_to_string();
 
 	KeyingSetPath add(ID target_id, const std::string data_path, int index = -1, keyingset_path_grouping_items_enum group_method = keyingset_path_grouping_items_KEYINGSET, const std::string group_name = NULL);
 
@@ -5889,8 +5889,8 @@ public:
 		return {{curve_type_items_POLY, "POLY"}, {curve_type_items_BEZIER, "BEZIER"}, {curve_type_items_BSPLINE, "BSPLINE"}, {curve_type_items_CARDINAL, "CARDINAL"}, {curve_type_items_NURBS, "NURBS"}};
 	};
 
-	const std::map<std::string, int> string_to_curve_type_items = create_string_to_curve_type_items();
-	const std::map<int, std::string> curve_type_items_to_string = create_curve_type_items_to_string();
+	static const std::map<std::string, int> string_to_curve_type_items = create_string_to_curve_type_items();
+	static const std::map<int, std::string> curve_type_items_to_string = create_curve_type_items_to_string();
 
 	Spline create(curve_type_items_enum type);
 
@@ -5956,8 +5956,8 @@ public:
 		return {{items_REPLACE, "REPLACE"}, {items_NEEDED, "NEEDED"}, {items_FAST, "FAST"}};
 	};
 
-	const std::map<std::string, int> string_to_items = create_string_to_items();
-	const std::map<int, std::string> items_to_string = create_items_to_string();
+	static const std::map<std::string, int> string_to_items = create_string_to_items();
+	static const std::map<int, std::string> items_to_string = create_items_to_string();
 
 	Keyframe insert(float frame, float value, items_enum options);
 
@@ -5995,8 +5995,8 @@ public:
 		return {{fmodifier_type_items_NULL, "NULL"}, {fmodifier_type_items_GENERATOR, "GENERATOR"}, {fmodifier_type_items_FNGENERATOR, "FNGENERATOR"}, {fmodifier_type_items_ENVELOPE, "ENVELOPE"}, {fmodifier_type_items_CYCLES, "CYCLES"}, {fmodifier_type_items_NOISE, "NOISE"}, {fmodifier_type_items_PYTHON, "PYTHON"}, {fmodifier_type_items_LIMITS, "LIMITS"}, {fmodifier_type_items_STEPPED, "STEPPED"}};
 	};
 
-	const std::map<std::string, int> string_to_fmodifier_type_items = create_string_to_fmodifier_type_items();
-	const std::map<int, std::string> fmodifier_type_items_to_string = create_fmodifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_fmodifier_type_items = create_string_to_fmodifier_type_items();
+	static const std::map<int, std::string> fmodifier_type_items_to_string = create_fmodifier_type_items_to_string();
 
 	FModifier create(fmodifier_type_items_enum type);
 
@@ -6157,8 +6157,8 @@ public:
 		return {{linestyle_color_modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {linestyle_color_modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {linestyle_color_modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {linestyle_color_modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {linestyle_color_modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {linestyle_color_modifier_type_items_MATERIAL, "MATERIAL"}, {linestyle_color_modifier_type_items_NOISE, "NOISE"}, {linestyle_color_modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_linestyle_color_modifier_type_items = create_string_to_linestyle_color_modifier_type_items();
-	const std::map<int, std::string> linestyle_color_modifier_type_items_to_string = create_linestyle_color_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_linestyle_color_modifier_type_items = create_string_to_linestyle_color_modifier_type_items();
+	static const std::map<int, std::string> linestyle_color_modifier_type_items_to_string = create_linestyle_color_modifier_type_items_to_string();
 
 	LineStyleColorModifier create(const std::string name, linestyle_color_modifier_type_items_enum type);
 
@@ -6189,8 +6189,8 @@ public:
 		return {{linestyle_alpha_modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {linestyle_alpha_modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {linestyle_alpha_modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {linestyle_alpha_modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {linestyle_alpha_modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {linestyle_alpha_modifier_type_items_MATERIAL, "MATERIAL"}, {linestyle_alpha_modifier_type_items_NOISE, "NOISE"}, {linestyle_alpha_modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_linestyle_alpha_modifier_type_items = create_string_to_linestyle_alpha_modifier_type_items();
-	const std::map<int, std::string> linestyle_alpha_modifier_type_items_to_string = create_linestyle_alpha_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_linestyle_alpha_modifier_type_items = create_string_to_linestyle_alpha_modifier_type_items();
+	static const std::map<int, std::string> linestyle_alpha_modifier_type_items_to_string = create_linestyle_alpha_modifier_type_items_to_string();
 
 	LineStyleAlphaModifier create(const std::string name, linestyle_alpha_modifier_type_items_enum type);
 
@@ -6222,8 +6222,8 @@ public:
 		return {{linestyle_thickness_modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {linestyle_thickness_modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {linestyle_thickness_modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {linestyle_thickness_modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {linestyle_thickness_modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {linestyle_thickness_modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {linestyle_thickness_modifier_type_items_MATERIAL, "MATERIAL"}, {linestyle_thickness_modifier_type_items_NOISE, "NOISE"}, {linestyle_thickness_modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_linestyle_thickness_modifier_type_items = create_string_to_linestyle_thickness_modifier_type_items();
-	const std::map<int, std::string> linestyle_thickness_modifier_type_items_to_string = create_linestyle_thickness_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_linestyle_thickness_modifier_type_items = create_string_to_linestyle_thickness_modifier_type_items();
+	static const std::map<int, std::string> linestyle_thickness_modifier_type_items_to_string = create_linestyle_thickness_modifier_type_items_to_string();
 
 	LineStyleThicknessModifier create(const std::string name, linestyle_thickness_modifier_type_items_enum type);
 
@@ -6260,8 +6260,8 @@ public:
 		return {{linestyle_geometry_modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {linestyle_geometry_modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {linestyle_geometry_modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {linestyle_geometry_modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {linestyle_geometry_modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {linestyle_geometry_modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {linestyle_geometry_modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {linestyle_geometry_modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {linestyle_geometry_modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {linestyle_geometry_modifier_type_items_SAMPLING, "SAMPLING"}, {linestyle_geometry_modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {linestyle_geometry_modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {linestyle_geometry_modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {linestyle_geometry_modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_linestyle_geometry_modifier_type_items = create_string_to_linestyle_geometry_modifier_type_items();
-	const std::map<int, std::string> linestyle_geometry_modifier_type_items_to_string = create_linestyle_geometry_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_linestyle_geometry_modifier_type_items = create_string_to_linestyle_geometry_modifier_type_items();
+	static const std::map<int, std::string> linestyle_geometry_modifier_type_items_to_string = create_linestyle_geometry_modifier_type_items_to_string();
 
 	LineStyleGeometryModifier create(const std::string name, linestyle_geometry_modifier_type_items_enum type);
 
@@ -6381,8 +6381,8 @@ public:
 		return {{dummy_items_DUMMY, "DUMMY"}};
 	};
 
-	const std::map<std::string, int> string_to_dummy_items = create_string_to_dummy_items();
-	const std::map<int, std::string> dummy_items_to_string = create_dummy_items_to_string();
+	static const std::map<std::string, int> string_to_dummy_items = create_string_to_dummy_items();
+	static const std::map<int, std::string> dummy_items_to_string = create_dummy_items_to_string();
 
 	NodeTree create(const std::string name, dummy_items_enum type);
 
@@ -6421,8 +6421,8 @@ public:
 		return {{mesh_type_items_PREVIEW, "PREVIEW"}, {mesh_type_items_RENDER, "RENDER"}};
 	};
 
-	const std::map<std::string, int> string_to_mesh_type_items = create_string_to_mesh_type_items();
-	const std::map<int, std::string> mesh_type_items_to_string = create_mesh_type_items_to_string();
+	static const std::map<std::string, int> string_to_mesh_type_items = create_string_to_mesh_type_items();
+	static const std::map<int, std::string> mesh_type_items_to_string = create_mesh_type_items_to_string();
 
 	Mesh new_from_object(Scene scene, Object object_value, bool apply_modifiers, mesh_type_items_enum settings, bool calc_tessface = true, bool calc_undeformed = false);
 
@@ -6462,8 +6462,8 @@ public:
 		return {{lamp_type_items_POINT, "POINT"}, {lamp_type_items_SUN, "SUN"}, {lamp_type_items_SPOT, "SPOT"}, {lamp_type_items_HEMI, "HEMI"}, {lamp_type_items_AREA, "AREA"}};
 	};
 
-	const std::map<std::string, int> string_to_lamp_type_items = create_string_to_lamp_type_items();
-	const std::map<int, std::string> lamp_type_items_to_string = create_lamp_type_items_to_string();
+	static const std::map<std::string, int> string_to_lamp_type_items = create_string_to_lamp_type_items();
+	static const std::map<int, std::string> lamp_type_items_to_string = create_lamp_type_items_to_string();
 
 	Lamp create(const std::string name, lamp_type_items_enum type);
 
@@ -6601,8 +6601,8 @@ public:
 		return {{object_type_curve_items_CURVE, "CURVE"}, {object_type_curve_items_SURFACE, "SURFACE"}, {object_type_curve_items_FONT, "FONT"}};
 	};
 
-	const std::map<std::string, int> string_to_object_type_curve_items = create_string_to_object_type_curve_items();
-	const std::map<int, std::string> object_type_curve_items_to_string = create_object_type_curve_items_to_string();
+	static const std::map<std::string, int> string_to_object_type_curve_items = create_string_to_object_type_curve_items();
+	static const std::map<int, std::string> object_type_curve_items_to_string = create_object_type_curve_items_to_string();
 
 	Curve create(const std::string name, object_type_curve_items_enum type);
 
@@ -6697,8 +6697,8 @@ public:
 		return {{texture_type_items_NONE, "NONE"}, {texture_type_items_BLEND, "BLEND"}, {texture_type_items_CLOUDS, "CLOUDS"}, {texture_type_items_DISTORTED_NOISE, "DISTORTED_NOISE"}, {texture_type_items_ENVIRONMENT_MAP, "ENVIRONMENT_MAP"}, {texture_type_items_IMAGE, "IMAGE"}, {texture_type_items_MAGIC, "MAGIC"}, {texture_type_items_MARBLE, "MARBLE"}, {texture_type_items_MUSGRAVE, "MUSGRAVE"}, {texture_type_items_NOISE, "NOISE"}, {texture_type_items_OCEAN, "OCEAN"}, {texture_type_items_POINT_DENSITY, "POINT_DENSITY"}, {texture_type_items_STUCCI, "STUCCI"}, {texture_type_items_VORONOI, "VORONOI"}, {texture_type_items_VOXEL_DATA, "VOXEL_DATA"}, {texture_type_items_WOOD, "WOOD"}};
 	};
 
-	const std::map<std::string, int> string_to_texture_type_items = create_string_to_texture_type_items();
-	const std::map<int, std::string> texture_type_items_to_string = create_texture_type_items_to_string();
+	static const std::map<std::string, int> string_to_texture_type_items = create_string_to_texture_type_items();
+	static const std::map<int, std::string> texture_type_items_to_string = create_texture_type_items_to_string();
 
 	Texture create(const std::string name, texture_type_items_enum type) {
 		PYTHON_FUNCTION_ARGS_CALL("new", "ss", name, texture_type_items_to_string.at(type))
@@ -7251,8 +7251,8 @@ public:
 		return {{metaelem_type_items_BALL, "BALL"}, {metaelem_type_items_CAPSULE, "CAPSULE"}, {metaelem_type_items_PLANE, "PLANE"}, {metaelem_type_items_ELLIPSOID, "ELLIPSOID"}, {metaelem_type_items_CUBE, "CUBE"}};
 	};
 
-	const std::map<std::string, int> string_to_metaelem_type_items = create_string_to_metaelem_type_items();
-	const std::map<int, std::string> metaelem_type_items_to_string = create_metaelem_type_items_to_string();
+	static const std::map<std::string, int> string_to_metaelem_type_items = create_string_to_metaelem_type_items();
+	static const std::map<int, std::string> metaelem_type_items_to_string = create_metaelem_type_items_to_string();
 
 	MetaElement create(metaelem_type_items_enum type = metaelem_type_items_BALL);
 
@@ -7477,8 +7477,8 @@ public:
 		return {{modifier_type_items_DATA_TRANSFER, "DATA_TRANSFER"}, {modifier_type_items_MESH_CACHE, "MESH_CACHE"}, {modifier_type_items_NORMAL_EDIT, "NORMAL_EDIT"}, {modifier_type_items_UV_PROJECT, "UV_PROJECT"}, {modifier_type_items_UV_WARP, "UV_WARP"}, {modifier_type_items_VERTEX_WEIGHT_EDIT, "VERTEX_WEIGHT_EDIT"}, {modifier_type_items_VERTEX_WEIGHT_MIX, "VERTEX_WEIGHT_MIX"}, {modifier_type_items_VERTEX_WEIGHT_PROXIMITY, "VERTEX_WEIGHT_PROXIMITY"}, {modifier_type_items_ARRAY, "ARRAY"}, {modifier_type_items_BEVEL, "BEVEL"}, {modifier_type_items_BOOLEAN, "BOOLEAN"}, {modifier_type_items_BUILD, "BUILD"}, {modifier_type_items_DECIMATE, "DECIMATE"}, {modifier_type_items_EDGE_SPLIT, "EDGE_SPLIT"}, {modifier_type_items_MASK, "MASK"}, {modifier_type_items_MIRROR, "MIRROR"}, {modifier_type_items_MULTIRES, "MULTIRES"}, {modifier_type_items_REMESH, "REMESH"}, {modifier_type_items_SCREW, "SCREW"}, {modifier_type_items_SKIN, "SKIN"}, {modifier_type_items_SOLIDIFY, "SOLIDIFY"}, {modifier_type_items_SUBSURF, "SUBSURF"}, {modifier_type_items_TRIANGULATE, "TRIANGULATE"}, {modifier_type_items_WIREFRAME, "WIREFRAME"}, {modifier_type_items_ARMATURE, "ARMATURE"}, {modifier_type_items_CAST, "CAST"}, {modifier_type_items_CORRECTIVE_SMOOTH, "CORRECTIVE_SMOOTH"}, {modifier_type_items_CURVE, "CURVE"}, {modifier_type_items_DISPLACE, "DISPLACE"}, {modifier_type_items_HOOK, "HOOK"}, {modifier_type_items_LAPLACIANSMOOTH, "LAPLACIANSMOOTH"}, {modifier_type_items_LAPLACIANDEFORM, "LAPLACIANDEFORM"}, {modifier_type_items_LATTICE, "LATTICE"}, {modifier_type_items_MESH_DEFORM, "MESH_DEFORM"}, {modifier_type_items_SHRINKWRAP, "SHRINKWRAP"}, {modifier_type_items_SIMPLE_DEFORM, "SIMPLE_DEFORM"}, {modifier_type_items_SMOOTH, "SMOOTH"}, {modifier_type_items_WARP, "WARP"}, {modifier_type_items_WAVE, "WAVE"}, {modifier_type_items_CLOTH, "CLOTH"}, {modifier_type_items_COLLISION, "COLLISION"}, {modifier_type_items_DYNAMIC_PAINT, "DYNAMIC_PAINT"}, {modifier_type_items_EXPLODE, "EXPLODE"}, {modifier_type_items_FLUID_SIMULATION, "FLUID_SIMULATION"}, {modifier_type_items_OCEAN, "OCEAN"}, {modifier_type_items_PARTICLE_INSTANCE, "PARTICLE_INSTANCE"}, {modifier_type_items_PARTICLE_SYSTEM, "PARTICLE_SYSTEM"}, {modifier_type_items_SMOKE, "SMOKE"}, {modifier_type_items_SOFT_BODY, "SOFT_BODY"}, {modifier_type_items_SURFACE, "SURFACE"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	Modifier create(const std::string name, modifier_type_items_enum type);
 
@@ -7534,8 +7534,8 @@ public:
 		return {{constraint_type_items_CAMERA_SOLVER, "CAMERA_SOLVER"}, {constraint_type_items_FOLLOW_TRACK, "FOLLOW_TRACK"}, {constraint_type_items_OBJECT_SOLVER, "OBJECT_SOLVER"}, {constraint_type_items_COPY_LOCATION, "COPY_LOCATION"}, {constraint_type_items_COPY_ROTATION, "COPY_ROTATION"}, {constraint_type_items_COPY_SCALE, "COPY_SCALE"}, {constraint_type_items_COPY_TRANSFORMS, "COPY_TRANSFORMS"}, {constraint_type_items_LIMIT_DISTANCE, "LIMIT_DISTANCE"}, {constraint_type_items_LIMIT_LOCATION, "LIMIT_LOCATION"}, {constraint_type_items_LIMIT_ROTATION, "LIMIT_ROTATION"}, {constraint_type_items_LIMIT_SCALE, "LIMIT_SCALE"}, {constraint_type_items_MAINTAIN_VOLUME, "MAINTAIN_VOLUME"}, {constraint_type_items_TRANSFORM, "TRANSFORM"}, {constraint_type_items_CLAMP_TO, "CLAMP_TO"}, {constraint_type_items_DAMPED_TRACK, "DAMPED_TRACK"}, {constraint_type_items_IK, "IK"}, {constraint_type_items_LOCKED_TRACK, "LOCKED_TRACK"}, {constraint_type_items_SPLINE_IK, "SPLINE_IK"}, {constraint_type_items_STRETCH_TO, "STRETCH_TO"}, {constraint_type_items_TRACK_TO, "TRACK_TO"}, {constraint_type_items_ACTION, "ACTION"}, {constraint_type_items_CHILD_OF, "CHILD_OF"}, {constraint_type_items_FLOOR, "FLOOR"}, {constraint_type_items_FOLLOW_PATH, "FOLLOW_PATH"}, {constraint_type_items_PIVOT, "PIVOT"}, {constraint_type_items_RIGID_BODY_JOINT, "RIGID_BODY_JOINT"}, {constraint_type_items_SHRINKWRAP, "SHRINKWRAP"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_type_items = create_string_to_constraint_type_items();
-	const std::map<int, std::string> constraint_type_items_to_string = create_constraint_type_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_type_items = create_string_to_constraint_type_items();
+	static const std::map<int, std::string> constraint_type_items_to_string = create_constraint_type_items_to_string();
 
 	Constraint create(constraint_type_items_enum type);
 
@@ -7695,8 +7695,8 @@ public:
 		return {{constraint_type_items_CAMERA_SOLVER, "CAMERA_SOLVER"}, {constraint_type_items_FOLLOW_TRACK, "FOLLOW_TRACK"}, {constraint_type_items_OBJECT_SOLVER, "OBJECT_SOLVER"}, {constraint_type_items_COPY_LOCATION, "COPY_LOCATION"}, {constraint_type_items_COPY_ROTATION, "COPY_ROTATION"}, {constraint_type_items_COPY_SCALE, "COPY_SCALE"}, {constraint_type_items_COPY_TRANSFORMS, "COPY_TRANSFORMS"}, {constraint_type_items_LIMIT_DISTANCE, "LIMIT_DISTANCE"}, {constraint_type_items_LIMIT_LOCATION, "LIMIT_LOCATION"}, {constraint_type_items_LIMIT_ROTATION, "LIMIT_ROTATION"}, {constraint_type_items_LIMIT_SCALE, "LIMIT_SCALE"}, {constraint_type_items_MAINTAIN_VOLUME, "MAINTAIN_VOLUME"}, {constraint_type_items_TRANSFORM, "TRANSFORM"}, {constraint_type_items_CLAMP_TO, "CLAMP_TO"}, {constraint_type_items_DAMPED_TRACK, "DAMPED_TRACK"}, {constraint_type_items_IK, "IK"}, {constraint_type_items_LOCKED_TRACK, "LOCKED_TRACK"}, {constraint_type_items_SPLINE_IK, "SPLINE_IK"}, {constraint_type_items_STRETCH_TO, "STRETCH_TO"}, {constraint_type_items_TRACK_TO, "TRACK_TO"}, {constraint_type_items_ACTION, "ACTION"}, {constraint_type_items_CHILD_OF, "CHILD_OF"}, {constraint_type_items_FLOOR, "FLOOR"}, {constraint_type_items_FOLLOW_PATH, "FOLLOW_PATH"}, {constraint_type_items_PIVOT, "PIVOT"}, {constraint_type_items_RIGID_BODY_JOINT, "RIGID_BODY_JOINT"}, {constraint_type_items_SHRINKWRAP, "SHRINKWRAP"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_type_items = create_string_to_constraint_type_items();
-	const std::map<int, std::string> constraint_type_items_to_string = create_constraint_type_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_type_items = create_string_to_constraint_type_items();
+	static const std::map<int, std::string> constraint_type_items_to_string = create_constraint_type_items_to_string();
 
 	Constraint create(constraint_type_items_enum type);
 
@@ -7748,8 +7748,8 @@ public:
 		return {{render_pass_type_items_COMBINED, "COMBINED"}, {render_pass_type_items_Z, "Z"}, {render_pass_type_items_COLOR, "COLOR"}, {render_pass_type_items_DIFFUSE, "DIFFUSE"}, {render_pass_type_items_SPECULAR, "SPECULAR"}, {render_pass_type_items_SHADOW, "SHADOW"}, {render_pass_type_items_AO, "AO"}, {render_pass_type_items_REFLECTION, "REFLECTION"}, {render_pass_type_items_NORMAL, "NORMAL"}, {render_pass_type_items_VECTOR, "VECTOR"}, {render_pass_type_items_REFRACTION, "REFRACTION"}, {render_pass_type_items_OBJECT_INDEX, "OBJECT_INDEX"}, {render_pass_type_items_UV, "UV"}, {render_pass_type_items_MIST, "MIST"}, {render_pass_type_items_EMIT, "EMIT"}, {render_pass_type_items_ENVIRONMENT, "ENVIRONMENT"}, {render_pass_type_items_MATERIAL_INDEX, "MATERIAL_INDEX"}, {render_pass_type_items_DIFFUSE_DIRECT, "DIFFUSE_DIRECT"}, {render_pass_type_items_DIFFUSE_INDIRECT, "DIFFUSE_INDIRECT"}, {render_pass_type_items_DIFFUSE_COLOR, "DIFFUSE_COLOR"}, {render_pass_type_items_GLOSSY_DIRECT, "GLOSSY_DIRECT"}, {render_pass_type_items_GLOSSY_INDIRECT, "GLOSSY_INDIRECT"}, {render_pass_type_items_GLOSSY_COLOR, "GLOSSY_COLOR"}, {render_pass_type_items_TRANSMISSION_DIRECT, "TRANSMISSION_DIRECT"}, {render_pass_type_items_TRANSMISSION_INDIRECT, "TRANSMISSION_INDIRECT"}, {render_pass_type_items_TRANSMISSION_COLOR, "TRANSMISSION_COLOR"}, {render_pass_type_items_SUBSURFACE_DIRECT, "SUBSURFACE_DIRECT"}, {render_pass_type_items_SUBSURFACE_INDIRECT, "SUBSURFACE_INDIRECT"}, {render_pass_type_items_SUBSURFACE_COLOR, "SUBSURFACE_COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_render_pass_type_items = create_string_to_render_pass_type_items();
-	const std::map<int, std::string> render_pass_type_items_to_string = create_render_pass_type_items_to_string();
+	static const std::map<std::string, int> string_to_render_pass_type_items = create_string_to_render_pass_type_items();
+	static const std::map<int, std::string> render_pass_type_items_to_string = create_render_pass_type_items_to_string();
 
 	RenderPass find_by_type(render_pass_type_items_enum pass_type, const std::string view);
 };
@@ -7921,8 +7921,8 @@ public:
 		return {{sequence_modifier_type_items_COLOR_BALANCE, "COLOR_BALANCE"}, {sequence_modifier_type_items_CURVES, "CURVES"}, {sequence_modifier_type_items_HUE_CORRECT, "HUE_CORRECT"}, {sequence_modifier_type_items_BRIGHT_CONTRAST, "BRIGHT_CONTRAST"}, {sequence_modifier_type_items_MASK, "MASK"}};
 	};
 
-	const std::map<std::string, int> string_to_sequence_modifier_type_items = create_string_to_sequence_modifier_type_items();
-	const std::map<int, std::string> sequence_modifier_type_items_to_string = create_sequence_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_sequence_modifier_type_items = create_string_to_sequence_modifier_type_items();
+	static const std::map<int, std::string> sequence_modifier_type_items_to_string = create_sequence_modifier_type_items_to_string();
 
 	SequenceModifier create(const std::string name, sequence_modifier_type_items_enum type);
 
@@ -7978,8 +7978,8 @@ public:
 		return {{seq_effect_items_CROSS, "CROSS"}, {seq_effect_items_ADD, "ADD"}, {seq_effect_items_SUBTRACT, "SUBTRACT"}, {seq_effect_items_ALPHA_OVER, "ALPHA_OVER"}, {seq_effect_items_ALPHA_UNDER, "ALPHA_UNDER"}, {seq_effect_items_GAMMA_CROSS, "GAMMA_CROSS"}, {seq_effect_items_MULTIPLY, "MULTIPLY"}, {seq_effect_items_OVER_DROP, "OVER_DROP"}, {seq_effect_items_WIPE, "WIPE"}, {seq_effect_items_GLOW, "GLOW"}, {seq_effect_items_TRANSFORM, "TRANSFORM"}, {seq_effect_items_COLOR, "COLOR"}, {seq_effect_items_SPEED, "SPEED"}, {seq_effect_items_MULTICAM, "MULTICAM"}, {seq_effect_items_ADJUSTMENT, "ADJUSTMENT"}, {seq_effect_items_GAUSSIAN_BLUR, "GAUSSIAN_BLUR"}, {seq_effect_items_TEXT, "TEXT"}};
 	};
 
-	const std::map<std::string, int> string_to_seq_effect_items = create_string_to_seq_effect_items();
-	const std::map<int, std::string> seq_effect_items_to_string = create_seq_effect_items_to_string();
+	static const std::map<std::string, int> string_to_seq_effect_items = create_string_to_seq_effect_items();
+	static const std::map<int, std::string> seq_effect_items_to_string = create_seq_effect_items_to_string();
 
 	Sequence new_effect(const std::string name, seq_effect_items_enum type, int channel, int frame_start, int frame_end, Sequence seq1, Sequence seq2, Sequence seq3);
 
@@ -8110,8 +8110,8 @@ public:
 		return {{space_type_items_EMPTY, "EMPTY"}, {space_type_items_VIEW_3D, "VIEW_3D"}, {space_type_items_TIMELINE, "TIMELINE"}, {space_type_items_GRAPH_EDITOR, "GRAPH_EDITOR"}, {space_type_items_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {space_type_items_NLA_EDITOR, "NLA_EDITOR"}, {space_type_items_IMAGE_EDITOR, "IMAGE_EDITOR"}, {space_type_items_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {space_type_items_CLIP_EDITOR, "CLIP_EDITOR"}, {space_type_items_TEXT_EDITOR, "TEXT_EDITOR"}, {space_type_items_NODE_EDITOR, "NODE_EDITOR"}, {space_type_items_LOGIC_EDITOR, "LOGIC_EDITOR"}, {space_type_items_PROPERTIES, "PROPERTIES"}, {space_type_items_OUTLINER, "OUTLINER"}, {space_type_items_USER_PREFERENCES, "USER_PREFERENCES"}, {space_type_items_INFO, "INFO"}, {space_type_items_FILE_BROWSER, "FILE_BROWSER"}, {space_type_items_CONSOLE, "CONSOLE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
-	const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
+	static const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
+	static const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
 
 	enum region_type_items_enum {
 		region_type_items_WINDOW = 0,	
@@ -8132,8 +8132,8 @@ public:
 		return {{region_type_items_WINDOW, "WINDOW"}, {region_type_items_HEADER, "HEADER"}, {region_type_items_CHANNELS, "CHANNELS"}, {region_type_items_TEMPORARY, "TEMPORARY"}, {region_type_items_UI, "UI"}, {region_type_items_TOOLS, "TOOLS"}, {region_type_items_TOOL_PROPS, "TOOL_PROPS"}, {region_type_items_PREVIEW, "PREVIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
-	const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
+	static const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
+	static const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
 
 	KeyMap create(const std::string name, space_type_items_enum space_type = space_type_items_EMPTY, region_type_items_enum region_type = region_type_items_WINDOW, bool modal = false);
 
@@ -8344,8 +8344,8 @@ public:
 		return {{event_type_items_NONE, "NONE"}, {event_type_items_LEFTMOUSE, "LEFTMOUSE"}, {event_type_items_MIDDLEMOUSE, "MIDDLEMOUSE"}, {event_type_items_RIGHTMOUSE, "RIGHTMOUSE"}, {event_type_items_BUTTON4MOUSE, "BUTTON4MOUSE"}, {event_type_items_BUTTON5MOUSE, "BUTTON5MOUSE"}, {event_type_items_BUTTON6MOUSE, "BUTTON6MOUSE"}, {event_type_items_BUTTON7MOUSE, "BUTTON7MOUSE"}, {event_type_items_ACTIONMOUSE, "ACTIONMOUSE"}, {event_type_items_SELECTMOUSE, "SELECTMOUSE"}, {event_type_items_MOUSEMOVE, "MOUSEMOVE"}, {event_type_items_INBETWEEN_MOUSEMOVE, "INBETWEEN_MOUSEMOVE"}, {event_type_items_TRACKPADPAN, "TRACKPADPAN"}, {event_type_items_TRACKPADZOOM, "TRACKPADZOOM"}, {event_type_items_MOUSEROTATE, "MOUSEROTATE"}, {event_type_items_WHEELUPMOUSE, "WHEELUPMOUSE"}, {event_type_items_WHEELDOWNMOUSE, "WHEELDOWNMOUSE"}, {event_type_items_WHEELINMOUSE, "WHEELINMOUSE"}, {event_type_items_WHEELOUTMOUSE, "WHEELOUTMOUSE"}, {event_type_items_EVT_TWEAK_L, "EVT_TWEAK_L"}, {event_type_items_EVT_TWEAK_M, "EVT_TWEAK_M"}, {event_type_items_EVT_TWEAK_R, "EVT_TWEAK_R"}, {event_type_items_EVT_TWEAK_A, "EVT_TWEAK_A"}, {event_type_items_EVT_TWEAK_S, "EVT_TWEAK_S"}, {event_type_items_A, "A"}, {event_type_items_B, "B"}, {event_type_items_C, "C"}, {event_type_items_D, "D"}, {event_type_items_E, "E"}, {event_type_items_F, "F"}, {event_type_items_G, "G"}, {event_type_items_H, "H"}, {event_type_items_I, "I"}, {event_type_items_J, "J"}, {event_type_items_K, "K"}, {event_type_items_L, "L"}, {event_type_items_M, "M"}, {event_type_items_N, "N"}, {event_type_items_O, "O"}, {event_type_items_P, "P"}, {event_type_items_Q, "Q"}, {event_type_items_R, "R"}, {event_type_items_S, "S"}, {event_type_items_T, "T"}, {event_type_items_U, "U"}, {event_type_items_V, "V"}, {event_type_items_W, "W"}, {event_type_items_X, "X"}, {event_type_items_Y, "Y"}, {event_type_items_Z, "Z"}, {event_type_items_ZERO, "ZERO"}, {event_type_items_ONE, "ONE"}, {event_type_items_TWO, "TWO"}, {event_type_items_THREE, "THREE"}, {event_type_items_FOUR, "FOUR"}, {event_type_items_FIVE, "FIVE"}, {event_type_items_SIX, "SIX"}, {event_type_items_SEVEN, "SEVEN"}, {event_type_items_EIGHT, "EIGHT"}, {event_type_items_NINE, "NINE"}, {event_type_items_LEFT_CTRL, "LEFT_CTRL"}, {event_type_items_LEFT_ALT, "LEFT_ALT"}, {event_type_items_LEFT_SHIFT, "LEFT_SHIFT"}, {event_type_items_RIGHT_ALT, "RIGHT_ALT"}, {event_type_items_RIGHT_CTRL, "RIGHT_CTRL"}, {event_type_items_RIGHT_SHIFT, "RIGHT_SHIFT"}, {event_type_items_OSKEY, "OSKEY"}, {event_type_items_GRLESS, "GRLESS"}, {event_type_items_ESC, "ESC"}, {event_type_items_TAB, "TAB"}, {event_type_items_RET, "RET"}, {event_type_items_SPACE, "SPACE"}, {event_type_items_LINE_FEED, "LINE_FEED"}, {event_type_items_BACK_SPACE, "BACK_SPACE"}, {event_type_items_DEL, "DEL"}, {event_type_items_SEMI_COLON, "SEMI_COLON"}, {event_type_items_PERIOD, "PERIOD"}, {event_type_items_COMMA, "COMMA"}, {event_type_items_QUOTE, "QUOTE"}, {event_type_items_ACCENT_GRAVE, "ACCENT_GRAVE"}, {event_type_items_MINUS, "MINUS"}, {event_type_items_SLASH, "SLASH"}, {event_type_items_BACK_SLASH, "BACK_SLASH"}, {event_type_items_EQUAL, "EQUAL"}, {event_type_items_LEFT_BRACKET, "LEFT_BRACKET"}, {event_type_items_RIGHT_BRACKET, "RIGHT_BRACKET"}, {event_type_items_LEFT_ARROW, "LEFT_ARROW"}, {event_type_items_DOWN_ARROW, "DOWN_ARROW"}, {event_type_items_RIGHT_ARROW, "RIGHT_ARROW"}, {event_type_items_UP_ARROW, "UP_ARROW"}, {event_type_items_NUMPAD_2, "NUMPAD_2"}, {event_type_items_NUMPAD_4, "NUMPAD_4"}, {event_type_items_NUMPAD_6, "NUMPAD_6"}, {event_type_items_NUMPAD_8, "NUMPAD_8"}, {event_type_items_NUMPAD_1, "NUMPAD_1"}, {event_type_items_NUMPAD_3, "NUMPAD_3"}, {event_type_items_NUMPAD_5, "NUMPAD_5"}, {event_type_items_NUMPAD_7, "NUMPAD_7"}, {event_type_items_NUMPAD_9, "NUMPAD_9"}, {event_type_items_NUMPAD_PERIOD, "NUMPAD_PERIOD"}, {event_type_items_NUMPAD_SLASH, "NUMPAD_SLASH"}, {event_type_items_NUMPAD_ASTERIX, "NUMPAD_ASTERIX"}, {event_type_items_NUMPAD_0, "NUMPAD_0"}, {event_type_items_NUMPAD_MINUS, "NUMPAD_MINUS"}, {event_type_items_NUMPAD_ENTER, "NUMPAD_ENTER"}, {event_type_items_NUMPAD_PLUS, "NUMPAD_PLUS"}, {event_type_items_F1, "F1"}, {event_type_items_F2, "F2"}, {event_type_items_F3, "F3"}, {event_type_items_F4, "F4"}, {event_type_items_F5, "F5"}, {event_type_items_F6, "F6"}, {event_type_items_F7, "F7"}, {event_type_items_F8, "F8"}, {event_type_items_F9, "F9"}, {event_type_items_F10, "F10"}, {event_type_items_F11, "F11"}, {event_type_items_F12, "F12"}, {event_type_items_F13, "F13"}, {event_type_items_F14, "F14"}, {event_type_items_F15, "F15"}, {event_type_items_F16, "F16"}, {event_type_items_F17, "F17"}, {event_type_items_F18, "F18"}, {event_type_items_F19, "F19"}, {event_type_items_PAUSE, "PAUSE"}, {event_type_items_INSERT, "INSERT"}, {event_type_items_HOME, "HOME"}, {event_type_items_PAGE_UP, "PAGE_UP"}, {event_type_items_PAGE_DOWN, "PAGE_DOWN"}, {event_type_items_END, "END"}, {event_type_items_MEDIA_PLAY, "MEDIA_PLAY"}, {event_type_items_MEDIA_STOP, "MEDIA_STOP"}, {event_type_items_MEDIA_FIRST, "MEDIA_FIRST"}, {event_type_items_MEDIA_LAST, "MEDIA_LAST"}, {event_type_items_TEXTINPUT, "TEXTINPUT"}, {event_type_items_WINDOW_DEACTIVATE, "WINDOW_DEACTIVATE"}, {event_type_items_TIMER, "TIMER"}, {event_type_items_TIMER0, "TIMER0"}, {event_type_items_TIMER1, "TIMER1"}, {event_type_items_TIMER2, "TIMER2"}, {event_type_items_TIMER_JOBS, "TIMER_JOBS"}, {event_type_items_TIMER_AUTOSAVE, "TIMER_AUTOSAVE"}, {event_type_items_TIMER_REPORT, "TIMER_REPORT"}, {event_type_items_TIMERREGION, "TIMERREGION"}, {event_type_items_NDOF_MOTION, "NDOF_MOTION"}, {event_type_items_NDOF_BUTTON_MENU, "NDOF_BUTTON_MENU"}, {event_type_items_NDOF_BUTTON_FIT, "NDOF_BUTTON_FIT"}, {event_type_items_NDOF_BUTTON_TOP, "NDOF_BUTTON_TOP"}, {event_type_items_NDOF_BUTTON_BOTTOM, "NDOF_BUTTON_BOTTOM"}, {event_type_items_NDOF_BUTTON_LEFT, "NDOF_BUTTON_LEFT"}, {event_type_items_NDOF_BUTTON_RIGHT, "NDOF_BUTTON_RIGHT"}, {event_type_items_NDOF_BUTTON_FRONT, "NDOF_BUTTON_FRONT"}, {event_type_items_NDOF_BUTTON_BACK, "NDOF_BUTTON_BACK"}, {event_type_items_NDOF_BUTTON_ISO1, "NDOF_BUTTON_ISO1"}, {event_type_items_NDOF_BUTTON_ISO2, "NDOF_BUTTON_ISO2"}, {event_type_items_NDOF_BUTTON_ROLL_CW, "NDOF_BUTTON_ROLL_CW"}, {event_type_items_NDOF_BUTTON_ROLL_CCW, "NDOF_BUTTON_ROLL_CCW"}, {event_type_items_NDOF_BUTTON_SPIN_CW, "NDOF_BUTTON_SPIN_CW"}, {event_type_items_NDOF_BUTTON_SPIN_CCW, "NDOF_BUTTON_SPIN_CCW"}, {event_type_items_NDOF_BUTTON_TILT_CW, "NDOF_BUTTON_TILT_CW"}, {event_type_items_NDOF_BUTTON_TILT_CCW, "NDOF_BUTTON_TILT_CCW"}, {event_type_items_NDOF_BUTTON_ROTATE, "NDOF_BUTTON_ROTATE"}, {event_type_items_NDOF_BUTTON_PANZOOM, "NDOF_BUTTON_PANZOOM"}, {event_type_items_NDOF_BUTTON_DOMINANT, "NDOF_BUTTON_DOMINANT"}, {event_type_items_NDOF_BUTTON_PLUS, "NDOF_BUTTON_PLUS"}, {event_type_items_NDOF_BUTTON_MINUS, "NDOF_BUTTON_MINUS"}, {event_type_items_NDOF_BUTTON_ESC, "NDOF_BUTTON_ESC"}, {event_type_items_NDOF_BUTTON_ALT, "NDOF_BUTTON_ALT"}, {event_type_items_NDOF_BUTTON_SHIFT, "NDOF_BUTTON_SHIFT"}, {event_type_items_NDOF_BUTTON_CTRL, "NDOF_BUTTON_CTRL"}, {event_type_items_NDOF_BUTTON_1, "NDOF_BUTTON_1"}, {event_type_items_NDOF_BUTTON_2, "NDOF_BUTTON_2"}, {event_type_items_NDOF_BUTTON_3, "NDOF_BUTTON_3"}, {event_type_items_NDOF_BUTTON_4, "NDOF_BUTTON_4"}, {event_type_items_NDOF_BUTTON_5, "NDOF_BUTTON_5"}, {event_type_items_NDOF_BUTTON_6, "NDOF_BUTTON_6"}, {event_type_items_NDOF_BUTTON_7, "NDOF_BUTTON_7"}, {event_type_items_NDOF_BUTTON_8, "NDOF_BUTTON_8"}, {event_type_items_NDOF_BUTTON_9, "NDOF_BUTTON_9"}, {event_type_items_NDOF_BUTTON_10, "NDOF_BUTTON_10"}, {event_type_items_NDOF_BUTTON_A, "NDOF_BUTTON_A"}, {event_type_items_NDOF_BUTTON_B, "NDOF_BUTTON_B"}, {event_type_items_NDOF_BUTTON_C, "NDOF_BUTTON_C"}};
 	};
 
-	const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
-	const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
+	static const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
+	static const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
 
 	enum event_value_items_enum {
 		event_value_items_ANY = -1,	
@@ -8372,8 +8372,8 @@ public:
 		return {{event_value_items_ANY, "ANY"}, {event_value_items_NOTHING, "NOTHING"}, {event_value_items_PRESS, "PRESS"}, {event_value_items_RELEASE, "RELEASE"}, {event_value_items_CLICK, "CLICK"}, {event_value_items_DOUBLE_CLICK, "DOUBLE_CLICK"}, {event_value_items_NORTH, "NORTH"}, {event_value_items_NORTH_EAST, "NORTH_EAST"}, {event_value_items_EAST, "EAST"}, {event_value_items_SOUTH_EAST, "SOUTH_EAST"}, {event_value_items_SOUTH, "SOUTH"}, {event_value_items_SOUTH_WEST, "SOUTH_WEST"}, {event_value_items_WEST, "WEST"}, {event_value_items_NORTH_WEST, "NORTH_WEST"}};
 	};
 
-	const std::map<std::string, int> string_to_event_value_items = create_string_to_event_value_items();
-	const std::map<int, std::string> event_value_items_to_string = create_event_value_items_to_string();
+	static const std::map<std::string, int> string_to_event_value_items = create_string_to_event_value_items();
+	static const std::map<int, std::string> event_value_items_to_string = create_event_value_items_to_string();
 
 	KeyMapItem create(const std::string idname, event_type_items_enum type, event_value_items_enum value, bool any = false, bool shift = false, bool ctrl = false, bool alt = false, bool oskey = false, event_type_items_enum key_modifier = event_type_items_NONE, bool head = false);
 
@@ -8593,8 +8593,8 @@ public:
 		return {{id_type_items_ACTION, "ACTION"}, {id_type_items_ARMATURE, "ARMATURE"}, {id_type_items_BRUSH, "BRUSH"}, {id_type_items_CAMERA, "CAMERA"}, {id_type_items_CURVE, "CURVE"}, {id_type_items_FONT, "FONT"}, {id_type_items_GREASEPENCIL, "GREASEPENCIL"}, {id_type_items_GROUP, "GROUP"}, {id_type_items_IMAGE, "IMAGE"}, {id_type_items_KEY, "KEY"}, {id_type_items_LAMP, "LAMP"}, {id_type_items_LIBRARY, "LIBRARY"}, {id_type_items_LINESTYLE, "LINESTYLE"}, {id_type_items_LATTICE, "LATTICE"}, {id_type_items_MASK, "MASK"}, {id_type_items_MATERIAL, "MATERIAL"}, {id_type_items_META, "META"}, {id_type_items_MESH, "MESH"}, {id_type_items_MOVIECLIP, "MOVIECLIP"}, {id_type_items_NODETREE, "NODETREE"}, {id_type_items_OBJECT, "OBJECT"}, {id_type_items_PAINTCURVE, "PAINTCURVE"}, {id_type_items_PALETTE, "PALETTE"}, {id_type_items_PARTICLE, "PARTICLE"}, {id_type_items_SCENE, "SCENE"}, {id_type_items_SCREEN, "SCREEN"}, {id_type_items_SOUND, "SOUND"}, {id_type_items_SPEAKER, "SPEAKER"}, {id_type_items_TEXT, "TEXT"}, {id_type_items_TEXTURE, "TEXTURE"}, {id_type_items_WINDOWMANAGER, "WINDOWMANAGER"}, {id_type_items_WORLD, "WORLD"}};
 	};
 
-	const std::map<std::string, int> string_to_id_type_items = create_string_to_id_type_items();
-	const std::map<int, std::string> id_type_items_to_string = create_id_type_items_to_string();
+	static const std::map<std::string, int> string_to_id_type_items = create_string_to_id_type_items();
+	static const std::map<int, std::string> id_type_items_to_string = create_id_type_items_to_string();
 
 	id_type_items_enum id_root() {
 		STRING_TYPE_GETTER("id_root", static_cast<id_type_items_enum>(string_to_id_type_items.at(resstr)))
@@ -8677,8 +8677,8 @@ public:
 		return {{color_sets_items_DEFAULT, "DEFAULT"}, {color_sets_items_THEME01, "THEME01"}, {color_sets_items_THEME02, "THEME02"}, {color_sets_items_THEME03, "THEME03"}, {color_sets_items_THEME04, "THEME04"}, {color_sets_items_THEME05, "THEME05"}, {color_sets_items_THEME06, "THEME06"}, {color_sets_items_THEME07, "THEME07"}, {color_sets_items_THEME08, "THEME08"}, {color_sets_items_THEME09, "THEME09"}, {color_sets_items_THEME10, "THEME10"}, {color_sets_items_THEME11, "THEME11"}, {color_sets_items_THEME12, "THEME12"}, {color_sets_items_THEME13, "THEME13"}, {color_sets_items_THEME14, "THEME14"}, {color_sets_items_THEME15, "THEME15"}, {color_sets_items_THEME16, "THEME16"}, {color_sets_items_THEME17, "THEME17"}, {color_sets_items_THEME18, "THEME18"}, {color_sets_items_THEME19, "THEME19"}, {color_sets_items_THEME20, "THEME20"}, {color_sets_items_CUSTOM, "CUSTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_color_sets_items = create_string_to_color_sets_items();
-	const std::map<int, std::string> color_sets_items_to_string = create_color_sets_items_to_string();
+	static const std::map<std::string, int> string_to_color_sets_items = create_string_to_color_sets_items();
+	static const std::map<int, std::string> color_sets_items_to_string = create_color_sets_items_to_string();
 
 	color_sets_items_enum color_set() {
 		STRING_TYPE_GETTER("color_set", static_cast<color_sets_items_enum>(string_to_color_sets_items.at(resstr)))
@@ -8984,8 +8984,8 @@ public:
 		return {{nla_mode_extend_items_NOTHING, "NOTHING"}, {nla_mode_extend_items_HOLD, "HOLD"}, {nla_mode_extend_items_HOLD_FORWARD, "HOLD_FORWARD"}};
 	};
 
-	const std::map<std::string, int> string_to_nla_mode_extend_items = create_string_to_nla_mode_extend_items();
-	const std::map<int, std::string> nla_mode_extend_items_to_string = create_nla_mode_extend_items_to_string();
+	static const std::map<std::string, int> string_to_nla_mode_extend_items = create_string_to_nla_mode_extend_items();
+	static const std::map<int, std::string> nla_mode_extend_items_to_string = create_nla_mode_extend_items_to_string();
 
 	nla_mode_extend_items_enum action_extrapolation() {
 		STRING_TYPE_GETTER("action_extrapolation", static_cast<nla_mode_extend_items_enum>(string_to_nla_mode_extend_items.at(resstr)))
@@ -9010,8 +9010,8 @@ public:
 		return {{nla_mode_blend_items_REPLACE, "REPLACE"}, {nla_mode_blend_items_ADD, "ADD"}, {nla_mode_blend_items_SUBTRACT, "SUBTRACT"}, {nla_mode_blend_items_MULTIPLY, "MULTIPLY"}};
 	};
 
-	const std::map<std::string, int> string_to_nla_mode_blend_items = create_string_to_nla_mode_blend_items();
-	const std::map<int, std::string> nla_mode_blend_items_to_string = create_nla_mode_blend_items_to_string();
+	static const std::map<std::string, int> string_to_nla_mode_blend_items = create_string_to_nla_mode_blend_items();
+	static const std::map<int, std::string> nla_mode_blend_items_to_string = create_nla_mode_blend_items_to_string();
 
 	nla_mode_blend_items_enum action_blend_type() {
 		STRING_TYPE_GETTER("action_blend_type", static_cast<nla_mode_blend_items_enum>(string_to_nla_mode_blend_items.at(resstr)))
@@ -9186,8 +9186,8 @@ public:
 		return {{id_type_items_ACTION, "ACTION"}, {id_type_items_ARMATURE, "ARMATURE"}, {id_type_items_BRUSH, "BRUSH"}, {id_type_items_CAMERA, "CAMERA"}, {id_type_items_CURVE, "CURVE"}, {id_type_items_FONT, "FONT"}, {id_type_items_GREASEPENCIL, "GREASEPENCIL"}, {id_type_items_GROUP, "GROUP"}, {id_type_items_IMAGE, "IMAGE"}, {id_type_items_KEY, "KEY"}, {id_type_items_LAMP, "LAMP"}, {id_type_items_LIBRARY, "LIBRARY"}, {id_type_items_LINESTYLE, "LINESTYLE"}, {id_type_items_LATTICE, "LATTICE"}, {id_type_items_MASK, "MASK"}, {id_type_items_MATERIAL, "MATERIAL"}, {id_type_items_META, "META"}, {id_type_items_MESH, "MESH"}, {id_type_items_MOVIECLIP, "MOVIECLIP"}, {id_type_items_NODETREE, "NODETREE"}, {id_type_items_OBJECT, "OBJECT"}, {id_type_items_PAINTCURVE, "PAINTCURVE"}, {id_type_items_PALETTE, "PALETTE"}, {id_type_items_PARTICLE, "PARTICLE"}, {id_type_items_SCENE, "SCENE"}, {id_type_items_SCREEN, "SCREEN"}, {id_type_items_SOUND, "SOUND"}, {id_type_items_SPEAKER, "SPEAKER"}, {id_type_items_TEXT, "TEXT"}, {id_type_items_TEXTURE, "TEXTURE"}, {id_type_items_WINDOWMANAGER, "WINDOWMANAGER"}, {id_type_items_WORLD, "WORLD"}};
 	};
 
-	const std::map<std::string, int> string_to_id_type_items = create_string_to_id_type_items();
-	const std::map<int, std::string> id_type_items_to_string = create_id_type_items_to_string();
+	static const std::map<std::string, int> string_to_id_type_items = create_string_to_id_type_items();
+	static const std::map<int, std::string> id_type_items_to_string = create_id_type_items_to_string();
 
 	id_type_items_enum id_type() {
 		STRING_TYPE_GETTER("id_type", static_cast<id_type_items_enum>(string_to_id_type_items.at(resstr)))
@@ -9219,8 +9219,8 @@ public:
 		return {{keyingset_path_grouping_items_NAMED, "NAMED"}, {keyingset_path_grouping_items_NONE, "NONE"}, {keyingset_path_grouping_items_KEYINGSET, "KEYINGSET"}};
 	};
 
-	const std::map<std::string, int> string_to_keyingset_path_grouping_items = create_string_to_keyingset_path_grouping_items();
-	const std::map<int, std::string> keyingset_path_grouping_items_to_string = create_keyingset_path_grouping_items_to_string();
+	static const std::map<std::string, int> string_to_keyingset_path_grouping_items = create_string_to_keyingset_path_grouping_items();
+	static const std::map<int, std::string> keyingset_path_grouping_items_to_string = create_keyingset_path_grouping_items_to_string();
 
 	keyingset_path_grouping_items_enum group_method() {
 		STRING_TYPE_GETTER("group_method", static_cast<keyingset_path_grouping_items_enum>(string_to_keyingset_path_grouping_items.at(resstr)))
@@ -9346,8 +9346,8 @@ public:
 		return {{keying_flag_items_INSERTKEY_NEEDED, "INSERTKEY_NEEDED"}, {keying_flag_items_INSERTKEY_VISUAL, "INSERTKEY_VISUAL"}, {keying_flag_items_INSERTKEY_XYZ_TO_RGB, "INSERTKEY_XYZ_TO_RGB"}};
 	};
 
-	const std::map<std::string, int> string_to_keying_flag_items = create_string_to_keying_flag_items();
-	const std::map<int, std::string> keying_flag_items_to_string = create_keying_flag_items_to_string();
+	static const std::map<std::string, int> string_to_keying_flag_items = create_string_to_keying_flag_items();
+	static const std::map<int, std::string> keying_flag_items_to_string = create_keying_flag_items_to_string();
 
 	keying_flag_items_enum bl_options() {
 		STRING_TYPE_GETTER("bl_options", static_cast<keying_flag_items_enum>(string_to_keying_flag_items.at(resstr)))
@@ -9389,8 +9389,8 @@ public:
 		return {{prop_type_items_NONE, "NONE"}, {prop_type_items_CURRENT_FRAME, "CURRENT_FRAME"}, {prop_type_items_RANGE, "RANGE"}, {prop_type_items_KEYS, "KEYS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -9467,8 +9467,8 @@ public:
 		return {{prop_type_items_CURRENT_FRAME, "CURRENT_FRAME"}, {prop_type_items_RANGE, "RANGE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -9491,8 +9491,8 @@ public:
 		return {{motionpath_bake_location_items_HEADS, "HEADS"}, {motionpath_bake_location_items_TAILS, "TAILS"}};
 	};
 
-	const std::map<std::string, int> string_to_motionpath_bake_location_items = create_string_to_motionpath_bake_location_items();
-	const std::map<int, std::string> motionpath_bake_location_items_to_string = create_motionpath_bake_location_items_to_string();
+	static const std::map<std::string, int> string_to_motionpath_bake_location_items = create_string_to_motionpath_bake_location_items();
+	static const std::map<int, std::string> motionpath_bake_location_items_to_string = create_motionpath_bake_location_items_to_string();
 
 	motionpath_bake_location_items_enum bake_location() {
 		STRING_TYPE_GETTER("bake_location", static_cast<motionpath_bake_location_items_enum>(string_to_motionpath_bake_location_items.at(resstr)))
@@ -9687,8 +9687,8 @@ public:
 		return {{actuator_type_items_ACTION, "ACTION"}, {actuator_type_items_ARMATURE, "ARMATURE"}, {actuator_type_items_CAMERA, "CAMERA"}, {actuator_type_items_CONSTRAINT, "CONSTRAINT"}, {actuator_type_items_EDIT_OBJECT, "EDIT_OBJECT"}, {actuator_type_items_FILTER_2D, "FILTER_2D"}, {actuator_type_items_GAME, "GAME"}, {actuator_type_items_MESSAGE, "MESSAGE"}, {actuator_type_items_MOTION, "MOTION"}, {actuator_type_items_MOUSE, "MOUSE"}, {actuator_type_items_PARENT, "PARENT"}, {actuator_type_items_PROPERTY, "PROPERTY"}, {actuator_type_items_RANDOM, "RANDOM"}, {actuator_type_items_SCENE, "SCENE"}, {actuator_type_items_SOUND, "SOUND"}, {actuator_type_items_STATE, "STATE"}, {actuator_type_items_STEERING, "STEERING"}, {actuator_type_items_VISIBILITY, "VISIBILITY"}};
 	};
 
-	const std::map<std::string, int> string_to_actuator_type_items = create_string_to_actuator_type_items();
-	const std::map<int, std::string> actuator_type_items_to_string = create_actuator_type_items_to_string();
+	static const std::map<std::string, int> string_to_actuator_type_items = create_string_to_actuator_type_items();
+	static const std::map<int, std::string> actuator_type_items_to_string = create_actuator_type_items_to_string();
 
 	actuator_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<actuator_type_items_enum>(string_to_actuator_type_items.at(resstr)))
@@ -9749,8 +9749,8 @@ public:
 		return {{prop_type_items_PLAY, "PLAY"}, {prop_type_items_PINGPONG, "PINGPONG"}, {prop_type_items_FLIPPER, "FLIPPER"}, {prop_type_items_LOOPSTOP, "LOOPSTOP"}, {prop_type_items_LOOPEND, "LOOPEND"}, {prop_type_items_PROPERTY, "PROPERTY"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum play_mode() {
 		STRING_TYPE_GETTER("play_mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -9881,8 +9881,8 @@ public:
 		return {{prop_blend_items_BLEND, "BLEND"}, {prop_blend_items_ADD, "ADD"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_blend_items = create_string_to_prop_blend_items();
-	const std::map<int, std::string> prop_blend_items_to_string = create_prop_blend_items_to_string();
+	static const std::map<std::string, int> string_to_prop_blend_items = create_string_to_prop_blend_items();
+	static const std::map<int, std::string> prop_blend_items_to_string = create_prop_blend_items_to_string();
 
 	prop_blend_items_enum blend_mode() {
 		STRING_TYPE_GETTER("blend_mode", static_cast<prop_blend_items_enum>(string_to_prop_blend_items.at(resstr)))
@@ -9912,8 +9912,8 @@ public:
 		return {{prop_type_items_OBJECT_NORMAL, "OBJECT_NORMAL"}, {prop_type_items_OBJECT_SERVO, "OBJECT_SERVO"}, {prop_type_items_OBJECT_CHARACTER, "OBJECT_CHARACTER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -10204,8 +10204,8 @@ public:
 		return {{prop_axis_items_POS_X, "POS_X"}, {prop_axis_items_POS_Y, "POS_Y"}, {prop_axis_items_NEG_X, "NEG_X"}, {prop_axis_items_NEG_Y, "NEG_Y"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_axis_items = create_string_to_prop_axis_items();
-	const std::map<int, std::string> prop_axis_items_to_string = create_prop_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_axis_items = create_string_to_prop_axis_items();
+	static const std::map<int, std::string> prop_axis_items_to_string = create_prop_axis_items_to_string();
 
 	prop_axis_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<prop_axis_items_enum>(string_to_prop_axis_items.at(resstr)))
@@ -10240,8 +10240,8 @@ public:
 		return {{prop_type_items_PLAYSTOP, "PLAYSTOP"}, {prop_type_items_PLAYEND, "PLAYEND"}, {prop_type_items_LOOPSTOP, "LOOPSTOP"}, {prop_type_items_LOOPEND, "LOOPEND"}, {prop_type_items_LOOPBIDIRECTIONAL, "LOOPBIDIRECTIONAL"}, {prop_type_items_LOOPBIDIRECTIONALSTOP, "LOOPBIDIRECTIONALSTOP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -10361,8 +10361,8 @@ public:
 		return {{prop_type_items_ASSIGN, "ASSIGN"}, {prop_type_items_ADD, "ADD"}, {prop_type_items_COPY, "COPY"}, {prop_type_items_TOGGLE, "TOGGLE"}, {prop_type_items_LEVEL, "LEVEL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -10419,8 +10419,8 @@ public:
 		return {{prop_type_items_LOC, "LOC"}, {prop_type_items_DIST, "DIST"}, {prop_type_items_ORI, "ORI"}, {prop_type_items_FH, "FH"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -10445,8 +10445,8 @@ public:
 		return {{prop_limit_items_NONE, "NONE"}, {prop_limit_items_LOCX, "LOCX"}, {prop_limit_items_LOCY, "LOCY"}, {prop_limit_items_LOCZ, "LOCZ"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_limit_items = create_string_to_prop_limit_items();
-	const std::map<int, std::string> prop_limit_items_to_string = create_prop_limit_items_to_string();
+	static const std::map<std::string, int> string_to_prop_limit_items = create_string_to_prop_limit_items();
+	static const std::map<int, std::string> prop_limit_items_to_string = create_prop_limit_items_to_string();
 
 	prop_limit_items_enum limit() {
 		STRING_TYPE_GETTER("limit", static_cast<prop_limit_items_enum>(string_to_prop_limit_items.at(resstr)))
@@ -10474,8 +10474,8 @@ public:
 		return {{prop_direction_items_NONE, "NONE"}, {prop_direction_items_DIRPX, "DIRPX"}, {prop_direction_items_DIRPY, "DIRPY"}, {prop_direction_items_DIRPZ, "DIRPZ"}, {prop_direction_items_DIRNX, "DIRNX"}, {prop_direction_items_DIRNY, "DIRNY"}, {prop_direction_items_DIRNZ, "DIRNZ"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_direction_items = create_string_to_prop_direction_items();
-	const std::map<int, std::string> prop_direction_items_to_string = create_prop_direction_items_to_string();
+	static const std::map<std::string, int> string_to_prop_direction_items = create_string_to_prop_direction_items();
+	static const std::map<int, std::string> prop_direction_items_to_string = create_prop_direction_items_to_string();
 
 	prop_direction_items_enum direction() {
 		STRING_TYPE_GETTER("direction", static_cast<prop_direction_items_enum>(string_to_prop_direction_items.at(resstr)))
@@ -10580,8 +10580,8 @@ public:
 		return {{prop_direction_pos_items_NONE, "NONE"}, {prop_direction_pos_items_DIRPX, "DIRPX"}, {prop_direction_pos_items_DIRPY, "DIRPY"}, {prop_direction_pos_items_DIRPZ, "DIRPZ"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_direction_pos_items = create_string_to_prop_direction_pos_items();
-	const std::map<int, std::string> prop_direction_pos_items_to_string = create_prop_direction_pos_items_to_string();
+	static const std::map<std::string, int> string_to_prop_direction_pos_items = create_string_to_prop_direction_pos_items();
+	static const std::map<int, std::string> prop_direction_pos_items_to_string = create_prop_direction_pos_items_to_string();
 
 	prop_direction_pos_items_enum direction_axis_pos() {
 		STRING_TYPE_GETTER("direction_axis_pos", static_cast<prop_direction_pos_items_enum>(string_to_prop_direction_pos_items.at(resstr)))
@@ -10717,8 +10717,8 @@ public:
 		return {{prop_type_items_ADDOBJECT, "ADDOBJECT"}, {prop_type_items_ENDOBJECT, "ENDOBJECT"}, {prop_type_items_REPLACEMESH, "REPLACEMESH"}, {prop_type_items_TRACKTO, "TRACKTO"}, {prop_type_items_DYNAMICS, "DYNAMICS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -10744,8 +10744,8 @@ public:
 		return {{prop_dyn_items_RESTOREDYN, "RESTOREDYN"}, {prop_dyn_items_SUSPENDDYN, "SUSPENDDYN"}, {prop_dyn_items_ENABLERIGIDBODY, "ENABLERIGIDBODY"}, {prop_dyn_items_DISABLERIGIDBODY, "DISABLERIGIDBODY"}, {prop_dyn_items_SETMASS, "SETMASS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dyn_items = create_string_to_prop_dyn_items();
-	const std::map<int, std::string> prop_dyn_items_to_string = create_prop_dyn_items_to_string();
+	static const std::map<std::string, int> string_to_prop_dyn_items = create_string_to_prop_dyn_items();
+	static const std::map<int, std::string> prop_dyn_items_to_string = create_prop_dyn_items_to_string();
 
 	prop_dyn_items_enum dynamic_operation() {
 		STRING_TYPE_GETTER("dynamic_operation", static_cast<prop_dyn_items_enum>(string_to_prop_dyn_items.at(resstr)))
@@ -10769,8 +10769,8 @@ public:
 		return {{prop_up_axis_items_UPAXISX, "UPAXISX"}, {prop_up_axis_items_UPAXISY, "UPAXISY"}, {prop_up_axis_items_UPAXISZ, "UPAXISZ"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_up_axis_items = create_string_to_prop_up_axis_items();
-	const std::map<int, std::string> prop_up_axis_items_to_string = create_prop_up_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_up_axis_items = create_string_to_prop_up_axis_items();
+	static const std::map<int, std::string> prop_up_axis_items_to_string = create_prop_up_axis_items_to_string();
 
 	prop_up_axis_items_enum up_axis() {
 		STRING_TYPE_GETTER("up_axis", static_cast<prop_up_axis_items_enum>(string_to_prop_up_axis_items.at(resstr)))
@@ -10797,8 +10797,8 @@ public:
 		return {{prop_track_axis_items_TRACKAXISX, "TRACKAXISX"}, {prop_track_axis_items_TRACKAXISY, "TRACKAXISY"}, {prop_track_axis_items_TRACKAXISZ, "TRACKAXISZ"}, {prop_track_axis_items_TRACKAXISNEGX, "TRACKAXISNEGX"}, {prop_track_axis_items_TRACKAXISNEGY, "TRACKAXISNEGY"}, {prop_track_axis_items_TRACKAXISNEGZ, "TRACKAXISNEGZ"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_track_axis_items = create_string_to_prop_track_axis_items();
-	const std::map<int, std::string> prop_track_axis_items_to_string = create_prop_track_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_track_axis_items = create_string_to_prop_track_axis_items();
+	static const std::map<int, std::string> prop_track_axis_items_to_string = create_prop_track_axis_items_to_string();
 
 	prop_track_axis_items_enum track_axis() {
 		STRING_TYPE_GETTER("track_axis", static_cast<prop_track_axis_items_enum>(string_to_prop_track_axis_items.at(resstr)))
@@ -10911,8 +10911,8 @@ public:
 		return {{prop_type_items_RESTART, "RESTART"}, {prop_type_items_SET, "SET"}, {prop_type_items_CAMERA, "CAMERA"}, {prop_type_items_ADDFRONT, "ADDFRONT"}, {prop_type_items_ADDBACK, "ADDBACK"}, {prop_type_items_REMOVE, "REMOVE"}, {prop_type_items_SUSPEND, "SUSPEND"}, {prop_type_items_RESUME, "RESUME"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -10969,8 +10969,8 @@ public:
 		return {{prop_distribution_items_BOOL_CONSTANT, "BOOL_CONSTANT"}, {prop_distribution_items_BOOL_UNIFORM, "BOOL_UNIFORM"}, {prop_distribution_items_BOOL_BERNOUILLI, "BOOL_BERNOUILLI"}, {prop_distribution_items_INT_CONSTANT, "INT_CONSTANT"}, {prop_distribution_items_INT_UNIFORM, "INT_UNIFORM"}, {prop_distribution_items_INT_POISSON, "INT_POISSON"}, {prop_distribution_items_FLOAT_CONSTANT, "FLOAT_CONSTANT"}, {prop_distribution_items_FLOAT_UNIFORM, "FLOAT_UNIFORM"}, {prop_distribution_items_FLOAT_NORMAL, "FLOAT_NORMAL"}, {prop_distribution_items_FLOAT_NEGATIVE_EXPONENTIAL, "FLOAT_NEGATIVE_EXPONENTIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_distribution_items = create_string_to_prop_distribution_items();
-	const std::map<int, std::string> prop_distribution_items_to_string = create_prop_distribution_items_to_string();
+	static const std::map<std::string, int> string_to_prop_distribution_items = create_string_to_prop_distribution_items();
+	static const std::map<int, std::string> prop_distribution_items_to_string = create_prop_distribution_items_to_string();
 
 	prop_distribution_items_enum distribution() {
 		STRING_TYPE_GETTER("distribution", static_cast<prop_distribution_items_enum>(string_to_prop_distribution_items.at(resstr)))
@@ -11111,8 +11111,8 @@ public:
 		return {{prop_body_type_items_TEXT, "TEXT"}, {prop_body_type_items_PROPERTY, "PROPERTY"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_body_type_items = create_string_to_prop_body_type_items();
-	const std::map<int, std::string> prop_body_type_items_to_string = create_prop_body_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_body_type_items = create_string_to_prop_body_type_items();
+	static const std::map<int, std::string> prop_body_type_items_to_string = create_prop_body_type_items_to_string();
 
 	prop_body_type_items_enum body_type() {
 		STRING_TYPE_GETTER("body_type", static_cast<prop_body_type_items_enum>(string_to_prop_body_type_items.at(resstr)))
@@ -11160,8 +11160,8 @@ public:
 		return {{prop_type_items_START, "START"}, {prop_type_items_RESTART, "RESTART"}, {prop_type_items_QUIT, "QUIT"}, {prop_type_items_SAVECFG, "SAVECFG"}, {prop_type_items_LOADCFG, "LOADCFG"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11241,8 +11241,8 @@ public:
 		return {{prop_type_items_ENABLE, "ENABLE"}, {prop_type_items_DISABLE, "DISABLE"}, {prop_type_items_REMOVE, "REMOVE"}, {prop_type_items_MOTIONBLUR, "MOTIONBLUR"}, {prop_type_items_BLUR, "BLUR"}, {prop_type_items_SHARPEN, "SHARPEN"}, {prop_type_items_DILATION, "DILATION"}, {prop_type_items_EROSION, "EROSION"}, {prop_type_items_LAPLACIAN, "LAPLACIAN"}, {prop_type_items_SOBEL, "SOBEL"}, {prop_type_items_PREWITT, "PREWITT"}, {prop_type_items_GRAYSCALE, "GRAYSCALE"}, {prop_type_items_SEPIA, "SEPIA"}, {prop_type_items_INVERT, "INVERT"}, {prop_type_items_CUSTOMFILTER, "CUSTOMFILTER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11297,8 +11297,8 @@ public:
 		return {{prop_type_items_SETPARENT, "SETPARENT"}, {prop_type_items_REMOVEPARENT, "REMOVEPARENT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11347,8 +11347,8 @@ public:
 		return {{prop_type_items_SET, "SET"}, {prop_type_items_ADD, "ADD"}, {prop_type_items_REMOVE, "REMOVE"}, {prop_type_items_CHANGE, "CHANGE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum operation() {
 		STRING_TYPE_GETTER("operation", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11389,8 +11389,8 @@ public:
 		return {{prop_type_items_RUN, "RUN"}, {prop_type_items_ENABLE, "ENABLE"}, {prop_type_items_DISABLE, "DISABLE"}, {prop_type_items_SETTARGET, "SETTARGET"}, {prop_type_items_SETWEIGHT, "SETWEIGHT"}, {prop_type_items_SETINFLUENCE, "SETINFLUENCE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11456,8 +11456,8 @@ public:
 		return {{prop_type_items_SEEK, "SEEK"}, {prop_type_items_FLEE, "FLEE"}, {prop_type_items_PATHFOLLOWING, "PATHFOLLOWING"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11552,8 +11552,8 @@ public:
 		return {{facingaxis_items_X, "X"}, {facingaxis_items_Y, "Y"}, {facingaxis_items_Z, "Z"}, {facingaxis_items_NEG_X, "NEG_X"}, {facingaxis_items_NEG_Y, "NEG_Y"}, {facingaxis_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_facingaxis_items = create_string_to_facingaxis_items();
-	const std::map<int, std::string> facingaxis_items_to_string = create_facingaxis_items_to_string();
+	static const std::map<std::string, int> string_to_facingaxis_items = create_string_to_facingaxis_items();
+	static const std::map<int, std::string> facingaxis_items_to_string = create_facingaxis_items_to_string();
 
 	facingaxis_items_enum facing_axis() {
 		STRING_TYPE_GETTER("facing_axis", static_cast<facingaxis_items_enum>(string_to_facingaxis_items.at(resstr)))
@@ -11598,8 +11598,8 @@ public:
 		return {{prop_type_items_VISIBILITY, "VISIBILITY"}, {prop_type_items_LOOK, "LOOK"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -11695,8 +11695,8 @@ public:
 		return {{prop_object_axis_items_OBJECT_AXIS_X, "OBJECT_AXIS_X"}, {prop_object_axis_items_OBJECT_AXIS_Y, "OBJECT_AXIS_Y"}, {prop_object_axis_items_OBJECT_AXIS_Z, "OBJECT_AXIS_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_object_axis_items = create_string_to_prop_object_axis_items();
-	const std::map<int, std::string> prop_object_axis_items_to_string = create_prop_object_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_object_axis_items = create_string_to_prop_object_axis_items();
+	static const std::map<int, std::string> prop_object_axis_items_to_string = create_prop_object_axis_items_to_string();
 
 	prop_object_axis_items_enum object_axis_x() {
 		STRING_TYPE_GETTER("object_axis_x", static_cast<prop_object_axis_items_enum>(string_to_prop_object_axis_items.at(resstr)))
@@ -11789,8 +11789,8 @@ public:
 		return {{prop_pose_position_items_POSE, "POSE"}, {prop_pose_position_items_REST, "REST"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_pose_position_items = create_string_to_prop_pose_position_items();
-	const std::map<int, std::string> prop_pose_position_items_to_string = create_prop_pose_position_items_to_string();
+	static const std::map<std::string, int> string_to_prop_pose_position_items = create_string_to_prop_pose_position_items();
+	static const std::map<int, std::string> prop_pose_position_items_to_string = create_prop_pose_position_items_to_string();
 
 	prop_pose_position_items_enum pose_position() {
 		STRING_TYPE_GETTER("pose_position", static_cast<prop_pose_position_items_enum>(string_to_prop_pose_position_items.at(resstr)))
@@ -11816,8 +11816,8 @@ public:
 		return {{prop_drawtype_items_OCTAHEDRAL, "OCTAHEDRAL"}, {prop_drawtype_items_STICK, "STICK"}, {prop_drawtype_items_BBONE, "BBONE"}, {prop_drawtype_items_ENVELOPE, "ENVELOPE"}, {prop_drawtype_items_WIRE, "WIRE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_drawtype_items = create_string_to_prop_drawtype_items();
-	const std::map<int, std::string> prop_drawtype_items_to_string = create_prop_drawtype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_drawtype_items = create_string_to_prop_drawtype_items();
+	static const std::map<int, std::string> prop_drawtype_items_to_string = create_prop_drawtype_items_to_string();
 
 	prop_drawtype_items_enum draw_type() {
 		STRING_TYPE_GETTER("draw_type", static_cast<prop_drawtype_items_enum>(string_to_prop_drawtype_items.at(resstr)))
@@ -11840,8 +11840,8 @@ public:
 		return {{prop_vdeformer_BLENDER, "BLENDER"}, {prop_vdeformer_BGE_CPU, "BGE_CPU"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_vdeformer = create_string_to_prop_vdeformer();
-	const std::map<int, std::string> prop_vdeformer_to_string = create_prop_vdeformer_to_string();
+	static const std::map<std::string, int> string_to_prop_vdeformer = create_string_to_prop_vdeformer();
+	static const std::map<int, std::string> prop_vdeformer_to_string = create_prop_vdeformer_to_string();
 
 	prop_vdeformer_enum deform_method() {
 		STRING_TYPE_GETTER("deform_method", static_cast<prop_vdeformer_enum>(string_to_prop_vdeformer.at(resstr)))
@@ -11865,8 +11865,8 @@ public:
 		return {{prop_ghost_type_items_CURRENT_FRAME, "CURRENT_FRAME"}, {prop_ghost_type_items_RANGE, "RANGE"}, {prop_ghost_type_items_KEYS, "KEYS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ghost_type_items = create_string_to_prop_ghost_type_items();
-	const std::map<int, std::string> prop_ghost_type_items_to_string = create_prop_ghost_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ghost_type_items = create_string_to_prop_ghost_type_items();
+	static const std::map<int, std::string> prop_ghost_type_items_to_string = create_prop_ghost_type_items_to_string();
 
 	prop_ghost_type_items_enum ghost_type() {
 		STRING_TYPE_GETTER("ghost_type", static_cast<prop_ghost_type_items_enum>(string_to_prop_ghost_type_items.at(resstr)))
@@ -12562,8 +12562,8 @@ public:
 		return {{boidrule_type_items_GOAL, "GOAL"}, {boidrule_type_items_AVOID, "AVOID"}, {boidrule_type_items_AVOID_COLLISION, "AVOID_COLLISION"}, {boidrule_type_items_SEPARATE, "SEPARATE"}, {boidrule_type_items_FLOCK, "FLOCK"}, {boidrule_type_items_FOLLOW_LEADER, "FOLLOW_LEADER"}, {boidrule_type_items_AVERAGE_SPEED, "AVERAGE_SPEED"}, {boidrule_type_items_FIGHT, "FIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_boidrule_type_items = create_string_to_boidrule_type_items();
-	const std::map<int, std::string> boidrule_type_items_to_string = create_boidrule_type_items_to_string();
+	static const std::map<std::string, int> string_to_boidrule_type_items = create_string_to_boidrule_type_items();
+	static const std::map<int, std::string> boidrule_type_items_to_string = create_boidrule_type_items_to_string();
 
 	boidrule_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<boidrule_type_items_enum>(string_to_boidrule_type_items.at(resstr)))
@@ -12771,8 +12771,8 @@ public:
 		return {{boidruleset_type_items_FUZZY, "FUZZY"}, {boidruleset_type_items_RANDOM, "RANDOM"}, {boidruleset_type_items_AVERAGE, "AVERAGE"}};
 	};
 
-	const std::map<std::string, int> string_to_boidruleset_type_items = create_string_to_boidruleset_type_items();
-	const std::map<int, std::string> boidruleset_type_items_to_string = create_boidruleset_type_items_to_string();
+	static const std::map<std::string, int> string_to_boidruleset_type_items = create_string_to_boidruleset_type_items();
+	static const std::map<int, std::string> boidruleset_type_items_to_string = create_boidruleset_type_items_to_string();
 
 	boidruleset_type_items_enum ruleset_type() {
 		STRING_TYPE_GETTER("ruleset_type", static_cast<boidruleset_type_items_enum>(string_to_boidruleset_type_items.at(resstr)))
@@ -13069,8 +13069,8 @@ public:
 		return {{prop_blend_items_MIX, "MIX"}, {prop_blend_items_ADD, "ADD"}, {prop_blend_items_SUB, "SUB"}, {prop_blend_items_MUL, "MUL"}, {prop_blend_items_LIGHTEN, "LIGHTEN"}, {prop_blend_items_DARKEN, "DARKEN"}, {prop_blend_items_ERASE_ALPHA, "ERASE_ALPHA"}, {prop_blend_items_ADD_ALPHA, "ADD_ALPHA"}, {prop_blend_items_OVERLAY, "OVERLAY"}, {prop_blend_items_HARDLIGHT, "HARDLIGHT"}, {prop_blend_items_COLORBURN, "COLORBURN"}, {prop_blend_items_LINEARBURN, "LINEARBURN"}, {prop_blend_items_COLORDODGE, "COLORDODGE"}, {prop_blend_items_SCREEN, "SCREEN"}, {prop_blend_items_SOFTLIGHT, "SOFTLIGHT"}, {prop_blend_items_PINLIGHT, "PINLIGHT"}, {prop_blend_items_VIVIDLIGHT, "VIVIDLIGHT"}, {prop_blend_items_LINEARLIGHT, "LINEARLIGHT"}, {prop_blend_items_DIFFERENCE, "DIFFERENCE"}, {prop_blend_items_EXCLUSION, "EXCLUSION"}, {prop_blend_items_HUE, "HUE"}, {prop_blend_items_SATURATION, "SATURATION"}, {prop_blend_items_LUMINOSITY, "LUMINOSITY"}, {prop_blend_items_COLOR, "COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_blend_items = create_string_to_prop_blend_items();
-	const std::map<int, std::string> prop_blend_items_to_string = create_prop_blend_items_to_string();
+	static const std::map<std::string, int> string_to_prop_blend_items = create_string_to_prop_blend_items();
+	static const std::map<int, std::string> prop_blend_items_to_string = create_prop_blend_items_to_string();
 
 	prop_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<prop_blend_items_enum>(string_to_prop_blend_items.at(resstr)))
@@ -13110,8 +13110,8 @@ public:
 		return {{brush_sculpt_tool_items_BLOB, "BLOB"}, {brush_sculpt_tool_items_CLAY, "CLAY"}, {brush_sculpt_tool_items_CLAY_STRIPS, "CLAY_STRIPS"}, {brush_sculpt_tool_items_CREASE, "CREASE"}, {brush_sculpt_tool_items_DRAW, "DRAW"}, {brush_sculpt_tool_items_FILL, "FILL"}, {brush_sculpt_tool_items_FLATTEN, "FLATTEN"}, {brush_sculpt_tool_items_GRAB, "GRAB"}, {brush_sculpt_tool_items_INFLATE, "INFLATE"}, {brush_sculpt_tool_items_LAYER, "LAYER"}, {brush_sculpt_tool_items_MASK, "MASK"}, {brush_sculpt_tool_items_NUDGE, "NUDGE"}, {brush_sculpt_tool_items_PINCH, "PINCH"}, {brush_sculpt_tool_items_ROTATE, "ROTATE"}, {brush_sculpt_tool_items_SCRAPE, "SCRAPE"}, {brush_sculpt_tool_items_SIMPLIFY, "SIMPLIFY"}, {brush_sculpt_tool_items_SMOOTH, "SMOOTH"}, {brush_sculpt_tool_items_SNAKE_HOOK, "SNAKE_HOOK"}, {brush_sculpt_tool_items_THUMB, "THUMB"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_sculpt_tool_items = create_string_to_brush_sculpt_tool_items();
-	const std::map<int, std::string> brush_sculpt_tool_items_to_string = create_brush_sculpt_tool_items_to_string();
+	static const std::map<std::string, int> string_to_brush_sculpt_tool_items = create_string_to_brush_sculpt_tool_items();
+	static const std::map<int, std::string> brush_sculpt_tool_items_to_string = create_brush_sculpt_tool_items_to_string();
 
 	brush_sculpt_tool_items_enum sculpt_tool() {
 		STRING_TYPE_GETTER("sculpt_tool", static_cast<brush_sculpt_tool_items_enum>(string_to_brush_sculpt_tool_items.at(resstr)))
@@ -13139,8 +13139,8 @@ public:
 		return {{brush_vertex_tool_items_MIX, "MIX"}, {brush_vertex_tool_items_ADD, "ADD"}, {brush_vertex_tool_items_SUB, "SUB"}, {brush_vertex_tool_items_MUL, "MUL"}, {brush_vertex_tool_items_BLUR, "BLUR"}, {brush_vertex_tool_items_LIGHTEN, "LIGHTEN"}, {brush_vertex_tool_items_DARKEN, "DARKEN"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_vertex_tool_items = create_string_to_brush_vertex_tool_items();
-	const std::map<int, std::string> brush_vertex_tool_items_to_string = create_brush_vertex_tool_items_to_string();
+	static const std::map<std::string, int> string_to_brush_vertex_tool_items = create_string_to_brush_vertex_tool_items();
+	static const std::map<int, std::string> brush_vertex_tool_items_to_string = create_brush_vertex_tool_items_to_string();
 
 	brush_vertex_tool_items_enum vertex_tool() {
 		STRING_TYPE_GETTER("vertex_tool", static_cast<brush_vertex_tool_items_enum>(string_to_brush_vertex_tool_items.at(resstr)))
@@ -13167,8 +13167,8 @@ public:
 		return {{brush_image_tool_items_DRAW, "DRAW"}, {brush_image_tool_items_SOFTEN, "SOFTEN"}, {brush_image_tool_items_SMEAR, "SMEAR"}, {brush_image_tool_items_CLONE, "CLONE"}, {brush_image_tool_items_FILL, "FILL"}, {brush_image_tool_items_MASK, "MASK"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_image_tool_items = create_string_to_brush_image_tool_items();
-	const std::map<int, std::string> brush_image_tool_items_to_string = create_brush_image_tool_items_to_string();
+	static const std::map<std::string, int> string_to_brush_image_tool_items = create_string_to_brush_image_tool_items();
+	static const std::map<int, std::string> brush_image_tool_items_to_string = create_brush_image_tool_items_to_string();
 
 	brush_image_tool_items_enum image_tool() {
 		STRING_TYPE_GETTER("image_tool", static_cast<brush_image_tool_items_enum>(string_to_brush_image_tool_items.at(resstr)))
@@ -13191,8 +13191,8 @@ public:
 		return {{prop_direction_items_ADD, "ADD"}, {prop_direction_items_SUBTRACT, "SUBTRACT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_direction_items = create_string_to_prop_direction_items();
-	const std::map<int, std::string> prop_direction_items_to_string = create_prop_direction_items_to_string();
+	static const std::map<std::string, int> string_to_prop_direction_items = create_string_to_prop_direction_items();
+	static const std::map<int, std::string> prop_direction_items_to_string = create_prop_direction_items_to_string();
 
 	prop_direction_items_enum direction() {
 		STRING_TYPE_GETTER("direction", static_cast<prop_direction_items_enum>(string_to_prop_direction_items.at(resstr)))
@@ -13220,8 +13220,8 @@ public:
 		return {{sculpt_stroke_method_items_DOTS, "DOTS"}, {sculpt_stroke_method_items_DRAG_DOT, "DRAG_DOT"}, {sculpt_stroke_method_items_SPACE, "SPACE"}, {sculpt_stroke_method_items_AIRBRUSH, "AIRBRUSH"}, {sculpt_stroke_method_items_ANCHORED, "ANCHORED"}, {sculpt_stroke_method_items_LINE, "LINE"}, {sculpt_stroke_method_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_sculpt_stroke_method_items = create_string_to_sculpt_stroke_method_items();
-	const std::map<int, std::string> sculpt_stroke_method_items_to_string = create_sculpt_stroke_method_items_to_string();
+	static const std::map<std::string, int> string_to_sculpt_stroke_method_items = create_string_to_sculpt_stroke_method_items();
+	static const std::map<int, std::string> sculpt_stroke_method_items_to_string = create_sculpt_stroke_method_items_to_string();
 
 	sculpt_stroke_method_items_enum stroke_method() {
 		STRING_TYPE_GETTER("stroke_method", static_cast<sculpt_stroke_method_items_enum>(string_to_sculpt_stroke_method_items.at(resstr)))
@@ -13247,8 +13247,8 @@ public:
 		return {{brush_sculpt_plane_items_AREA, "AREA"}, {brush_sculpt_plane_items_VIEW, "VIEW"}, {brush_sculpt_plane_items_X, "X"}, {brush_sculpt_plane_items_Y, "Y"}, {brush_sculpt_plane_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_sculpt_plane_items = create_string_to_brush_sculpt_plane_items();
-	const std::map<int, std::string> brush_sculpt_plane_items_to_string = create_brush_sculpt_plane_items_to_string();
+	static const std::map<std::string, int> string_to_brush_sculpt_plane_items = create_string_to_brush_sculpt_plane_items();
+	static const std::map<int, std::string> brush_sculpt_plane_items_to_string = create_brush_sculpt_plane_items_to_string();
 
 	brush_sculpt_plane_items_enum sculpt_plane() {
 		STRING_TYPE_GETTER("sculpt_plane", static_cast<brush_sculpt_plane_items_enum>(string_to_brush_sculpt_plane_items.at(resstr)))
@@ -13271,8 +13271,8 @@ public:
 		return {{brush_mask_tool_items_DRAW, "DRAW"}, {brush_mask_tool_items_SMOOTH, "SMOOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_mask_tool_items = create_string_to_brush_mask_tool_items();
-	const std::map<int, std::string> brush_mask_tool_items_to_string = create_brush_mask_tool_items_to_string();
+	static const std::map<std::string, int> string_to_brush_mask_tool_items = create_string_to_brush_mask_tool_items();
+	static const std::map<int, std::string> brush_mask_tool_items_to_string = create_brush_mask_tool_items_to_string();
 
 	brush_mask_tool_items_enum mask_tool() {
 		STRING_TYPE_GETTER("mask_tool", static_cast<brush_mask_tool_items_enum>(string_to_brush_mask_tool_items.at(resstr)))
@@ -13511,8 +13511,8 @@ public:
 		return {{brush_blur_mode_items_BOX, "BOX"}, {brush_blur_mode_items_GAUSSIAN, "GAUSSIAN"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_blur_mode_items = create_string_to_brush_blur_mode_items();
-	const std::map<int, std::string> brush_blur_mode_items_to_string = create_brush_blur_mode_items_to_string();
+	static const std::map<std::string, int> string_to_brush_blur_mode_items = create_string_to_brush_blur_mode_items();
+	static const std::map<int, std::string> brush_blur_mode_items_to_string = create_brush_blur_mode_items_to_string();
 
 	brush_blur_mode_items_enum blur_mode() {
 		STRING_TYPE_GETTER("blur_mode", static_cast<brush_blur_mode_items_enum>(string_to_brush_blur_mode_items.at(resstr)))
@@ -13608,8 +13608,8 @@ public:
 		return {{brush_mask_pressure_items_NONE, "NONE"}, {brush_mask_pressure_items_RAMP, "RAMP"}, {brush_mask_pressure_items_CUTOFF, "CUTOFF"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_mask_pressure_items = create_string_to_brush_mask_pressure_items();
-	const std::map<int, std::string> brush_mask_pressure_items_to_string = create_brush_mask_pressure_items_to_string();
+	static const std::map<std::string, int> string_to_brush_mask_pressure_items = create_string_to_brush_mask_pressure_items();
+	static const std::map<int, std::string> brush_mask_pressure_items_to_string = create_brush_mask_pressure_items_to_string();
 
 	brush_mask_pressure_items_enum use_pressure_masking() {
 		STRING_TYPE_GETTER("use_pressure_masking", static_cast<brush_mask_pressure_items_enum>(string_to_brush_mask_pressure_items.at(resstr)))
@@ -13775,8 +13775,8 @@ public:
 		return {{brush_gradient_items_PRESSURE, "PRESSURE"}, {brush_gradient_items_SPACING_REPEAT, "SPACING_REPEAT"}, {brush_gradient_items_SPACING_CLAMP, "SPACING_CLAMP"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_gradient_items = create_string_to_brush_gradient_items();
-	const std::map<int, std::string> brush_gradient_items_to_string = create_brush_gradient_items_to_string();
+	static const std::map<std::string, int> string_to_brush_gradient_items = create_string_to_brush_gradient_items();
+	static const std::map<int, std::string> brush_gradient_items_to_string = create_brush_gradient_items_to_string();
 
 	brush_gradient_items_enum gradient_stroke_mode() {
 		STRING_TYPE_GETTER("gradient_stroke_mode", static_cast<brush_gradient_items_enum>(string_to_brush_gradient_items.at(resstr)))
@@ -13799,8 +13799,8 @@ public:
 		return {{brush_gradient_fill_items_LINEAR, "LINEAR"}, {brush_gradient_fill_items_RADIAL, "RADIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_brush_gradient_fill_items = create_string_to_brush_gradient_fill_items();
-	const std::map<int, std::string> brush_gradient_fill_items_to_string = create_brush_gradient_fill_items_to_string();
+	static const std::map<std::string, int> string_to_brush_gradient_fill_items = create_string_to_brush_gradient_fill_items();
+	static const std::map<int, std::string> brush_gradient_fill_items_to_string = create_brush_gradient_fill_items_to_string();
 
 	brush_gradient_fill_items_enum gradient_fill_mode() {
 		STRING_TYPE_GETTER("gradient_fill_mode", static_cast<brush_gradient_fill_items_enum>(string_to_brush_gradient_fill_items.at(resstr)))
@@ -14207,8 +14207,8 @@ public:
 		return {{prop_map_mode_items_VIEW_PLANE, "VIEW_PLANE"}, {prop_map_mode_items_AREA_PLANE, "AREA_PLANE"}, {prop_map_mode_items_TILED, "TILED"}, {prop_map_mode_items_3D, "3D"}, {prop_map_mode_items_RANDOM, "RANDOM"}, {prop_map_mode_items_STENCIL, "STENCIL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_map_mode_items = create_string_to_prop_map_mode_items();
-	const std::map<int, std::string> prop_map_mode_items_to_string = create_prop_map_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_map_mode_items = create_string_to_prop_map_mode_items();
+	static const std::map<int, std::string> prop_map_mode_items_to_string = create_prop_map_mode_items_to_string();
 
 	prop_map_mode_items_enum map_mode() {
 		STRING_TYPE_GETTER("map_mode", static_cast<prop_map_mode_items_enum>(string_to_prop_map_mode_items.at(resstr)))
@@ -14234,8 +14234,8 @@ public:
 		return {{prop_tex_paint_map_mode_items_VIEW_PLANE, "VIEW_PLANE"}, {prop_tex_paint_map_mode_items_TILED, "TILED"}, {prop_tex_paint_map_mode_items_3D, "3D"}, {prop_tex_paint_map_mode_items_RANDOM, "RANDOM"}, {prop_tex_paint_map_mode_items_STENCIL, "STENCIL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_tex_paint_map_mode_items = create_string_to_prop_tex_paint_map_mode_items();
-	const std::map<int, std::string> prop_tex_paint_map_mode_items_to_string = create_prop_tex_paint_map_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_tex_paint_map_mode_items = create_string_to_prop_tex_paint_map_mode_items();
+	static const std::map<int, std::string> prop_tex_paint_map_mode_items_to_string = create_prop_tex_paint_map_mode_items_to_string();
 
 	prop_tex_paint_map_mode_items_enum tex_paint_map_mode() {
 		STRING_TYPE_GETTER("tex_paint_map_mode", static_cast<prop_tex_paint_map_mode_items_enum>(string_to_prop_tex_paint_map_mode_items.at(resstr)))
@@ -14260,8 +14260,8 @@ public:
 		return {{prop_mask_paint_map_mode_items_VIEW_PLANE, "VIEW_PLANE"}, {prop_mask_paint_map_mode_items_TILED, "TILED"}, {prop_mask_paint_map_mode_items_RANDOM, "RANDOM"}, {prop_mask_paint_map_mode_items_STENCIL, "STENCIL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mask_paint_map_mode_items = create_string_to_prop_mask_paint_map_mode_items();
-	const std::map<int, std::string> prop_mask_paint_map_mode_items_to_string = create_prop_mask_paint_map_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mask_paint_map_mode_items = create_string_to_prop_mask_paint_map_mode_items();
+	static const std::map<int, std::string> prop_mask_paint_map_mode_items_to_string = create_prop_mask_paint_map_mode_items_to_string();
 
 	prop_mask_paint_map_mode_items_enum mask_map_mode() {
 		STRING_TYPE_GETTER("mask_map_mode", static_cast<prop_mask_paint_map_mode_items_enum>(string_to_prop_mask_paint_map_mode_items.at(resstr)))
@@ -14401,8 +14401,8 @@ public:
 		return {{prop_type_items_PERSP, "PERSP"}, {prop_type_items_ORTHO, "ORTHO"}, {prop_type_items_PANO, "PANO"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -14431,8 +14431,8 @@ public:
 		return {{prop_draw_type_extra_items_CENTER, "CENTER"}, {prop_draw_type_extra_items_CENTER_DIAGONAL, "CENTER_DIAGONAL"}, {prop_draw_type_extra_items_THIRDS, "THIRDS"}, {prop_draw_type_extra_items_GOLDEN, "GOLDEN"}, {prop_draw_type_extra_items_GOLDEN_TRIANGLE_A, "GOLDEN_TRIANGLE_A"}, {prop_draw_type_extra_items_GOLDEN_TRIANGLE_B, "GOLDEN_TRIANGLE_B"}, {prop_draw_type_extra_items_HARMONY_TRIANGLE_A, "HARMONY_TRIANGLE_A"}, {prop_draw_type_extra_items_HARMONY_TRIANGLE_B, "HARMONY_TRIANGLE_B"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_draw_type_extra_items = create_string_to_prop_draw_type_extra_items();
-	const std::map<int, std::string> prop_draw_type_extra_items_to_string = create_prop_draw_type_extra_items_to_string();
+	static const std::map<std::string, int> string_to_prop_draw_type_extra_items = create_string_to_prop_draw_type_extra_items();
+	static const std::map<int, std::string> prop_draw_type_extra_items_to_string = create_prop_draw_type_extra_items_to_string();
 
 	prop_draw_type_extra_items_enum show_guide() {
 		STRING_TYPE_GETTER("show_guide", static_cast<prop_draw_type_extra_items_enum>(string_to_prop_draw_type_extra_items.at(resstr)))
@@ -14456,8 +14456,8 @@ public:
 		return {{sensor_fit_items_AUTO, "AUTO"}, {sensor_fit_items_HORIZONTAL, "HORIZONTAL"}, {sensor_fit_items_VERTICAL, "VERTICAL"}};
 	};
 
-	const std::map<std::string, int> string_to_sensor_fit_items = create_string_to_sensor_fit_items();
-	const std::map<int, std::string> sensor_fit_items_to_string = create_sensor_fit_items_to_string();
+	static const std::map<std::string, int> string_to_sensor_fit_items = create_string_to_sensor_fit_items();
+	static const std::map<int, std::string> sensor_fit_items_to_string = create_sensor_fit_items_to_string();
 
 	sensor_fit_items_enum sensor_fit() {
 		STRING_TYPE_GETTER("sensor_fit", static_cast<sensor_fit_items_enum>(string_to_sensor_fit_items.at(resstr)))
@@ -14650,8 +14650,8 @@ public:
 		return {{prop_lens_unit_items_MILLIMETERS, "MILLIMETERS"}, {prop_lens_unit_items_FOV, "FOV"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_lens_unit_items = create_string_to_prop_lens_unit_items();
-	const std::map<int, std::string> prop_lens_unit_items_to_string = create_prop_lens_unit_items_to_string();
+	static const std::map<std::string, int> string_to_prop_lens_unit_items = create_string_to_prop_lens_unit_items();
+	static const std::map<int, std::string> prop_lens_unit_items_to_string = create_prop_lens_unit_items_to_string();
 
 	prop_lens_unit_items_enum lens_unit() {
 		STRING_TYPE_GETTER("lens_unit", static_cast<prop_lens_unit_items_enum>(string_to_prop_lens_unit_items.at(resstr)))
@@ -14698,8 +14698,8 @@ public:
 		return {{convergence_mode_items_OFFAXIS, "OFFAXIS"}, {convergence_mode_items_PARALLEL, "PARALLEL"}, {convergence_mode_items_TOE, "TOE"}};
 	};
 
-	const std::map<std::string, int> string_to_convergence_mode_items = create_string_to_convergence_mode_items();
-	const std::map<int, std::string> convergence_mode_items_to_string = create_convergence_mode_items_to_string();
+	static const std::map<std::string, int> string_to_convergence_mode_items = create_string_to_convergence_mode_items();
+	static const std::map<int, std::string> convergence_mode_items_to_string = create_convergence_mode_items_to_string();
 
 	convergence_mode_items_enum convergence_mode() {
 		STRING_TYPE_GETTER("convergence_mode", static_cast<convergence_mode_items_enum>(string_to_convergence_mode_items.at(resstr)))
@@ -14723,8 +14723,8 @@ public:
 		return {{pivot_items_LEFT, "LEFT"}, {pivot_items_RIGHT, "RIGHT"}, {pivot_items_CENTER, "CENTER"}};
 	};
 
-	const std::map<std::string, int> string_to_pivot_items = create_string_to_pivot_items();
-	const std::map<int, std::string> pivot_items_to_string = create_pivot_items_to_string();
+	static const std::map<std::string, int> string_to_pivot_items = create_string_to_pivot_items();
+	static const std::map<int, std::string> pivot_items_to_string = create_pivot_items_to_string();
 
 	pivot_items_enum pivot() {
 		STRING_TYPE_GETTER("pivot", static_cast<pivot_items_enum>(string_to_pivot_items.at(resstr)))
@@ -14771,8 +14771,8 @@ public:
 		return {{status_items_SUCCESS, "SUCCESS"}, {status_items_NUMERICAL_ISSUE, "NUMERICAL_ISSUE"}, {status_items_NO_CONVERGENCE, "NO_CONVERGENCE"}, {status_items_INVALID_INPUT, "INVALID_INPUT"}};
 	};
 
-	const std::map<std::string, int> string_to_status_items = create_string_to_status_items();
-	const std::map<int, std::string> status_items_to_string = create_status_items_to_string();
+	static const std::map<std::string, int> string_to_status_items = create_string_to_status_items();
+	static const std::map<int, std::string> status_items_to_string = create_status_items_to_string();
 
 	status_items_enum status() {
 		STRING_TYPE_GETTER("status", static_cast<status_items_enum>(string_to_status_items.at(resstr)))
@@ -15227,8 +15227,8 @@ public:
 		return {{prop_handle_type_items_AUTO, "AUTO"}, {prop_handle_type_items_VECTOR, "VECTOR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_handle_type_items = create_string_to_prop_handle_type_items();
-	const std::map<int, std::string> prop_handle_type_items_to_string = create_prop_handle_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_handle_type_items = create_string_to_prop_handle_type_items();
+	static const std::map<int, std::string> prop_handle_type_items_to_string = create_prop_handle_type_items_to_string();
 
 	prop_handle_type_items_enum handle_type() {
 		STRING_TYPE_GETTER("handle_type", static_cast<prop_handle_type_items_enum>(string_to_prop_handle_type_items.at(resstr)))
@@ -15265,8 +15265,8 @@ public:
 		return {{prop_extend_items_HORIZONTAL, "HORIZONTAL"}, {prop_extend_items_EXTRAPOLATED, "EXTRAPOLATED"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_extend_items = create_string_to_prop_extend_items();
-	const std::map<int, std::string> prop_extend_items_to_string = create_prop_extend_items_to_string();
+	static const std::map<std::string, int> string_to_prop_extend_items = create_string_to_prop_extend_items();
+	static const std::map<int, std::string> prop_extend_items_to_string = create_prop_extend_items_to_string();
 
 	prop_extend_items_enum extend() {
 		STRING_TYPE_GETTER("extend", static_cast<prop_extend_items_enum>(string_to_prop_extend_items.at(resstr)))
@@ -15417,8 +15417,8 @@ public:
 		return {{prop_interpolation_items_EASE, "EASE"}, {prop_interpolation_items_CARDINAL, "CARDINAL"}, {prop_interpolation_items_LINEAR, "LINEAR"}, {prop_interpolation_items_B_SPLINE, "B_SPLINE"}, {prop_interpolation_items_CONSTANT, "CONSTANT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_interpolation_items = create_string_to_prop_interpolation_items();
-	const std::map<int, std::string> prop_interpolation_items_to_string = create_prop_interpolation_items_to_string();
+	static const std::map<std::string, int> string_to_prop_interpolation_items = create_string_to_prop_interpolation_items();
+	static const std::map<int, std::string> prop_interpolation_items_to_string = create_prop_interpolation_items_to_string();
 
 	prop_interpolation_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<prop_interpolation_items_enum>(string_to_prop_interpolation_items.at(resstr)))
@@ -15443,8 +15443,8 @@ public:
 		return {{prop_hsv_items_NEAR, "NEAR"}, {prop_hsv_items_FAR, "FAR"}, {prop_hsv_items_CW, "CW"}, {prop_hsv_items_CCW, "CCW"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_hsv_items = create_string_to_prop_hsv_items();
-	const std::map<int, std::string> prop_hsv_items_to_string = create_prop_hsv_items_to_string();
+	static const std::map<std::string, int> string_to_prop_hsv_items = create_string_to_prop_hsv_items();
+	static const std::map<int, std::string> prop_hsv_items_to_string = create_prop_hsv_items_to_string();
 
 	prop_hsv_items_enum hue_interpolation() {
 		STRING_TYPE_GETTER("hue_interpolation", static_cast<prop_hsv_items_enum>(string_to_prop_hsv_items.at(resstr)))
@@ -15468,8 +15468,8 @@ public:
 		return {{prop_mode_items_RGB, "RGB"}, {prop_mode_items_HSV, "HSV"}, {prop_mode_items_HSL, "HSL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mode_items = create_string_to_prop_mode_items();
-	const std::map<int, std::string> prop_mode_items_to_string = create_prop_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mode_items = create_string_to_prop_mode_items();
+	static const std::map<int, std::string> prop_mode_items_to_string = create_prop_mode_items_to_string();
 
 	prop_mode_items_enum color_mode() {
 		STRING_TYPE_GETTER("color_mode", static_cast<prop_mode_items_enum>(string_to_prop_mode_items.at(resstr)))
@@ -15509,8 +15509,8 @@ public:
 		return {{prop_mode_items_LUMA, "LUMA"}, {prop_mode_items_RGB, "RGB"}, {prop_mode_items_R, "R"}, {prop_mode_items_G, "G"}, {prop_mode_items_B, "B"}, {prop_mode_items_A, "A"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mode_items = create_string_to_prop_mode_items();
-	const std::map<int, std::string> prop_mode_items_to_string = create_prop_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mode_items = create_string_to_prop_mode_items();
+	static const std::map<int, std::string> prop_mode_items_to_string = create_prop_mode_items_to_string();
 
 	prop_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_mode_items_enum>(string_to_prop_mode_items.at(resstr)))
@@ -15570,8 +15570,8 @@ public:
 		return {{prop_wavefrm_mode_items_LUMA, "LUMA"}, {prop_wavefrm_mode_items_RGB, "RGB"}, {prop_wavefrm_mode_items_YCBCR601, "YCBCR601"}, {prop_wavefrm_mode_items_YCBCR709, "YCBCR709"}, {prop_wavefrm_mode_items_YCBCRJPG, "YCBCRJPG"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_wavefrm_mode_items = create_string_to_prop_wavefrm_mode_items();
-	const std::map<int, std::string> prop_wavefrm_mode_items_to_string = create_prop_wavefrm_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_wavefrm_mode_items = create_string_to_prop_wavefrm_mode_items();
+	static const std::map<int, std::string> prop_wavefrm_mode_items_to_string = create_prop_wavefrm_mode_items_to_string();
 
 	prop_wavefrm_mode_items_enum waveform_mode() {
 		STRING_TYPE_GETTER("waveform_mode", static_cast<prop_wavefrm_mode_items_enum>(string_to_prop_wavefrm_mode_items.at(resstr)))
@@ -15615,8 +15615,8 @@ public:
 		return {{display_device_items_DEFAULT, "DEFAULT"}};
 	};
 
-	const std::map<std::string, int> string_to_display_device_items = create_string_to_display_device_items();
-	const std::map<int, std::string> display_device_items_to_string = create_display_device_items_to_string();
+	static const std::map<std::string, int> string_to_display_device_items = create_string_to_display_device_items();
+	static const std::map<int, std::string> display_device_items_to_string = create_display_device_items_to_string();
 
 	display_device_items_enum display_device() {
 		STRING_TYPE_GETTER("display_device", static_cast<display_device_items_enum>(string_to_display_device_items.at(resstr)))
@@ -15644,8 +15644,8 @@ public:
 		return {{look_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_look_items = create_string_to_look_items();
-	const std::map<int, std::string> look_items_to_string = create_look_items_to_string();
+	static const std::map<std::string, int> string_to_look_items = create_string_to_look_items();
+	static const std::map<int, std::string> look_items_to_string = create_look_items_to_string();
 
 	look_items_enum look() {
 		STRING_TYPE_GETTER("look", static_cast<look_items_enum>(string_to_look_items.at(resstr)))
@@ -15667,8 +15667,8 @@ public:
 		return {{view_transform_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_view_transform_items = create_string_to_view_transform_items();
-	const std::map<int, std::string> view_transform_items_to_string = create_view_transform_items_to_string();
+	static const std::map<std::string, int> string_to_view_transform_items = create_string_to_view_transform_items();
+	static const std::map<int, std::string> view_transform_items_to_string = create_view_transform_items_to_string();
 
 	view_transform_items_enum view_transform() {
 		STRING_TYPE_GETTER("view_transform", static_cast<view_transform_items_enum>(string_to_view_transform_items.at(resstr)))
@@ -15724,8 +15724,8 @@ public:
 		return {{color_space_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
-	const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
+	static const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
+	static const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
 
 	color_space_items_enum name() {
 		STRING_TYPE_GETTER("name", static_cast<color_space_items_enum>(string_to_color_space_items.at(resstr)))
@@ -15753,8 +15753,8 @@ public:
 		return {{color_space_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
-	const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
+	static const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
+	static const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
 
 	color_space_items_enum name() {
 		STRING_TYPE_GETTER("name", static_cast<color_space_items_enum>(string_to_color_space_items.at(resstr)))
@@ -15816,8 +15816,8 @@ public:
 		return {{constraint_type_items_CAMERA_SOLVER, "CAMERA_SOLVER"}, {constraint_type_items_FOLLOW_TRACK, "FOLLOW_TRACK"}, {constraint_type_items_OBJECT_SOLVER, "OBJECT_SOLVER"}, {constraint_type_items_COPY_LOCATION, "COPY_LOCATION"}, {constraint_type_items_COPY_ROTATION, "COPY_ROTATION"}, {constraint_type_items_COPY_SCALE, "COPY_SCALE"}, {constraint_type_items_COPY_TRANSFORMS, "COPY_TRANSFORMS"}, {constraint_type_items_LIMIT_DISTANCE, "LIMIT_DISTANCE"}, {constraint_type_items_LIMIT_LOCATION, "LIMIT_LOCATION"}, {constraint_type_items_LIMIT_ROTATION, "LIMIT_ROTATION"}, {constraint_type_items_LIMIT_SCALE, "LIMIT_SCALE"}, {constraint_type_items_MAINTAIN_VOLUME, "MAINTAIN_VOLUME"}, {constraint_type_items_TRANSFORM, "TRANSFORM"}, {constraint_type_items_CLAMP_TO, "CLAMP_TO"}, {constraint_type_items_DAMPED_TRACK, "DAMPED_TRACK"}, {constraint_type_items_IK, "IK"}, {constraint_type_items_LOCKED_TRACK, "LOCKED_TRACK"}, {constraint_type_items_SPLINE_IK, "SPLINE_IK"}, {constraint_type_items_STRETCH_TO, "STRETCH_TO"}, {constraint_type_items_TRACK_TO, "TRACK_TO"}, {constraint_type_items_ACTION, "ACTION"}, {constraint_type_items_CHILD_OF, "CHILD_OF"}, {constraint_type_items_FLOOR, "FLOOR"}, {constraint_type_items_FOLLOW_PATH, "FOLLOW_PATH"}, {constraint_type_items_PIVOT, "PIVOT"}, {constraint_type_items_RIGID_BODY_JOINT, "RIGID_BODY_JOINT"}, {constraint_type_items_SHRINKWRAP, "SHRINKWRAP"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_type_items = create_string_to_constraint_type_items();
-	const std::map<int, std::string> constraint_type_items_to_string = create_constraint_type_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_type_items = create_string_to_constraint_type_items();
+	static const std::map<int, std::string> constraint_type_items_to_string = create_constraint_type_items_to_string();
 
 	constraint_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<constraint_type_items_enum>(string_to_constraint_type_items.at(resstr)))
@@ -15842,8 +15842,8 @@ public:
 		return {{owner_space_pchan_items_WORLD, "WORLD"}, {owner_space_pchan_items_POSE, "POSE"}, {owner_space_pchan_items_LOCAL_WITH_PARENT, "LOCAL_WITH_PARENT"}, {owner_space_pchan_items_LOCAL, "LOCAL"}};
 	};
 
-	const std::map<std::string, int> string_to_owner_space_pchan_items = create_string_to_owner_space_pchan_items();
-	const std::map<int, std::string> owner_space_pchan_items_to_string = create_owner_space_pchan_items_to_string();
+	static const std::map<std::string, int> string_to_owner_space_pchan_items = create_string_to_owner_space_pchan_items();
+	static const std::map<int, std::string> owner_space_pchan_items_to_string = create_owner_space_pchan_items_to_string();
 
 	owner_space_pchan_items_enum owner_space() {
 		STRING_TYPE_GETTER("owner_space", static_cast<owner_space_pchan_items_enum>(string_to_owner_space_pchan_items.at(resstr)))
@@ -15868,8 +15868,8 @@ public:
 		return {{target_space_pchan_items_WORLD, "WORLD"}, {target_space_pchan_items_POSE, "POSE"}, {target_space_pchan_items_LOCAL_WITH_PARENT, "LOCAL_WITH_PARENT"}, {target_space_pchan_items_LOCAL, "LOCAL"}};
 	};
 
-	const std::map<std::string, int> string_to_target_space_pchan_items = create_string_to_target_space_pchan_items();
-	const std::map<int, std::string> target_space_pchan_items_to_string = create_target_space_pchan_items_to_string();
+	static const std::map<std::string, int> string_to_target_space_pchan_items = create_string_to_target_space_pchan_items();
+	static const std::map<int, std::string> target_space_pchan_items_to_string = create_target_space_pchan_items_to_string();
 
 	target_space_pchan_items_enum target_space() {
 		STRING_TYPE_GETTER("target_space", static_cast<target_space_pchan_items_enum>(string_to_target_space_pchan_items.at(resstr)))
@@ -16130,8 +16130,8 @@ public:
 		return {{volume_items_VOLUME_XZX, "VOLUME_XZX"}, {volume_items_VOLUME_X, "VOLUME_X"}, {volume_items_VOLUME_Z, "VOLUME_Z"}, {volume_items_NO_VOLUME, "NO_VOLUME"}};
 	};
 
-	const std::map<std::string, int> string_to_volume_items = create_string_to_volume_items();
-	const std::map<int, std::string> volume_items_to_string = create_volume_items_to_string();
+	static const std::map<std::string, int> string_to_volume_items = create_string_to_volume_items();
+	static const std::map<int, std::string> volume_items_to_string = create_volume_items_to_string();
 
 	volume_items_enum volume() {
 		STRING_TYPE_GETTER("volume", static_cast<volume_items_enum>(string_to_volume_items.at(resstr)))
@@ -16154,8 +16154,8 @@ public:
 		return {{plane_items_PLANE_X, "PLANE_X"}, {plane_items_PLANE_Z, "PLANE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_plane_items = create_string_to_plane_items();
-	const std::map<int, std::string> plane_items_to_string = create_plane_items_to_string();
+	static const std::map<std::string, int> string_to_plane_items = create_string_to_plane_items();
+	static const std::map<int, std::string> plane_items_to_string = create_plane_items_to_string();
 
 	plane_items_enum keep_axis() {
 		STRING_TYPE_GETTER("keep_axis", static_cast<plane_items_enum>(string_to_plane_items.at(resstr)))
@@ -16262,8 +16262,8 @@ public:
 		return {{forwardpath_items_FORWARD_X, "FORWARD_X"}, {forwardpath_items_FORWARD_Y, "FORWARD_Y"}, {forwardpath_items_FORWARD_Z, "FORWARD_Z"}, {forwardpath_items_TRACK_NEGATIVE_X, "TRACK_NEGATIVE_X"}, {forwardpath_items_TRACK_NEGATIVE_Y, "TRACK_NEGATIVE_Y"}, {forwardpath_items_TRACK_NEGATIVE_Z, "TRACK_NEGATIVE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_forwardpath_items = create_string_to_forwardpath_items();
-	const std::map<int, std::string> forwardpath_items_to_string = create_forwardpath_items_to_string();
+	static const std::map<std::string, int> string_to_forwardpath_items = create_string_to_forwardpath_items();
+	static const std::map<int, std::string> forwardpath_items_to_string = create_forwardpath_items_to_string();
 
 	forwardpath_items_enum forward_axis() {
 		STRING_TYPE_GETTER("forward_axis", static_cast<forwardpath_items_enum>(string_to_forwardpath_items.at(resstr)))
@@ -16287,8 +16287,8 @@ public:
 		return {{pathup_items_UP_X, "UP_X"}, {pathup_items_UP_Y, "UP_Y"}, {pathup_items_UP_Z, "UP_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_pathup_items = create_string_to_pathup_items();
-	const std::map<int, std::string> pathup_items_to_string = create_pathup_items_to_string();
+	static const std::map<std::string, int> string_to_pathup_items = create_string_to_pathup_items();
+	static const std::map<int, std::string> pathup_items_to_string = create_pathup_items_to_string();
 
 	pathup_items_enum up_axis() {
 		STRING_TYPE_GETTER("up_axis", static_cast<pathup_items_enum>(string_to_pathup_items.at(resstr)))
@@ -16363,8 +16363,8 @@ public:
 		return {{locktrack_items_TRACK_X, "TRACK_X"}, {locktrack_items_TRACK_Y, "TRACK_Y"}, {locktrack_items_TRACK_Z, "TRACK_Z"}, {locktrack_items_TRACK_NEGATIVE_X, "TRACK_NEGATIVE_X"}, {locktrack_items_TRACK_NEGATIVE_Y, "TRACK_NEGATIVE_Y"}, {locktrack_items_TRACK_NEGATIVE_Z, "TRACK_NEGATIVE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_locktrack_items = create_string_to_locktrack_items();
-	const std::map<int, std::string> locktrack_items_to_string = create_locktrack_items_to_string();
+	static const std::map<std::string, int> string_to_locktrack_items = create_string_to_locktrack_items();
+	static const std::map<int, std::string> locktrack_items_to_string = create_locktrack_items_to_string();
 
 	locktrack_items_enum track_axis() {
 		STRING_TYPE_GETTER("track_axis", static_cast<locktrack_items_enum>(string_to_locktrack_items.at(resstr)))
@@ -16388,8 +16388,8 @@ public:
 		return {{lock_items_LOCK_X, "LOCK_X"}, {lock_items_LOCK_Y, "LOCK_Y"}, {lock_items_LOCK_Z, "LOCK_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_lock_items = create_string_to_lock_items();
-	const std::map<int, std::string> lock_items_to_string = create_lock_items_to_string();
+	static const std::map<std::string, int> string_to_lock_items = create_string_to_lock_items();
+	static const std::map<int, std::string> lock_items_to_string = create_lock_items_to_string();
 
 	lock_items_enum lock_axis() {
 		STRING_TYPE_GETTER("lock_axis", static_cast<lock_items_enum>(string_to_lock_items.at(resstr)))
@@ -16435,8 +16435,8 @@ public:
 		return {{transform_channel_items_LOCATION_X, "LOCATION_X"}, {transform_channel_items_LOCATION_Y, "LOCATION_Y"}, {transform_channel_items_LOCATION_Z, "LOCATION_Z"}, {transform_channel_items_ROTATION_X, "ROTATION_X"}, {transform_channel_items_ROTATION_Y, "ROTATION_Y"}, {transform_channel_items_ROTATION_Z, "ROTATION_Z"}, {transform_channel_items_SCALE_X, "SCALE_X"}, {transform_channel_items_SCALE_Y, "SCALE_Y"}, {transform_channel_items_SCALE_Z, "SCALE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_transform_channel_items = create_string_to_transform_channel_items();
-	const std::map<int, std::string> transform_channel_items_to_string = create_transform_channel_items_to_string();
+	static const std::map<std::string, int> string_to_transform_channel_items = create_string_to_transform_channel_items();
+	static const std::map<int, std::string> transform_channel_items_to_string = create_transform_channel_items_to_string();
 
 	transform_channel_items_enum transform_channel() {
 		STRING_TYPE_GETTER("transform_channel", static_cast<transform_channel_items_enum>(string_to_transform_channel_items.at(resstr)))
@@ -16558,8 +16558,8 @@ public:
 		return {{volume_items_SAMEVOL_X, "SAMEVOL_X"}, {volume_items_SAMEVOL_Y, "SAMEVOL_Y"}, {volume_items_SAMEVOL_Z, "SAMEVOL_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_volume_items = create_string_to_volume_items();
-	const std::map<int, std::string> volume_items_to_string = create_volume_items_to_string();
+	static const std::map<std::string, int> string_to_volume_items = create_string_to_volume_items();
+	static const std::map<int, std::string> volume_items_to_string = create_volume_items_to_string();
 
 	volume_items_enum free_axis() {
 		STRING_TYPE_GETTER("free_axis", static_cast<volume_items_enum>(string_to_volume_items.at(resstr)))
@@ -16786,8 +16786,8 @@ public:
 		return {{minmax_items_FLOOR_X, "FLOOR_X"}, {minmax_items_FLOOR_Y, "FLOOR_Y"}, {minmax_items_FLOOR_Z, "FLOOR_Z"}, {minmax_items_FLOOR_NEGATIVE_X, "FLOOR_NEGATIVE_X"}, {minmax_items_FLOOR_NEGATIVE_Y, "FLOOR_NEGATIVE_Y"}, {minmax_items_FLOOR_NEGATIVE_Z, "FLOOR_NEGATIVE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_minmax_items = create_string_to_minmax_items();
-	const std::map<int, std::string> minmax_items_to_string = create_minmax_items_to_string();
+	static const std::map<std::string, int> string_to_minmax_items = create_string_to_minmax_items();
+	static const std::map<int, std::string> minmax_items_to_string = create_minmax_items_to_string();
 
 	minmax_items_enum floor_location() {
 		STRING_TYPE_GETTER("floor_location", static_cast<minmax_items_enum>(string_to_minmax_items.at(resstr)))
@@ -16862,8 +16862,8 @@ public:
 		return {{track_items_TRACK_X, "TRACK_X"}, {track_items_TRACK_Y, "TRACK_Y"}, {track_items_TRACK_Z, "TRACK_Z"}, {track_items_TRACK_NEGATIVE_X, "TRACK_NEGATIVE_X"}, {track_items_TRACK_NEGATIVE_Y, "TRACK_NEGATIVE_Y"}, {track_items_TRACK_NEGATIVE_Z, "TRACK_NEGATIVE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_track_items = create_string_to_track_items();
-	const std::map<int, std::string> track_items_to_string = create_track_items_to_string();
+	static const std::map<std::string, int> string_to_track_items = create_string_to_track_items();
+	static const std::map<int, std::string> track_items_to_string = create_track_items_to_string();
 
 	track_items_enum track_axis() {
 		STRING_TYPE_GETTER("track_axis", static_cast<track_items_enum>(string_to_track_items.at(resstr)))
@@ -16887,8 +16887,8 @@ public:
 		return {{up_items_UP_X, "UP_X"}, {up_items_UP_Y, "UP_Y"}, {up_items_UP_Z, "UP_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_up_items = create_string_to_up_items();
-	const std::map<int, std::string> up_items_to_string = create_up_items_to_string();
+	static const std::map<std::string, int> string_to_up_items = create_string_to_up_items();
+	static const std::map<int, std::string> up_items_to_string = create_up_items_to_string();
 
 	up_items_enum up_axis() {
 		STRING_TYPE_GETTER("up_axis", static_cast<up_items_enum>(string_to_up_items.at(resstr)))
@@ -16993,8 +16993,8 @@ public:
 		return {{constraint_ik_axisref_items_BONE, "BONE"}, {constraint_ik_axisref_items_TARGET, "TARGET"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_ik_axisref_items = create_string_to_constraint_ik_axisref_items();
-	const std::map<int, std::string> constraint_ik_axisref_items_to_string = create_constraint_ik_axisref_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_ik_axisref_items = create_string_to_constraint_ik_axisref_items();
+	static const std::map<int, std::string> constraint_ik_axisref_items_to_string = create_constraint_ik_axisref_items_to_string();
 
 	constraint_ik_axisref_items_enum reference_axis() {
 		STRING_TYPE_GETTER("reference_axis", static_cast<constraint_ik_axisref_items_enum>(string_to_constraint_ik_axisref_items.at(resstr)))
@@ -17089,8 +17089,8 @@ public:
 		return {{constraint_ik_type_items_COPY_POSE, "COPY_POSE"}, {constraint_ik_type_items_DISTANCE, "DISTANCE"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_ik_type_items = create_string_to_constraint_ik_type_items();
-	const std::map<int, std::string> constraint_ik_type_items_to_string = create_constraint_ik_type_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_ik_type_items = create_string_to_constraint_ik_type_items();
+	static const std::map<int, std::string> constraint_ik_type_items_to_string = create_constraint_ik_type_items_to_string();
 
 	constraint_ik_type_items_enum ik_type() {
 		STRING_TYPE_GETTER("ik_type", static_cast<constraint_ik_type_items_enum>(string_to_constraint_ik_type_items.at(resstr)))
@@ -17114,8 +17114,8 @@ public:
 		return {{constraint_distance_items_LIMITDIST_INSIDE, "LIMITDIST_INSIDE"}, {constraint_distance_items_LIMITDIST_OUTSIDE, "LIMITDIST_OUTSIDE"}, {constraint_distance_items_LIMITDIST_ONSURFACE, "LIMITDIST_ONSURFACE"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_distance_items = create_string_to_constraint_distance_items();
-	const std::map<int, std::string> constraint_distance_items_to_string = create_constraint_distance_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_distance_items = create_string_to_constraint_distance_items();
+	static const std::map<int, std::string> constraint_distance_items_to_string = create_constraint_distance_items_to_string();
 
 	constraint_distance_items_enum limit_mode() {
 		STRING_TYPE_GETTER("limit_mode", static_cast<constraint_distance_items_enum>(string_to_constraint_distance_items.at(resstr)))
@@ -17158,8 +17158,8 @@ public:
 		return {{pivot_items_BALL, "BALL"}, {pivot_items_HINGE, "HINGE"}, {pivot_items_CONE_TWIST, "CONE_TWIST"}, {pivot_items_GENERIC_6_DOF, "GENERIC_6_DOF"}};
 	};
 
-	const std::map<std::string, int> string_to_pivot_items = create_string_to_pivot_items();
-	const std::map<int, std::string> pivot_items_to_string = create_pivot_items_to_string();
+	static const std::map<std::string, int> string_to_pivot_items = create_string_to_pivot_items();
+	static const std::map<int, std::string> pivot_items_to_string = create_pivot_items_to_string();
 
 	pivot_items_enum pivot_type() {
 		STRING_TYPE_GETTER("pivot_type", static_cast<pivot_items_enum>(string_to_pivot_items.at(resstr)))
@@ -17400,8 +17400,8 @@ public:
 		return {{clamp_items_CLAMPTO_AUTO, "CLAMPTO_AUTO"}, {clamp_items_CLAMPTO_X, "CLAMPTO_X"}, {clamp_items_CLAMPTO_Y, "CLAMPTO_Y"}, {clamp_items_CLAMPTO_Z, "CLAMPTO_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_clamp_items = create_string_to_clamp_items();
-	const std::map<int, std::string> clamp_items_to_string = create_clamp_items_to_string();
+	static const std::map<std::string, int> string_to_clamp_items = create_string_to_clamp_items();
+	static const std::map<int, std::string> clamp_items_to_string = create_clamp_items_to_string();
 
 	clamp_items_enum main_axis() {
 		STRING_TYPE_GETTER("main_axis", static_cast<clamp_items_enum>(string_to_clamp_items.at(resstr)))
@@ -17465,8 +17465,8 @@ public:
 		return {{constraint_distance_items_LIMITDIST_INSIDE, "LIMITDIST_INSIDE"}, {constraint_distance_items_LIMITDIST_OUTSIDE, "LIMITDIST_OUTSIDE"}, {constraint_distance_items_LIMITDIST_ONSURFACE, "LIMITDIST_ONSURFACE"}};
 	};
 
-	const std::map<std::string, int> string_to_constraint_distance_items = create_string_to_constraint_distance_items();
-	const std::map<int, std::string> constraint_distance_items_to_string = create_constraint_distance_items_to_string();
+	static const std::map<std::string, int> string_to_constraint_distance_items = create_string_to_constraint_distance_items();
+	static const std::map<int, std::string> constraint_distance_items_to_string = create_constraint_distance_items_to_string();
 
 	constraint_distance_items_enum limit_mode() {
 		STRING_TYPE_GETTER("limit_mode", static_cast<constraint_distance_items_enum>(string_to_constraint_distance_items.at(resstr)))
@@ -17820,8 +17820,8 @@ public:
 		return {{transform_items_LOCATION, "LOCATION"}, {transform_items_ROTATION, "ROTATION"}, {transform_items_SCALE, "SCALE"}};
 	};
 
-	const std::map<std::string, int> string_to_transform_items = create_string_to_transform_items();
-	const std::map<int, std::string> transform_items_to_string = create_transform_items_to_string();
+	static const std::map<std::string, int> string_to_transform_items = create_string_to_transform_items();
+	static const std::map<int, std::string> transform_items_to_string = create_transform_items_to_string();
 
 	transform_items_enum map_from() {
 		STRING_TYPE_GETTER("map_from", static_cast<transform_items_enum>(string_to_transform_items.at(resstr)))
@@ -17853,8 +17853,8 @@ public:
 		return {{axis_map_items_X, "X"}, {axis_map_items_Y, "Y"}, {axis_map_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_axis_map_items = create_string_to_axis_map_items();
-	const std::map<int, std::string> axis_map_items_to_string = create_axis_map_items_to_string();
+	static const std::map<std::string, int> string_to_axis_map_items = create_string_to_axis_map_items();
+	static const std::map<int, std::string> axis_map_items_to_string = create_axis_map_items_to_string();
 
 	axis_map_items_enum map_to_x_from() {
 		STRING_TYPE_GETTER("map_to_x_from", static_cast<axis_map_items_enum>(string_to_axis_map_items.at(resstr)))
@@ -18198,8 +18198,8 @@ public:
 		return {{type_items_NEAREST_SURFACE, "NEAREST_SURFACE"}, {type_items_PROJECT, "PROJECT"}, {type_items_NEAREST_VERTEX, "NEAREST_VERTEX"}};
 	};
 
-	const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
-	const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
+	static const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
+	static const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
 
 	type_items_enum shrinkwrap_type() {
 		STRING_TYPE_GETTER("shrinkwrap_type", static_cast<type_items_enum>(string_to_type_items.at(resstr)))
@@ -18234,8 +18234,8 @@ public:
 		return {{object_axis_items_POS_X, "POS_X"}, {object_axis_items_POS_Y, "POS_Y"}, {object_axis_items_POS_Z, "POS_Z"}, {object_axis_items_NEG_X, "NEG_X"}, {object_axis_items_NEG_Y, "NEG_Y"}, {object_axis_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
-	const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
+	static const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
+	static const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
 
 	object_axis_items_enum project_axis() {
 		STRING_TYPE_GETTER("project_axis", static_cast<object_axis_items_enum>(string_to_object_axis_items.at(resstr)))
@@ -18260,8 +18260,8 @@ public:
 		return {{owner_space_pchan_items_WORLD, "WORLD"}, {owner_space_pchan_items_POSE, "POSE"}, {owner_space_pchan_items_LOCAL_WITH_PARENT, "LOCAL_WITH_PARENT"}, {owner_space_pchan_items_LOCAL, "LOCAL"}};
 	};
 
-	const std::map<std::string, int> string_to_owner_space_pchan_items = create_string_to_owner_space_pchan_items();
-	const std::map<int, std::string> owner_space_pchan_items_to_string = create_owner_space_pchan_items_to_string();
+	static const std::map<std::string, int> string_to_owner_space_pchan_items = create_string_to_owner_space_pchan_items();
+	static const std::map<int, std::string> owner_space_pchan_items_to_string = create_owner_space_pchan_items_to_string();
 
 	owner_space_pchan_items_enum project_axis_space() {
 		STRING_TYPE_GETTER("project_axis_space", static_cast<owner_space_pchan_items_enum>(string_to_owner_space_pchan_items.at(resstr)))
@@ -18320,8 +18320,8 @@ public:
 		return {{damptrack_items_TRACK_X, "TRACK_X"}, {damptrack_items_TRACK_Y, "TRACK_Y"}, {damptrack_items_TRACK_Z, "TRACK_Z"}, {damptrack_items_TRACK_NEGATIVE_X, "TRACK_NEGATIVE_X"}, {damptrack_items_TRACK_NEGATIVE_Y, "TRACK_NEGATIVE_Y"}, {damptrack_items_TRACK_NEGATIVE_Z, "TRACK_NEGATIVE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_damptrack_items = create_string_to_damptrack_items();
-	const std::map<int, std::string> damptrack_items_to_string = create_damptrack_items_to_string();
+	static const std::map<std::string, int> string_to_damptrack_items = create_string_to_damptrack_items();
+	static const std::map<int, std::string> damptrack_items_to_string = create_damptrack_items_to_string();
 
 	damptrack_items_enum track_axis() {
 		STRING_TYPE_GETTER("track_axis", static_cast<damptrack_items_enum>(string_to_damptrack_items.at(resstr)))
@@ -18402,8 +18402,8 @@ public:
 		return {{splineik_xz_scale_mode_NONE, "NONE"}, {splineik_xz_scale_mode_BONE_ORIGINAL, "BONE_ORIGINAL"}, {splineik_xz_scale_mode_INVERSE_PRESERVE, "INVERSE_PRESERVE"}, {splineik_xz_scale_mode_VOLUME_PRESERVE, "VOLUME_PRESERVE"}};
 	};
 
-	const std::map<std::string, int> string_to_splineik_xz_scale_mode = create_string_to_splineik_xz_scale_mode();
-	const std::map<int, std::string> splineik_xz_scale_mode_to_string = create_splineik_xz_scale_mode_to_string();
+	static const std::map<std::string, int> string_to_splineik_xz_scale_mode = create_string_to_splineik_xz_scale_mode();
+	static const std::map<int, std::string> splineik_xz_scale_mode_to_string = create_splineik_xz_scale_mode_to_string();
 
 	splineik_xz_scale_mode_enum xz_scale_mode() {
 		STRING_TYPE_GETTER("xz_scale_mode", static_cast<splineik_xz_scale_mode_enum>(string_to_splineik_xz_scale_mode.at(resstr)))
@@ -18519,8 +18519,8 @@ public:
 		return {{pivot_rotAxis_items_ALWAYS_ACTIVE, "ALWAYS_ACTIVE"}, {pivot_rotAxis_items_NX, "NX"}, {pivot_rotAxis_items_NY, "NY"}, {pivot_rotAxis_items_NZ, "NZ"}, {pivot_rotAxis_items_X, "X"}, {pivot_rotAxis_items_Y, "Y"}, {pivot_rotAxis_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_pivot_rotAxis_items = create_string_to_pivot_rotAxis_items();
-	const std::map<int, std::string> pivot_rotAxis_items_to_string = create_pivot_rotAxis_items_to_string();
+	static const std::map<std::string, int> string_to_pivot_rotAxis_items = create_string_to_pivot_rotAxis_items();
+	static const std::map<int, std::string> pivot_rotAxis_items_to_string = create_pivot_rotAxis_items_to_string();
 
 	pivot_rotAxis_items_enum rotation_range() {
 		STRING_TYPE_GETTER("rotation_range", static_cast<pivot_rotAxis_items_enum>(string_to_pivot_rotAxis_items.at(resstr)))
@@ -18588,8 +18588,8 @@ public:
 		return {{frame_method_items_STRETCH, "STRETCH"}, {frame_method_items_FIT, "FIT"}, {frame_method_items_CROP, "CROP"}};
 	};
 
-	const std::map<std::string, int> string_to_frame_method_items = create_string_to_frame_method_items();
-	const std::map<int, std::string> frame_method_items_to_string = create_frame_method_items_to_string();
+	static const std::map<std::string, int> string_to_frame_method_items = create_string_to_frame_method_items();
+	static const std::map<int, std::string> frame_method_items_to_string = create_frame_method_items_to_string();
 
 	frame_method_items_enum frame_method() {
 		STRING_TYPE_GETTER("frame_method", static_cast<frame_method_items_enum>(string_to_frame_method_items.at(resstr)))
@@ -18702,8 +18702,8 @@ public:
 		return {{mode_items_EDIT_MESH, "EDIT_MESH"}, {mode_items_EDIT_CURVE, "EDIT_CURVE"}, {mode_items_EDIT_SURFACE, "EDIT_SURFACE"}, {mode_items_EDIT_TEXT, "EDIT_TEXT"}, {mode_items_EDIT_ARMATURE, "EDIT_ARMATURE"}, {mode_items_EDIT_METABALL, "EDIT_METABALL"}, {mode_items_EDIT_LATTICE, "EDIT_LATTICE"}, {mode_items_POSE, "POSE"}, {mode_items_SCULPT, "SCULPT"}, {mode_items_PAINT_WEIGHT, "PAINT_WEIGHT"}, {mode_items_PAINT_VERTEX, "PAINT_VERTEX"}, {mode_items_PAINT_TEXTURE, "PAINT_TEXTURE"}, {mode_items_PARTICLE, "PARTICLE"}, {mode_items_OBJECT, "OBJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
-	const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
+	static const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
 
 	mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<mode_items_enum>(string_to_mode_items.at(resstr)))
@@ -18746,8 +18746,8 @@ public:
 		return {{controller_type_items_LOGIC_AND, "LOGIC_AND"}, {controller_type_items_LOGIC_OR, "LOGIC_OR"}, {controller_type_items_LOGIC_NAND, "LOGIC_NAND"}, {controller_type_items_LOGIC_NOR, "LOGIC_NOR"}, {controller_type_items_LOGIC_XOR, "LOGIC_XOR"}, {controller_type_items_LOGIC_XNOR, "LOGIC_XNOR"}, {controller_type_items_EXPRESSION, "EXPRESSION"}, {controller_type_items_PYTHON, "PYTHON"}};
 	};
 
-	const std::map<std::string, int> string_to_controller_type_items = create_string_to_controller_type_items();
-	const std::map<int, std::string> controller_type_items_to_string = create_controller_type_items_to_string();
+	static const std::map<std::string, int> string_to_controller_type_items = create_string_to_controller_type_items();
+	static const std::map<int, std::string> controller_type_items_to_string = create_controller_type_items_to_string();
 
 	controller_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<controller_type_items_enum>(string_to_controller_type_items.at(resstr)))
@@ -18830,8 +18830,8 @@ public:
 		return {{python_controller_modes_SCRIPT, "SCRIPT"}, {python_controller_modes_MODULE, "MODULE"}};
 	};
 
-	const std::map<std::string, int> string_to_python_controller_modes = create_string_to_python_controller_modes();
-	const std::map<int, std::string> python_controller_modes_to_string = create_python_controller_modes_to_string();
+	static const std::map<std::string, int> string_to_python_controller_modes = create_string_to_python_controller_modes();
+	static const std::map<int, std::string> python_controller_modes_to_string = create_python_controller_modes_to_string();
 
 	python_controller_modes_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<python_controller_modes_enum>(string_to_python_controller_modes.at(resstr)))
@@ -19058,8 +19058,8 @@ public:
 		return {{curve_axis_items_2D, "2D"}, {curve_axis_items_3D, "3D"}};
 	};
 
-	const std::map<std::string, int> string_to_curve_axis_items = create_string_to_curve_axis_items();
-	const std::map<int, std::string> curve_axis_items_to_string = create_curve_axis_items_to_string();
+	static const std::map<std::string, int> string_to_curve_axis_items = create_string_to_curve_axis_items();
+	static const std::map<int, std::string> curve_axis_items_to_string = create_curve_axis_items_to_string();
 
 	curve_axis_items_enum dimensions() {
 		STRING_TYPE_GETTER("dimensions", static_cast<curve_axis_items_enum>(string_to_curve_axis_items.at(resstr)))
@@ -19084,8 +19084,8 @@ public:
 		return {{curve3d_fill_mode_items_FULL, "FULL"}, {curve3d_fill_mode_items_BACK, "BACK"}, {curve3d_fill_mode_items_FRONT, "FRONT"}, {curve3d_fill_mode_items_HALF, "HALF"}};
 	};
 
-	const std::map<std::string, int> string_to_curve3d_fill_mode_items = create_string_to_curve3d_fill_mode_items();
-	const std::map<int, std::string> curve3d_fill_mode_items_to_string = create_curve3d_fill_mode_items_to_string();
+	static const std::map<std::string, int> string_to_curve3d_fill_mode_items = create_string_to_curve3d_fill_mode_items();
+	static const std::map<int, std::string> curve3d_fill_mode_items_to_string = create_curve3d_fill_mode_items_to_string();
 
 	curve3d_fill_mode_items_enum fill_mode() {
 		STRING_TYPE_GETTER("fill_mode", static_cast<curve3d_fill_mode_items_enum>(string_to_curve3d_fill_mode_items.at(resstr)))
@@ -19109,8 +19109,8 @@ public:
 		return {{curve_twist_mode_items_Z_UP, "Z_UP"}, {curve_twist_mode_items_MINIMUM, "MINIMUM"}, {curve_twist_mode_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_curve_twist_mode_items = create_string_to_curve_twist_mode_items();
-	const std::map<int, std::string> curve_twist_mode_items_to_string = create_curve_twist_mode_items_to_string();
+	static const std::map<std::string, int> string_to_curve_twist_mode_items = create_string_to_curve_twist_mode_items();
+	static const std::map<int, std::string> curve_twist_mode_items_to_string = create_curve_twist_mode_items_to_string();
 
 	curve_twist_mode_items_enum twist_mode() {
 		STRING_TYPE_GETTER("twist_mode", static_cast<curve_twist_mode_items_enum>(string_to_curve_twist_mode_items.at(resstr)))
@@ -19134,8 +19134,8 @@ public:
 		return {{bevfac_mapping_items_RESOLUTION, "RESOLUTION"}, {bevfac_mapping_items_SEGMENTS, "SEGMENTS"}, {bevfac_mapping_items_SPLINE, "SPLINE"}};
 	};
 
-	const std::map<std::string, int> string_to_bevfac_mapping_items = create_string_to_bevfac_mapping_items();
-	const std::map<int, std::string> bevfac_mapping_items_to_string = create_bevfac_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_bevfac_mapping_items = create_string_to_bevfac_mapping_items();
+	static const std::map<int, std::string> bevfac_mapping_items_to_string = create_bevfac_mapping_items_to_string();
 
 	bevfac_mapping_items_enum bevel_factor_mapping_start() {
 		STRING_TYPE_GETTER("bevel_factor_mapping_start", static_cast<bevfac_mapping_items_enum>(string_to_bevfac_mapping_items.at(resstr)))
@@ -19296,8 +19296,8 @@ public:
 		return {{prop_align_items_LEFT, "LEFT"}, {prop_align_items_CENTER, "CENTER"}, {prop_align_items_RIGHT, "RIGHT"}, {prop_align_items_JUSTIFY, "JUSTIFY"}, {prop_align_items_FLUSH, "FLUSH"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_align_items = create_string_to_prop_align_items();
-	const std::map<int, std::string> prop_align_items_to_string = create_prop_align_items_to_string();
+	static const std::map<std::string, int> string_to_prop_align_items = create_string_to_prop_align_items();
+	static const std::map<int, std::string> prop_align_items_to_string = create_prop_align_items_to_string();
 
 	prop_align_items_enum align() {
 		STRING_TYPE_GETTER("align", static_cast<prop_align_items_enum>(string_to_prop_align_items.at(resstr)))
@@ -19642,8 +19642,8 @@ public:
 		return {{beztriple_handle_type_items_FREE, "FREE"}, {beztriple_handle_type_items_VECTOR, "VECTOR"}, {beztriple_handle_type_items_ALIGNED, "ALIGNED"}, {beztriple_handle_type_items_AUTO, "AUTO"}};
 	};
 
-	const std::map<std::string, int> string_to_beztriple_handle_type_items = create_string_to_beztriple_handle_type_items();
-	const std::map<int, std::string> beztriple_handle_type_items_to_string = create_beztriple_handle_type_items_to_string();
+	static const std::map<std::string, int> string_to_beztriple_handle_type_items = create_string_to_beztriple_handle_type_items();
+	static const std::map<int, std::string> beztriple_handle_type_items_to_string = create_beztriple_handle_type_items_to_string();
 
 	beztriple_handle_type_items_enum handle_left_type() {
 		STRING_TYPE_GETTER("handle_left_type", static_cast<beztriple_handle_type_items_enum>(string_to_beztriple_handle_type_items.at(resstr)))
@@ -19738,8 +19738,8 @@ public:
 		return {{spline_interpolation_items_LINEAR, "LINEAR"}, {spline_interpolation_items_CARDINAL, "CARDINAL"}, {spline_interpolation_items_BSPLINE, "BSPLINE"}, {spline_interpolation_items_EASE, "EASE"}};
 	};
 
-	const std::map<std::string, int> string_to_spline_interpolation_items = create_string_to_spline_interpolation_items();
-	const std::map<int, std::string> spline_interpolation_items_to_string = create_spline_interpolation_items_to_string();
+	static const std::map<std::string, int> string_to_spline_interpolation_items = create_string_to_spline_interpolation_items();
+	static const std::map<int, std::string> spline_interpolation_items_to_string = create_spline_interpolation_items_to_string();
 
 	spline_interpolation_items_enum tilt_interpolation() {
 		STRING_TYPE_GETTER("tilt_interpolation", static_cast<spline_interpolation_items_enum>(string_to_spline_interpolation_items.at(resstr)))
@@ -19773,8 +19773,8 @@ public:
 		return {{curve_type_items_POLY, "POLY"}, {curve_type_items_BEZIER, "BEZIER"}, {curve_type_items_BSPLINE, "BSPLINE"}, {curve_type_items_CARDINAL, "CARDINAL"}, {curve_type_items_NURBS, "NURBS"}};
 	};
 
-	const std::map<std::string, int> string_to_curve_type_items = create_string_to_curve_type_items();
-	const std::map<int, std::string> curve_type_items_to_string = create_curve_type_items_to_string();
+	static const std::map<std::string, int> string_to_curve_type_items = create_string_to_curve_type_items();
+	static const std::map<int, std::string> curve_type_items_to_string = create_curve_type_items_to_string();
 
 	curve_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<curve_type_items_enum>(string_to_curve_type_items.at(resstr)))
@@ -20009,8 +20009,8 @@ public:
 		return {{prop_dynamicpaint_brush_wave_type_CHANGE, "CHANGE"}, {prop_dynamicpaint_brush_wave_type_DEPTH, "DEPTH"}, {prop_dynamicpaint_brush_wave_type_FORCE, "FORCE"}, {prop_dynamicpaint_brush_wave_type_REFLECT, "REFLECT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_brush_wave_type = create_string_to_prop_dynamicpaint_brush_wave_type();
-	const std::map<int, std::string> prop_dynamicpaint_brush_wave_type_to_string = create_prop_dynamicpaint_brush_wave_type_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_brush_wave_type = create_string_to_prop_dynamicpaint_brush_wave_type();
+	static const std::map<int, std::string> prop_dynamicpaint_brush_wave_type_to_string = create_prop_dynamicpaint_brush_wave_type_to_string();
 
 	prop_dynamicpaint_brush_wave_type_enum wave_type() {
 		STRING_TYPE_GETTER("wave_type", static_cast<prop_dynamicpaint_brush_wave_type_enum>(string_to_prop_dynamicpaint_brush_wave_type.at(resstr)))
@@ -20100,8 +20100,8 @@ public:
 		return {{prop_dynamicpaint_collisiontype_PARTICLE_SYSTEM, "PARTICLE_SYSTEM"}, {prop_dynamicpaint_collisiontype_POINT, "POINT"}, {prop_dynamicpaint_collisiontype_DISTANCE, "DISTANCE"}, {prop_dynamicpaint_collisiontype_VOLUME_DISTANCE, "VOLUME_DISTANCE"}, {prop_dynamicpaint_collisiontype_VOLUME, "VOLUME"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_collisiontype = create_string_to_prop_dynamicpaint_collisiontype();
-	const std::map<int, std::string> prop_dynamicpaint_collisiontype_to_string = create_prop_dynamicpaint_collisiontype_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_collisiontype = create_string_to_prop_dynamicpaint_collisiontype();
+	static const std::map<int, std::string> prop_dynamicpaint_collisiontype_to_string = create_prop_dynamicpaint_collisiontype_to_string();
 
 	prop_dynamicpaint_collisiontype_enum paint_source() {
 		STRING_TYPE_GETTER("paint_source", static_cast<prop_dynamicpaint_collisiontype_enum>(string_to_prop_dynamicpaint_collisiontype.at(resstr)))
@@ -20141,8 +20141,8 @@ public:
 		return {{prop_dynamicpaint_prox_falloff_SMOOTH, "SMOOTH"}, {prop_dynamicpaint_prox_falloff_CONSTANT, "CONSTANT"}, {prop_dynamicpaint_prox_falloff_RAMP, "RAMP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_prox_falloff = create_string_to_prop_dynamicpaint_prox_falloff();
-	const std::map<int, std::string> prop_dynamicpaint_prox_falloff_to_string = create_prop_dynamicpaint_prox_falloff_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_prox_falloff = create_string_to_prop_dynamicpaint_prox_falloff();
+	static const std::map<int, std::string> prop_dynamicpaint_prox_falloff_to_string = create_prop_dynamicpaint_prox_falloff_to_string();
 
 	prop_dynamicpaint_prox_falloff_enum proximity_falloff() {
 		STRING_TYPE_GETTER("proximity_falloff", static_cast<prop_dynamicpaint_prox_falloff_enum>(string_to_prop_dynamicpaint_prox_falloff.at(resstr)))
@@ -20174,8 +20174,8 @@ public:
 		return {{prop_dynamicpaint_brush_ray_dir_CANVAS, "CANVAS"}, {prop_dynamicpaint_brush_ray_dir_BRUSH, "BRUSH"}, {prop_dynamicpaint_brush_ray_dir_Z_AXIS, "Z_AXIS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_brush_ray_dir = create_string_to_prop_dynamicpaint_brush_ray_dir();
-	const std::map<int, std::string> prop_dynamicpaint_brush_ray_dir_to_string = create_prop_dynamicpaint_brush_ray_dir_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_brush_ray_dir = create_string_to_prop_dynamicpaint_brush_ray_dir();
+	static const std::map<int, std::string> prop_dynamicpaint_brush_ray_dir_to_string = create_prop_dynamicpaint_brush_ray_dir_to_string();
 
 	prop_dynamicpaint_brush_ray_dir_enum ray_direction() {
 		STRING_TYPE_GETTER("ray_direction", static_cast<prop_dynamicpaint_brush_ray_dir_enum>(string_to_prop_dynamicpaint_brush_ray_dir.at(resstr)))
@@ -20254,8 +20254,8 @@ public:
 		return {{prop_dynamicpaint_surface_format_VERTEX, "VERTEX"}, {prop_dynamicpaint_surface_format_IMAGE, "IMAGE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_surface_format = create_string_to_prop_dynamicpaint_surface_format();
-	const std::map<int, std::string> prop_dynamicpaint_surface_format_to_string = create_prop_dynamicpaint_surface_format_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_surface_format = create_string_to_prop_dynamicpaint_surface_format();
+	static const std::map<int, std::string> prop_dynamicpaint_surface_format_to_string = create_prop_dynamicpaint_surface_format_to_string();
 
 	prop_dynamicpaint_surface_format_enum surface_format() {
 		STRING_TYPE_GETTER("surface_format", static_cast<prop_dynamicpaint_surface_format_enum>(string_to_prop_dynamicpaint_surface_format.at(resstr)))
@@ -20277,8 +20277,8 @@ public:
 		return {{prop_dynamicpaint_surface_type_PAINT, "PAINT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_surface_type = create_string_to_prop_dynamicpaint_surface_type();
-	const std::map<int, std::string> prop_dynamicpaint_surface_type_to_string = create_prop_dynamicpaint_surface_type_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_surface_type = create_string_to_prop_dynamicpaint_surface_type();
+	static const std::map<int, std::string> prop_dynamicpaint_surface_type_to_string = create_prop_dynamicpaint_surface_type_to_string();
 
 	prop_dynamicpaint_surface_type_enum surface_type() {
 		STRING_TYPE_GETTER("surface_type", static_cast<prop_dynamicpaint_surface_type_enum>(string_to_prop_dynamicpaint_surface_type.at(resstr)))
@@ -20425,8 +20425,8 @@ public:
 		return {{prop_dynamicpaint_init_color_type_NONE, "NONE"}, {prop_dynamicpaint_init_color_type_COLOR, "COLOR"}, {prop_dynamicpaint_init_color_type_TEXTURE, "TEXTURE"}, {prop_dynamicpaint_init_color_type_VERTEX_COLOR, "VERTEX_COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_init_color_type = create_string_to_prop_dynamicpaint_init_color_type();
-	const std::map<int, std::string> prop_dynamicpaint_init_color_type_to_string = create_prop_dynamicpaint_init_color_type_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_init_color_type = create_string_to_prop_dynamicpaint_init_color_type();
+	static const std::map<int, std::string> prop_dynamicpaint_init_color_type_to_string = create_prop_dynamicpaint_init_color_type_to_string();
 
 	prop_dynamicpaint_init_color_type_enum init_color_type() {
 		STRING_TYPE_GETTER("init_color_type", static_cast<prop_dynamicpaint_init_color_type_enum>(string_to_prop_dynamicpaint_init_color_type.at(resstr)))
@@ -20470,8 +20470,8 @@ public:
 		return {{prop_dynamicpaint_effecttype_SPREAD, "SPREAD"}, {prop_dynamicpaint_effecttype_DRIP, "DRIP"}, {prop_dynamicpaint_effecttype_SHRINK, "SHRINK"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_effecttype = create_string_to_prop_dynamicpaint_effecttype();
-	const std::map<int, std::string> prop_dynamicpaint_effecttype_to_string = create_prop_dynamicpaint_effecttype_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_effecttype = create_string_to_prop_dynamicpaint_effecttype();
+	static const std::map<int, std::string> prop_dynamicpaint_effecttype_to_string = create_prop_dynamicpaint_effecttype_to_string();
 
 	prop_dynamicpaint_effecttype_enum effect_ui() {
 		STRING_TYPE_GETTER("effect_ui", static_cast<prop_dynamicpaint_effecttype_enum>(string_to_prop_dynamicpaint_effecttype.at(resstr)))
@@ -20632,8 +20632,8 @@ public:
 		return {{prop_dynamicpaint_surface_preview_PAINT, "PAINT"}, {prop_dynamicpaint_surface_preview_WETMAP, "WETMAP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_surface_preview = create_string_to_prop_dynamicpaint_surface_preview();
-	const std::map<int, std::string> prop_dynamicpaint_surface_preview_to_string = create_prop_dynamicpaint_surface_preview_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_surface_preview = create_string_to_prop_dynamicpaint_surface_preview();
+	static const std::map<int, std::string> prop_dynamicpaint_surface_preview_to_string = create_prop_dynamicpaint_surface_preview_to_string();
 
 	prop_dynamicpaint_surface_preview_enum preview_id() {
 		STRING_TYPE_GETTER("preview_id", static_cast<prop_dynamicpaint_surface_preview_enum>(string_to_prop_dynamicpaint_surface_preview.at(resstr)))
@@ -20672,8 +20672,8 @@ public:
 		return {{prop_dynamicpaint_image_fileformat_PNG, "PNG"}, {prop_dynamicpaint_image_fileformat_OPENEXR, "OPENEXR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_image_fileformat = create_string_to_prop_dynamicpaint_image_fileformat();
-	const std::map<int, std::string> prop_dynamicpaint_image_fileformat_to_string = create_prop_dynamicpaint_image_fileformat_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_image_fileformat = create_string_to_prop_dynamicpaint_image_fileformat();
+	static const std::map<int, std::string> prop_dynamicpaint_image_fileformat_to_string = create_prop_dynamicpaint_image_fileformat_to_string();
 
 	prop_dynamicpaint_image_fileformat_enum image_fileformat() {
 		STRING_TYPE_GETTER("image_fileformat", static_cast<prop_dynamicpaint_image_fileformat_enum>(string_to_prop_dynamicpaint_image_fileformat.at(resstr)))
@@ -20696,8 +20696,8 @@ public:
 		return {{prop_dynamicpaint_displace_type_DISPLACE, "DISPLACE"}, {prop_dynamicpaint_displace_type_DEPTH, "DEPTH"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_displace_type = create_string_to_prop_dynamicpaint_displace_type();
-	const std::map<int, std::string> prop_dynamicpaint_displace_type_to_string = create_prop_dynamicpaint_displace_type_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_displace_type = create_string_to_prop_dynamicpaint_displace_type();
+	static const std::map<int, std::string> prop_dynamicpaint_displace_type_to_string = create_prop_dynamicpaint_displace_type_to_string();
 
 	prop_dynamicpaint_displace_type_enum displace_type() {
 		STRING_TYPE_GETTER("displace_type", static_cast<prop_dynamicpaint_displace_type_enum>(string_to_prop_dynamicpaint_displace_type.at(resstr)))
@@ -20802,8 +20802,8 @@ public:
 		return {{prop_mode_extend_items_CONSTANT, "CONSTANT"}, {prop_mode_extend_items_LINEAR, "LINEAR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mode_extend_items = create_string_to_prop_mode_extend_items();
-	const std::map<int, std::string> prop_mode_extend_items_to_string = create_prop_mode_extend_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mode_extend_items = create_string_to_prop_mode_extend_items();
+	static const std::map<int, std::string> prop_mode_extend_items_to_string = create_prop_mode_extend_items_to_string();
 
 	prop_mode_extend_items_enum extrapolation() {
 		STRING_TYPE_GETTER("extrapolation", static_cast<prop_mode_extend_items_enum>(string_to_prop_mode_extend_items.at(resstr)))
@@ -20849,8 +20849,8 @@ public:
 		return {{prop_mode_color_items_AUTO_RAINBOW, "AUTO_RAINBOW"}, {prop_mode_color_items_AUTO_RGB, "AUTO_RGB"}, {prop_mode_color_items_CUSTOM, "CUSTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mode_color_items = create_string_to_prop_mode_color_items();
-	const std::map<int, std::string> prop_mode_color_items_to_string = create_prop_mode_color_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mode_color_items = create_string_to_prop_mode_color_items();
+	static const std::map<int, std::string> prop_mode_color_items_to_string = create_prop_mode_color_items_to_string();
 
 	prop_mode_color_items_enum color_mode() {
 		STRING_TYPE_GETTER("color_mode", static_cast<prop_mode_color_items_enum>(string_to_prop_mode_color_items.at(resstr)))
@@ -20990,8 +20990,8 @@ public:
 		return {{keyframe_handle_type_items_FREE, "FREE"}, {keyframe_handle_type_items_VECTOR, "VECTOR"}, {keyframe_handle_type_items_ALIGNED, "ALIGNED"}, {keyframe_handle_type_items_AUTO, "AUTO"}, {keyframe_handle_type_items_AUTO_CLAMPED, "AUTO_CLAMPED"}};
 	};
 
-	const std::map<std::string, int> string_to_keyframe_handle_type_items = create_string_to_keyframe_handle_type_items();
-	const std::map<int, std::string> keyframe_handle_type_items_to_string = create_keyframe_handle_type_items_to_string();
+	static const std::map<std::string, int> string_to_keyframe_handle_type_items = create_string_to_keyframe_handle_type_items();
+	static const std::map<int, std::string> keyframe_handle_type_items_to_string = create_keyframe_handle_type_items_to_string();
 
 	keyframe_handle_type_items_enum handle_left_type() {
 		STRING_TYPE_GETTER("handle_left_type", static_cast<keyframe_handle_type_items_enum>(string_to_keyframe_handle_type_items.at(resstr)))
@@ -21033,8 +21033,8 @@ public:
 		return {{beztriple_interpolation_mode_items_CONSTANT, "CONSTANT"}, {beztriple_interpolation_mode_items_LINEAR, "LINEAR"}, {beztriple_interpolation_mode_items_BEZIER, "BEZIER"}, {beztriple_interpolation_mode_items_SINE, "SINE"}, {beztriple_interpolation_mode_items_QUAD, "QUAD"}, {beztriple_interpolation_mode_items_CUBIC, "CUBIC"}, {beztriple_interpolation_mode_items_QUART, "QUART"}, {beztriple_interpolation_mode_items_QUINT, "QUINT"}, {beztriple_interpolation_mode_items_EXPO, "EXPO"}, {beztriple_interpolation_mode_items_CIRC, "CIRC"}, {beztriple_interpolation_mode_items_BACK, "BACK"}, {beztriple_interpolation_mode_items_BOUNCE, "BOUNCE"}, {beztriple_interpolation_mode_items_ELASTIC, "ELASTIC"}};
 	};
 
-	const std::map<std::string, int> string_to_beztriple_interpolation_mode_items = create_string_to_beztriple_interpolation_mode_items();
-	const std::map<int, std::string> beztriple_interpolation_mode_items_to_string = create_beztriple_interpolation_mode_items_to_string();
+	static const std::map<std::string, int> string_to_beztriple_interpolation_mode_items = create_string_to_beztriple_interpolation_mode_items();
+	static const std::map<int, std::string> beztriple_interpolation_mode_items_to_string = create_beztriple_interpolation_mode_items_to_string();
 
 	beztriple_interpolation_mode_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<beztriple_interpolation_mode_items_enum>(string_to_beztriple_interpolation_mode_items.at(resstr)))
@@ -21059,8 +21059,8 @@ public:
 		return {{beztriple_keyframe_type_items_KEYFRAME, "KEYFRAME"}, {beztriple_keyframe_type_items_BREAKDOWN, "BREAKDOWN"}, {beztriple_keyframe_type_items_EXTREME, "EXTREME"}, {beztriple_keyframe_type_items_JITTER, "JITTER"}};
 	};
 
-	const std::map<std::string, int> string_to_beztriple_keyframe_type_items = create_string_to_beztriple_keyframe_type_items();
-	const std::map<int, std::string> beztriple_keyframe_type_items_to_string = create_beztriple_keyframe_type_items_to_string();
+	static const std::map<std::string, int> string_to_beztriple_keyframe_type_items = create_string_to_beztriple_keyframe_type_items();
+	static const std::map<int, std::string> beztriple_keyframe_type_items_to_string = create_beztriple_keyframe_type_items_to_string();
 
 	beztriple_keyframe_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<beztriple_keyframe_type_items_enum>(string_to_beztriple_keyframe_type_items.at(resstr)))
@@ -21085,8 +21085,8 @@ public:
 		return {{beztriple_interpolation_easing_items_AUTO, "AUTO"}, {beztriple_interpolation_easing_items_EASE_IN, "EASE_IN"}, {beztriple_interpolation_easing_items_EASE_OUT, "EASE_OUT"}, {beztriple_interpolation_easing_items_EASE_IN_OUT, "EASE_IN_OUT"}};
 	};
 
-	const std::map<std::string, int> string_to_beztriple_interpolation_easing_items = create_string_to_beztriple_interpolation_easing_items();
-	const std::map<int, std::string> beztriple_interpolation_easing_items_to_string = create_beztriple_interpolation_easing_items_to_string();
+	static const std::map<std::string, int> string_to_beztriple_interpolation_easing_items = create_string_to_beztriple_interpolation_easing_items();
+	static const std::map<int, std::string> beztriple_interpolation_easing_items_to_string = create_beztriple_interpolation_easing_items_to_string();
 
 	beztriple_interpolation_easing_items_enum easing() {
 		STRING_TYPE_GETTER("easing", static_cast<beztriple_interpolation_easing_items_enum>(string_to_beztriple_interpolation_easing_items.at(resstr)))
@@ -21219,8 +21219,8 @@ public:
 		return {{id_type_items_ACTION, "ACTION"}, {id_type_items_ARMATURE, "ARMATURE"}, {id_type_items_BRUSH, "BRUSH"}, {id_type_items_CAMERA, "CAMERA"}, {id_type_items_CURVE, "CURVE"}, {id_type_items_FONT, "FONT"}, {id_type_items_GREASEPENCIL, "GREASEPENCIL"}, {id_type_items_GROUP, "GROUP"}, {id_type_items_IMAGE, "IMAGE"}, {id_type_items_KEY, "KEY"}, {id_type_items_LAMP, "LAMP"}, {id_type_items_LIBRARY, "LIBRARY"}, {id_type_items_LINESTYLE, "LINESTYLE"}, {id_type_items_LATTICE, "LATTICE"}, {id_type_items_MASK, "MASK"}, {id_type_items_MATERIAL, "MATERIAL"}, {id_type_items_META, "META"}, {id_type_items_MESH, "MESH"}, {id_type_items_MOVIECLIP, "MOVIECLIP"}, {id_type_items_NODETREE, "NODETREE"}, {id_type_items_OBJECT, "OBJECT"}, {id_type_items_PAINTCURVE, "PAINTCURVE"}, {id_type_items_PALETTE, "PALETTE"}, {id_type_items_PARTICLE, "PARTICLE"}, {id_type_items_SCENE, "SCENE"}, {id_type_items_SCREEN, "SCREEN"}, {id_type_items_SOUND, "SOUND"}, {id_type_items_SPEAKER, "SPEAKER"}, {id_type_items_TEXT, "TEXT"}, {id_type_items_TEXTURE, "TEXTURE"}, {id_type_items_WINDOWMANAGER, "WINDOWMANAGER"}, {id_type_items_WORLD, "WORLD"}};
 	};
 
-	const std::map<std::string, int> string_to_id_type_items = create_string_to_id_type_items();
-	const std::map<int, std::string> id_type_items_to_string = create_id_type_items_to_string();
+	static const std::map<std::string, int> string_to_id_type_items = create_string_to_id_type_items();
+	static const std::map<int, std::string> id_type_items_to_string = create_id_type_items_to_string();
 
 	id_type_items_enum id_type() {
 		STRING_TYPE_GETTER("id_type", static_cast<id_type_items_enum>(string_to_id_type_items.at(resstr)))
@@ -21266,8 +21266,8 @@ public:
 		return {{prop_trans_chan_items_LOC_X, "LOC_X"}, {prop_trans_chan_items_LOC_Y, "LOC_Y"}, {prop_trans_chan_items_LOC_Z, "LOC_Z"}, {prop_trans_chan_items_ROT_X, "ROT_X"}, {prop_trans_chan_items_ROT_Y, "ROT_Y"}, {prop_trans_chan_items_ROT_Z, "ROT_Z"}, {prop_trans_chan_items_SCALE_X, "SCALE_X"}, {prop_trans_chan_items_SCALE_Y, "SCALE_Y"}, {prop_trans_chan_items_SCALE_Z, "SCALE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_trans_chan_items = create_string_to_prop_trans_chan_items();
-	const std::map<int, std::string> prop_trans_chan_items_to_string = create_prop_trans_chan_items_to_string();
+	static const std::map<std::string, int> string_to_prop_trans_chan_items = create_string_to_prop_trans_chan_items();
+	static const std::map<int, std::string> prop_trans_chan_items_to_string = create_prop_trans_chan_items_to_string();
 
 	prop_trans_chan_items_enum transform_type() {
 		STRING_TYPE_GETTER("transform_type", static_cast<prop_trans_chan_items_enum>(string_to_prop_trans_chan_items.at(resstr)))
@@ -21291,8 +21291,8 @@ public:
 		return {{prop_local_space_items_WORLD_SPACE, "WORLD_SPACE"}, {prop_local_space_items_TRANSFORM_SPACE, "TRANSFORM_SPACE"}, {prop_local_space_items_LOCAL_SPACE, "LOCAL_SPACE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_local_space_items = create_string_to_prop_local_space_items();
-	const std::map<int, std::string> prop_local_space_items_to_string = create_prop_local_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_local_space_items = create_string_to_prop_local_space_items();
+	static const std::map<int, std::string> prop_local_space_items_to_string = create_prop_local_space_items_to_string();
 
 	prop_local_space_items_enum transform_space() {
 		STRING_TYPE_GETTER("transform_space", static_cast<prop_local_space_items_enum>(string_to_prop_local_space_items.at(resstr)))
@@ -21331,8 +21331,8 @@ public:
 		return {{prop_type_items_SINGLE_PROP, "SINGLE_PROP"}, {prop_type_items_TRANSFORMS, "TRANSFORMS"}, {prop_type_items_ROTATION_DIFF, "ROTATION_DIFF"}, {prop_type_items_LOC_DIFF, "LOC_DIFF"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -21368,8 +21368,8 @@ public:
 		return {{prop_type_items_AVERAGE, "AVERAGE"}, {prop_type_items_SUM, "SUM"}, {prop_type_items_SCRIPTED, "SCRIPTED"}, {prop_type_items_MIN, "MIN"}, {prop_type_items_MAX, "MAX"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -21433,8 +21433,8 @@ public:
 		return {{fmodifier_type_items_NULL, "NULL"}, {fmodifier_type_items_GENERATOR, "GENERATOR"}, {fmodifier_type_items_FNGENERATOR, "FNGENERATOR"}, {fmodifier_type_items_ENVELOPE, "ENVELOPE"}, {fmodifier_type_items_CYCLES, "CYCLES"}, {fmodifier_type_items_NOISE, "NOISE"}, {fmodifier_type_items_PYTHON, "PYTHON"}, {fmodifier_type_items_LIMITS, "LIMITS"}, {fmodifier_type_items_STEPPED, "STEPPED"}};
 	};
 
-	const std::map<std::string, int> string_to_fmodifier_type_items = create_string_to_fmodifier_type_items();
-	const std::map<int, std::string> fmodifier_type_items_to_string = create_fmodifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_fmodifier_type_items = create_string_to_fmodifier_type_items();
+	static const std::map<int, std::string> fmodifier_type_items_to_string = create_fmodifier_type_items_to_string();
 
 	fmodifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<fmodifier_type_items_enum>(string_to_fmodifier_type_items.at(resstr)))
@@ -21559,8 +21559,8 @@ public:
 		return {{generator_mode_items_POLYNOMIAL, "POLYNOMIAL"}, {generator_mode_items_POLYNOMIAL_FACTORISED, "POLYNOMIAL_FACTORISED"}};
 	};
 
-	const std::map<std::string, int> string_to_generator_mode_items = create_string_to_generator_mode_items();
-	const std::map<int, std::string> generator_mode_items_to_string = create_generator_mode_items_to_string();
+	static const std::map<std::string, int> string_to_generator_mode_items = create_string_to_generator_mode_items();
+	static const std::map<int, std::string> generator_mode_items_to_string = create_generator_mode_items_to_string();
 
 	generator_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<generator_mode_items_enum>(string_to_generator_mode_items.at(resstr)))
@@ -21649,8 +21649,8 @@ public:
 		return {{prop_type_items_SIN, "SIN"}, {prop_type_items_COS, "COS"}, {prop_type_items_TAN, "TAN"}, {prop_type_items_SQRT, "SQRT"}, {prop_type_items_LN, "LN"}, {prop_type_items_SINC, "SINC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum function_type() {
 		STRING_TYPE_GETTER("function_type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -21743,8 +21743,8 @@ public:
 		return {{prop_type_items_NONE, "NONE"}, {prop_type_items_REPEAT, "REPEAT"}, {prop_type_items_REPEAT_OFFSET, "REPEAT_OFFSET"}, {prop_type_items_MIRROR, "MIRROR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum mode_before() {
 		STRING_TYPE_GETTER("mode_before", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -21875,8 +21875,8 @@ public:
 		return {{prop_modification_items_REPLACE, "REPLACE"}, {prop_modification_items_ADD, "ADD"}, {prop_modification_items_SUBTRACT, "SUBTRACT"}, {prop_modification_items_MULTIPLY, "MULTIPLY"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_modification_items = create_string_to_prop_modification_items();
-	const std::map<int, std::string> prop_modification_items_to_string = create_prop_modification_items_to_string();
+	static const std::map<std::string, int> string_to_prop_modification_items = create_string_to_prop_modification_items();
+	static const std::map<int, std::string> prop_modification_items_to_string = create_prop_modification_items_to_string();
 
 	prop_modification_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<prop_modification_items_enum>(string_to_prop_modification_items.at(resstr)))
@@ -22005,8 +22005,8 @@ public:
 		return {{prop_fluid_type_items_NONE, "NONE"}, {prop_fluid_type_items_DOMAIN, "DOMAIN"}, {prop_fluid_type_items_FLUID, "FLUID"}, {prop_fluid_type_items_OBSTACLE, "OBSTACLE"}, {prop_fluid_type_items_INFLOW, "INFLOW"}, {prop_fluid_type_items_OUTFLOW, "OUTFLOW"}, {prop_fluid_type_items_PARTICLE, "PARTICLE"}, {prop_fluid_type_items_CONTROL, "CONTROL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_fluid_type_items = create_string_to_prop_fluid_type_items();
-	const std::map<int, std::string> prop_fluid_type_items_to_string = create_prop_fluid_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_fluid_type_items = create_string_to_prop_fluid_type_items();
+	static const std::map<int, std::string> prop_fluid_type_items_to_string = create_prop_fluid_type_items_to_string();
 
 	prop_fluid_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_fluid_type_items_enum>(string_to_prop_fluid_type_items.at(resstr)))
@@ -22060,8 +22060,8 @@ public:
 		return {{quality_items_GEOMETRY, "GEOMETRY"}, {quality_items_PREVIEW, "PREVIEW"}, {quality_items_FINAL, "FINAL"}};
 	};
 
-	const std::map<std::string, int> string_to_quality_items = create_string_to_quality_items();
-	const std::map<int, std::string> quality_items_to_string = create_quality_items_to_string();
+	static const std::map<std::string, int> string_to_quality_items = create_string_to_quality_items();
+	static const std::map<int, std::string> quality_items_to_string = create_quality_items_to_string();
 
 	quality_items_enum viewport_display_mode() {
 		STRING_TYPE_GETTER("viewport_display_mode", static_cast<quality_items_enum>(string_to_quality_items.at(resstr)))
@@ -22205,8 +22205,8 @@ public:
 		return {{slip_items_NOSLIP, "NOSLIP"}, {slip_items_PARTIALSLIP, "PARTIALSLIP"}, {slip_items_FREESLIP, "FREESLIP"}};
 	};
 
-	const std::map<std::string, int> string_to_slip_items = create_string_to_slip_items();
-	const std::map<int, std::string> slip_items_to_string = create_slip_items_to_string();
+	static const std::map<std::string, int> string_to_slip_items = create_string_to_slip_items();
+	static const std::map<int, std::string> slip_items_to_string = create_slip_items_to_string();
 
 	slip_items_enum slip_type() {
 		STRING_TYPE_GETTER("slip_type", static_cast<slip_items_enum>(string_to_slip_items.at(resstr)))
@@ -22316,8 +22316,8 @@ public:
 		return {{volume_type_items_VOLUME, "VOLUME"}, {volume_type_items_SHELL, "SHELL"}, {volume_type_items_BOTH, "BOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
-	const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
+	static const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
+	static const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
 
 	volume_type_items_enum volume_initialization() {
 		STRING_TYPE_GETTER("volume_initialization", static_cast<volume_type_items_enum>(string_to_volume_type_items.at(resstr)))
@@ -22371,8 +22371,8 @@ public:
 		return {{volume_type_items_VOLUME, "VOLUME"}, {volume_type_items_SHELL, "SHELL"}, {volume_type_items_BOTH, "BOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
-	const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
+	static const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
+	static const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
 
 	volume_type_items_enum volume_initialization() {
 		STRING_TYPE_GETTER("volume_initialization", static_cast<volume_type_items_enum>(string_to_volume_type_items.at(resstr)))
@@ -22404,8 +22404,8 @@ public:
 		return {{slip_items_NOSLIP, "NOSLIP"}, {slip_items_PARTIALSLIP, "PARTIALSLIP"}, {slip_items_FREESLIP, "FREESLIP"}};
 	};
 
-	const std::map<std::string, int> string_to_slip_items = create_string_to_slip_items();
-	const std::map<int, std::string> slip_items_to_string = create_slip_items_to_string();
+	static const std::map<std::string, int> string_to_slip_items = create_string_to_slip_items();
+	static const std::map<int, std::string> slip_items_to_string = create_slip_items_to_string();
 
 	slip_items_enum slip_type() {
 		STRING_TYPE_GETTER("slip_type", static_cast<slip_items_enum>(string_to_slip_items.at(resstr)))
@@ -22459,8 +22459,8 @@ public:
 		return {{volume_type_items_VOLUME, "VOLUME"}, {volume_type_items_SHELL, "SHELL"}, {volume_type_items_BOTH, "BOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
-	const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
+	static const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
+	static const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
 
 	volume_type_items_enum volume_initialization() {
 		STRING_TYPE_GETTER("volume_initialization", static_cast<volume_type_items_enum>(string_to_volume_type_items.at(resstr)))
@@ -22522,8 +22522,8 @@ public:
 		return {{volume_type_items_VOLUME, "VOLUME"}, {volume_type_items_SHELL, "SHELL"}, {volume_type_items_BOTH, "BOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
-	const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
+	static const std::map<std::string, int> string_to_volume_type_items = create_string_to_volume_type_items();
+	static const std::map<int, std::string> volume_type_items_to_string = create_volume_type_items_to_string();
 
 	volume_type_items_enum volume_initialization() {
 		STRING_TYPE_GETTER("volume_initialization", static_cast<volume_type_items_enum>(string_to_volume_type_items.at(resstr)))
@@ -22700,8 +22700,8 @@ public:
 		return {{draw_mode_items_CURSOR, "CURSOR"}, {draw_mode_items_VIEW, "VIEW"}, {draw_mode_items_SURFACE, "SURFACE"}, {draw_mode_items_STROKE, "STROKE"}};
 	};
 
-	const std::map<std::string, int> string_to_draw_mode_items = create_string_to_draw_mode_items();
-	const std::map<int, std::string> draw_mode_items_to_string = create_draw_mode_items_to_string();
+	static const std::map<std::string, int> string_to_draw_mode_items = create_string_to_draw_mode_items();
+	static const std::map<int, std::string> draw_mode_items_to_string = create_draw_mode_items_to_string();
 
 	draw_mode_items_enum draw_mode() {
 		STRING_TYPE_GETTER("draw_mode", static_cast<draw_mode_items_enum>(string_to_draw_mode_items.at(resstr)))
@@ -22972,8 +22972,8 @@ public:
 		return {{stroke_draw_mode_items_SCREEN, "SCREEN"}, {stroke_draw_mode_items_3DSPACE, "3DSPACE"}, {stroke_draw_mode_items_2DSPACE, "2DSPACE"}, {stroke_draw_mode_items_2DIMAGE, "2DIMAGE"}};
 	};
 
-	const std::map<std::string, int> string_to_stroke_draw_mode_items = create_string_to_stroke_draw_mode_items();
-	const std::map<int, std::string> stroke_draw_mode_items_to_string = create_stroke_draw_mode_items_to_string();
+	static const std::map<std::string, int> string_to_stroke_draw_mode_items = create_string_to_stroke_draw_mode_items();
+	static const std::map<int, std::string> stroke_draw_mode_items_to_string = create_stroke_draw_mode_items_to_string();
 
 	stroke_draw_mode_items_enum draw_mode() {
 		STRING_TYPE_GETTER("draw_mode", static_cast<stroke_draw_mode_items_enum>(string_to_stroke_draw_mode_items.at(resstr)))
@@ -23112,8 +23112,8 @@ public:
 		return {{image_type_items_BMP, "BMP"}, {image_type_items_IRIS, "IRIS"}, {image_type_items_PNG, "PNG"}, {image_type_items_JPEG, "JPEG"}, {image_type_items_JPEG2000, "JPEG2000"}, {image_type_items_TARGA, "TARGA"}, {image_type_items_TARGA_RAW, "TARGA_RAW"}, {image_type_items_CINEON, "CINEON"}, {image_type_items_DPX, "DPX"}, {image_type_items_OPEN_EXR_MULTILAYER, "OPEN_EXR_MULTILAYER"}, {image_type_items_OPEN_EXR, "OPEN_EXR"}, {image_type_items_HDR, "HDR"}, {image_type_items_TIFF, "TIFF"}, {image_type_items_AVI_JPEG, "AVI_JPEG"}, {image_type_items_AVI_RAW, "AVI_RAW"}, {image_type_items_FRAMESERVER, "FRAMESERVER"}, {image_type_items_H264, "H264"}, {image_type_items_FFMPEG, "FFMPEG"}, {image_type_items_THEORA, "THEORA"}, {image_type_items_XVID, "XVID"}};
 	};
 
-	const std::map<std::string, int> string_to_image_type_items = create_string_to_image_type_items();
-	const std::map<int, std::string> image_type_items_to_string = create_image_type_items_to_string();
+	static const std::map<std::string, int> string_to_image_type_items = create_string_to_image_type_items();
+	static const std::map<int, std::string> image_type_items_to_string = create_image_type_items_to_string();
 
 	image_type_items_enum file_format() {
 		STRING_TYPE_GETTER("file_format", static_cast<image_type_items_enum>(string_to_image_type_items.at(resstr)))
@@ -23139,8 +23139,8 @@ public:
 		return {{image_source_items_FILE, "FILE"}, {image_source_items_SEQUENCE, "SEQUENCE"}, {image_source_items_MOVIE, "MOVIE"}, {image_source_items_GENERATED, "GENERATED"}, {image_source_items_VIEWER, "VIEWER"}};
 	};
 
-	const std::map<std::string, int> string_to_image_source_items = create_string_to_image_source_items();
-	const std::map<int, std::string> image_source_items_to_string = create_image_source_items_to_string();
+	static const std::map<std::string, int> string_to_image_source_items = create_string_to_image_source_items();
+	static const std::map<int, std::string> image_source_items_to_string = create_image_source_items_to_string();
 
 	image_source_items_enum source() {
 		STRING_TYPE_GETTER("source", static_cast<image_source_items_enum>(string_to_image_source_items.at(resstr)))
@@ -23166,8 +23166,8 @@ public:
 		return {{prop_type_items_IMAGE, "IMAGE"}, {prop_type_items_MULTILAYER, "MULTILAYER"}, {prop_type_items_UV_TEST, "UV_TEST"}, {prop_type_items_RENDER_RESULT, "RENDER_RESULT"}, {prop_type_items_COMPOSITING, "COMPOSITING"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -23194,8 +23194,8 @@ public:
 		return {{prop_field_order_items_EVEN, "EVEN"}, {prop_field_order_items_ODD, "ODD"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_field_order_items = create_string_to_prop_field_order_items();
-	const std::map<int, std::string> prop_field_order_items_to_string = create_prop_field_order_items_to_string();
+	static const std::map<std::string, int> string_to_prop_field_order_items = create_string_to_prop_field_order_items();
+	static const std::map<int, std::string> prop_field_order_items_to_string = create_prop_field_order_items_to_string();
 
 	prop_field_order_items_enum field_order() {
 		STRING_TYPE_GETTER("field_order", static_cast<prop_field_order_items_enum>(string_to_prop_field_order_items.at(resstr)))
@@ -23283,8 +23283,8 @@ public:
 		return {{image_generated_type_items_BLANK, "BLANK"}, {image_generated_type_items_UV_GRID, "UV_GRID"}, {image_generated_type_items_COLOR_GRID, "COLOR_GRID"}};
 	};
 
-	const std::map<std::string, int> string_to_image_generated_type_items = create_string_to_image_generated_type_items();
-	const std::map<int, std::string> image_generated_type_items_to_string = create_image_generated_type_items_to_string();
+	static const std::map<std::string, int> string_to_image_generated_type_items = create_string_to_image_generated_type_items();
+	static const std::map<int, std::string> image_generated_type_items_to_string = create_image_generated_type_items_to_string();
 
 	image_generated_type_items_enum generated_type() {
 		STRING_TYPE_GETTER("generated_type", static_cast<image_generated_type_items_enum>(string_to_image_generated_type_items.at(resstr)))
@@ -23339,8 +23339,8 @@ public:
 		return {{prop_mapping_items_UV, "UV"}, {prop_mapping_items_REFLECTION, "REFLECTION"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
-	const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
+	static const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
 
 	prop_mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<prop_mapping_items_enum>(string_to_prop_mapping_items.at(resstr)))
@@ -23523,8 +23523,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -23547,8 +23547,8 @@ public:
 		return {{views_format_items_INDIVIDUAL, "INDIVIDUAL"}, {views_format_items_STEREO_3D, "STEREO_3D"}};
 	};
 
-	const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
-	const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
+	static const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
+	static const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
 
 	views_format_items_enum views_format() {
 		STRING_TYPE_GETTER("views_format", static_cast<views_format_items_enum>(string_to_views_format_items.at(resstr)))
@@ -23585,8 +23585,8 @@ public:
 		return {{unpack_method_items_USE_LOCAL, "USE_LOCAL"}, {unpack_method_items_WRITE_LOCAL, "WRITE_LOCAL"}, {unpack_method_items_USE_ORIGINAL, "USE_ORIGINAL"}, {unpack_method_items_WRITE_ORIGINAL, "WRITE_ORIGINAL"}};
 	};
 
-	const std::map<std::string, int> string_to_unpack_method_items = create_string_to_unpack_method_items();
-	const std::map<int, std::string> unpack_method_items_to_string = create_unpack_method_items_to_string();
+	static const std::map<std::string, int> string_to_unpack_method_items = create_string_to_unpack_method_items();
+	static const std::map<int, std::string> unpack_method_items_to_string = create_unpack_method_items_to_string();
 
 	void unpack(unpack_method_items_enum method = unpack_method_items_USE_LOCAL) {
 		PYTHON_FUNCTION_ARGS_CALL("unpack", "s", unpack_method_items_to_string.at(method))
@@ -23801,8 +23801,8 @@ public:
 		return {{keyblock_type_items_KEY_LINEAR, "KEY_LINEAR"}, {keyblock_type_items_KEY_CARDINAL, "KEY_CARDINAL"}, {keyblock_type_items_KEY_CATMULL_ROM, "KEY_CATMULL_ROM"}, {keyblock_type_items_KEY_BSPLINE, "KEY_BSPLINE"}};
 	};
 
-	const std::map<std::string, int> string_to_keyblock_type_items = create_string_to_keyblock_type_items();
-	const std::map<int, std::string> keyblock_type_items_to_string = create_keyblock_type_items_to_string();
+	static const std::map<std::string, int> string_to_keyblock_type_items = create_string_to_keyblock_type_items();
+	static const std::map<int, std::string> keyblock_type_items_to_string = create_keyblock_type_items_to_string();
 
 	keyblock_type_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<keyblock_type_items_enum>(string_to_keyblock_type_items.at(resstr)))
@@ -23940,8 +23940,8 @@ public:
 		return {{lamp_type_items_POINT, "POINT"}, {lamp_type_items_SUN, "SUN"}, {lamp_type_items_SPOT, "SPOT"}, {lamp_type_items_HEMI, "HEMI"}, {lamp_type_items_AREA, "AREA"}};
 	};
 
-	const std::map<std::string, int> string_to_lamp_type_items = create_string_to_lamp_type_items();
-	const std::map<int, std::string> lamp_type_items_to_string = create_lamp_type_items_to_string();
+	static const std::map<std::string, int> string_to_lamp_type_items = create_string_to_lamp_type_items();
+	static const std::map<int, std::string> lamp_type_items_to_string = create_lamp_type_items_to_string();
 
 	lamp_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<lamp_type_items_enum>(string_to_lamp_type_items.at(resstr)))
@@ -24057,8 +24057,8 @@ public:
 		return {{prop_fallofftype_items_CONSTANT, "CONSTANT"}, {prop_fallofftype_items_INVERSE_LINEAR, "INVERSE_LINEAR"}, {prop_fallofftype_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {prop_fallofftype_items_CUSTOM_CURVE, "CUSTOM_CURVE"}, {prop_fallofftype_items_LINEAR_QUADRATIC_WEIGHTED, "LINEAR_QUADRATIC_WEIGHTED"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_fallofftype_items = create_string_to_prop_fallofftype_items();
-	const std::map<int, std::string> prop_fallofftype_items_to_string = create_prop_fallofftype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_fallofftype_items = create_string_to_prop_fallofftype_items();
+	static const std::map<int, std::string> prop_fallofftype_items_to_string = create_prop_fallofftype_items_to_string();
 
 	prop_fallofftype_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<prop_fallofftype_items_enum>(string_to_prop_fallofftype_items.at(resstr)))
@@ -24117,8 +24117,8 @@ public:
 		return {{prop_shadow_items_NOSHADOW, "NOSHADOW"}, {prop_shadow_items_RAY_SHADOW, "RAY_SHADOW"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
-	const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
+	static const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
 
 	prop_shadow_items_enum shadow_method() {
 		STRING_TYPE_GETTER("shadow_method", static_cast<prop_shadow_items_enum>(string_to_prop_shadow_items.at(resstr)))
@@ -24150,8 +24150,8 @@ public:
 		return {{prop_shadbuffiltertype_items_BOX, "BOX"}, {prop_shadbuffiltertype_items_TENT, "TENT"}, {prop_shadbuffiltertype_items_GAUSS, "GAUSS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
-	const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
+	static const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
 
 	prop_shadbuffiltertype_items_enum shadow_filter_type() {
 		STRING_TYPE_GETTER("shadow_filter_type", static_cast<prop_shadbuffiltertype_items_enum>(string_to_prop_shadbuffiltertype_items.at(resstr)))
@@ -24175,8 +24175,8 @@ public:
 		return {{prop_numbuffer_items_BUFFERS_1, "BUFFERS_1"}, {prop_numbuffer_items_BUFFERS_4, "BUFFERS_4"}, {prop_numbuffer_items_BUFFERS_9, "BUFFERS_9"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
-	const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
+	static const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
+	static const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
 
 	prop_numbuffer_items_enum shadow_sample_buffers() {
 		STRING_TYPE_GETTER("shadow_sample_buffers", static_cast<prop_numbuffer_items_enum>(string_to_prop_numbuffer_items.at(resstr)))
@@ -24249,8 +24249,8 @@ public:
 		return {{prop_shadbuftype_items_REGULAR, "REGULAR"}, {prop_shadbuftype_items_HALFWAY, "HALFWAY"}, {prop_shadbuftype_items_IRREGULAR, "IRREGULAR"}, {prop_shadbuftype_items_DEEP, "DEEP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
-	const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
+	static const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
 
 	prop_shadbuftype_items_enum shadow_buffer_type() {
 		STRING_TYPE_GETTER("shadow_buffer_type", static_cast<prop_shadbuftype_items_enum>(string_to_prop_shadbuftype_items.at(resstr)))
@@ -24273,8 +24273,8 @@ public:
 		return {{prop_ge_shadowbuffer_type_items_SIMPLE, "SIMPLE"}, {prop_ge_shadowbuffer_type_items_VARIANCE, "VARIANCE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
-	const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
+	static const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
 
 	prop_ge_shadowbuffer_type_items_enum ge_shadow_buffer_type() {
 		STRING_TYPE_GETTER("ge_shadow_buffer_type", static_cast<prop_ge_shadowbuffer_type_items_enum>(string_to_prop_ge_shadowbuffer_type_items.at(resstr)))
@@ -24337,8 +24337,8 @@ public:
 		return {{prop_ray_sampling_method_items_ADAPTIVE_QMC, "ADAPTIVE_QMC"}, {prop_ray_sampling_method_items_CONSTANT_QMC, "CONSTANT_QMC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
-	const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
+	static const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
 
 	prop_ray_sampling_method_items_enum shadow_ray_sample_method() {
 		STRING_TYPE_GETTER("shadow_ray_sample_method", static_cast<prop_ray_sampling_method_items_enum>(string_to_prop_ray_sampling_method_items.at(resstr)))
@@ -24407,8 +24407,8 @@ public:
 		return {{prop_shadow_items_NOSHADOW, "NOSHADOW"}, {prop_shadow_items_RAY_SHADOW, "RAY_SHADOW"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
-	const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
+	static const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
 
 	prop_shadow_items_enum shadow_method() {
 		STRING_TYPE_GETTER("shadow_method", static_cast<prop_shadow_items_enum>(string_to_prop_shadow_items.at(resstr)))
@@ -24440,8 +24440,8 @@ public:
 		return {{prop_shadbuffiltertype_items_BOX, "BOX"}, {prop_shadbuffiltertype_items_TENT, "TENT"}, {prop_shadbuffiltertype_items_GAUSS, "GAUSS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
-	const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
+	static const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
 
 	prop_shadbuffiltertype_items_enum shadow_filter_type() {
 		STRING_TYPE_GETTER("shadow_filter_type", static_cast<prop_shadbuffiltertype_items_enum>(string_to_prop_shadbuffiltertype_items.at(resstr)))
@@ -24465,8 +24465,8 @@ public:
 		return {{prop_numbuffer_items_BUFFERS_1, "BUFFERS_1"}, {prop_numbuffer_items_BUFFERS_4, "BUFFERS_4"}, {prop_numbuffer_items_BUFFERS_9, "BUFFERS_9"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
-	const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
+	static const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
+	static const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
 
 	prop_numbuffer_items_enum shadow_sample_buffers() {
 		STRING_TYPE_GETTER("shadow_sample_buffers", static_cast<prop_numbuffer_items_enum>(string_to_prop_numbuffer_items.at(resstr)))
@@ -24539,8 +24539,8 @@ public:
 		return {{prop_shadbuftype_items_REGULAR, "REGULAR"}, {prop_shadbuftype_items_HALFWAY, "HALFWAY"}, {prop_shadbuftype_items_IRREGULAR, "IRREGULAR"}, {prop_shadbuftype_items_DEEP, "DEEP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
-	const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
+	static const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
 
 	prop_shadbuftype_items_enum shadow_buffer_type() {
 		STRING_TYPE_GETTER("shadow_buffer_type", static_cast<prop_shadbuftype_items_enum>(string_to_prop_shadbuftype_items.at(resstr)))
@@ -24563,8 +24563,8 @@ public:
 		return {{prop_ge_shadowbuffer_type_items_SIMPLE, "SIMPLE"}, {prop_ge_shadowbuffer_type_items_VARIANCE, "VARIANCE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
-	const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
+	static const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
 
 	prop_ge_shadowbuffer_type_items_enum ge_shadow_buffer_type() {
 		STRING_TYPE_GETTER("ge_shadow_buffer_type", static_cast<prop_ge_shadowbuffer_type_items_enum>(string_to_prop_ge_shadowbuffer_type_items.at(resstr)))
@@ -24628,8 +24628,8 @@ public:
 		return {{prop_ray_sampling_method_items_ADAPTIVE_QMC, "ADAPTIVE_QMC"}, {prop_ray_sampling_method_items_CONSTANT_QMC, "CONSTANT_QMC"}, {prop_ray_sampling_method_items_CONSTANT_JITTERED, "CONSTANT_JITTERED"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
-	const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
+	static const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
 
 	prop_ray_sampling_method_items_enum shadow_ray_sample_method() {
 		STRING_TYPE_GETTER("shadow_ray_sample_method", static_cast<prop_ray_sampling_method_items_enum>(string_to_prop_ray_sampling_method_items.at(resstr)))
@@ -24716,8 +24716,8 @@ public:
 		return {{prop_areashape_items_SQUARE, "SQUARE"}, {prop_areashape_items_RECTANGLE, "RECTANGLE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_areashape_items = create_string_to_prop_areashape_items();
-	const std::map<int, std::string> prop_areashape_items_to_string = create_prop_areashape_items_to_string();
+	static const std::map<std::string, int> string_to_prop_areashape_items = create_string_to_prop_areashape_items();
+	static const std::map<int, std::string> prop_areashape_items_to_string = create_prop_areashape_items_to_string();
 
 	prop_areashape_items_enum shape() {
 		STRING_TYPE_GETTER("shape", static_cast<prop_areashape_items_enum>(string_to_prop_areashape_items.at(resstr)))
@@ -24773,8 +24773,8 @@ public:
 		return {{prop_fallofftype_items_CONSTANT, "CONSTANT"}, {prop_fallofftype_items_INVERSE_LINEAR, "INVERSE_LINEAR"}, {prop_fallofftype_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {prop_fallofftype_items_CUSTOM_CURVE, "CUSTOM_CURVE"}, {prop_fallofftype_items_LINEAR_QUADRATIC_WEIGHTED, "LINEAR_QUADRATIC_WEIGHTED"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_fallofftype_items = create_string_to_prop_fallofftype_items();
-	const std::map<int, std::string> prop_fallofftype_items_to_string = create_prop_fallofftype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_fallofftype_items = create_string_to_prop_fallofftype_items();
+	static const std::map<int, std::string> prop_fallofftype_items_to_string = create_prop_fallofftype_items_to_string();
 
 	prop_fallofftype_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<prop_fallofftype_items_enum>(string_to_prop_fallofftype_items.at(resstr)))
@@ -24834,8 +24834,8 @@ public:
 		return {{prop_shadow_items_NOSHADOW, "NOSHADOW"}, {prop_shadow_items_BUFFER_SHADOW, "BUFFER_SHADOW"}, {prop_shadow_items_RAY_SHADOW, "RAY_SHADOW"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
-	const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
+	static const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
 
 	prop_shadow_items_enum shadow_method() {
 		STRING_TYPE_GETTER("shadow_method", static_cast<prop_shadow_items_enum>(string_to_prop_shadow_items.at(resstr)))
@@ -24867,8 +24867,8 @@ public:
 		return {{prop_shadbuffiltertype_items_BOX, "BOX"}, {prop_shadbuffiltertype_items_TENT, "TENT"}, {prop_shadbuffiltertype_items_GAUSS, "GAUSS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
-	const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
+	static const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
 
 	prop_shadbuffiltertype_items_enum shadow_filter_type() {
 		STRING_TYPE_GETTER("shadow_filter_type", static_cast<prop_shadbuffiltertype_items_enum>(string_to_prop_shadbuffiltertype_items.at(resstr)))
@@ -24892,8 +24892,8 @@ public:
 		return {{prop_numbuffer_items_BUFFERS_1, "BUFFERS_1"}, {prop_numbuffer_items_BUFFERS_4, "BUFFERS_4"}, {prop_numbuffer_items_BUFFERS_9, "BUFFERS_9"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
-	const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
+	static const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
+	static const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
 
 	prop_numbuffer_items_enum shadow_sample_buffers() {
 		STRING_TYPE_GETTER("shadow_sample_buffers", static_cast<prop_numbuffer_items_enum>(string_to_prop_numbuffer_items.at(resstr)))
@@ -24966,8 +24966,8 @@ public:
 		return {{prop_shadbuftype_items_REGULAR, "REGULAR"}, {prop_shadbuftype_items_HALFWAY, "HALFWAY"}, {prop_shadbuftype_items_IRREGULAR, "IRREGULAR"}, {prop_shadbuftype_items_DEEP, "DEEP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
-	const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
+	static const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
 
 	prop_shadbuftype_items_enum shadow_buffer_type() {
 		STRING_TYPE_GETTER("shadow_buffer_type", static_cast<prop_shadbuftype_items_enum>(string_to_prop_shadbuftype_items.at(resstr)))
@@ -24990,8 +24990,8 @@ public:
 		return {{prop_ge_shadowbuffer_type_items_SIMPLE, "SIMPLE"}, {prop_ge_shadowbuffer_type_items_VARIANCE, "VARIANCE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
-	const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
+	static const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
 
 	prop_ge_shadowbuffer_type_items_enum ge_shadow_buffer_type() {
 		STRING_TYPE_GETTER("ge_shadow_buffer_type", static_cast<prop_ge_shadowbuffer_type_items_enum>(string_to_prop_ge_shadowbuffer_type_items.at(resstr)))
@@ -25054,8 +25054,8 @@ public:
 		return {{prop_ray_sampling_method_items_ADAPTIVE_QMC, "ADAPTIVE_QMC"}, {prop_ray_sampling_method_items_CONSTANT_QMC, "CONSTANT_QMC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
-	const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
+	static const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
 
 	prop_ray_sampling_method_items_enum shadow_ray_sample_method() {
 		STRING_TYPE_GETTER("shadow_ray_sample_method", static_cast<prop_ray_sampling_method_items_enum>(string_to_prop_ray_sampling_method_items.at(resstr)))
@@ -25180,8 +25180,8 @@ public:
 		return {{prop_shadow_items_NOSHADOW, "NOSHADOW"}, {prop_shadow_items_RAY_SHADOW, "RAY_SHADOW"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
-	const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadow_items = create_string_to_prop_shadow_items();
+	static const std::map<int, std::string> prop_shadow_items_to_string = create_prop_shadow_items_to_string();
 
 	prop_shadow_items_enum shadow_method() {
 		STRING_TYPE_GETTER("shadow_method", static_cast<prop_shadow_items_enum>(string_to_prop_shadow_items.at(resstr)))
@@ -25213,8 +25213,8 @@ public:
 		return {{prop_shadbuffiltertype_items_BOX, "BOX"}, {prop_shadbuffiltertype_items_TENT, "TENT"}, {prop_shadbuffiltertype_items_GAUSS, "GAUSS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
-	const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuffiltertype_items = create_string_to_prop_shadbuffiltertype_items();
+	static const std::map<int, std::string> prop_shadbuffiltertype_items_to_string = create_prop_shadbuffiltertype_items_to_string();
 
 	prop_shadbuffiltertype_items_enum shadow_filter_type() {
 		STRING_TYPE_GETTER("shadow_filter_type", static_cast<prop_shadbuffiltertype_items_enum>(string_to_prop_shadbuffiltertype_items.at(resstr)))
@@ -25238,8 +25238,8 @@ public:
 		return {{prop_numbuffer_items_BUFFERS_1, "BUFFERS_1"}, {prop_numbuffer_items_BUFFERS_4, "BUFFERS_4"}, {prop_numbuffer_items_BUFFERS_9, "BUFFERS_9"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
-	const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
+	static const std::map<std::string, int> string_to_prop_numbuffer_items = create_string_to_prop_numbuffer_items();
+	static const std::map<int, std::string> prop_numbuffer_items_to_string = create_prop_numbuffer_items_to_string();
 
 	prop_numbuffer_items_enum shadow_sample_buffers() {
 		STRING_TYPE_GETTER("shadow_sample_buffers", static_cast<prop_numbuffer_items_enum>(string_to_prop_numbuffer_items.at(resstr)))
@@ -25312,8 +25312,8 @@ public:
 		return {{prop_shadbuftype_items_REGULAR, "REGULAR"}, {prop_shadbuftype_items_HALFWAY, "HALFWAY"}, {prop_shadbuftype_items_IRREGULAR, "IRREGULAR"}, {prop_shadbuftype_items_DEEP, "DEEP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
-	const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadbuftype_items = create_string_to_prop_shadbuftype_items();
+	static const std::map<int, std::string> prop_shadbuftype_items_to_string = create_prop_shadbuftype_items_to_string();
 
 	prop_shadbuftype_items_enum shadow_buffer_type() {
 		STRING_TYPE_GETTER("shadow_buffer_type", static_cast<prop_shadbuftype_items_enum>(string_to_prop_shadbuftype_items.at(resstr)))
@@ -25336,8 +25336,8 @@ public:
 		return {{prop_ge_shadowbuffer_type_items_SIMPLE, "SIMPLE"}, {prop_ge_shadowbuffer_type_items_VARIANCE, "VARIANCE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
-	const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ge_shadowbuffer_type_items = create_string_to_prop_ge_shadowbuffer_type_items();
+	static const std::map<int, std::string> prop_ge_shadowbuffer_type_items_to_string = create_prop_ge_shadowbuffer_type_items_to_string();
 
 	prop_ge_shadowbuffer_type_items_enum ge_shadow_buffer_type() {
 		STRING_TYPE_GETTER("ge_shadow_buffer_type", static_cast<prop_ge_shadowbuffer_type_items_enum>(string_to_prop_ge_shadowbuffer_type_items.at(resstr)))
@@ -25400,8 +25400,8 @@ public:
 		return {{prop_ray_sampling_method_items_ADAPTIVE_QMC, "ADAPTIVE_QMC"}, {prop_ray_sampling_method_items_CONSTANT_QMC, "CONSTANT_QMC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
-	const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ray_sampling_method_items = create_string_to_prop_ray_sampling_method_items();
+	static const std::map<int, std::string> prop_ray_sampling_method_items_to_string = create_prop_ray_sampling_method_items_to_string();
 
 	prop_ray_sampling_method_items_enum shadow_ray_sample_method() {
 		STRING_TYPE_GETTER("shadow_ray_sample_method", static_cast<prop_ray_sampling_method_items_enum>(string_to_prop_ray_sampling_method_items.at(resstr)))
@@ -25481,8 +25481,8 @@ public:
 		return {{prop_skycolorspace_items_SMPTE, "SMPTE"}, {prop_skycolorspace_items_REC709, "REC709"}, {prop_skycolorspace_items_CIE, "CIE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_skycolorspace_items = create_string_to_prop_skycolorspace_items();
-	const std::map<int, std::string> prop_skycolorspace_items_to_string = create_prop_skycolorspace_items_to_string();
+	static const std::map<std::string, int> string_to_prop_skycolorspace_items = create_string_to_prop_skycolorspace_items();
+	static const std::map<int, std::string> prop_skycolorspace_items_to_string = create_prop_skycolorspace_items_to_string();
 
 	prop_skycolorspace_items_enum sky_color_space() {
 		STRING_TYPE_GETTER("sky_color_space", static_cast<prop_skycolorspace_items_enum>(string_to_prop_skycolorspace_items.at(resstr)))
@@ -25521,8 +25521,8 @@ public:
 		return {{ramp_blend_items_MIX, "MIX"}, {ramp_blend_items_ADD, "ADD"}, {ramp_blend_items_MULTIPLY, "MULTIPLY"}, {ramp_blend_items_SUBTRACT, "SUBTRACT"}, {ramp_blend_items_SCREEN, "SCREEN"}, {ramp_blend_items_DIVIDE, "DIVIDE"}, {ramp_blend_items_DIFFERENCE, "DIFFERENCE"}, {ramp_blend_items_DARKEN, "DARKEN"}, {ramp_blend_items_LIGHTEN, "LIGHTEN"}, {ramp_blend_items_OVERLAY, "OVERLAY"}, {ramp_blend_items_DODGE, "DODGE"}, {ramp_blend_items_BURN, "BURN"}, {ramp_blend_items_HUE, "HUE"}, {ramp_blend_items_SATURATION, "SATURATION"}, {ramp_blend_items_VALUE, "VALUE"}, {ramp_blend_items_COLOR, "COLOR"}, {ramp_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {ramp_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
-	const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
+	static const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
+	static const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
 
 	ramp_blend_items_enum sky_blend_type() {
 		STRING_TYPE_GETTER("sky_blend_type", static_cast<ramp_blend_items_enum>(string_to_ramp_blend_items.at(resstr)))
@@ -25670,8 +25670,8 @@ public:
 		return {{prop_texture_coordinates_items_GLOBAL, "GLOBAL"}, {prop_texture_coordinates_items_VIEW, "VIEW"}, {prop_texture_coordinates_items_OBJECT, "OBJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
-	const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
+	static const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
+	static const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
 
 	prop_texture_coordinates_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<prop_texture_coordinates_items_enum>(string_to_prop_texture_coordinates_items.at(resstr)))
@@ -25760,8 +25760,8 @@ public:
 		return {{keyblock_type_items_KEY_LINEAR, "KEY_LINEAR"}, {keyblock_type_items_KEY_CARDINAL, "KEY_CARDINAL"}, {keyblock_type_items_KEY_CATMULL_ROM, "KEY_CATMULL_ROM"}, {keyblock_type_items_KEY_BSPLINE, "KEY_BSPLINE"}};
 	};
 
-	const std::map<std::string, int> string_to_keyblock_type_items = create_string_to_keyblock_type_items();
-	const std::map<int, std::string> keyblock_type_items_to_string = create_keyblock_type_items_to_string();
+	static const std::map<std::string, int> string_to_keyblock_type_items = create_string_to_keyblock_type_items();
+	static const std::map<int, std::string> keyblock_type_items_to_string = create_keyblock_type_items_to_string();
 
 	keyblock_type_items_enum interpolation_type_u() {
 		STRING_TYPE_GETTER("interpolation_type_u", static_cast<keyblock_type_items_enum>(string_to_keyblock_type_items.at(resstr)))
@@ -25905,8 +25905,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -25953,8 +25953,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26017,8 +26017,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26065,8 +26065,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26145,8 +26145,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26193,8 +26193,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26275,8 +26275,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26323,8 +26323,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26384,8 +26384,8 @@ public:
 		return {{mat_attr_items_LINE, "LINE"}, {mat_attr_items_LINE_R, "LINE_R"}, {mat_attr_items_LINE_G, "LINE_G"}, {mat_attr_items_LINE_B, "LINE_B"}, {mat_attr_items_LINE_A, "LINE_A"}, {mat_attr_items_DIFF, "DIFF"}, {mat_attr_items_DIFF_R, "DIFF_R"}, {mat_attr_items_DIFF_G, "DIFF_G"}, {mat_attr_items_DIFF_B, "DIFF_B"}, {mat_attr_items_SPEC, "SPEC"}, {mat_attr_items_SPEC_R, "SPEC_R"}, {mat_attr_items_SPEC_G, "SPEC_G"}, {mat_attr_items_SPEC_B, "SPEC_B"}, {mat_attr_items_SPEC_HARD, "SPEC_HARD"}, {mat_attr_items_ALPHA, "ALPHA"}};
 	};
 
-	const std::map<std::string, int> string_to_mat_attr_items = create_string_to_mat_attr_items();
-	const std::map<int, std::string> mat_attr_items_to_string = create_mat_attr_items_to_string();
+	static const std::map<std::string, int> string_to_mat_attr_items = create_string_to_mat_attr_items();
+	static const std::map<int, std::string> mat_attr_items_to_string = create_mat_attr_items_to_string();
 
 	mat_attr_items_enum material_attribute() {
 		STRING_TYPE_GETTER("material_attribute", static_cast<mat_attr_items_enum>(string_to_mat_attr_items.at(resstr)))
@@ -26432,8 +26432,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26480,8 +26480,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26544,8 +26544,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26592,8 +26592,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26680,8 +26680,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26728,8 +26728,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26808,8 +26808,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26856,8 +26856,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_SCREEN, "SCREEN"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_DARKEN, "DARKEN"}, {value_blend_items_LIGHTEN, "LIGHTEN"}, {value_blend_items_OVERLAY, "OVERLAY"}, {value_blend_items_DODGE, "DODGE"}, {value_blend_items_BURN, "BURN"}, {value_blend_items_HUE, "HUE"}, {value_blend_items_SATURATION, "SATURATION"}, {value_blend_items_VALUE, "VALUE"}, {value_blend_items_COLOR, "COLOR"}, {value_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {value_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -26942,8 +26942,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -26980,8 +26980,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27028,8 +27028,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27076,8 +27076,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -27114,8 +27114,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27162,8 +27162,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27226,8 +27226,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -27264,8 +27264,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27312,8 +27312,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27378,8 +27378,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -27416,8 +27416,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27477,8 +27477,8 @@ public:
 		return {{mat_attr_items_LINE, "LINE"}, {mat_attr_items_LINE_R, "LINE_R"}, {mat_attr_items_LINE_G, "LINE_G"}, {mat_attr_items_LINE_B, "LINE_B"}, {mat_attr_items_LINE_A, "LINE_A"}, {mat_attr_items_DIFF, "DIFF"}, {mat_attr_items_DIFF_R, "DIFF_R"}, {mat_attr_items_DIFF_G, "DIFF_G"}, {mat_attr_items_DIFF_B, "DIFF_B"}, {mat_attr_items_SPEC, "SPEC"}, {mat_attr_items_SPEC_R, "SPEC_R"}, {mat_attr_items_SPEC_G, "SPEC_G"}, {mat_attr_items_SPEC_B, "SPEC_B"}, {mat_attr_items_SPEC_HARD, "SPEC_HARD"}, {mat_attr_items_ALPHA, "ALPHA"}};
 	};
 
-	const std::map<std::string, int> string_to_mat_attr_items = create_string_to_mat_attr_items();
-	const std::map<int, std::string> mat_attr_items_to_string = create_mat_attr_items_to_string();
+	static const std::map<std::string, int> string_to_mat_attr_items = create_string_to_mat_attr_items();
+	static const std::map<int, std::string> mat_attr_items_to_string = create_mat_attr_items_to_string();
 
 	mat_attr_items_enum material_attribute() {
 		STRING_TYPE_GETTER("material_attribute", static_cast<mat_attr_items_enum>(string_to_mat_attr_items.at(resstr)))
@@ -27501,8 +27501,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27549,8 +27549,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -27587,8 +27587,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27635,8 +27635,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27683,8 +27683,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -27721,8 +27721,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27769,8 +27769,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27841,8 +27841,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -27879,8 +27879,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -27927,8 +27927,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -27991,8 +27991,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -28029,8 +28029,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -28077,8 +28077,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -28148,8 +28148,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -28186,8 +28186,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -28234,8 +28234,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -28299,8 +28299,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -28337,8 +28337,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -28385,8 +28385,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -28450,8 +28450,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -28488,8 +28488,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -28536,8 +28536,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -28617,8 +28617,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -28655,8 +28655,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -28703,8 +28703,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -28786,8 +28786,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -28824,8 +28824,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -28885,8 +28885,8 @@ public:
 		return {{mat_attr_items_LINE, "LINE"}, {mat_attr_items_LINE_R, "LINE_R"}, {mat_attr_items_LINE_G, "LINE_G"}, {mat_attr_items_LINE_B, "LINE_B"}, {mat_attr_items_LINE_A, "LINE_A"}, {mat_attr_items_DIFF, "DIFF"}, {mat_attr_items_DIFF_R, "DIFF_R"}, {mat_attr_items_DIFF_G, "DIFF_G"}, {mat_attr_items_DIFF_B, "DIFF_B"}, {mat_attr_items_SPEC, "SPEC"}, {mat_attr_items_SPEC_R, "SPEC_R"}, {mat_attr_items_SPEC_G, "SPEC_G"}, {mat_attr_items_SPEC_B, "SPEC_B"}, {mat_attr_items_SPEC_HARD, "SPEC_HARD"}, {mat_attr_items_ALPHA, "ALPHA"}};
 	};
 
-	const std::map<std::string, int> string_to_mat_attr_items = create_string_to_mat_attr_items();
-	const std::map<int, std::string> mat_attr_items_to_string = create_mat_attr_items_to_string();
+	static const std::map<std::string, int> string_to_mat_attr_items = create_string_to_mat_attr_items();
+	static const std::map<int, std::string> mat_attr_items_to_string = create_mat_attr_items_to_string();
 
 	mat_attr_items_enum material_attribute() {
 		STRING_TYPE_GETTER("material_attribute", static_cast<mat_attr_items_enum>(string_to_mat_attr_items.at(resstr)))
@@ -28909,8 +28909,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -28974,8 +28974,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29012,8 +29012,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -29097,8 +29097,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29135,8 +29135,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -29228,8 +29228,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29266,8 +29266,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -29314,8 +29314,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -29395,8 +29395,8 @@ public:
 		return {{modifier_type_items_ALONG_STROKE, "ALONG_STROKE"}, {modifier_type_items_CALLIGRAPHY, "CALLIGRAPHY"}, {modifier_type_items_CREASE_ANGLE, "CREASE_ANGLE"}, {modifier_type_items_CURVATURE_3D, "CURVATURE_3D"}, {modifier_type_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {modifier_type_items_DISTANCE_FROM_OBJECT, "DISTANCE_FROM_OBJECT"}, {modifier_type_items_MATERIAL, "MATERIAL"}, {modifier_type_items_NOISE, "NOISE"}, {modifier_type_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29433,8 +29433,8 @@ public:
 		return {{value_blend_items_MIX, "MIX"}, {value_blend_items_ADD, "ADD"}, {value_blend_items_SUBTRACT, "SUBTRACT"}, {value_blend_items_MULTIPLY, "MULTIPLY"}, {value_blend_items_DIVIDE, "DIVIDE"}, {value_blend_items_DIFFERENCE, "DIFFERENCE"}, {value_blend_items_MININUM, "MININUM"}, {value_blend_items_MAXIMUM, "MAXIMUM"}};
 	};
 
-	const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
-	const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
+	static const std::map<std::string, int> string_to_value_blend_items = create_string_to_value_blend_items();
+	static const std::map<int, std::string> value_blend_items_to_string = create_value_blend_items_to_string();
 
 	value_blend_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<value_blend_items_enum>(string_to_value_blend_items.at(resstr)))
@@ -29481,8 +29481,8 @@ public:
 		return {{mapping_items_LINEAR, "LINEAR"}, {mapping_items_CURVE, "CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
-	const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_mapping_items = create_string_to_mapping_items();
+	static const std::map<int, std::string> mapping_items_to_string = create_mapping_items_to_string();
 
 	mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<mapping_items_enum>(string_to_mapping_items.at(resstr)))
@@ -29573,8 +29573,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29647,8 +29647,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29721,8 +29721,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29811,8 +29811,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -29917,8 +29917,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30023,8 +30023,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30129,8 +30129,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30203,8 +30203,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30277,8 +30277,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30351,8 +30351,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30425,8 +30425,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30474,8 +30474,8 @@ public:
 		return {{blueprint_shape_items_CIRCLES, "CIRCLES"}, {blueprint_shape_items_ELLIPSES, "ELLIPSES"}, {blueprint_shape_items_SQUARES, "SQUARES"}};
 	};
 
-	const std::map<std::string, int> string_to_blueprint_shape_items = create_string_to_blueprint_shape_items();
-	const std::map<int, std::string> blueprint_shape_items_to_string = create_blueprint_shape_items_to_string();
+	static const std::map<std::string, int> string_to_blueprint_shape_items = create_string_to_blueprint_shape_items();
+	static const std::map<int, std::string> blueprint_shape_items_to_string = create_blueprint_shape_items_to_string();
 
 	blueprint_shape_items_enum shape() {
 		STRING_TYPE_GETTER("shape", static_cast<blueprint_shape_items_enum>(string_to_blueprint_shape_items.at(resstr)))
@@ -30556,8 +30556,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30654,8 +30654,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30705,8 +30705,8 @@ public:
 		return {{transform_pivot_items_CENTER, "CENTER"}, {transform_pivot_items_START, "START"}, {transform_pivot_items_END, "END"}, {transform_pivot_items_PARAM, "PARAM"}, {transform_pivot_items_ABSOLUTE, "ABSOLUTE"}};
 	};
 
-	const std::map<std::string, int> string_to_transform_pivot_items = create_string_to_transform_pivot_items();
-	const std::map<int, std::string> transform_pivot_items_to_string = create_transform_pivot_items_to_string();
+	static const std::map<std::string, int> string_to_transform_pivot_items = create_string_to_transform_pivot_items();
+	static const std::map<int, std::string> transform_pivot_items_to_string = create_transform_pivot_items_to_string();
 
 	transform_pivot_items_enum pivot() {
 		STRING_TYPE_GETTER("pivot", static_cast<transform_pivot_items_enum>(string_to_transform_pivot_items.at(resstr)))
@@ -30795,8 +30795,8 @@ public:
 		return {{modifier_type_items_2D_OFFSET, "2D_OFFSET"}, {modifier_type_items_2D_TRANSFORM, "2D_TRANSFORM"}, {modifier_type_items_BACKBONE_STRETCHER, "BACKBONE_STRETCHER"}, {modifier_type_items_BEZIER_CURVE, "BEZIER_CURVE"}, {modifier_type_items_BLUEPRINT, "BLUEPRINT"}, {modifier_type_items_GUIDING_LINES, "GUIDING_LINES"}, {modifier_type_items_PERLIN_NOISE_1D, "PERLIN_NOISE_1D"}, {modifier_type_items_PERLIN_NOISE_2D, "PERLIN_NOISE_2D"}, {modifier_type_items_POLYGONIZATION, "POLYGONIZATION"}, {modifier_type_items_SAMPLING, "SAMPLING"}, {modifier_type_items_SIMPLIFICATION, "SIMPLIFICATION"}, {modifier_type_items_SINUS_DISPLACEMENT, "SINUS_DISPLACEMENT"}, {modifier_type_items_SPATIAL_NOISE, "SPATIAL_NOISE"}, {modifier_type_items_TIP_REMOVER, "TIP_REMOVER"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -30875,8 +30875,8 @@ public:
 		return {{panel_items_STROKES, "STROKES"}, {panel_items_COLOR, "COLOR"}, {panel_items_ALPHA, "ALPHA"}, {panel_items_THICKNESS, "THICKNESS"}, {panel_items_GEOMETRY, "GEOMETRY"}, {panel_items_TEXTURE, "TEXTURE"}};
 	};
 
-	const std::map<std::string, int> string_to_panel_items = create_string_to_panel_items();
-	const std::map<int, std::string> panel_items_to_string = create_panel_items_to_string();
+	static const std::map<std::string, int> string_to_panel_items = create_string_to_panel_items();
+	static const std::map<int, std::string> panel_items_to_string = create_panel_items_to_string();
 
 	panel_items_enum panel() {
 		STRING_TYPE_GETTER("panel", static_cast<panel_items_enum>(string_to_panel_items.at(resstr)))
@@ -30925,8 +30925,8 @@ public:
 		return {{thickness_position_items_CENTER, "CENTER"}, {thickness_position_items_INSIDE, "INSIDE"}, {thickness_position_items_OUTSIDE, "OUTSIDE"}, {thickness_position_items_RELATIVE, "RELATIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_thickness_position_items = create_string_to_thickness_position_items();
-	const std::map<int, std::string> thickness_position_items_to_string = create_thickness_position_items_to_string();
+	static const std::map<std::string, int> string_to_thickness_position_items = create_string_to_thickness_position_items();
+	static const std::map<int, std::string> thickness_position_items_to_string = create_thickness_position_items_to_string();
 
 	thickness_position_items_enum thickness_position() {
 		STRING_TYPE_GETTER("thickness_position", static_cast<thickness_position_items_enum>(string_to_thickness_position_items.at(resstr)))
@@ -30981,8 +30981,8 @@ public:
 		return {{chaining_items_PLAIN, "PLAIN"}, {chaining_items_SKETCHY, "SKETCHY"}};
 	};
 
-	const std::map<std::string, int> string_to_chaining_items = create_string_to_chaining_items();
-	const std::map<int, std::string> chaining_items_to_string = create_chaining_items_to_string();
+	static const std::map<std::string, int> string_to_chaining_items = create_string_to_chaining_items();
+	static const std::map<int, std::string> chaining_items_to_string = create_chaining_items_to_string();
 
 	chaining_items_enum chaining() {
 		STRING_TYPE_GETTER("chaining", static_cast<chaining_items_enum>(string_to_chaining_items.at(resstr)))
@@ -31191,8 +31191,8 @@ public:
 		return {{sort_key_items_DISTANCE_FROM_CAMERA, "DISTANCE_FROM_CAMERA"}, {sort_key_items_2D_LENGTH, "2D_LENGTH"}, {sort_key_items_PROJECTED_X, "PROJECTED_X"}, {sort_key_items_PROJECTED_Y, "PROJECTED_Y"}};
 	};
 
-	const std::map<std::string, int> string_to_sort_key_items = create_string_to_sort_key_items();
-	const std::map<int, std::string> sort_key_items_to_string = create_sort_key_items_to_string();
+	static const std::map<std::string, int> string_to_sort_key_items = create_string_to_sort_key_items();
+	static const std::map<int, std::string> sort_key_items_to_string = create_sort_key_items_to_string();
 
 	sort_key_items_enum sort_key() {
 		STRING_TYPE_GETTER("sort_key", static_cast<sort_key_items_enum>(string_to_sort_key_items.at(resstr)))
@@ -31215,8 +31215,8 @@ public:
 		return {{sort_order_items_DEFAULT, "DEFAULT"}, {sort_order_items_REVERSE, "REVERSE"}};
 	};
 
-	const std::map<std::string, int> string_to_sort_order_items = create_string_to_sort_order_items();
-	const std::map<int, std::string> sort_order_items_to_string = create_sort_order_items_to_string();
+	static const std::map<std::string, int> string_to_sort_order_items = create_string_to_sort_order_items();
+	static const std::map<int, std::string> sort_order_items_to_string = create_sort_order_items_to_string();
 
 	sort_order_items_enum sort_order() {
 		STRING_TYPE_GETTER("sort_order", static_cast<sort_order_items_enum>(string_to_sort_order_items.at(resstr)))
@@ -31242,8 +31242,8 @@ public:
 		return {{integration_type_items_MEAN, "MEAN"}, {integration_type_items_MIN, "MIN"}, {integration_type_items_MAX, "MAX"}, {integration_type_items_FIRST, "FIRST"}, {integration_type_items_LAST, "LAST"}};
 	};
 
-	const std::map<std::string, int> string_to_integration_type_items = create_string_to_integration_type_items();
-	const std::map<int, std::string> integration_type_items_to_string = create_integration_type_items_to_string();
+	static const std::map<std::string, int> string_to_integration_type_items = create_string_to_integration_type_items();
+	static const std::map<int, std::string> integration_type_items_to_string = create_integration_type_items_to_string();
 
 	integration_type_items_enum integration_type() {
 		STRING_TYPE_GETTER("integration_type", static_cast<integration_type_items_enum>(string_to_integration_type_items.at(resstr)))
@@ -31275,8 +31275,8 @@ public:
 		return {{cap_items_BUTT, "BUTT"}, {cap_items_ROUND, "ROUND"}, {cap_items_SQUARE, "SQUARE"}};
 	};
 
-	const std::map<std::string, int> string_to_cap_items = create_string_to_cap_items();
-	const std::map<int, std::string> cap_items_to_string = create_cap_items_to_string();
+	static const std::map<std::string, int> string_to_cap_items = create_string_to_cap_items();
+	static const std::map<int, std::string> cap_items_to_string = create_cap_items_to_string();
 
 	cap_items_enum caps() {
 		STRING_TYPE_GETTER("caps", static_cast<cap_items_enum>(string_to_cap_items.at(resstr)))
@@ -31381,8 +31381,8 @@ public:
 		return {{prop_x_mapping_items_NONE, "NONE"}, {prop_x_mapping_items_X, "X"}, {prop_x_mapping_items_Y, "Y"}, {prop_x_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_x_mapping_items = create_string_to_prop_x_mapping_items();
-	const std::map<int, std::string> prop_x_mapping_items_to_string = create_prop_x_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_x_mapping_items = create_string_to_prop_x_mapping_items();
+	static const std::map<int, std::string> prop_x_mapping_items_to_string = create_prop_x_mapping_items_to_string();
 
 	prop_x_mapping_items_enum mapping_x() {
 		STRING_TYPE_GETTER("mapping_x", static_cast<prop_x_mapping_items_enum>(string_to_prop_x_mapping_items.at(resstr)))
@@ -31407,8 +31407,8 @@ public:
 		return {{prop_y_mapping_items_NONE, "NONE"}, {prop_y_mapping_items_X, "X"}, {prop_y_mapping_items_Y, "Y"}, {prop_y_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_y_mapping_items = create_string_to_prop_y_mapping_items();
-	const std::map<int, std::string> prop_y_mapping_items_to_string = create_prop_y_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_y_mapping_items = create_string_to_prop_y_mapping_items();
+	static const std::map<int, std::string> prop_y_mapping_items_to_string = create_prop_y_mapping_items_to_string();
 
 	prop_y_mapping_items_enum mapping_y() {
 		STRING_TYPE_GETTER("mapping_y", static_cast<prop_y_mapping_items_enum>(string_to_prop_y_mapping_items.at(resstr)))
@@ -31433,8 +31433,8 @@ public:
 		return {{prop_z_mapping_items_NONE, "NONE"}, {prop_z_mapping_items_X, "X"}, {prop_z_mapping_items_Y, "Y"}, {prop_z_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_z_mapping_items = create_string_to_prop_z_mapping_items();
-	const std::map<int, std::string> prop_z_mapping_items_to_string = create_prop_z_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_z_mapping_items = create_string_to_prop_z_mapping_items();
+	static const std::map<int, std::string> prop_z_mapping_items_to_string = create_prop_z_mapping_items_to_string();
 
 	prop_z_mapping_items_enum mapping_z() {
 		STRING_TYPE_GETTER("mapping_z", static_cast<prop_z_mapping_items_enum>(string_to_prop_z_mapping_items.at(resstr)))
@@ -31459,8 +31459,8 @@ public:
 		return {{prop_mapping_items_FLAT, "FLAT"}, {prop_mapping_items_CUBE, "CUBE"}, {prop_mapping_items_TUBE, "TUBE"}, {prop_mapping_items_SPHERE, "SPHERE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
-	const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
+	static const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
 
 	prop_mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<prop_mapping_items_enum>(string_to_prop_mapping_items.at(resstr)))
@@ -31509,8 +31509,8 @@ public:
 		return {{texco_items_WINDOW, "WINDOW"}, {texco_items_GLOBAL, "GLOBAL"}, {texco_items_ALONG_STROKE, "ALONG_STROKE"}, {texco_items_ORCO, "ORCO"}};
 	};
 
-	const std::map<std::string, int> string_to_texco_items = create_string_to_texco_items();
-	const std::map<int, std::string> texco_items_to_string = create_texco_items_to_string();
+	static const std::map<std::string, int> string_to_texco_items = create_string_to_texco_items();
+	static const std::map<int, std::string> texco_items_to_string = create_texco_items_to_string();
 
 	texco_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<texco_items_enum>(string_to_texco_items.at(resstr)))
@@ -31697,8 +31697,8 @@ public:
 		return {{prop_type_items_SURFACE, "SURFACE"}, {prop_type_items_WIRE, "WIRE"}, {prop_type_items_VOLUME, "VOLUME"}, {prop_type_items_HALO, "HALO"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -31730,8 +31730,8 @@ public:
 		return {{transparency_items_MASK, "MASK"}, {transparency_items_Z_TRANSPARENCY, "Z_TRANSPARENCY"}, {transparency_items_RAYTRACE, "RAYTRACE"}};
 	};
 
-	const std::map<std::string, int> string_to_transparency_items = create_string_to_transparency_items();
-	const std::map<int, std::string> transparency_items_to_string = create_transparency_items_to_string();
+	static const std::map<std::string, int> string_to_transparency_items = create_string_to_transparency_items();
+	static const std::map<int, std::string> transparency_items_to_string = create_transparency_items_to_string();
 
 	transparency_items_enum transparency_method() {
 		STRING_TYPE_GETTER("transparency_method", static_cast<transparency_items_enum>(string_to_transparency_items.at(resstr)))
@@ -31758,8 +31758,8 @@ public:
 		return {{preview_type_items_FLAT, "FLAT"}, {preview_type_items_SPHERE, "SPHERE"}, {preview_type_items_CUBE, "CUBE"}, {preview_type_items_MONKEY, "MONKEY"}, {preview_type_items_HAIR, "HAIR"}, {preview_type_items_SPHERE_A, "SPHERE_A"}};
 	};
 
-	const std::map<std::string, int> string_to_preview_type_items = create_string_to_preview_type_items();
-	const std::map<int, std::string> preview_type_items_to_string = create_preview_type_items_to_string();
+	static const std::map<std::string, int> string_to_preview_type_items = create_string_to_preview_type_items();
+	static const std::map<int, std::string> preview_type_items_to_string = create_preview_type_items_to_string();
 
 	preview_type_items_enum preview_render_type() {
 		STRING_TYPE_GETTER("preview_render_type", static_cast<preview_type_items_enum>(string_to_preview_type_items.at(resstr)))
@@ -31947,8 +31947,8 @@ public:
 		return {{prop_shadows_only_items_SHADOW_ONLY_OLD, "SHADOW_ONLY_OLD"}, {prop_shadows_only_items_SHADOW_ONLY, "SHADOW_ONLY"}, {prop_shadows_only_items_SHADOW_ONLY_SHADED, "SHADOW_ONLY_SHADED"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_shadows_only_items = create_string_to_prop_shadows_only_items();
-	const std::map<int, std::string> prop_shadows_only_items_to_string = create_prop_shadows_only_items_to_string();
+	static const std::map<std::string, int> string_to_prop_shadows_only_items = create_string_to_prop_shadows_only_items();
+	static const std::map<int, std::string> prop_shadows_only_items_to_string = create_prop_shadows_only_items_to_string();
 
 	prop_shadows_only_items_enum shadow_only_type() {
 		STRING_TYPE_GETTER("shadow_only_type", static_cast<prop_shadows_only_items_enum>(string_to_prop_shadows_only_items.at(resstr)))
@@ -32225,8 +32225,8 @@ public:
 		return {{ramp_blend_items_MIX, "MIX"}, {ramp_blend_items_ADD, "ADD"}, {ramp_blend_items_MULTIPLY, "MULTIPLY"}, {ramp_blend_items_SUBTRACT, "SUBTRACT"}, {ramp_blend_items_SCREEN, "SCREEN"}, {ramp_blend_items_DIVIDE, "DIVIDE"}, {ramp_blend_items_DIFFERENCE, "DIFFERENCE"}, {ramp_blend_items_DARKEN, "DARKEN"}, {ramp_blend_items_LIGHTEN, "LIGHTEN"}, {ramp_blend_items_OVERLAY, "OVERLAY"}, {ramp_blend_items_DODGE, "DODGE"}, {ramp_blend_items_BURN, "BURN"}, {ramp_blend_items_HUE, "HUE"}, {ramp_blend_items_SATURATION, "SATURATION"}, {ramp_blend_items_VALUE, "VALUE"}, {ramp_blend_items_COLOR, "COLOR"}, {ramp_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {ramp_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
-	const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
+	static const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
+	static const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
 
 	ramp_blend_items_enum diffuse_ramp_blend() {
 		STRING_TYPE_GETTER("diffuse_ramp_blend", static_cast<ramp_blend_items_enum>(string_to_ramp_blend_items.at(resstr)))
@@ -32259,8 +32259,8 @@ public:
 		return {{prop_ramp_input_items_SHADER, "SHADER"}, {prop_ramp_input_items_ENERGY, "ENERGY"}, {prop_ramp_input_items_NORMAL, "NORMAL"}, {prop_ramp_input_items_RESULT, "RESULT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ramp_input_items = create_string_to_prop_ramp_input_items();
-	const std::map<int, std::string> prop_ramp_input_items_to_string = create_prop_ramp_input_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ramp_input_items = create_string_to_prop_ramp_input_items();
+	static const std::map<int, std::string> prop_ramp_input_items_to_string = create_prop_ramp_input_items_to_string();
 
 	prop_ramp_input_items_enum diffuse_ramp_input() {
 		STRING_TYPE_GETTER("diffuse_ramp_input", static_cast<prop_ramp_input_items_enum>(string_to_prop_ramp_input_items.at(resstr)))
@@ -32326,8 +32326,8 @@ public:
 		return {{prop_diff_shader_items_LAMBERT, "LAMBERT"}, {prop_diff_shader_items_OREN_NAYAR, "OREN_NAYAR"}, {prop_diff_shader_items_TOON, "TOON"}, {prop_diff_shader_items_MINNAERT, "MINNAERT"}, {prop_diff_shader_items_FRESNEL, "FRESNEL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_diff_shader_items = create_string_to_prop_diff_shader_items();
-	const std::map<int, std::string> prop_diff_shader_items_to_string = create_prop_diff_shader_items_to_string();
+	static const std::map<std::string, int> string_to_prop_diff_shader_items = create_string_to_prop_diff_shader_items();
+	static const std::map<int, std::string> prop_diff_shader_items_to_string = create_prop_diff_shader_items_to_string();
 
 	prop_diff_shader_items_enum diffuse_shader() {
 		STRING_TYPE_GETTER("diffuse_shader", static_cast<prop_diff_shader_items_enum>(string_to_prop_diff_shader_items.at(resstr)))
@@ -32409,8 +32409,8 @@ public:
 		return {{prop_specular_shader_items_COOKTORR, "COOKTORR"}, {prop_specular_shader_items_PHONG, "PHONG"}, {prop_specular_shader_items_BLINN, "BLINN"}, {prop_specular_shader_items_TOON, "TOON"}, {prop_specular_shader_items_WARDISO, "WARDISO"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_specular_shader_items = create_string_to_prop_specular_shader_items();
-	const std::map<int, std::string> prop_specular_shader_items_to_string = create_prop_specular_shader_items_to_string();
+	static const std::map<std::string, int> string_to_prop_specular_shader_items = create_string_to_prop_specular_shader_items();
+	static const std::map<int, std::string> prop_specular_shader_items_to_string = create_prop_specular_shader_items_to_string();
 
 	prop_specular_shader_items_enum specular_shader() {
 		STRING_TYPE_GETTER("specular_shader", static_cast<prop_specular_shader_items_enum>(string_to_prop_specular_shader_items.at(resstr)))
@@ -32589,8 +32589,8 @@ public:
 		return {{prop_fadeto_mir_items_FADE_TO_SKY, "FADE_TO_SKY"}, {prop_fadeto_mir_items_FADE_TO_MATERIAL, "FADE_TO_MATERIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_fadeto_mir_items = create_string_to_prop_fadeto_mir_items();
-	const std::map<int, std::string> prop_fadeto_mir_items_to_string = create_prop_fadeto_mir_items_to_string();
+	static const std::map<std::string, int> string_to_prop_fadeto_mir_items = create_string_to_prop_fadeto_mir_items();
+	static const std::map<int, std::string> prop_fadeto_mir_items_to_string = create_prop_fadeto_mir_items_to_string();
 
 	prop_fadeto_mir_items_enum fade_to() {
 		STRING_TYPE_GETTER("fade_to", static_cast<prop_fadeto_mir_items_enum>(string_to_prop_fadeto_mir_items.at(resstr)))
@@ -32705,8 +32705,8 @@ public:
 		return {{prop_stepsize_items_RANDOMIZED, "RANDOMIZED"}, {prop_stepsize_items_CONSTANT, "CONSTANT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_stepsize_items = create_string_to_prop_stepsize_items();
-	const std::map<int, std::string> prop_stepsize_items_to_string = create_prop_stepsize_items_to_string();
+	static const std::map<std::string, int> string_to_prop_stepsize_items = create_string_to_prop_stepsize_items();
+	static const std::map<int, std::string> prop_stepsize_items_to_string = create_prop_stepsize_items_to_string();
 
 	prop_stepsize_items_enum step_method() {
 		STRING_TYPE_GETTER("step_method", static_cast<prop_stepsize_items_enum>(string_to_prop_stepsize_items.at(resstr)))
@@ -32740,8 +32740,8 @@ public:
 		return {{prop_lighting_items_SHADELESS, "SHADELESS"}, {prop_lighting_items_SHADOWED, "SHADOWED"}, {prop_lighting_items_SHADED, "SHADED"}, {prop_lighting_items_MULTIPLE_SCATTERING, "MULTIPLE_SCATTERING"}, {prop_lighting_items_SHADED_PLUS_MULTIPLE_SCATTERING, "SHADED_PLUS_MULTIPLE_SCATTERING"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_lighting_items = create_string_to_prop_lighting_items();
-	const std::map<int, std::string> prop_lighting_items_to_string = create_prop_lighting_items_to_string();
+	static const std::map<std::string, int> string_to_prop_lighting_items = create_string_to_prop_lighting_items();
+	static const std::map<int, std::string> prop_lighting_items_to_string = create_prop_lighting_items_to_string();
 
 	prop_lighting_items_enum light_method() {
 		STRING_TYPE_GETTER("light_method", static_cast<prop_lighting_items_enum>(string_to_prop_lighting_items.at(resstr)))
@@ -33166,8 +33166,8 @@ public:
 		return {{prop_texture_coordinates_items_GLOBAL, "GLOBAL"}, {prop_texture_coordinates_items_OBJECT, "OBJECT"}, {prop_texture_coordinates_items_UV, "UV"}, {prop_texture_coordinates_items_ORCO, "ORCO"}, {prop_texture_coordinates_items_STRAND, "STRAND"}, {prop_texture_coordinates_items_WINDOW, "WINDOW"}, {prop_texture_coordinates_items_NORMAL, "NORMAL"}, {prop_texture_coordinates_items_REFLECTION, "REFLECTION"}, {prop_texture_coordinates_items_STRESS, "STRESS"}, {prop_texture_coordinates_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
-	const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
+	static const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
+	static const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
 
 	prop_texture_coordinates_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<prop_texture_coordinates_items_enum>(string_to_prop_texture_coordinates_items.at(resstr)))
@@ -33338,8 +33338,8 @@ public:
 		return {{prop_x_mapping_items_NONE, "NONE"}, {prop_x_mapping_items_X, "X"}, {prop_x_mapping_items_Y, "Y"}, {prop_x_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_x_mapping_items = create_string_to_prop_x_mapping_items();
-	const std::map<int, std::string> prop_x_mapping_items_to_string = create_prop_x_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_x_mapping_items = create_string_to_prop_x_mapping_items();
+	static const std::map<int, std::string> prop_x_mapping_items_to_string = create_prop_x_mapping_items_to_string();
 
 	prop_x_mapping_items_enum mapping_x() {
 		STRING_TYPE_GETTER("mapping_x", static_cast<prop_x_mapping_items_enum>(string_to_prop_x_mapping_items.at(resstr)))
@@ -33364,8 +33364,8 @@ public:
 		return {{prop_y_mapping_items_NONE, "NONE"}, {prop_y_mapping_items_X, "X"}, {prop_y_mapping_items_Y, "Y"}, {prop_y_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_y_mapping_items = create_string_to_prop_y_mapping_items();
-	const std::map<int, std::string> prop_y_mapping_items_to_string = create_prop_y_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_y_mapping_items = create_string_to_prop_y_mapping_items();
+	static const std::map<int, std::string> prop_y_mapping_items_to_string = create_prop_y_mapping_items_to_string();
 
 	prop_y_mapping_items_enum mapping_y() {
 		STRING_TYPE_GETTER("mapping_y", static_cast<prop_y_mapping_items_enum>(string_to_prop_y_mapping_items.at(resstr)))
@@ -33390,8 +33390,8 @@ public:
 		return {{prop_z_mapping_items_NONE, "NONE"}, {prop_z_mapping_items_X, "X"}, {prop_z_mapping_items_Y, "Y"}, {prop_z_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_z_mapping_items = create_string_to_prop_z_mapping_items();
-	const std::map<int, std::string> prop_z_mapping_items_to_string = create_prop_z_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_z_mapping_items = create_string_to_prop_z_mapping_items();
+	static const std::map<int, std::string> prop_z_mapping_items_to_string = create_prop_z_mapping_items_to_string();
 
 	prop_z_mapping_items_enum mapping_z() {
 		STRING_TYPE_GETTER("mapping_z", static_cast<prop_z_mapping_items_enum>(string_to_prop_z_mapping_items.at(resstr)))
@@ -33416,8 +33416,8 @@ public:
 		return {{prop_mapping_items_FLAT, "FLAT"}, {prop_mapping_items_CUBE, "CUBE"}, {prop_mapping_items_TUBE, "TUBE"}, {prop_mapping_items_SPHERE, "SPHERE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
-	const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
+	static const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
 
 	prop_mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<prop_mapping_items_enum>(string_to_prop_mapping_items.at(resstr)))
@@ -33442,8 +33442,8 @@ public:
 		return {{prop_normal_map_space_items_CAMERA, "CAMERA"}, {prop_normal_map_space_items_WORLD, "WORLD"}, {prop_normal_map_space_items_OBJECT, "OBJECT"}, {prop_normal_map_space_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_normal_map_space_items = create_string_to_prop_normal_map_space_items();
-	const std::map<int, std::string> prop_normal_map_space_items_to_string = create_prop_normal_map_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_normal_map_space_items = create_string_to_prop_normal_map_space_items();
+	static const std::map<int, std::string> prop_normal_map_space_items_to_string = create_prop_normal_map_space_items_to_string();
 
 	prop_normal_map_space_items_enum normal_map_space() {
 		STRING_TYPE_GETTER("normal_map_space", static_cast<prop_normal_map_space_items_enum>(string_to_prop_normal_map_space_items.at(resstr)))
@@ -33701,8 +33701,8 @@ public:
 		return {{prop_bump_method_items_BUMP_ORIGINAL, "BUMP_ORIGINAL"}, {prop_bump_method_items_BUMP_COMPATIBLE, "BUMP_COMPATIBLE"}, {prop_bump_method_items_BUMP_LOW_QUALITY, "BUMP_LOW_QUALITY"}, {prop_bump_method_items_BUMP_MEDIUM_QUALITY, "BUMP_MEDIUM_QUALITY"}, {prop_bump_method_items_BUMP_BEST_QUALITY, "BUMP_BEST_QUALITY"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_bump_method_items = create_string_to_prop_bump_method_items();
-	const std::map<int, std::string> prop_bump_method_items_to_string = create_prop_bump_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_bump_method_items = create_string_to_prop_bump_method_items();
+	static const std::map<int, std::string> prop_bump_method_items_to_string = create_prop_bump_method_items_to_string();
 
 	prop_bump_method_items_enum bump_method() {
 		STRING_TYPE_GETTER("bump_method", static_cast<prop_bump_method_items_enum>(string_to_prop_bump_method_items.at(resstr)))
@@ -33726,8 +33726,8 @@ public:
 		return {{prop_bump_space_items_BUMP_VIEWSPACE, "BUMP_VIEWSPACE"}, {prop_bump_space_items_BUMP_OBJECTSPACE, "BUMP_OBJECTSPACE"}, {prop_bump_space_items_BUMP_TEXTURESPACE, "BUMP_TEXTURESPACE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_bump_space_items = create_string_to_prop_bump_space_items();
-	const std::map<int, std::string> prop_bump_space_items_to_string = create_prop_bump_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_bump_space_items = create_string_to_prop_bump_space_items();
+	static const std::map<int, std::string> prop_bump_space_items_to_string = create_prop_bump_space_items_to_string();
 
 	prop_bump_space_items_enum bump_objectspace() {
 		STRING_TYPE_GETTER("bump_objectspace", static_cast<prop_bump_space_items_enum>(string_to_prop_bump_space_items.at(resstr)))
@@ -33924,8 +33924,8 @@ public:
 		return {{prop_alpha_blend_items_OPAQUE, "OPAQUE"}, {prop_alpha_blend_items_ADD, "ADD"}, {prop_alpha_blend_items_CLIP, "CLIP"}, {prop_alpha_blend_items_ALPHA, "ALPHA"}, {prop_alpha_blend_items_ALPHA_SORT, "ALPHA_SORT"}, {prop_alpha_blend_items_ALPHA_ANTIALIASING, "ALPHA_ANTIALIASING"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_alpha_blend_items = create_string_to_prop_alpha_blend_items();
-	const std::map<int, std::string> prop_alpha_blend_items_to_string = create_prop_alpha_blend_items_to_string();
+	static const std::map<std::string, int> string_to_prop_alpha_blend_items = create_string_to_prop_alpha_blend_items();
+	static const std::map<int, std::string> prop_alpha_blend_items_to_string = create_prop_alpha_blend_items_to_string();
 
 	prop_alpha_blend_items_enum alpha_blend() {
 		STRING_TYPE_GETTER("alpha_blend", static_cast<prop_alpha_blend_items_enum>(string_to_prop_alpha_blend_items.at(resstr)))
@@ -33950,8 +33950,8 @@ public:
 		return {{prop_face_orientation_items_NORMAL, "NORMAL"}, {prop_face_orientation_items_HALO, "HALO"}, {prop_face_orientation_items_BILLBOARD, "BILLBOARD"}, {prop_face_orientation_items_SHADOW, "SHADOW"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_face_orientation_items = create_string_to_prop_face_orientation_items();
-	const std::map<int, std::string> prop_face_orientation_items_to_string = create_prop_face_orientation_items_to_string();
+	static const std::map<std::string, int> string_to_prop_face_orientation_items = create_string_to_prop_face_orientation_items();
+	static const std::map<int, std::string> prop_face_orientation_items_to_string = create_prop_face_orientation_items_to_string();
 
 	prop_face_orientation_items_enum face_orientation() {
 		STRING_TYPE_GETTER("face_orientation", static_cast<prop_face_orientation_items_enum>(string_to_prop_face_orientation_items.at(resstr)))
@@ -35462,8 +35462,8 @@ public:
 		return {{metaelem_type_items_BALL, "BALL"}, {metaelem_type_items_CAPSULE, "CAPSULE"}, {metaelem_type_items_PLANE, "PLANE"}, {metaelem_type_items_ELLIPSOID, "ELLIPSOID"}, {metaelem_type_items_CUBE, "CUBE"}};
 	};
 
-	const std::map<std::string, int> string_to_metaelem_type_items = create_string_to_metaelem_type_items();
-	const std::map<int, std::string> metaelem_type_items_to_string = create_metaelem_type_items_to_string();
+	static const std::map<std::string, int> string_to_metaelem_type_items = create_string_to_metaelem_type_items();
+	static const std::map<int, std::string> metaelem_type_items_to_string = create_metaelem_type_items_to_string();
 
 	metaelem_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<metaelem_type_items_enum>(string_to_metaelem_type_items.at(resstr)))
@@ -35570,8 +35570,8 @@ public:
 		return {{prop_update_items_UPDATE_ALWAYS, "UPDATE_ALWAYS"}, {prop_update_items_HALFRES, "HALFRES"}, {prop_update_items_FAST, "FAST"}, {prop_update_items_NEVER, "NEVER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_update_items = create_string_to_prop_update_items();
-	const std::map<int, std::string> prop_update_items_to_string = create_prop_update_items_to_string();
+	static const std::map<std::string, int> string_to_prop_update_items = create_string_to_prop_update_items();
+	static const std::map<int, std::string> prop_update_items_to_string = create_prop_update_items_to_string();
 
 	prop_update_items_enum update_method() {
 		STRING_TYPE_GETTER("update_method", static_cast<prop_update_items_enum>(string_to_prop_update_items.at(resstr)))
@@ -35726,8 +35726,8 @@ public:
 		return {{modifier_type_items_DATA_TRANSFER, "DATA_TRANSFER"}, {modifier_type_items_MESH_CACHE, "MESH_CACHE"}, {modifier_type_items_NORMAL_EDIT, "NORMAL_EDIT"}, {modifier_type_items_UV_PROJECT, "UV_PROJECT"}, {modifier_type_items_UV_WARP, "UV_WARP"}, {modifier_type_items_VERTEX_WEIGHT_EDIT, "VERTEX_WEIGHT_EDIT"}, {modifier_type_items_VERTEX_WEIGHT_MIX, "VERTEX_WEIGHT_MIX"}, {modifier_type_items_VERTEX_WEIGHT_PROXIMITY, "VERTEX_WEIGHT_PROXIMITY"}, {modifier_type_items_ARRAY, "ARRAY"}, {modifier_type_items_BEVEL, "BEVEL"}, {modifier_type_items_BOOLEAN, "BOOLEAN"}, {modifier_type_items_BUILD, "BUILD"}, {modifier_type_items_DECIMATE, "DECIMATE"}, {modifier_type_items_EDGE_SPLIT, "EDGE_SPLIT"}, {modifier_type_items_MASK, "MASK"}, {modifier_type_items_MIRROR, "MIRROR"}, {modifier_type_items_MULTIRES, "MULTIRES"}, {modifier_type_items_REMESH, "REMESH"}, {modifier_type_items_SCREW, "SCREW"}, {modifier_type_items_SKIN, "SKIN"}, {modifier_type_items_SOLIDIFY, "SOLIDIFY"}, {modifier_type_items_SUBSURF, "SUBSURF"}, {modifier_type_items_TRIANGULATE, "TRIANGULATE"}, {modifier_type_items_WIREFRAME, "WIREFRAME"}, {modifier_type_items_ARMATURE, "ARMATURE"}, {modifier_type_items_CAST, "CAST"}, {modifier_type_items_CORRECTIVE_SMOOTH, "CORRECTIVE_SMOOTH"}, {modifier_type_items_CURVE, "CURVE"}, {modifier_type_items_DISPLACE, "DISPLACE"}, {modifier_type_items_HOOK, "HOOK"}, {modifier_type_items_LAPLACIANSMOOTH, "LAPLACIANSMOOTH"}, {modifier_type_items_LAPLACIANDEFORM, "LAPLACIANDEFORM"}, {modifier_type_items_LATTICE, "LATTICE"}, {modifier_type_items_MESH_DEFORM, "MESH_DEFORM"}, {modifier_type_items_SHRINKWRAP, "SHRINKWRAP"}, {modifier_type_items_SIMPLE_DEFORM, "SIMPLE_DEFORM"}, {modifier_type_items_SMOOTH, "SMOOTH"}, {modifier_type_items_WARP, "WARP"}, {modifier_type_items_WAVE, "WAVE"}, {modifier_type_items_CLOTH, "CLOTH"}, {modifier_type_items_COLLISION, "COLLISION"}, {modifier_type_items_DYNAMIC_PAINT, "DYNAMIC_PAINT"}, {modifier_type_items_EXPLODE, "EXPLODE"}, {modifier_type_items_FLUID_SIMULATION, "FLUID_SIMULATION"}, {modifier_type_items_OCEAN, "OCEAN"}, {modifier_type_items_PARTICLE_INSTANCE, "PARTICLE_INSTANCE"}, {modifier_type_items_PARTICLE_SYSTEM, "PARTICLE_SYSTEM"}, {modifier_type_items_SMOKE, "SMOKE"}, {modifier_type_items_SOFT_BODY, "SOFT_BODY"}, {modifier_type_items_SURFACE, "SURFACE"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
-	const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_type_items = create_string_to_modifier_type_items();
+	static const std::map<int, std::string> modifier_type_items_to_string = create_modifier_type_items_to_string();
 
 	modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<modifier_type_items_enum>(string_to_modifier_type_items.at(resstr)))
@@ -35804,8 +35804,8 @@ public:
 		return {{prop_subdivision_type_items_CATMULL_CLARK, "CATMULL_CLARK"}, {prop_subdivision_type_items_SIMPLE, "SIMPLE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_subdivision_type_items = create_string_to_prop_subdivision_type_items();
-	const std::map<int, std::string> prop_subdivision_type_items_to_string = create_prop_subdivision_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_subdivision_type_items = create_string_to_prop_subdivision_type_items();
+	static const std::map<int, std::string> prop_subdivision_type_items_to_string = create_prop_subdivision_type_items_to_string();
 
 	prop_subdivision_type_items_enum subdivision_type() {
 		STRING_TYPE_GETTER("subdivision_type", static_cast<prop_subdivision_type_items_enum>(string_to_prop_subdivision_type_items.at(resstr)))
@@ -35904,8 +35904,8 @@ public:
 		return {{prop_deform_axis_items_POS_X, "POS_X"}, {prop_deform_axis_items_POS_Y, "POS_Y"}, {prop_deform_axis_items_POS_Z, "POS_Z"}, {prop_deform_axis_items_NEG_X, "NEG_X"}, {prop_deform_axis_items_NEG_Y, "NEG_Y"}, {prop_deform_axis_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_deform_axis_items = create_string_to_prop_deform_axis_items();
-	const std::map<int, std::string> prop_deform_axis_items_to_string = create_prop_deform_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_deform_axis_items = create_string_to_prop_deform_axis_items();
+	static const std::map<int, std::string> prop_deform_axis_items_to_string = create_prop_deform_axis_items_to_string();
 
 	prop_deform_axis_items_enum deform_axis() {
 		STRING_TYPE_GETTER("deform_axis", static_cast<prop_deform_axis_items_enum>(string_to_prop_deform_axis_items.at(resstr)))
@@ -36061,8 +36061,8 @@ public:
 		return {{modifier_decim_mode_items_COLLAPSE, "COLLAPSE"}, {modifier_decim_mode_items_UNSUBDIV, "UNSUBDIV"}, {modifier_decim_mode_items_DISSOLVE, "DISSOLVE"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_decim_mode_items = create_string_to_modifier_decim_mode_items();
-	const std::map<int, std::string> modifier_decim_mode_items_to_string = create_modifier_decim_mode_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_decim_mode_items = create_string_to_modifier_decim_mode_items();
+	static const std::map<int, std::string> modifier_decim_mode_items_to_string = create_modifier_decim_mode_items_to_string();
 
 	modifier_decim_mode_items_enum decimate_type() {
 		STRING_TYPE_GETTER("decimate_type", static_cast<modifier_decim_mode_items_enum>(string_to_modifier_decim_mode_items.at(resstr)))
@@ -36152,8 +36152,8 @@ public:
 		return {{mesh_delimit_mode_items_NORMAL, "NORMAL"}, {mesh_delimit_mode_items_MATERIAL, "MATERIAL"}, {mesh_delimit_mode_items_SEAM, "SEAM"}, {mesh_delimit_mode_items_SHARP, "SHARP"}, {mesh_delimit_mode_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_mesh_delimit_mode_items = create_string_to_mesh_delimit_mode_items();
-	const std::map<int, std::string> mesh_delimit_mode_items_to_string = create_mesh_delimit_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mesh_delimit_mode_items = create_string_to_mesh_delimit_mode_items();
+	static const std::map<int, std::string> mesh_delimit_mode_items_to_string = create_mesh_delimit_mode_items_to_string();
 
 	mesh_delimit_mode_items_enum delimit() {
 		STRING_TYPE_GETTER("delimit", static_cast<mesh_delimit_mode_items_enum>(string_to_mesh_delimit_mode_items.at(resstr)))
@@ -36342,8 +36342,8 @@ public:
 		return {{prop_texture_coordinates_items_LOCAL, "LOCAL"}, {prop_texture_coordinates_items_GLOBAL, "GLOBAL"}, {prop_texture_coordinates_items_OBJECT, "OBJECT"}, {prop_texture_coordinates_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
-	const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
+	static const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
+	static const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
 
 	prop_texture_coordinates_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<prop_texture_coordinates_items_enum>(string_to_prop_texture_coordinates_items.at(resstr)))
@@ -36453,8 +36453,8 @@ public:
 		return {{modifier_warp_falloff_items_NONE, "NONE"}, {modifier_warp_falloff_items_CURVE, "CURVE"}, {modifier_warp_falloff_items_SMOOTH, "SMOOTH"}, {modifier_warp_falloff_items_SPHERE, "SPHERE"}, {modifier_warp_falloff_items_ROOT, "ROOT"}, {modifier_warp_falloff_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {modifier_warp_falloff_items_SHARP, "SHARP"}, {modifier_warp_falloff_items_LINEAR, "LINEAR"}, {modifier_warp_falloff_items_CONSTANT, "CONSTANT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_warp_falloff_items = create_string_to_modifier_warp_falloff_items();
-	const std::map<int, std::string> modifier_warp_falloff_items_to_string = create_modifier_warp_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_warp_falloff_items = create_string_to_modifier_warp_falloff_items();
+	static const std::map<int, std::string> modifier_warp_falloff_items_to_string = create_modifier_warp_falloff_items_to_string();
 
 	modifier_warp_falloff_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<modifier_warp_falloff_items_enum>(string_to_modifier_warp_falloff_items.at(resstr)))
@@ -36542,8 +36542,8 @@ public:
 		return {{prop_operation_items_INTERSECT, "INTERSECT"}, {prop_operation_items_UNION, "UNION"}, {prop_operation_items_DIFFERENCE, "DIFFERENCE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_operation_items = create_string_to_prop_operation_items();
-	const std::map<int, std::string> prop_operation_items_to_string = create_prop_operation_items_to_string();
+	static const std::map<std::string, int> string_to_prop_operation_items = create_string_to_prop_operation_items();
+	static const std::map<int, std::string> prop_operation_items_to_string = create_prop_operation_items_to_string();
 
 	prop_operation_items_enum operation() {
 		STRING_TYPE_GETTER("operation", static_cast<prop_operation_items_enum>(string_to_prop_operation_items.at(resstr)))
@@ -36573,8 +36573,8 @@ public:
 		return {{prop_fit_type_items_FIXED_COUNT, "FIXED_COUNT"}, {prop_fit_type_items_FIT_LENGTH, "FIT_LENGTH"}, {prop_fit_type_items_FIT_CURVE, "FIT_CURVE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_fit_type_items = create_string_to_prop_fit_type_items();
-	const std::map<int, std::string> prop_fit_type_items_to_string = create_prop_fit_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_fit_type_items = create_string_to_prop_fit_type_items();
+	static const std::map<int, std::string> prop_fit_type_items_to_string = create_prop_fit_type_items_to_string();
 
 	prop_fit_type_items_enum fit_type() {
 		STRING_TYPE_GETTER("fit_type", static_cast<prop_fit_type_items_enum>(string_to_prop_fit_type_items.at(resstr)))
@@ -36748,8 +36748,8 @@ public:
 		return {{prop_direction_items_X, "X"}, {prop_direction_items_Y, "Y"}, {prop_direction_items_Z, "Z"}, {prop_direction_items_NORMAL, "NORMAL"}, {prop_direction_items_RGB_TO_XYZ, "RGB_TO_XYZ"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_direction_items = create_string_to_prop_direction_items();
-	const std::map<int, std::string> prop_direction_items_to_string = create_prop_direction_items_to_string();
+	static const std::map<std::string, int> string_to_prop_direction_items = create_string_to_prop_direction_items();
+	static const std::map<int, std::string> prop_direction_items_to_string = create_prop_direction_items_to_string();
 
 	prop_direction_items_enum direction() {
 		STRING_TYPE_GETTER("direction", static_cast<prop_direction_items_enum>(string_to_prop_direction_items.at(resstr)))
@@ -36778,8 +36778,8 @@ public:
 		return {{prop_texture_coordinates_items_LOCAL, "LOCAL"}, {prop_texture_coordinates_items_GLOBAL, "GLOBAL"}, {prop_texture_coordinates_items_OBJECT, "OBJECT"}, {prop_texture_coordinates_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
-	const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
+	static const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
+	static const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
 
 	prop_texture_coordinates_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<prop_texture_coordinates_items_enum>(string_to_prop_texture_coordinates_items.at(resstr)))
@@ -36964,8 +36964,8 @@ public:
 		return {{modifier_rest_source_items_ORCO, "ORCO"}, {modifier_rest_source_items_BIND, "BIND"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_rest_source_items = create_string_to_modifier_rest_source_items();
-	const std::map<int, std::string> modifier_rest_source_items_to_string = create_modifier_rest_source_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_rest_source_items = create_string_to_modifier_rest_source_items();
+	static const std::map<int, std::string> modifier_rest_source_items_to_string = create_modifier_rest_source_items_to_string();
 
 	modifier_rest_source_items_enum rest_source() {
 		STRING_TYPE_GETTER("rest_source", static_cast<modifier_rest_source_items_enum>(string_to_modifier_rest_source_items.at(resstr)))
@@ -36988,8 +36988,8 @@ public:
 		return {{modifier_smooth_type_items_SIMPLE, "SIMPLE"}, {modifier_smooth_type_items_LENGTH_WEIGHTED, "LENGTH_WEIGHTED"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_smooth_type_items = create_string_to_modifier_smooth_type_items();
-	const std::map<int, std::string> modifier_smooth_type_items_to_string = create_modifier_smooth_type_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_smooth_type_items = create_string_to_modifier_smooth_type_items();
+	static const std::map<int, std::string> modifier_smooth_type_items_to_string = create_modifier_smooth_type_items_to_string();
 
 	modifier_smooth_type_items_enum smooth_type() {
 		STRING_TYPE_GETTER("smooth_type", static_cast<modifier_smooth_type_items_enum>(string_to_modifier_smooth_type_items.at(resstr)))
@@ -37059,8 +37059,8 @@ public:
 		return {{prop_cast_type_items_SPHERE, "SPHERE"}, {prop_cast_type_items_CYLINDER, "CYLINDER"}, {prop_cast_type_items_CUBOID, "CUBOID"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_cast_type_items = create_string_to_prop_cast_type_items();
-	const std::map<int, std::string> prop_cast_type_items_to_string = create_prop_cast_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_cast_type_items = create_string_to_prop_cast_type_items();
+	static const std::map<int, std::string> prop_cast_type_items_to_string = create_prop_cast_type_items_to_string();
 
 	prop_cast_type_items_enum cast_type() {
 		STRING_TYPE_GETTER("cast_type", static_cast<prop_cast_type_items_enum>(string_to_prop_cast_type_items.at(resstr)))
@@ -37230,8 +37230,8 @@ public:
 		return {{particleinstance_axis_X, "X"}, {particleinstance_axis_Y, "Y"}, {particleinstance_axis_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_particleinstance_axis = create_string_to_particleinstance_axis();
-	const std::map<int, std::string> particleinstance_axis_to_string = create_particleinstance_axis_to_string();
+	static const std::map<std::string, int> string_to_particleinstance_axis = create_string_to_particleinstance_axis();
+	static const std::map<int, std::string> particleinstance_axis_to_string = create_particleinstance_axis_to_string();
 
 	particleinstance_axis_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<particleinstance_axis_enum>(string_to_particleinstance_axis.at(resstr)))
@@ -37488,8 +37488,8 @@ public:
 		return {{prop_limit_method_items_NONE, "NONE"}, {prop_limit_method_items_ANGLE, "ANGLE"}, {prop_limit_method_items_WEIGHT, "WEIGHT"}, {prop_limit_method_items_VGROUP, "VGROUP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_limit_method_items = create_string_to_prop_limit_method_items();
-	const std::map<int, std::string> prop_limit_method_items_to_string = create_prop_limit_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_limit_method_items = create_string_to_prop_limit_method_items();
+	static const std::map<int, std::string> prop_limit_method_items_to_string = create_prop_limit_method_items_to_string();
 
 	prop_limit_method_items_enum limit_method() {
 		STRING_TYPE_GETTER("limit_method", static_cast<prop_limit_method_items_enum>(string_to_prop_limit_method_items.at(resstr)))
@@ -37513,8 +37513,8 @@ public:
 		return {{prop_edge_weight_method_items_AVERAGE, "AVERAGE"}, {prop_edge_weight_method_items_SHARPEST, "SHARPEST"}, {prop_edge_weight_method_items_LARGEST, "LARGEST"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_edge_weight_method_items = create_string_to_prop_edge_weight_method_items();
-	const std::map<int, std::string> prop_edge_weight_method_items_to_string = create_prop_edge_weight_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_edge_weight_method_items = create_string_to_prop_edge_weight_method_items();
+	static const std::map<int, std::string> prop_edge_weight_method_items_to_string = create_prop_edge_weight_method_items_to_string();
 
 	prop_edge_weight_method_items_enum edge_weight_method() {
 		STRING_TYPE_GETTER("edge_weight_method", static_cast<prop_edge_weight_method_items_enum>(string_to_prop_edge_weight_method_items.at(resstr)))
@@ -37563,8 +37563,8 @@ public:
 		return {{prop_val_type_items_OFFSET, "OFFSET"}, {prop_val_type_items_WIDTH, "WIDTH"}, {prop_val_type_items_DEPTH, "DEPTH"}, {prop_val_type_items_PERCENT, "PERCENT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_val_type_items = create_string_to_prop_val_type_items();
-	const std::map<int, std::string> prop_val_type_items_to_string = create_prop_val_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_val_type_items = create_string_to_prop_val_type_items();
+	static const std::map<int, std::string> prop_val_type_items_to_string = create_prop_val_type_items_to_string();
 
 	prop_val_type_items_enum offset_type() {
 		STRING_TYPE_GETTER("offset_type", static_cast<prop_val_type_items_enum>(string_to_prop_val_type_items.at(resstr)))
@@ -37618,8 +37618,8 @@ public:
 		return {{shrink_type_items_NEAREST_SURFACEPOINT, "NEAREST_SURFACEPOINT"}, {shrink_type_items_PROJECT, "PROJECT"}, {shrink_type_items_NEAREST_VERTEX, "NEAREST_VERTEX"}};
 	};
 
-	const std::map<std::string, int> string_to_shrink_type_items = create_string_to_shrink_type_items();
-	const std::map<int, std::string> shrink_type_items_to_string = create_shrink_type_items_to_string();
+	static const std::map<std::string, int> string_to_shrink_type_items = create_string_to_shrink_type_items();
+	static const std::map<int, std::string> shrink_type_items_to_string = create_shrink_type_items_to_string();
 
 	shrink_type_items_enum wrap_method() {
 		STRING_TYPE_GETTER("wrap_method", static_cast<shrink_type_items_enum>(string_to_shrink_type_items.at(resstr)))
@@ -37643,8 +37643,8 @@ public:
 		return {{shrink_face_cull_items_OFF, "OFF"}, {shrink_face_cull_items_FRONT, "FRONT"}, {shrink_face_cull_items_BACK, "BACK"}};
 	};
 
-	const std::map<std::string, int> string_to_shrink_face_cull_items = create_string_to_shrink_face_cull_items();
-	const std::map<int, std::string> shrink_face_cull_items_to_string = create_shrink_face_cull_items_to_string();
+	static const std::map<std::string, int> string_to_shrink_face_cull_items = create_string_to_shrink_face_cull_items();
+	static const std::map<int, std::string> shrink_face_cull_items_to_string = create_shrink_face_cull_items_to_string();
 
 	shrink_face_cull_items_enum cull_face() {
 		STRING_TYPE_GETTER("cull_face", static_cast<shrink_face_cull_items_enum>(string_to_shrink_face_cull_items.at(resstr)))
@@ -37767,8 +37767,8 @@ public:
 		return {{modifier_mask_mode_items_VERTEX_GROUP, "VERTEX_GROUP"}, {modifier_mask_mode_items_ARMATURE, "ARMATURE"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_mask_mode_items = create_string_to_modifier_mask_mode_items();
-	const std::map<int, std::string> modifier_mask_mode_items_to_string = create_modifier_mask_mode_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_mask_mode_items = create_string_to_modifier_mask_mode_items();
+	static const std::map<int, std::string> modifier_mask_mode_items_to_string = create_modifier_mask_mode_items_to_string();
 
 	modifier_mask_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<modifier_mask_mode_items_enum>(string_to_modifier_mask_mode_items.at(resstr)))
@@ -37817,8 +37817,8 @@ public:
 		return {{simple_deform_mode_items_TWIST, "TWIST"}, {simple_deform_mode_items_BEND, "BEND"}, {simple_deform_mode_items_TAPER, "TAPER"}, {simple_deform_mode_items_STRETCH, "STRETCH"}};
 	};
 
-	const std::map<std::string, int> string_to_simple_deform_mode_items = create_string_to_simple_deform_mode_items();
-	const std::map<int, std::string> simple_deform_mode_items_to_string = create_simple_deform_mode_items_to_string();
+	static const std::map<std::string, int> string_to_simple_deform_mode_items = create_string_to_simple_deform_mode_items();
+	static const std::map<int, std::string> simple_deform_mode_items_to_string = create_simple_deform_mode_items_to_string();
 
 	simple_deform_mode_items_enum deform_method() {
 		STRING_TYPE_GETTER("deform_method", static_cast<simple_deform_mode_items_enum>(string_to_simple_deform_mode_items.at(resstr)))
@@ -37916,8 +37916,8 @@ public:
 		return {{modifier_warp_falloff_items_NONE, "NONE"}, {modifier_warp_falloff_items_CURVE, "CURVE"}, {modifier_warp_falloff_items_SMOOTH, "SMOOTH"}, {modifier_warp_falloff_items_SPHERE, "SPHERE"}, {modifier_warp_falloff_items_ROOT, "ROOT"}, {modifier_warp_falloff_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {modifier_warp_falloff_items_SHARP, "SHARP"}, {modifier_warp_falloff_items_LINEAR, "LINEAR"}, {modifier_warp_falloff_items_CONSTANT, "CONSTANT"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_warp_falloff_items = create_string_to_modifier_warp_falloff_items();
-	const std::map<int, std::string> modifier_warp_falloff_items_to_string = create_modifier_warp_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_warp_falloff_items = create_string_to_modifier_warp_falloff_items();
+	static const std::map<int, std::string> modifier_warp_falloff_items_to_string = create_modifier_warp_falloff_items_to_string();
 
 	modifier_warp_falloff_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<modifier_warp_falloff_items_enum>(string_to_modifier_warp_falloff_items.at(resstr)))
@@ -37974,8 +37974,8 @@ public:
 		return {{prop_texture_coordinates_items_LOCAL, "LOCAL"}, {prop_texture_coordinates_items_GLOBAL, "GLOBAL"}, {prop_texture_coordinates_items_OBJECT, "OBJECT"}, {prop_texture_coordinates_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
-	const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
+	static const std::map<std::string, int> string_to_prop_texture_coordinates_items = create_string_to_prop_texture_coordinates_items();
+	static const std::map<int, std::string> prop_texture_coordinates_items_to_string = create_prop_texture_coordinates_items_to_string();
 
 	prop_texture_coordinates_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<prop_texture_coordinates_items_enum>(string_to_prop_texture_coordinates_items.at(resstr)))
@@ -38014,8 +38014,8 @@ public:
 		return {{prop_subdivision_type_items_CATMULL_CLARK, "CATMULL_CLARK"}, {prop_subdivision_type_items_SIMPLE, "SIMPLE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_subdivision_type_items = create_string_to_prop_subdivision_type_items();
-	const std::map<int, std::string> prop_subdivision_type_items_to_string = create_prop_subdivision_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_subdivision_type_items = create_string_to_prop_subdivision_type_items();
+	static const std::map<int, std::string> prop_subdivision_type_items_to_string = create_prop_subdivision_type_items_to_string();
 
 	prop_subdivision_type_items_enum subdivision_type() {
 		STRING_TYPE_GETTER("subdivision_type", static_cast<prop_subdivision_type_items_enum>(string_to_prop_subdivision_type_items.at(resstr)))
@@ -38122,8 +38122,8 @@ public:
 		return {{prop_smoke_type_items_NONE, "NONE"}, {prop_smoke_type_items_DOMAIN, "DOMAIN"}, {prop_smoke_type_items_FLOW, "FLOW"}, {prop_smoke_type_items_COLLISION, "COLLISION"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_smoke_type_items = create_string_to_prop_smoke_type_items();
-	const std::map<int, std::string> prop_smoke_type_items_to_string = create_prop_smoke_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_smoke_type_items = create_string_to_prop_smoke_type_items();
+	static const std::map<int, std::string> prop_smoke_type_items_to_string = create_prop_smoke_type_items_to_string();
 
 	prop_smoke_type_items_enum smoke_type() {
 		STRING_TYPE_GETTER("smoke_type", static_cast<prop_smoke_type_items_enum>(string_to_prop_smoke_type_items.at(resstr)))
@@ -38313,8 +38313,8 @@ public:
 		return {{axis_items_X, "X"}, {axis_items_Y, "Y"}, {axis_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
-	const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
+	static const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
+	static const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
 
 	axis_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<axis_items_enum>(string_to_axis_items.at(resstr)))
@@ -38408,8 +38408,8 @@ public:
 		return {{uvwarp_axis_X, "X"}, {uvwarp_axis_Y, "Y"}, {uvwarp_axis_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_uvwarp_axis = create_string_to_uvwarp_axis();
-	const std::map<int, std::string> uvwarp_axis_to_string = create_uvwarp_axis_to_string();
+	static const std::map<std::string, int> string_to_uvwarp_axis = create_string_to_uvwarp_axis();
+	static const std::map<int, std::string> uvwarp_axis_to_string = create_uvwarp_axis_to_string();
 
 	uvwarp_axis_enum axis_u() {
 		STRING_TYPE_GETTER("axis_u", static_cast<uvwarp_axis_enum>(string_to_uvwarp_axis.at(resstr)))
@@ -38504,8 +38504,8 @@ public:
 		return {{weightvg_edit_falloff_type_items_LINEAR, "LINEAR"}, {weightvg_edit_falloff_type_items_CURVE, "CURVE"}, {weightvg_edit_falloff_type_items_SHARP, "SHARP"}, {weightvg_edit_falloff_type_items_SMOOTH, "SMOOTH"}, {weightvg_edit_falloff_type_items_ROOT, "ROOT"}, {weightvg_edit_falloff_type_items_ICON_SPHERECURVE, "ICON_SPHERECURVE"}, {weightvg_edit_falloff_type_items_RANDOM, "RANDOM"}, {weightvg_edit_falloff_type_items_STEP, "STEP"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_edit_falloff_type_items = create_string_to_weightvg_edit_falloff_type_items();
-	const std::map<int, std::string> weightvg_edit_falloff_type_items_to_string = create_weightvg_edit_falloff_type_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_edit_falloff_type_items = create_string_to_weightvg_edit_falloff_type_items();
+	static const std::map<int, std::string> weightvg_edit_falloff_type_items_to_string = create_weightvg_edit_falloff_type_items_to_string();
 
 	weightvg_edit_falloff_type_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<weightvg_edit_falloff_type_items_enum>(string_to_weightvg_edit_falloff_type_items.at(resstr)))
@@ -38598,8 +38598,8 @@ public:
 		return {{weightvg_mask_tex_used_items_INT, "INT"}, {weightvg_mask_tex_used_items_RED, "RED"}, {weightvg_mask_tex_used_items_GREEN, "GREEN"}, {weightvg_mask_tex_used_items_BLUE, "BLUE"}, {weightvg_mask_tex_used_items_HUE, "HUE"}, {weightvg_mask_tex_used_items_SAT, "SAT"}, {weightvg_mask_tex_used_items_VAL, "VAL"}, {weightvg_mask_tex_used_items_ALPHA, "ALPHA"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mask_tex_used_items = create_string_to_weightvg_mask_tex_used_items();
-	const std::map<int, std::string> weightvg_mask_tex_used_items_to_string = create_weightvg_mask_tex_used_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mask_tex_used_items = create_string_to_weightvg_mask_tex_used_items();
+	static const std::map<int, std::string> weightvg_mask_tex_used_items_to_string = create_weightvg_mask_tex_used_items_to_string();
 
 	weightvg_mask_tex_used_items_enum mask_tex_use_channel() {
 		STRING_TYPE_GETTER("mask_tex_use_channel", static_cast<weightvg_mask_tex_used_items_enum>(string_to_weightvg_mask_tex_used_items.at(resstr)))
@@ -38624,8 +38624,8 @@ public:
 		return {{weightvg_mask_tex_map_items_LOCAL, "LOCAL"}, {weightvg_mask_tex_map_items_GLOBAL, "GLOBAL"}, {weightvg_mask_tex_map_items_OBJECT, "OBJECT"}, {weightvg_mask_tex_map_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mask_tex_map_items = create_string_to_weightvg_mask_tex_map_items();
-	const std::map<int, std::string> weightvg_mask_tex_map_items_to_string = create_weightvg_mask_tex_map_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mask_tex_map_items = create_string_to_weightvg_mask_tex_map_items();
+	static const std::map<int, std::string> weightvg_mask_tex_map_items_to_string = create_weightvg_mask_tex_map_items_to_string();
 
 	weightvg_mask_tex_map_items_enum mask_tex_mapping() {
 		STRING_TYPE_GETTER("mask_tex_mapping", static_cast<weightvg_mask_tex_map_items_enum>(string_to_weightvg_mask_tex_map_items.at(resstr)))
@@ -38701,8 +38701,8 @@ public:
 		return {{weightvg_mix_modes_items_SET, "SET"}, {weightvg_mix_modes_items_ADD, "ADD"}, {weightvg_mix_modes_items_SUB, "SUB"}, {weightvg_mix_modes_items_MUL, "MUL"}, {weightvg_mix_modes_items_DIV, "DIV"}, {weightvg_mix_modes_items_DIF, "DIF"}, {weightvg_mix_modes_items_AVG, "AVG"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mix_modes_items = create_string_to_weightvg_mix_modes_items();
-	const std::map<int, std::string> weightvg_mix_modes_items_to_string = create_weightvg_mix_modes_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mix_modes_items = create_string_to_weightvg_mix_modes_items();
+	static const std::map<int, std::string> weightvg_mix_modes_items_to_string = create_weightvg_mix_modes_items_to_string();
 
 	weightvg_mix_modes_items_enum mix_mode() {
 		STRING_TYPE_GETTER("mix_mode", static_cast<weightvg_mix_modes_items_enum>(string_to_weightvg_mix_modes_items.at(resstr)))
@@ -38728,8 +38728,8 @@ public:
 		return {{weightvg_mix_set_items_ALL, "ALL"}, {weightvg_mix_set_items_A, "A"}, {weightvg_mix_set_items_B, "B"}, {weightvg_mix_set_items_OR, "OR"}, {weightvg_mix_set_items_AND, "AND"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mix_set_items = create_string_to_weightvg_mix_set_items();
-	const std::map<int, std::string> weightvg_mix_set_items_to_string = create_weightvg_mix_set_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mix_set_items = create_string_to_weightvg_mix_set_items();
+	static const std::map<int, std::string> weightvg_mix_set_items_to_string = create_weightvg_mix_set_items_to_string();
 
 	weightvg_mix_set_items_enum mix_set() {
 		STRING_TYPE_GETTER("mix_set", static_cast<weightvg_mix_set_items_enum>(string_to_weightvg_mix_set_items.at(resstr)))
@@ -38778,8 +38778,8 @@ public:
 		return {{weightvg_mask_tex_used_items_INT, "INT"}, {weightvg_mask_tex_used_items_RED, "RED"}, {weightvg_mask_tex_used_items_GREEN, "GREEN"}, {weightvg_mask_tex_used_items_BLUE, "BLUE"}, {weightvg_mask_tex_used_items_HUE, "HUE"}, {weightvg_mask_tex_used_items_SAT, "SAT"}, {weightvg_mask_tex_used_items_VAL, "VAL"}, {weightvg_mask_tex_used_items_ALPHA, "ALPHA"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mask_tex_used_items = create_string_to_weightvg_mask_tex_used_items();
-	const std::map<int, std::string> weightvg_mask_tex_used_items_to_string = create_weightvg_mask_tex_used_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mask_tex_used_items = create_string_to_weightvg_mask_tex_used_items();
+	static const std::map<int, std::string> weightvg_mask_tex_used_items_to_string = create_weightvg_mask_tex_used_items_to_string();
 
 	weightvg_mask_tex_used_items_enum mask_tex_use_channel() {
 		STRING_TYPE_GETTER("mask_tex_use_channel", static_cast<weightvg_mask_tex_used_items_enum>(string_to_weightvg_mask_tex_used_items.at(resstr)))
@@ -38804,8 +38804,8 @@ public:
 		return {{weightvg_mask_tex_map_items_LOCAL, "LOCAL"}, {weightvg_mask_tex_map_items_GLOBAL, "GLOBAL"}, {weightvg_mask_tex_map_items_OBJECT, "OBJECT"}, {weightvg_mask_tex_map_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mask_tex_map_items = create_string_to_weightvg_mask_tex_map_items();
-	const std::map<int, std::string> weightvg_mask_tex_map_items_to_string = create_weightvg_mask_tex_map_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mask_tex_map_items = create_string_to_weightvg_mask_tex_map_items();
+	static const std::map<int, std::string> weightvg_mask_tex_map_items_to_string = create_weightvg_mask_tex_map_items_to_string();
 
 	weightvg_mask_tex_map_items_enum mask_tex_mapping() {
 		STRING_TYPE_GETTER("mask_tex_mapping", static_cast<weightvg_mask_tex_map_items_enum>(string_to_weightvg_mask_tex_map_items.at(resstr)))
@@ -38852,8 +38852,8 @@ public:
 		return {{weightvg_proximity_modes_items_OBJECT, "OBJECT"}, {weightvg_proximity_modes_items_GEOMETRY, "GEOMETRY"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_proximity_modes_items = create_string_to_weightvg_proximity_modes_items();
-	const std::map<int, std::string> weightvg_proximity_modes_items_to_string = create_weightvg_proximity_modes_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_proximity_modes_items = create_string_to_weightvg_proximity_modes_items();
+	static const std::map<int, std::string> weightvg_proximity_modes_items_to_string = create_weightvg_proximity_modes_items_to_string();
 
 	weightvg_proximity_modes_items_enum proximity_mode() {
 		STRING_TYPE_GETTER("proximity_mode", static_cast<weightvg_proximity_modes_items_enum>(string_to_weightvg_proximity_modes_items.at(resstr)))
@@ -38877,8 +38877,8 @@ public:
 		return {{proximity_geometry_items_VERTEX, "VERTEX"}, {proximity_geometry_items_EDGE, "EDGE"}, {proximity_geometry_items_FACE, "FACE"}};
 	};
 
-	const std::map<std::string, int> string_to_proximity_geometry_items = create_string_to_proximity_geometry_items();
-	const std::map<int, std::string> proximity_geometry_items_to_string = create_proximity_geometry_items_to_string();
+	static const std::map<std::string, int> string_to_proximity_geometry_items = create_string_to_proximity_geometry_items();
+	static const std::map<int, std::string> proximity_geometry_items_to_string = create_proximity_geometry_items_to_string();
 
 	proximity_geometry_items_enum proximity_geometry() {
 		STRING_TYPE_GETTER("proximity_geometry", static_cast<proximity_geometry_items_enum>(string_to_proximity_geometry_items.at(resstr)))
@@ -38924,8 +38924,8 @@ public:
 		return {{weightvg_proximity_falloff_type_items_LINEAR, "LINEAR"}, {weightvg_proximity_falloff_type_items_SHARP, "SHARP"}, {weightvg_proximity_falloff_type_items_SMOOTH, "SMOOTH"}, {weightvg_proximity_falloff_type_items_ROOT, "ROOT"}, {weightvg_proximity_falloff_type_items_ICON_SPHERECURVE, "ICON_SPHERECURVE"}, {weightvg_proximity_falloff_type_items_RANDOM, "RANDOM"}, {weightvg_proximity_falloff_type_items_STEP, "STEP"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_proximity_falloff_type_items = create_string_to_weightvg_proximity_falloff_type_items();
-	const std::map<int, std::string> weightvg_proximity_falloff_type_items_to_string = create_weightvg_proximity_falloff_type_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_proximity_falloff_type_items = create_string_to_weightvg_proximity_falloff_type_items();
+	static const std::map<int, std::string> weightvg_proximity_falloff_type_items_to_string = create_weightvg_proximity_falloff_type_items_to_string();
 
 	weightvg_proximity_falloff_type_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<weightvg_proximity_falloff_type_items_enum>(string_to_weightvg_proximity_falloff_type_items.at(resstr)))
@@ -38974,8 +38974,8 @@ public:
 		return {{weightvg_mask_tex_used_items_INT, "INT"}, {weightvg_mask_tex_used_items_RED, "RED"}, {weightvg_mask_tex_used_items_GREEN, "GREEN"}, {weightvg_mask_tex_used_items_BLUE, "BLUE"}, {weightvg_mask_tex_used_items_HUE, "HUE"}, {weightvg_mask_tex_used_items_SAT, "SAT"}, {weightvg_mask_tex_used_items_VAL, "VAL"}, {weightvg_mask_tex_used_items_ALPHA, "ALPHA"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mask_tex_used_items = create_string_to_weightvg_mask_tex_used_items();
-	const std::map<int, std::string> weightvg_mask_tex_used_items_to_string = create_weightvg_mask_tex_used_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mask_tex_used_items = create_string_to_weightvg_mask_tex_used_items();
+	static const std::map<int, std::string> weightvg_mask_tex_used_items_to_string = create_weightvg_mask_tex_used_items_to_string();
 
 	weightvg_mask_tex_used_items_enum mask_tex_use_channel() {
 		STRING_TYPE_GETTER("mask_tex_use_channel", static_cast<weightvg_mask_tex_used_items_enum>(string_to_weightvg_mask_tex_used_items.at(resstr)))
@@ -39000,8 +39000,8 @@ public:
 		return {{weightvg_mask_tex_map_items_LOCAL, "LOCAL"}, {weightvg_mask_tex_map_items_GLOBAL, "GLOBAL"}, {weightvg_mask_tex_map_items_OBJECT, "OBJECT"}, {weightvg_mask_tex_map_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_weightvg_mask_tex_map_items = create_string_to_weightvg_mask_tex_map_items();
-	const std::map<int, std::string> weightvg_mask_tex_map_items_to_string = create_weightvg_mask_tex_map_items_to_string();
+	static const std::map<std::string, int> string_to_weightvg_mask_tex_map_items = create_string_to_weightvg_mask_tex_map_items();
+	static const std::map<int, std::string> weightvg_mask_tex_map_items_to_string = create_weightvg_mask_tex_map_items_to_string();
 
 	weightvg_mask_tex_map_items_enum mask_tex_mapping() {
 		STRING_TYPE_GETTER("mask_tex_mapping", static_cast<weightvg_mask_tex_map_items_enum>(string_to_weightvg_mask_tex_map_items.at(resstr)))
@@ -39048,8 +39048,8 @@ public:
 		return {{prop_dynamicpaint_type_items_CANVAS, "CANVAS"}, {prop_dynamicpaint_type_items_BRUSH, "BRUSH"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_dynamicpaint_type_items = create_string_to_prop_dynamicpaint_type_items();
-	const std::map<int, std::string> prop_dynamicpaint_type_items_to_string = create_prop_dynamicpaint_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_dynamicpaint_type_items = create_string_to_prop_dynamicpaint_type_items();
+	static const std::map<int, std::string> prop_dynamicpaint_type_items_to_string = create_prop_dynamicpaint_type_items_to_string();
 
 	prop_dynamicpaint_type_items_enum ui_type() {
 		STRING_TYPE_GETTER("ui_type", static_cast<prop_dynamicpaint_type_items_enum>(string_to_prop_dynamicpaint_type_items.at(resstr)))
@@ -39078,8 +39078,8 @@ public:
 		return {{geometry_items_GENERATE, "GENERATE"}, {geometry_items_DISPLACE, "DISPLACE"}};
 	};
 
-	const std::map<std::string, int> string_to_geometry_items = create_string_to_geometry_items();
-	const std::map<int, std::string> geometry_items_to_string = create_geometry_items_to_string();
+	static const std::map<std::string, int> string_to_geometry_items = create_string_to_geometry_items();
+	static const std::map<int, std::string> geometry_items_to_string = create_geometry_items_to_string();
 
 	geometry_items_enum geometry_mode() {
 		STRING_TYPE_GETTER("geometry_mode", static_cast<geometry_items_enum>(string_to_geometry_items.at(resstr)))
@@ -39301,8 +39301,8 @@ public:
 		return {{mode_items_BLOCKS, "BLOCKS"}, {mode_items_SMOOTH, "SMOOTH"}, {mode_items_SHARP, "SHARP"}};
 	};
 
-	const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
-	const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
+	static const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
 
 	mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<mode_items_enum>(string_to_mode_items.at(resstr)))
@@ -39505,8 +39505,8 @@ public:
 		return {{modifier_triangulate_quad_method_items_BEAUTY, "BEAUTY"}, {modifier_triangulate_quad_method_items_FIXED, "FIXED"}, {modifier_triangulate_quad_method_items_FIXED_ALTERNATE, "FIXED_ALTERNATE"}, {modifier_triangulate_quad_method_items_SHORTEST_DIAGONAL, "SHORTEST_DIAGONAL"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_triangulate_quad_method_items = create_string_to_modifier_triangulate_quad_method_items();
-	const std::map<int, std::string> modifier_triangulate_quad_method_items_to_string = create_modifier_triangulate_quad_method_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_triangulate_quad_method_items = create_string_to_modifier_triangulate_quad_method_items();
+	static const std::map<int, std::string> modifier_triangulate_quad_method_items_to_string = create_modifier_triangulate_quad_method_items_to_string();
 
 	modifier_triangulate_quad_method_items_enum quad_method() {
 		STRING_TYPE_GETTER("quad_method", static_cast<modifier_triangulate_quad_method_items_enum>(string_to_modifier_triangulate_quad_method_items.at(resstr)))
@@ -39529,8 +39529,8 @@ public:
 		return {{modifier_triangulate_ngon_method_items_BEAUTY, "BEAUTY"}, {modifier_triangulate_ngon_method_items_CLIP, "CLIP"}};
 	};
 
-	const std::map<std::string, int> string_to_modifier_triangulate_ngon_method_items = create_string_to_modifier_triangulate_ngon_method_items();
-	const std::map<int, std::string> modifier_triangulate_ngon_method_items_to_string = create_modifier_triangulate_ngon_method_items_to_string();
+	static const std::map<std::string, int> string_to_modifier_triangulate_ngon_method_items = create_string_to_modifier_triangulate_ngon_method_items();
+	static const std::map<int, std::string> modifier_triangulate_ngon_method_items_to_string = create_modifier_triangulate_ngon_method_items_to_string();
 
 	modifier_triangulate_ngon_method_items_enum ngon_method() {
 		STRING_TYPE_GETTER("ngon_method", static_cast<modifier_triangulate_ngon_method_items_enum>(string_to_modifier_triangulate_ngon_method_items.at(resstr)))
@@ -39559,8 +39559,8 @@ public:
 		return {{prop_format_type_items_MDD, "MDD"}, {prop_format_type_items_PC2, "PC2"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_format_type_items = create_string_to_prop_format_type_items();
-	const std::map<int, std::string> prop_format_type_items_to_string = create_prop_format_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_format_type_items = create_string_to_prop_format_type_items();
+	static const std::map<int, std::string> prop_format_type_items_to_string = create_prop_format_type_items_to_string();
 
 	prop_format_type_items_enum cache_format() {
 		STRING_TYPE_GETTER("cache_format", static_cast<prop_format_type_items_enum>(string_to_prop_format_type_items.at(resstr)))
@@ -39583,8 +39583,8 @@ public:
 		return {{prop_interpolation_type_items_NONE, "NONE"}, {prop_interpolation_type_items_LINEAR, "LINEAR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_interpolation_type_items = create_string_to_prop_interpolation_type_items();
-	const std::map<int, std::string> prop_interpolation_type_items_to_string = create_prop_interpolation_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_interpolation_type_items = create_string_to_prop_interpolation_type_items();
+	static const std::map<int, std::string> prop_interpolation_type_items_to_string = create_prop_interpolation_type_items_to_string();
 
 	prop_interpolation_type_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<prop_interpolation_type_items_enum>(string_to_prop_interpolation_type_items.at(resstr)))
@@ -39608,8 +39608,8 @@ public:
 		return {{prop_time_type_items_FRAME, "FRAME"}, {prop_time_type_items_TIME, "TIME"}, {prop_time_type_items_FACTOR, "FACTOR"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_time_type_items = create_string_to_prop_time_type_items();
-	const std::map<int, std::string> prop_time_type_items_to_string = create_prop_time_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_time_type_items = create_string_to_prop_time_type_items();
+	static const std::map<int, std::string> prop_time_type_items_to_string = create_prop_time_type_items_to_string();
 
 	prop_time_type_items_enum time_mode() {
 		STRING_TYPE_GETTER("time_mode", static_cast<prop_time_type_items_enum>(string_to_prop_time_type_items.at(resstr)))
@@ -39632,8 +39632,8 @@ public:
 		return {{prop_time_play_items_SCENE, "SCENE"}, {prop_time_play_items_CUSTOM, "CUSTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_time_play_items = create_string_to_prop_time_play_items();
-	const std::map<int, std::string> prop_time_play_items_to_string = create_prop_time_play_items_to_string();
+	static const std::map<std::string, int> string_to_prop_time_play_items = create_string_to_prop_time_play_items();
+	static const std::map<int, std::string> prop_time_play_items_to_string = create_prop_time_play_items_to_string();
 
 	prop_time_play_items_enum play_mode() {
 		STRING_TYPE_GETTER("play_mode", static_cast<prop_time_play_items_enum>(string_to_prop_time_play_items.at(resstr)))
@@ -39656,8 +39656,8 @@ public:
 		return {{prop_deform_mode_items_OVERWRITE, "OVERWRITE"}, {prop_deform_mode_items_INTEGRATE, "INTEGRATE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_deform_mode_items = create_string_to_prop_deform_mode_items();
-	const std::map<int, std::string> prop_deform_mode_items_to_string = create_prop_deform_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_deform_mode_items = create_string_to_prop_deform_mode_items();
+	static const std::map<int, std::string> prop_deform_mode_items_to_string = create_prop_deform_mode_items_to_string();
 
 	prop_deform_mode_items_enum deform_mode() {
 		STRING_TYPE_GETTER("deform_mode", static_cast<prop_deform_mode_items_enum>(string_to_prop_deform_mode_items.at(resstr)))
@@ -39700,8 +39700,8 @@ public:
 		return {{object_axis_items_POS_X, "POS_X"}, {object_axis_items_POS_Y, "POS_Y"}, {object_axis_items_POS_Z, "POS_Z"}, {object_axis_items_NEG_X, "NEG_X"}, {object_axis_items_NEG_Y, "NEG_Y"}, {object_axis_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
-	const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
+	static const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
+	static const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
 
 	object_axis_items_enum forward_axis() {
 		STRING_TYPE_GETTER("forward_axis", static_cast<object_axis_items_enum>(string_to_object_axis_items.at(resstr)))
@@ -39733,8 +39733,8 @@ public:
 		return {{prop_flip_axis_flag_items_X, "X"}, {prop_flip_axis_flag_items_Y, "Y"}, {prop_flip_axis_flag_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_flip_axis_flag_items = create_string_to_prop_flip_axis_flag_items();
-	const std::map<int, std::string> prop_flip_axis_flag_items_to_string = create_prop_flip_axis_flag_items_to_string();
+	static const std::map<std::string, int> string_to_prop_flip_axis_flag_items = create_string_to_prop_flip_axis_flag_items();
+	static const std::map<int, std::string> prop_flip_axis_flag_items_to_string = create_prop_flip_axis_flag_items_to_string();
 
 	prop_flip_axis_flag_items_enum flip_axis() {
 		STRING_TYPE_GETTER("flip_axis", static_cast<prop_flip_axis_flag_items_enum>(string_to_prop_flip_axis_flag_items.at(resstr)))
@@ -39976,8 +39976,8 @@ public:
 		return {{DT_layer_vert_items_BEVEL_WEIGHT_VERT, "BEVEL_WEIGHT_VERT"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_vert_items = create_string_to_DT_layer_vert_items();
-	const std::map<int, std::string> DT_layer_vert_items_to_string = create_DT_layer_vert_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_vert_items = create_string_to_DT_layer_vert_items();
+	static const std::map<int, std::string> DT_layer_vert_items_to_string = create_DT_layer_vert_items_to_string();
 
 	DT_layer_vert_items_enum data_types_verts() {
 		STRING_TYPE_GETTER("data_types_verts", static_cast<DT_layer_vert_items_enum>(string_to_DT_layer_vert_items.at(resstr)))
@@ -39999,8 +39999,8 @@ public:
 		return {{DT_layer_vert_vgroup_items_VGROUP_WEIGHTS, "VGROUP_WEIGHTS"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_vert_vgroup_items = create_string_to_DT_layer_vert_vgroup_items();
-	const std::map<int, std::string> DT_layer_vert_vgroup_items_to_string = create_DT_layer_vert_vgroup_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_vert_vgroup_items = create_string_to_DT_layer_vert_vgroup_items();
+	static const std::map<int, std::string> DT_layer_vert_vgroup_items_to_string = create_DT_layer_vert_vgroup_items_to_string();
 
 	DT_layer_vert_vgroup_items_enum data_types_verts_vgroup() {
 		STRING_TYPE_GETTER("data_types_verts_vgroup", static_cast<DT_layer_vert_vgroup_items_enum>(string_to_DT_layer_vert_vgroup_items.at(resstr)))
@@ -40026,8 +40026,8 @@ public:
 		return {{DT_layer_edge_items_SHARP_EDGE, "SHARP_EDGE"}, {DT_layer_edge_items_SEAM, "SEAM"}, {DT_layer_edge_items_CREASE, "CREASE"}, {DT_layer_edge_items_BEVEL_WEIGHT_EDGE, "BEVEL_WEIGHT_EDGE"}, {DT_layer_edge_items_FREESTYLE_EDGE, "FREESTYLE_EDGE"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_edge_items = create_string_to_DT_layer_edge_items();
-	const std::map<int, std::string> DT_layer_edge_items_to_string = create_DT_layer_edge_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_edge_items = create_string_to_DT_layer_edge_items();
+	static const std::map<int, std::string> DT_layer_edge_items_to_string = create_DT_layer_edge_items_to_string();
 
 	DT_layer_edge_items_enum data_types_edges() {
 		STRING_TYPE_GETTER("data_types_edges", static_cast<DT_layer_edge_items_enum>(string_to_DT_layer_edge_items.at(resstr)))
@@ -40049,8 +40049,8 @@ public:
 		return {{DT_layer_loop_items_CUSTOM_NORMAL, "CUSTOM_NORMAL"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_loop_items = create_string_to_DT_layer_loop_items();
-	const std::map<int, std::string> DT_layer_loop_items_to_string = create_DT_layer_loop_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_loop_items = create_string_to_DT_layer_loop_items();
+	static const std::map<int, std::string> DT_layer_loop_items_to_string = create_DT_layer_loop_items_to_string();
 
 	DT_layer_loop_items_enum data_types_loops() {
 		STRING_TYPE_GETTER("data_types_loops", static_cast<DT_layer_loop_items_enum>(string_to_DT_layer_loop_items.at(resstr)))
@@ -40072,8 +40072,8 @@ public:
 		return {{DT_layer_loop_vcol_items_VCOL, "VCOL"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_loop_vcol_items = create_string_to_DT_layer_loop_vcol_items();
-	const std::map<int, std::string> DT_layer_loop_vcol_items_to_string = create_DT_layer_loop_vcol_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_loop_vcol_items = create_string_to_DT_layer_loop_vcol_items();
+	static const std::map<int, std::string> DT_layer_loop_vcol_items_to_string = create_DT_layer_loop_vcol_items_to_string();
 
 	DT_layer_loop_vcol_items_enum data_types_loops_vcol() {
 		STRING_TYPE_GETTER("data_types_loops_vcol", static_cast<DT_layer_loop_vcol_items_enum>(string_to_DT_layer_loop_vcol_items.at(resstr)))
@@ -40095,8 +40095,8 @@ public:
 		return {{DT_layer_loop_uv_items_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_loop_uv_items = create_string_to_DT_layer_loop_uv_items();
-	const std::map<int, std::string> DT_layer_loop_uv_items_to_string = create_DT_layer_loop_uv_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_loop_uv_items = create_string_to_DT_layer_loop_uv_items();
+	static const std::map<int, std::string> DT_layer_loop_uv_items_to_string = create_DT_layer_loop_uv_items_to_string();
 
 	DT_layer_loop_uv_items_enum data_types_loops_uv() {
 		STRING_TYPE_GETTER("data_types_loops_uv", static_cast<DT_layer_loop_uv_items_enum>(string_to_DT_layer_loop_uv_items.at(resstr)))
@@ -40119,8 +40119,8 @@ public:
 		return {{DT_layer_poly_items_SMOOTH, "SMOOTH"}, {DT_layer_poly_items_FREESTYLE_FACE, "FREESTYLE_FACE"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layer_poly_items = create_string_to_DT_layer_poly_items();
-	const std::map<int, std::string> DT_layer_poly_items_to_string = create_DT_layer_poly_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layer_poly_items = create_string_to_DT_layer_poly_items();
+	static const std::map<int, std::string> DT_layer_poly_items_to_string = create_DT_layer_poly_items_to_string();
 
 	DT_layer_poly_items_enum data_types_polys() {
 		STRING_TYPE_GETTER("data_types_polys", static_cast<DT_layer_poly_items_enum>(string_to_DT_layer_poly_items.at(resstr)))
@@ -40148,8 +40148,8 @@ public:
 		return {{DT_method_vertex_items_TOPOLOGY, "TOPOLOGY"}, {DT_method_vertex_items_NEAREST, "NEAREST"}, {DT_method_vertex_items_EDGE_NEAREST, "EDGE_NEAREST"}, {DT_method_vertex_items_EDGEINTERP_NEAREST, "EDGEINTERP_NEAREST"}, {DT_method_vertex_items_POLY_NEAREST, "POLY_NEAREST"}, {DT_method_vertex_items_POLYINTERP_NEAREST, "POLYINTERP_NEAREST"}, {DT_method_vertex_items_POLYINTERP_VNORPROJ, "POLYINTERP_VNORPROJ"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_method_vertex_items = create_string_to_DT_method_vertex_items();
-	const std::map<int, std::string> DT_method_vertex_items_to_string = create_DT_method_vertex_items_to_string();
+	static const std::map<std::string, int> string_to_DT_method_vertex_items = create_string_to_DT_method_vertex_items();
+	static const std::map<int, std::string> DT_method_vertex_items_to_string = create_DT_method_vertex_items_to_string();
 
 	DT_method_vertex_items_enum vert_mapping() {
 		STRING_TYPE_GETTER("vert_mapping", static_cast<DT_method_vertex_items_enum>(string_to_DT_method_vertex_items.at(resstr)))
@@ -40175,8 +40175,8 @@ public:
 		return {{DT_method_edge_items_TOPOLOGY, "TOPOLOGY"}, {DT_method_edge_items_VERT_NEAREST, "VERT_NEAREST"}, {DT_method_edge_items_NEAREST, "NEAREST"}, {DT_method_edge_items_POLY_NEAREST, "POLY_NEAREST"}, {DT_method_edge_items_EDGEINTERP_VNORPROJ, "EDGEINTERP_VNORPROJ"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_method_edge_items = create_string_to_DT_method_edge_items();
-	const std::map<int, std::string> DT_method_edge_items_to_string = create_DT_method_edge_items_to_string();
+	static const std::map<std::string, int> string_to_DT_method_edge_items = create_string_to_DT_method_edge_items();
+	static const std::map<int, std::string> DT_method_edge_items_to_string = create_DT_method_edge_items_to_string();
 
 	DT_method_edge_items_enum edge_mapping() {
 		STRING_TYPE_GETTER("edge_mapping", static_cast<DT_method_edge_items_enum>(string_to_DT_method_edge_items.at(resstr)))
@@ -40203,8 +40203,8 @@ public:
 		return {{DT_method_loop_items_TOPOLOGY, "TOPOLOGY"}, {DT_method_loop_items_NEAREST_NORMAL, "NEAREST_NORMAL"}, {DT_method_loop_items_NEAREST_POLYNOR, "NEAREST_POLYNOR"}, {DT_method_loop_items_NEAREST_POLY, "NEAREST_POLY"}, {DT_method_loop_items_POLYINTERP_NEAREST, "POLYINTERP_NEAREST"}, {DT_method_loop_items_POLYINTERP_LNORPROJ, "POLYINTERP_LNORPROJ"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_method_loop_items = create_string_to_DT_method_loop_items();
-	const std::map<int, std::string> DT_method_loop_items_to_string = create_DT_method_loop_items_to_string();
+	static const std::map<std::string, int> string_to_DT_method_loop_items = create_string_to_DT_method_loop_items();
+	static const std::map<int, std::string> DT_method_loop_items_to_string = create_DT_method_loop_items_to_string();
 
 	DT_method_loop_items_enum loop_mapping() {
 		STRING_TYPE_GETTER("loop_mapping", static_cast<DT_method_loop_items_enum>(string_to_DT_method_loop_items.at(resstr)))
@@ -40229,8 +40229,8 @@ public:
 		return {{DT_method_poly_items_TOPOLOGY, "TOPOLOGY"}, {DT_method_poly_items_NEAREST, "NEAREST"}, {DT_method_poly_items_NORMAL, "NORMAL"}, {DT_method_poly_items_POLYINTERP_PNORPROJ, "POLYINTERP_PNORPROJ"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_method_poly_items = create_string_to_DT_method_poly_items();
-	const std::map<int, std::string> DT_method_poly_items_to_string = create_DT_method_poly_items_to_string();
+	static const std::map<std::string, int> string_to_DT_method_poly_items = create_string_to_DT_method_poly_items();
+	static const std::map<int, std::string> DT_method_poly_items_to_string = create_DT_method_poly_items_to_string();
 
 	DT_method_poly_items_enum poly_mapping() {
 		STRING_TYPE_GETTER("poly_mapping", static_cast<DT_method_poly_items_enum>(string_to_DT_method_poly_items.at(resstr)))
@@ -40287,8 +40287,8 @@ public:
 		return {{DT_layers_select_src_items_ACTIVE, "ACTIVE"}, {DT_layers_select_src_items_ALL, "ALL"}, {DT_layers_select_src_items_BONE_SELECT, "BONE_SELECT"}, {DT_layers_select_src_items_BONE_DEFORM, "BONE_DEFORM"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layers_select_src_items = create_string_to_DT_layers_select_src_items();
-	const std::map<int, std::string> DT_layers_select_src_items_to_string = create_DT_layers_select_src_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layers_select_src_items = create_string_to_DT_layers_select_src_items();
+	static const std::map<int, std::string> DT_layers_select_src_items_to_string = create_DT_layers_select_src_items_to_string();
 
 	DT_layers_select_src_items_enum layers_vgroup_select_src() {
 		STRING_TYPE_GETTER("layers_vgroup_select_src", static_cast<DT_layers_select_src_items_enum>(string_to_DT_layers_select_src_items.at(resstr)))
@@ -40328,8 +40328,8 @@ public:
 		return {{DT_layers_select_dst_items_ACTIVE, "ACTIVE"}, {DT_layers_select_dst_items_NAME, "NAME"}, {DT_layers_select_dst_items_INDEX, "INDEX"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_layers_select_dst_items = create_string_to_DT_layers_select_dst_items();
-	const std::map<int, std::string> DT_layers_select_dst_items_to_string = create_DT_layers_select_dst_items_to_string();
+	static const std::map<std::string, int> string_to_DT_layers_select_dst_items = create_string_to_DT_layers_select_dst_items();
+	static const std::map<int, std::string> DT_layers_select_dst_items_to_string = create_DT_layers_select_dst_items_to_string();
 
 	DT_layers_select_dst_items_enum layers_vgroup_select_dst() {
 		STRING_TYPE_GETTER("layers_vgroup_select_dst", static_cast<DT_layers_select_dst_items_enum>(string_to_DT_layers_select_dst_items.at(resstr)))
@@ -40373,8 +40373,8 @@ public:
 		return {{DT_mix_mode_items_REPLACE, "REPLACE"}, {DT_mix_mode_items_ABOVE_THRESHOLD, "ABOVE_THRESHOLD"}, {DT_mix_mode_items_BELOW_THRESHOLD, "BELOW_THRESHOLD"}, {DT_mix_mode_items_MIX, "MIX"}, {DT_mix_mode_items_ADD, "ADD"}, {DT_mix_mode_items_SUB, "SUB"}, {DT_mix_mode_items_MUL, "MUL"}};
 	};
 
-	const std::map<std::string, int> string_to_DT_mix_mode_items = create_string_to_DT_mix_mode_items();
-	const std::map<int, std::string> DT_mix_mode_items_to_string = create_DT_mix_mode_items_to_string();
+	static const std::map<std::string, int> string_to_DT_mix_mode_items = create_string_to_DT_mix_mode_items();
+	static const std::map<int, std::string> DT_mix_mode_items_to_string = create_DT_mix_mode_items_to_string();
 
 	DT_mix_mode_items_enum mix_mode() {
 		STRING_TYPE_GETTER("mix_mode", static_cast<DT_mix_mode_items_enum>(string_to_DT_mix_mode_items.at(resstr)))
@@ -40427,8 +40427,8 @@ public:
 		return {{prop_mode_items_RADIAL, "RADIAL"}, {prop_mode_items_DIRECTIONAL, "DIRECTIONAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mode_items = create_string_to_prop_mode_items();
-	const std::map<int, std::string> prop_mode_items_to_string = create_prop_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mode_items = create_string_to_prop_mode_items();
+	static const std::map<int, std::string> prop_mode_items_to_string = create_prop_mode_items_to_string();
 
 	prop_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_mode_items_enum>(string_to_prop_mode_items.at(resstr)))
@@ -40461,8 +40461,8 @@ public:
 		return {{prop_mix_mode_items_COPY, "COPY"}, {prop_mix_mode_items_ADD, "ADD"}, {prop_mix_mode_items_SUB, "SUB"}, {prop_mix_mode_items_MUL, "MUL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mix_mode_items = create_string_to_prop_mix_mode_items();
-	const std::map<int, std::string> prop_mix_mode_items_to_string = create_prop_mix_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mix_mode_items = create_string_to_prop_mix_mode_items();
+	static const std::map<int, std::string> prop_mix_mode_items_to_string = create_prop_mix_mode_items_to_string();
 
 	prop_mix_mode_items_enum mix_mode() {
 		STRING_TYPE_GETTER("mix_mode", static_cast<prop_mix_mode_items_enum>(string_to_prop_mix_mode_items.at(resstr)))
@@ -40591,8 +40591,8 @@ public:
 		return {{prop_type_items_CLIP, "CLIP"}, {prop_type_items_TRANSITION, "TRANSITION"}, {prop_type_items_META, "META"}, {prop_type_items_SOUND, "SOUND"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -40616,8 +40616,8 @@ public:
 		return {{nla_mode_extend_items_NOTHING, "NOTHING"}, {nla_mode_extend_items_HOLD, "HOLD"}, {nla_mode_extend_items_HOLD_FORWARD, "HOLD_FORWARD"}};
 	};
 
-	const std::map<std::string, int> string_to_nla_mode_extend_items = create_string_to_nla_mode_extend_items();
-	const std::map<int, std::string> nla_mode_extend_items_to_string = create_nla_mode_extend_items_to_string();
+	static const std::map<std::string, int> string_to_nla_mode_extend_items = create_string_to_nla_mode_extend_items();
+	static const std::map<int, std::string> nla_mode_extend_items_to_string = create_nla_mode_extend_items_to_string();
 
 	nla_mode_extend_items_enum extrapolation() {
 		STRING_TYPE_GETTER("extrapolation", static_cast<nla_mode_extend_items_enum>(string_to_nla_mode_extend_items.at(resstr)))
@@ -40642,8 +40642,8 @@ public:
 		return {{nla_mode_blend_items_REPLACE, "REPLACE"}, {nla_mode_blend_items_ADD, "ADD"}, {nla_mode_blend_items_SUBTRACT, "SUBTRACT"}, {nla_mode_blend_items_MULTIPLY, "MULTIPLY"}};
 	};
 
-	const std::map<std::string, int> string_to_nla_mode_blend_items = create_string_to_nla_mode_blend_items();
-	const std::map<int, std::string> nla_mode_blend_items_to_string = create_nla_mode_blend_items_to_string();
+	static const std::map<std::string, int> string_to_nla_mode_blend_items = create_string_to_nla_mode_blend_items();
+	static const std::map<int, std::string> nla_mode_blend_items_to_string = create_nla_mode_blend_items_to_string();
 
 	nla_mode_blend_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<nla_mode_blend_items_enum>(string_to_nla_mode_blend_items.at(resstr)))
@@ -40920,8 +40920,8 @@ public:
 		return {{node_socket_type_items_CUSTOM, "CUSTOM"}, {node_socket_type_items_VALUE, "VALUE"}, {node_socket_type_items_INT, "INT"}, {node_socket_type_items_BOOLEAN, "BOOLEAN"}, {node_socket_type_items_VECTOR, "VECTOR"}, {node_socket_type_items_STRING, "STRING"}, {node_socket_type_items_RGBA, "RGBA"}, {node_socket_type_items_SHADER, "SHADER"}};
 	};
 
-	const std::map<std::string, int> string_to_node_socket_type_items = create_string_to_node_socket_type_items();
-	const std::map<int, std::string> node_socket_type_items_to_string = create_node_socket_type_items_to_string();
+	static const std::map<std::string, int> string_to_node_socket_type_items = create_string_to_node_socket_type_items();
+	static const std::map<int, std::string> node_socket_type_items_to_string = create_node_socket_type_items_to_string();
 
 	node_socket_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<node_socket_type_items_enum>(string_to_node_socket_type_items.at(resstr)))
@@ -40997,8 +40997,8 @@ public:
 		return {{dummy_static_type_items_CUSTOM, "CUSTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_dummy_static_type_items = create_string_to_dummy_static_type_items();
-	const std::map<int, std::string> dummy_static_type_items_to_string = create_dummy_static_type_items_to_string();
+	static const std::map<std::string, int> string_to_dummy_static_type_items = create_string_to_dummy_static_type_items();
+	static const std::map<int, std::string> dummy_static_type_items_to_string = create_dummy_static_type_items_to_string();
 
 	dummy_static_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<dummy_static_type_items_enum>(string_to_dummy_static_type_items.at(resstr)))
@@ -41155,8 +41155,8 @@ public:
 		return {{node_shading_compatibilities_OLD_SHADING, "OLD_SHADING"}, {node_shading_compatibilities_NEW_SHADING, "NEW_SHADING"}};
 	};
 
-	const std::map<std::string, int> string_to_node_shading_compatibilities = create_string_to_node_shading_compatibilities();
-	const std::map<int, std::string> node_shading_compatibilities_to_string = create_node_shading_compatibilities_to_string();
+	static const std::map<std::string, int> string_to_node_shading_compatibilities = create_string_to_node_shading_compatibilities();
+	static const std::map<int, std::string> node_shading_compatibilities_to_string = create_node_shading_compatibilities_to_string();
 
 	node_shading_compatibilities_enum shading_compatibility() {
 		STRING_TYPE_GETTER("shading_compatibility", static_cast<node_shading_compatibilities_enum>(string_to_node_shading_compatibilities.at(resstr)))
@@ -41737,8 +41737,8 @@ public:
 		return {{node_icon_items_NONE, "NONE"}, {node_icon_items_QUESTION, "QUESTION"}, {node_icon_items_ERROR, "ERROR"}, {node_icon_items_CANCEL, "CANCEL"}, {node_icon_items_TRIA_RIGHT, "TRIA_RIGHT"}, {node_icon_items_TRIA_DOWN, "TRIA_DOWN"}, {node_icon_items_TRIA_LEFT, "TRIA_LEFT"}, {node_icon_items_TRIA_UP, "TRIA_UP"}, {node_icon_items_ARROW_LEFTRIGHT, "ARROW_LEFTRIGHT"}, {node_icon_items_PLUS, "PLUS"}, {node_icon_items_DISCLOSURE_TRI_DOWN, "DISCLOSURE_TRI_DOWN"}, {node_icon_items_DISCLOSURE_TRI_RIGHT, "DISCLOSURE_TRI_RIGHT"}, {node_icon_items_RADIOBUT_OFF, "RADIOBUT_OFF"}, {node_icon_items_RADIOBUT_ON, "RADIOBUT_ON"}, {node_icon_items_MENU_PANEL, "MENU_PANEL"}, {node_icon_items_BLENDER, "BLENDER"}, {node_icon_items_GRIP, "GRIP"}, {node_icon_items_DOT, "DOT"}, {node_icon_items_COLLAPSEMENU, "COLLAPSEMENU"}, {node_icon_items_X, "X"}, {node_icon_items_GO_LEFT, "GO_LEFT"}, {node_icon_items_PLUG, "PLUG"}, {node_icon_items_UI, "UI"}, {node_icon_items_NODE, "NODE"}, {node_icon_items_NODE_SEL, "NODE_SEL"}, {node_icon_items_FULLSCREEN, "FULLSCREEN"}, {node_icon_items_SPLITSCREEN, "SPLITSCREEN"}, {node_icon_items_RIGHTARROW_THIN, "RIGHTARROW_THIN"}, {node_icon_items_BORDERMOVE, "BORDERMOVE"}, {node_icon_items_VIEWZOOM, "VIEWZOOM"}, {node_icon_items_ZOOMIN, "ZOOMIN"}, {node_icon_items_ZOOMOUT, "ZOOMOUT"}, {node_icon_items_PANEL_CLOSE, "PANEL_CLOSE"}, {node_icon_items_COPY_ID, "COPY_ID"}, {node_icon_items_EYEDROPPER, "EYEDROPPER"}, {node_icon_items_LINK_AREA, "LINK_AREA"}, {node_icon_items_AUTO, "AUTO"}, {node_icon_items_CHECKBOX_DEHLT, "CHECKBOX_DEHLT"}, {node_icon_items_CHECKBOX_HLT, "CHECKBOX_HLT"}, {node_icon_items_UNLOCKED, "UNLOCKED"}, {node_icon_items_LOCKED, "LOCKED"}, {node_icon_items_UNPINNED, "UNPINNED"}, {node_icon_items_PINNED, "PINNED"}, {node_icon_items_SCREEN_BACK, "SCREEN_BACK"}, {node_icon_items_RIGHTARROW, "RIGHTARROW"}, {node_icon_items_DOWNARROW_HLT, "DOWNARROW_HLT"}, {node_icon_items_DOTSUP, "DOTSUP"}, {node_icon_items_DOTSDOWN, "DOTSDOWN"}, {node_icon_items_LINK, "LINK"}, {node_icon_items_INLINK, "INLINK"}, {node_icon_items_PLUGIN, "PLUGIN"}, {node_icon_items_HELP, "HELP"}, {node_icon_items_GHOST_ENABLED, "GHOST_ENABLED"}, {node_icon_items_COLOR, "COLOR"}, {node_icon_items_LINKED, "LINKED"}, {node_icon_items_UNLINKED, "UNLINKED"}, {node_icon_items_HAND, "HAND"}, {node_icon_items_ZOOM_ALL, "ZOOM_ALL"}, {node_icon_items_ZOOM_SELECTED, "ZOOM_SELECTED"}, {node_icon_items_ZOOM_PREVIOUS, "ZOOM_PREVIOUS"}, {node_icon_items_ZOOM_IN, "ZOOM_IN"}, {node_icon_items_ZOOM_OUT, "ZOOM_OUT"}, {node_icon_items_RENDER_REGION, "RENDER_REGION"}, {node_icon_items_BORDER_RECT, "BORDER_RECT"}, {node_icon_items_BORDER_LASSO, "BORDER_LASSO"}, {node_icon_items_FREEZE, "FREEZE"}, {node_icon_items_STYLUS_PRESSURE, "STYLUS_PRESSURE"}, {node_icon_items_GHOST_DISABLED, "GHOST_DISABLED"}, {node_icon_items_NEW, "NEW"}, {node_icon_items_FILE_TICK, "FILE_TICK"}, {node_icon_items_QUIT, "QUIT"}, {node_icon_items_URL, "URL"}, {node_icon_items_RECOVER_LAST, "RECOVER_LAST"}, {node_icon_items_FULLSCREEN_ENTER, "FULLSCREEN_ENTER"}, {node_icon_items_FULLSCREEN_EXIT, "FULLSCREEN_EXIT"}, {node_icon_items_BLANK1, "BLANK1"}, {node_icon_items_LAMP, "LAMP"}, {node_icon_items_MATERIAL, "MATERIAL"}, {node_icon_items_TEXTURE, "TEXTURE"}, {node_icon_items_ANIM, "ANIM"}, {node_icon_items_WORLD, "WORLD"}, {node_icon_items_SCENE, "SCENE"}, {node_icon_items_EDIT, "EDIT"}, {node_icon_items_GAME, "GAME"}, {node_icon_items_RADIO, "RADIO"}, {node_icon_items_SCRIPT, "SCRIPT"}, {node_icon_items_PARTICLES, "PARTICLES"}, {node_icon_items_PHYSICS, "PHYSICS"}, {node_icon_items_SPEAKER, "SPEAKER"}, {node_icon_items_TEXTURE_SHADED, "TEXTURE_SHADED"}, {node_icon_items_VIEW3D, "VIEW3D"}, {node_icon_items_IPO, "IPO"}, {node_icon_items_OOPS, "OOPS"}, {node_icon_items_BUTS, "BUTS"}, {node_icon_items_FILESEL, "FILESEL"}, {node_icon_items_IMAGE_COL, "IMAGE_COL"}, {node_icon_items_INFO, "INFO"}, {node_icon_items_SEQUENCE, "SEQUENCE"}, {node_icon_items_TEXT, "TEXT"}, {node_icon_items_IMASEL, "IMASEL"}, {node_icon_items_SOUND, "SOUND"}, {node_icon_items_ACTION, "ACTION"}, {node_icon_items_NLA, "NLA"}, {node_icon_items_SCRIPTWIN, "SCRIPTWIN"}, {node_icon_items_TIME, "TIME"}, {node_icon_items_NODETREE, "NODETREE"}, {node_icon_items_LOGIC, "LOGIC"}, {node_icon_items_CONSOLE, "CONSOLE"}, {node_icon_items_PREFERENCES, "PREFERENCES"}, {node_icon_items_CLIP, "CLIP"}, {node_icon_items_ASSET_MANAGER, "ASSET_MANAGER"}, {node_icon_items_OBJECT_DATAMODE, "OBJECT_DATAMODE"}, {node_icon_items_EDITMODE_HLT, "EDITMODE_HLT"}, {node_icon_items_FACESEL_HLT, "FACESEL_HLT"}, {node_icon_items_VPAINT_HLT, "VPAINT_HLT"}, {node_icon_items_TPAINT_HLT, "TPAINT_HLT"}, {node_icon_items_WPAINT_HLT, "WPAINT_HLT"}, {node_icon_items_SCULPTMODE_HLT, "SCULPTMODE_HLT"}, {node_icon_items_POSE_HLT, "POSE_HLT"}, {node_icon_items_PARTICLEMODE, "PARTICLEMODE"}, {node_icon_items_LIGHTPAINT, "LIGHTPAINT"}, {node_icon_items_SCENE_DATA, "SCENE_DATA"}, {node_icon_items_RENDERLAYERS, "RENDERLAYERS"}, {node_icon_items_WORLD_DATA, "WORLD_DATA"}, {node_icon_items_OBJECT_DATA, "OBJECT_DATA"}, {node_icon_items_MESH_DATA, "MESH_DATA"}, {node_icon_items_CURVE_DATA, "CURVE_DATA"}, {node_icon_items_META_DATA, "META_DATA"}, {node_icon_items_LATTICE_DATA, "LATTICE_DATA"}, {node_icon_items_LAMP_DATA, "LAMP_DATA"}, {node_icon_items_MATERIAL_DATA, "MATERIAL_DATA"}, {node_icon_items_TEXTURE_DATA, "TEXTURE_DATA"}, {node_icon_items_ANIM_DATA, "ANIM_DATA"}, {node_icon_items_CAMERA_DATA, "CAMERA_DATA"}, {node_icon_items_PARTICLE_DATA, "PARTICLE_DATA"}, {node_icon_items_LIBRARY_DATA_DIRECT, "LIBRARY_DATA_DIRECT"}, {node_icon_items_GROUP, "GROUP"}, {node_icon_items_ARMATURE_DATA, "ARMATURE_DATA"}, {node_icon_items_POSE_DATA, "POSE_DATA"}, {node_icon_items_BONE_DATA, "BONE_DATA"}, {node_icon_items_CONSTRAINT, "CONSTRAINT"}, {node_icon_items_SHAPEKEY_DATA, "SHAPEKEY_DATA"}, {node_icon_items_CONSTRAINT_BONE, "CONSTRAINT_BONE"}, {node_icon_items_CAMERA_STEREO, "CAMERA_STEREO"}, {node_icon_items_PACKAGE, "PACKAGE"}, {node_icon_items_UGLYPACKAGE, "UGLYPACKAGE"}, {node_icon_items_BRUSH_DATA, "BRUSH_DATA"}, {node_icon_items_IMAGE_DATA, "IMAGE_DATA"}, {node_icon_items_FILE, "FILE"}, {node_icon_items_FCURVE, "FCURVE"}, {node_icon_items_FONT_DATA, "FONT_DATA"}, {node_icon_items_RENDER_RESULT, "RENDER_RESULT"}, {node_icon_items_SURFACE_DATA, "SURFACE_DATA"}, {node_icon_items_EMPTY_DATA, "EMPTY_DATA"}, {node_icon_items_SETTINGS, "SETTINGS"}, {node_icon_items_RENDER_ANIMATION, "RENDER_ANIMATION"}, {node_icon_items_RENDER_STILL, "RENDER_STILL"}, {node_icon_items_LIBRARY_DATA_BROKEN, "LIBRARY_DATA_BROKEN"}, {node_icon_items_BOIDS, "BOIDS"}, {node_icon_items_STRANDS, "STRANDS"}, {node_icon_items_LIBRARY_DATA_INDIRECT, "LIBRARY_DATA_INDIRECT"}, {node_icon_items_GREASEPENCIL, "GREASEPENCIL"}, {node_icon_items_LINE_DATA, "LINE_DATA"}, {node_icon_items_GROUP_BONE, "GROUP_BONE"}, {node_icon_items_GROUP_VERTEX, "GROUP_VERTEX"}, {node_icon_items_GROUP_VCOL, "GROUP_VCOL"}, {node_icon_items_GROUP_UVS, "GROUP_UVS"}, {node_icon_items_RNA, "RNA"}, {node_icon_items_RNA_ADD, "RNA_ADD"}, {node_icon_items_OUTLINER_OB_EMPTY, "OUTLINER_OB_EMPTY"}, {node_icon_items_OUTLINER_OB_MESH, "OUTLINER_OB_MESH"}, {node_icon_items_OUTLINER_OB_CURVE, "OUTLINER_OB_CURVE"}, {node_icon_items_OUTLINER_OB_LATTICE, "OUTLINER_OB_LATTICE"}, {node_icon_items_OUTLINER_OB_META, "OUTLINER_OB_META"}, {node_icon_items_OUTLINER_OB_LAMP, "OUTLINER_OB_LAMP"}, {node_icon_items_OUTLINER_OB_CAMERA, "OUTLINER_OB_CAMERA"}, {node_icon_items_OUTLINER_OB_ARMATURE, "OUTLINER_OB_ARMATURE"}, {node_icon_items_OUTLINER_OB_FONT, "OUTLINER_OB_FONT"}, {node_icon_items_OUTLINER_OB_SURFACE, "OUTLINER_OB_SURFACE"}, {node_icon_items_OUTLINER_OB_SPEAKER, "OUTLINER_OB_SPEAKER"}, {node_icon_items_RESTRICT_VIEW_OFF, "RESTRICT_VIEW_OFF"}, {node_icon_items_RESTRICT_VIEW_ON, "RESTRICT_VIEW_ON"}, {node_icon_items_RESTRICT_SELECT_OFF, "RESTRICT_SELECT_OFF"}, {node_icon_items_RESTRICT_SELECT_ON, "RESTRICT_SELECT_ON"}, {node_icon_items_RESTRICT_RENDER_OFF, "RESTRICT_RENDER_OFF"}, {node_icon_items_RESTRICT_RENDER_ON, "RESTRICT_RENDER_ON"}, {node_icon_items_OUTLINER_DATA_EMPTY, "OUTLINER_DATA_EMPTY"}, {node_icon_items_OUTLINER_DATA_MESH, "OUTLINER_DATA_MESH"}, {node_icon_items_OUTLINER_DATA_CURVE, "OUTLINER_DATA_CURVE"}, {node_icon_items_OUTLINER_DATA_LATTICE, "OUTLINER_DATA_LATTICE"}, {node_icon_items_OUTLINER_DATA_META, "OUTLINER_DATA_META"}, {node_icon_items_OUTLINER_DATA_LAMP, "OUTLINER_DATA_LAMP"}, {node_icon_items_OUTLINER_DATA_CAMERA, "OUTLINER_DATA_CAMERA"}, {node_icon_items_OUTLINER_DATA_ARMATURE, "OUTLINER_DATA_ARMATURE"}, {node_icon_items_OUTLINER_DATA_FONT, "OUTLINER_DATA_FONT"}, {node_icon_items_OUTLINER_DATA_SURFACE, "OUTLINER_DATA_SURFACE"}, {node_icon_items_OUTLINER_DATA_SPEAKER, "OUTLINER_DATA_SPEAKER"}, {node_icon_items_OUTLINER_DATA_POSE, "OUTLINER_DATA_POSE"}, {node_icon_items_MESH_PLANE, "MESH_PLANE"}, {node_icon_items_MESH_CUBE, "MESH_CUBE"}, {node_icon_items_MESH_CIRCLE, "MESH_CIRCLE"}, {node_icon_items_MESH_UVSPHERE, "MESH_UVSPHERE"}, {node_icon_items_MESH_ICOSPHERE, "MESH_ICOSPHERE"}, {node_icon_items_MESH_GRID, "MESH_GRID"}, {node_icon_items_MESH_MONKEY, "MESH_MONKEY"}, {node_icon_items_MESH_CYLINDER, "MESH_CYLINDER"}, {node_icon_items_MESH_TORUS, "MESH_TORUS"}, {node_icon_items_MESH_CONE, "MESH_CONE"}, {node_icon_items_LAMP_POINT, "LAMP_POINT"}, {node_icon_items_LAMP_SUN, "LAMP_SUN"}, {node_icon_items_LAMP_SPOT, "LAMP_SPOT"}, {node_icon_items_LAMP_HEMI, "LAMP_HEMI"}, {node_icon_items_LAMP_AREA, "LAMP_AREA"}, {node_icon_items_META_EMPTY, "META_EMPTY"}, {node_icon_items_META_PLANE, "META_PLANE"}, {node_icon_items_META_CUBE, "META_CUBE"}, {node_icon_items_META_BALL, "META_BALL"}, {node_icon_items_META_ELLIPSOID, "META_ELLIPSOID"}, {node_icon_items_META_CAPSULE, "META_CAPSULE"}, {node_icon_items_SURFACE_NCURVE, "SURFACE_NCURVE"}, {node_icon_items_SURFACE_NCIRCLE, "SURFACE_NCIRCLE"}, {node_icon_items_SURFACE_NSURFACE, "SURFACE_NSURFACE"}, {node_icon_items_SURFACE_NCYLINDER, "SURFACE_NCYLINDER"}, {node_icon_items_SURFACE_NSPHERE, "SURFACE_NSPHERE"}, {node_icon_items_SURFACE_NTORUS, "SURFACE_NTORUS"}, {node_icon_items_CURVE_BEZCURVE, "CURVE_BEZCURVE"}, {node_icon_items_CURVE_BEZCIRCLE, "CURVE_BEZCIRCLE"}, {node_icon_items_CURVE_NCURVE, "CURVE_NCURVE"}, {node_icon_items_CURVE_NCIRCLE, "CURVE_NCIRCLE"}, {node_icon_items_CURVE_PATH, "CURVE_PATH"}, {node_icon_items_COLOR_RED, "COLOR_RED"}, {node_icon_items_COLOR_GREEN, "COLOR_GREEN"}, {node_icon_items_COLOR_BLUE, "COLOR_BLUE"}, {node_icon_items_TRIA_RIGHT_BAR, "TRIA_RIGHT_BAR"}, {node_icon_items_TRIA_DOWN_BAR, "TRIA_DOWN_BAR"}, {node_icon_items_TRIA_LEFT_BAR, "TRIA_LEFT_BAR"}, {node_icon_items_TRIA_UP_BAR, "TRIA_UP_BAR"}, {node_icon_items_FORCE_FORCE, "FORCE_FORCE"}, {node_icon_items_FORCE_WIND, "FORCE_WIND"}, {node_icon_items_FORCE_VORTEX, "FORCE_VORTEX"}, {node_icon_items_FORCE_MAGNETIC, "FORCE_MAGNETIC"}, {node_icon_items_FORCE_HARMONIC, "FORCE_HARMONIC"}, {node_icon_items_FORCE_CHARGE, "FORCE_CHARGE"}, {node_icon_items_FORCE_LENNARDJONES, "FORCE_LENNARDJONES"}, {node_icon_items_FORCE_TEXTURE, "FORCE_TEXTURE"}, {node_icon_items_FORCE_CURVE, "FORCE_CURVE"}, {node_icon_items_FORCE_BOID, "FORCE_BOID"}, {node_icon_items_FORCE_TURBULENCE, "FORCE_TURBULENCE"}, {node_icon_items_FORCE_DRAG, "FORCE_DRAG"}, {node_icon_items_FORCE_SMOKEFLOW, "FORCE_SMOKEFLOW"}, {node_icon_items_MODIFIER, "MODIFIER"}, {node_icon_items_MOD_WAVE, "MOD_WAVE"}, {node_icon_items_MOD_BUILD, "MOD_BUILD"}, {node_icon_items_MOD_DECIM, "MOD_DECIM"}, {node_icon_items_MOD_MIRROR, "MOD_MIRROR"}, {node_icon_items_MOD_SOFT, "MOD_SOFT"}, {node_icon_items_MOD_SUBSURF, "MOD_SUBSURF"}, {node_icon_items_HOOK, "HOOK"}, {node_icon_items_MOD_PHYSICS, "MOD_PHYSICS"}, {node_icon_items_MOD_PARTICLES, "MOD_PARTICLES"}, {node_icon_items_MOD_BOOLEAN, "MOD_BOOLEAN"}, {node_icon_items_MOD_EDGESPLIT, "MOD_EDGESPLIT"}, {node_icon_items_MOD_ARRAY, "MOD_ARRAY"}, {node_icon_items_MOD_UVPROJECT, "MOD_UVPROJECT"}, {node_icon_items_MOD_DISPLACE, "MOD_DISPLACE"}, {node_icon_items_MOD_CURVE, "MOD_CURVE"}, {node_icon_items_MOD_LATTICE, "MOD_LATTICE"}, {node_icon_items_CONSTRAINT_DATA, "CONSTRAINT_DATA"}, {node_icon_items_MOD_ARMATURE, "MOD_ARMATURE"}, {node_icon_items_MOD_SHRINKWRAP, "MOD_SHRINKWRAP"}, {node_icon_items_MOD_CAST, "MOD_CAST"}, {node_icon_items_MOD_MESHDEFORM, "MOD_MESHDEFORM"}, {node_icon_items_MOD_BEVEL, "MOD_BEVEL"}, {node_icon_items_MOD_SMOOTH, "MOD_SMOOTH"}, {node_icon_items_MOD_SIMPLEDEFORM, "MOD_SIMPLEDEFORM"}, {node_icon_items_MOD_MASK, "MOD_MASK"}, {node_icon_items_MOD_CLOTH, "MOD_CLOTH"}, {node_icon_items_MOD_EXPLODE, "MOD_EXPLODE"}, {node_icon_items_MOD_FLUIDSIM, "MOD_FLUIDSIM"}, {node_icon_items_MOD_MULTIRES, "MOD_MULTIRES"}, {node_icon_items_MOD_SMOKE, "MOD_SMOKE"}, {node_icon_items_MOD_SOLIDIFY, "MOD_SOLIDIFY"}, {node_icon_items_MOD_SCREW, "MOD_SCREW"}, {node_icon_items_MOD_VERTEX_WEIGHT, "MOD_VERTEX_WEIGHT"}, {node_icon_items_MOD_DYNAMICPAINT, "MOD_DYNAMICPAINT"}, {node_icon_items_MOD_REMESH, "MOD_REMESH"}, {node_icon_items_MOD_OCEAN, "MOD_OCEAN"}, {node_icon_items_MOD_WARP, "MOD_WARP"}, {node_icon_items_MOD_SKIN, "MOD_SKIN"}, {node_icon_items_MOD_TRIANGULATE, "MOD_TRIANGULATE"}, {node_icon_items_MOD_WIREFRAME, "MOD_WIREFRAME"}, {node_icon_items_MOD_DATA_TRANSFER, "MOD_DATA_TRANSFER"}, {node_icon_items_MOD_NORMALEDIT, "MOD_NORMALEDIT"}, {node_icon_items_REC, "REC"}, {node_icon_items_PLAY, "PLAY"}, {node_icon_items_FF, "FF"}, {node_icon_items_REW, "REW"}, {node_icon_items_PAUSE, "PAUSE"}, {node_icon_items_PREV_KEYFRAME, "PREV_KEYFRAME"}, {node_icon_items_NEXT_KEYFRAME, "NEXT_KEYFRAME"}, {node_icon_items_PLAY_AUDIO, "PLAY_AUDIO"}, {node_icon_items_PLAY_REVERSE, "PLAY_REVERSE"}, {node_icon_items_PREVIEW_RANGE, "PREVIEW_RANGE"}, {node_icon_items_ACTION_TWEAK, "ACTION_TWEAK"}, {node_icon_items_PMARKER_ACT, "PMARKER_ACT"}, {node_icon_items_PMARKER_SEL, "PMARKER_SEL"}, {node_icon_items_PMARKER, "PMARKER"}, {node_icon_items_MARKER_HLT, "MARKER_HLT"}, {node_icon_items_MARKER, "MARKER"}, {node_icon_items_SPACE2, "SPACE2"}, {node_icon_items_SPACE3, "SPACE3"}, {node_icon_items_KEYINGSET, "KEYINGSET"}, {node_icon_items_KEY_DEHLT, "KEY_DEHLT"}, {node_icon_items_KEY_HLT, "KEY_HLT"}, {node_icon_items_MUTE_IPO_OFF, "MUTE_IPO_OFF"}, {node_icon_items_MUTE_IPO_ON, "MUTE_IPO_ON"}, {node_icon_items_VISIBLE_IPO_OFF, "VISIBLE_IPO_OFF"}, {node_icon_items_VISIBLE_IPO_ON, "VISIBLE_IPO_ON"}, {node_icon_items_DRIVER, "DRIVER"}, {node_icon_items_SOLO_OFF, "SOLO_OFF"}, {node_icon_items_SOLO_ON, "SOLO_ON"}, {node_icon_items_FRAME_PREV, "FRAME_PREV"}, {node_icon_items_FRAME_NEXT, "FRAME_NEXT"}, {node_icon_items_NLA_PUSHDOWN, "NLA_PUSHDOWN"}, {node_icon_items_IPO_CONSTANT, "IPO_CONSTANT"}, {node_icon_items_IPO_LINEAR, "IPO_LINEAR"}, {node_icon_items_IPO_BEZIER, "IPO_BEZIER"}, {node_icon_items_IPO_SINE, "IPO_SINE"}, {node_icon_items_IPO_QUAD, "IPO_QUAD"}, {node_icon_items_IPO_CUBIC, "IPO_CUBIC"}, {node_icon_items_IPO_QUART, "IPO_QUART"}, {node_icon_items_IPO_QUINT, "IPO_QUINT"}, {node_icon_items_IPO_EXPO, "IPO_EXPO"}, {node_icon_items_IPO_CIRC, "IPO_CIRC"}, {node_icon_items_IPO_BOUNCE, "IPO_BOUNCE"}, {node_icon_items_IPO_ELASTIC, "IPO_ELASTIC"}, {node_icon_items_IPO_BACK, "IPO_BACK"}, {node_icon_items_IPO_EASE_IN, "IPO_EASE_IN"}, {node_icon_items_IPO_EASE_OUT, "IPO_EASE_OUT"}, {node_icon_items_IPO_EASE_IN_OUT, "IPO_EASE_IN_OUT"}, {node_icon_items_VERTEXSEL, "VERTEXSEL"}, {node_icon_items_EDGESEL, "EDGESEL"}, {node_icon_items_FACESEL, "FACESEL"}, {node_icon_items_LOOPSEL, "LOOPSEL"}, {node_icon_items_ROTATE, "ROTATE"}, {node_icon_items_CURSOR, "CURSOR"}, {node_icon_items_ROTATECOLLECTION, "ROTATECOLLECTION"}, {node_icon_items_ROTATECENTER, "ROTATECENTER"}, {node_icon_items_ROTACTIVE, "ROTACTIVE"}, {node_icon_items_ALIGN, "ALIGN"}, {node_icon_items_SMOOTHCURVE, "SMOOTHCURVE"}, {node_icon_items_SPHERECURVE, "SPHERECURVE"}, {node_icon_items_ROOTCURVE, "ROOTCURVE"}, {node_icon_items_SHARPCURVE, "SHARPCURVE"}, {node_icon_items_LINCURVE, "LINCURVE"}, {node_icon_items_NOCURVE, "NOCURVE"}, {node_icon_items_RNDCURVE, "RNDCURVE"}, {node_icon_items_PROP_OFF, "PROP_OFF"}, {node_icon_items_PROP_ON, "PROP_ON"}, {node_icon_items_PROP_CON, "PROP_CON"}, {node_icon_items_SCULPT_DYNTOPO, "SCULPT_DYNTOPO"}, {node_icon_items_PARTICLE_POINT, "PARTICLE_POINT"}, {node_icon_items_PARTICLE_TIP, "PARTICLE_TIP"}, {node_icon_items_PARTICLE_PATH, "PARTICLE_PATH"}, {node_icon_items_MAN_TRANS, "MAN_TRANS"}, {node_icon_items_MAN_ROT, "MAN_ROT"}, {node_icon_items_MAN_SCALE, "MAN_SCALE"}, {node_icon_items_MANIPUL, "MANIPUL"}, {node_icon_items_SNAP_OFF, "SNAP_OFF"}, {node_icon_items_SNAP_ON, "SNAP_ON"}, {node_icon_items_SNAP_NORMAL, "SNAP_NORMAL"}, {node_icon_items_SNAP_INCREMENT, "SNAP_INCREMENT"}, {node_icon_items_SNAP_VERTEX, "SNAP_VERTEX"}, {node_icon_items_SNAP_EDGE, "SNAP_EDGE"}, {node_icon_items_SNAP_FACE, "SNAP_FACE"}, {node_icon_items_SNAP_VOLUME, "SNAP_VOLUME"}, {node_icon_items_STICKY_UVS_LOC, "STICKY_UVS_LOC"}, {node_icon_items_STICKY_UVS_DISABLE, "STICKY_UVS_DISABLE"}, {node_icon_items_STICKY_UVS_VERT, "STICKY_UVS_VERT"}, {node_icon_items_CLIPUV_DEHLT, "CLIPUV_DEHLT"}, {node_icon_items_CLIPUV_HLT, "CLIPUV_HLT"}, {node_icon_items_SNAP_PEEL_OBJECT, "SNAP_PEEL_OBJECT"}, {node_icon_items_GRID, "GRID"}, {node_icon_items_PASTEDOWN, "PASTEDOWN"}, {node_icon_items_COPYDOWN, "COPYDOWN"}, {node_icon_items_PASTEFLIPUP, "PASTEFLIPUP"}, {node_icon_items_PASTEFLIPDOWN, "PASTEFLIPDOWN"}, {node_icon_items_SNAP_SURFACE, "SNAP_SURFACE"}, {node_icon_items_AUTOMERGE_ON, "AUTOMERGE_ON"}, {node_icon_items_AUTOMERGE_OFF, "AUTOMERGE_OFF"}, {node_icon_items_RETOPO, "RETOPO"}, {node_icon_items_UV_VERTEXSEL, "UV_VERTEXSEL"}, {node_icon_items_UV_EDGESEL, "UV_EDGESEL"}, {node_icon_items_UV_FACESEL, "UV_FACESEL"}, {node_icon_items_UV_ISLANDSEL, "UV_ISLANDSEL"}, {node_icon_items_UV_SYNC_SELECT, "UV_SYNC_SELECT"}, {node_icon_items_BBOX, "BBOX"}, {node_icon_items_WIRE, "WIRE"}, {node_icon_items_SOLID, "SOLID"}, {node_icon_items_SMOOTH, "SMOOTH"}, {node_icon_items_POTATO, "POTATO"}, {node_icon_items_ORTHO, "ORTHO"}, {node_icon_items_LOCKVIEW_OFF, "LOCKVIEW_OFF"}, {node_icon_items_LOCKVIEW_ON, "LOCKVIEW_ON"}, {node_icon_items_AXIS_SIDE, "AXIS_SIDE"}, {node_icon_items_AXIS_FRONT, "AXIS_FRONT"}, {node_icon_items_AXIS_TOP, "AXIS_TOP"}, {node_icon_items_NDOF_DOM, "NDOF_DOM"}, {node_icon_items_NDOF_TURN, "NDOF_TURN"}, {node_icon_items_NDOF_FLY, "NDOF_FLY"}, {node_icon_items_NDOF_TRANS, "NDOF_TRANS"}, {node_icon_items_LAYER_USED, "LAYER_USED"}, {node_icon_items_LAYER_ACTIVE, "LAYER_ACTIVE"}, {node_icon_items_SORTALPHA, "SORTALPHA"}, {node_icon_items_SORTBYEXT, "SORTBYEXT"}, {node_icon_items_SORTTIME, "SORTTIME"}, {node_icon_items_SORTSIZE, "SORTSIZE"}, {node_icon_items_LONGDISPLAY, "LONGDISPLAY"}, {node_icon_items_SHORTDISPLAY, "SHORTDISPLAY"}, {node_icon_items_GHOST, "GHOST"}, {node_icon_items_IMGDISPLAY, "IMGDISPLAY"}, {node_icon_items_SAVE_AS, "SAVE_AS"}, {node_icon_items_SAVE_COPY, "SAVE_COPY"}, {node_icon_items_BOOKMARKS, "BOOKMARKS"}, {node_icon_items_FONTPREVIEW, "FONTPREVIEW"}, {node_icon_items_FILTER, "FILTER"}, {node_icon_items_NEWFOLDER, "NEWFOLDER"}, {node_icon_items_OPEN_RECENT, "OPEN_RECENT"}, {node_icon_items_FILE_PARENT, "FILE_PARENT"}, {node_icon_items_FILE_REFRESH, "FILE_REFRESH"}, {node_icon_items_FILE_FOLDER, "FILE_FOLDER"}, {node_icon_items_FILE_BLANK, "FILE_BLANK"}, {node_icon_items_FILE_BLEND, "FILE_BLEND"}, {node_icon_items_FILE_IMAGE, "FILE_IMAGE"}, {node_icon_items_FILE_MOVIE, "FILE_MOVIE"}, {node_icon_items_FILE_SCRIPT, "FILE_SCRIPT"}, {node_icon_items_FILE_SOUND, "FILE_SOUND"}, {node_icon_items_FILE_FONT, "FILE_FONT"}, {node_icon_items_FILE_TEXT, "FILE_TEXT"}, {node_icon_items_RECOVER_AUTO, "RECOVER_AUTO"}, {node_icon_items_SAVE_PREFS, "SAVE_PREFS"}, {node_icon_items_LINK_BLEND, "LINK_BLEND"}, {node_icon_items_APPEND_BLEND, "APPEND_BLEND"}, {node_icon_items_IMPORT, "IMPORT"}, {node_icon_items_EXPORT, "EXPORT"}, {node_icon_items_EXTERNAL_DATA, "EXTERNAL_DATA"}, {node_icon_items_LOAD_FACTORY, "LOAD_FACTORY"}, {node_icon_items_LOOP_BACK, "LOOP_BACK"}, {node_icon_items_LOOP_FORWARDS, "LOOP_FORWARDS"}, {node_icon_items_BACK, "BACK"}, {node_icon_items_FORWARD, "FORWARD"}, {node_icon_items_FILE_HIDDEN, "FILE_HIDDEN"}, {node_icon_items_FILE_BACKUP, "FILE_BACKUP"}, {node_icon_items_DISK_DRIVE, "DISK_DRIVE"}, {node_icon_items_MATPLANE, "MATPLANE"}, {node_icon_items_MATSPHERE, "MATSPHERE"}, {node_icon_items_MATCUBE, "MATCUBE"}, {node_icon_items_MONKEY, "MONKEY"}, {node_icon_items_HAIR, "HAIR"}, {node_icon_items_ALIASED, "ALIASED"}, {node_icon_items_ANTIALIASED, "ANTIALIASED"}, {node_icon_items_MAT_SPHERE_SKY, "MAT_SPHERE_SKY"}, {node_icon_items_WORDWRAP_OFF, "WORDWRAP_OFF"}, {node_icon_items_WORDWRAP_ON, "WORDWRAP_ON"}, {node_icon_items_SYNTAX_OFF, "SYNTAX_OFF"}, {node_icon_items_SYNTAX_ON, "SYNTAX_ON"}, {node_icon_items_LINENUMBERS_OFF, "LINENUMBERS_OFF"}, {node_icon_items_LINENUMBERS_ON, "LINENUMBERS_ON"}, {node_icon_items_SCRIPTPLUGINS, "SCRIPTPLUGINS"}, {node_icon_items_SEQ_SEQUENCER, "SEQ_SEQUENCER"}, {node_icon_items_SEQ_PREVIEW, "SEQ_PREVIEW"}, {node_icon_items_SEQ_LUMA_WAVEFORM, "SEQ_LUMA_WAVEFORM"}, {node_icon_items_SEQ_CHROMA_SCOPE, "SEQ_CHROMA_SCOPE"}, {node_icon_items_SEQ_HISTOGRAM, "SEQ_HISTOGRAM"}, {node_icon_items_SEQ_SPLITVIEW, "SEQ_SPLITVIEW"}, {node_icon_items_IMAGE_RGB, "IMAGE_RGB"}, {node_icon_items_IMAGE_RGB_ALPHA, "IMAGE_RGB_ALPHA"}, {node_icon_items_IMAGE_ALPHA, "IMAGE_ALPHA"}, {node_icon_items_IMAGE_ZDEPTH, "IMAGE_ZDEPTH"}, {node_icon_items_IMAGEFILE, "IMAGEFILE"}, {node_icon_items_BRUSH_ADD, "BRUSH_ADD"}, {node_icon_items_BRUSH_BLOB, "BRUSH_BLOB"}, {node_icon_items_BRUSH_BLUR, "BRUSH_BLUR"}, {node_icon_items_BRUSH_CLAY, "BRUSH_CLAY"}, {node_icon_items_BRUSH_CLAY_STRIPS, "BRUSH_CLAY_STRIPS"}, {node_icon_items_BRUSH_CLONE, "BRUSH_CLONE"}, {node_icon_items_BRUSH_CREASE, "BRUSH_CREASE"}, {node_icon_items_BRUSH_DARKEN, "BRUSH_DARKEN"}, {node_icon_items_BRUSH_FILL, "BRUSH_FILL"}, {node_icon_items_BRUSH_FLATTEN, "BRUSH_FLATTEN"}, {node_icon_items_BRUSH_GRAB, "BRUSH_GRAB"}, {node_icon_items_BRUSH_INFLATE, "BRUSH_INFLATE"}, {node_icon_items_BRUSH_LAYER, "BRUSH_LAYER"}, {node_icon_items_BRUSH_LIGHTEN, "BRUSH_LIGHTEN"}, {node_icon_items_BRUSH_MASK, "BRUSH_MASK"}, {node_icon_items_BRUSH_MIX, "BRUSH_MIX"}, {node_icon_items_BRUSH_MULTIPLY, "BRUSH_MULTIPLY"}, {node_icon_items_BRUSH_NUDGE, "BRUSH_NUDGE"}, {node_icon_items_BRUSH_PINCH, "BRUSH_PINCH"}, {node_icon_items_BRUSH_SCRAPE, "BRUSH_SCRAPE"}, {node_icon_items_BRUSH_SCULPT_DRAW, "BRUSH_SCULPT_DRAW"}, {node_icon_items_BRUSH_SMEAR, "BRUSH_SMEAR"}, {node_icon_items_BRUSH_SMOOTH, "BRUSH_SMOOTH"}, {node_icon_items_BRUSH_SNAKE_HOOK, "BRUSH_SNAKE_HOOK"}, {node_icon_items_BRUSH_SOFTEN, "BRUSH_SOFTEN"}, {node_icon_items_BRUSH_SUBTRACT, "BRUSH_SUBTRACT"}, {node_icon_items_BRUSH_TEXDRAW, "BRUSH_TEXDRAW"}, {node_icon_items_BRUSH_TEXFILL, "BRUSH_TEXFILL"}, {node_icon_items_BRUSH_TEXMASK, "BRUSH_TEXMASK"}, {node_icon_items_BRUSH_THUMB, "BRUSH_THUMB"}, {node_icon_items_BRUSH_ROTATE, "BRUSH_ROTATE"}, {node_icon_items_BRUSH_VERTEXDRAW, "BRUSH_VERTEXDRAW"}, {node_icon_items_MATCAP_01, "MATCAP_01"}, {node_icon_items_MATCAP_02, "MATCAP_02"}, {node_icon_items_MATCAP_03, "MATCAP_03"}, {node_icon_items_MATCAP_04, "MATCAP_04"}, {node_icon_items_MATCAP_05, "MATCAP_05"}, {node_icon_items_MATCAP_06, "MATCAP_06"}, {node_icon_items_MATCAP_07, "MATCAP_07"}, {node_icon_items_MATCAP_08, "MATCAP_08"}, {node_icon_items_MATCAP_09, "MATCAP_09"}, {node_icon_items_MATCAP_10, "MATCAP_10"}, {node_icon_items_MATCAP_11, "MATCAP_11"}, {node_icon_items_MATCAP_12, "MATCAP_12"}, {node_icon_items_MATCAP_13, "MATCAP_13"}, {node_icon_items_MATCAP_14, "MATCAP_14"}, {node_icon_items_MATCAP_15, "MATCAP_15"}, {node_icon_items_MATCAP_16, "MATCAP_16"}, {node_icon_items_MATCAP_17, "MATCAP_17"}, {node_icon_items_MATCAP_18, "MATCAP_18"}, {node_icon_items_MATCAP_19, "MATCAP_19"}, {node_icon_items_MATCAP_20, "MATCAP_20"}, {node_icon_items_MATCAP_21, "MATCAP_21"}, {node_icon_items_MATCAP_22, "MATCAP_22"}, {node_icon_items_MATCAP_23, "MATCAP_23"}, {node_icon_items_MATCAP_24, "MATCAP_24"}};
 	};
 
-	const std::map<std::string, int> string_to_node_icon_items = create_string_to_node_icon_items();
-	const std::map<int, std::string> node_icon_items_to_string = create_node_icon_items_to_string();
+	static const std::map<std::string, int> string_to_node_icon_items = create_string_to_node_icon_items();
+	static const std::map<int, std::string> node_icon_items_to_string = create_node_icon_items_to_string();
 
 	node_icon_items_enum bl_icon() {
 		STRING_TYPE_GETTER("bl_icon", static_cast<node_icon_items_enum>(string_to_node_icon_items.at(resstr)))
@@ -41895,8 +41895,8 @@ public:
 		return {{node_socket_type_items_CUSTOM, "CUSTOM"}, {node_socket_type_items_VALUE, "VALUE"}, {node_socket_type_items_INT, "INT"}, {node_socket_type_items_BOOLEAN, "BOOLEAN"}, {node_socket_type_items_VECTOR, "VECTOR"}, {node_socket_type_items_STRING, "STRING"}, {node_socket_type_items_RGBA, "RGBA"}, {node_socket_type_items_SHADER, "SHADER"}};
 	};
 
-	const std::map<std::string, int> string_to_node_socket_type_items = create_string_to_node_socket_type_items();
-	const std::map<int, std::string> node_socket_type_items_to_string = create_node_socket_type_items_to_string();
+	static const std::map<std::string, int> string_to_node_socket_type_items = create_string_to_node_socket_type_items();
+	static const std::map<int, std::string> node_socket_type_items_to_string = create_node_socket_type_items_to_string();
 
 	node_socket_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<node_socket_type_items_enum>(string_to_node_socket_type_items.at(resstr)))
@@ -41990,8 +41990,8 @@ public:
 		return {{static_type_items_SHADER, "SHADER"}, {static_type_items_TEXTURE, "TEXTURE"}, {static_type_items_COMPOSITING, "COMPOSITING"}};
 	};
 
-	const std::map<std::string, int> string_to_static_type_items = create_string_to_static_type_items();
-	const std::map<int, std::string> static_type_items_to_string = create_static_type_items_to_string();
+	static const std::map<std::string, int> string_to_static_type_items = create_string_to_static_type_items();
+	static const std::map<int, std::string> static_type_items_to_string = create_static_type_items_to_string();
 
 	static_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<static_type_items_enum>(string_to_static_type_items.at(resstr)))
@@ -42596,8 +42596,8 @@ public:
 		return {{node_icon_items_NONE, "NONE"}, {node_icon_items_QUESTION, "QUESTION"}, {node_icon_items_ERROR, "ERROR"}, {node_icon_items_CANCEL, "CANCEL"}, {node_icon_items_TRIA_RIGHT, "TRIA_RIGHT"}, {node_icon_items_TRIA_DOWN, "TRIA_DOWN"}, {node_icon_items_TRIA_LEFT, "TRIA_LEFT"}, {node_icon_items_TRIA_UP, "TRIA_UP"}, {node_icon_items_ARROW_LEFTRIGHT, "ARROW_LEFTRIGHT"}, {node_icon_items_PLUS, "PLUS"}, {node_icon_items_DISCLOSURE_TRI_DOWN, "DISCLOSURE_TRI_DOWN"}, {node_icon_items_DISCLOSURE_TRI_RIGHT, "DISCLOSURE_TRI_RIGHT"}, {node_icon_items_RADIOBUT_OFF, "RADIOBUT_OFF"}, {node_icon_items_RADIOBUT_ON, "RADIOBUT_ON"}, {node_icon_items_MENU_PANEL, "MENU_PANEL"}, {node_icon_items_BLENDER, "BLENDER"}, {node_icon_items_GRIP, "GRIP"}, {node_icon_items_DOT, "DOT"}, {node_icon_items_COLLAPSEMENU, "COLLAPSEMENU"}, {node_icon_items_X, "X"}, {node_icon_items_GO_LEFT, "GO_LEFT"}, {node_icon_items_PLUG, "PLUG"}, {node_icon_items_UI, "UI"}, {node_icon_items_NODE, "NODE"}, {node_icon_items_NODE_SEL, "NODE_SEL"}, {node_icon_items_FULLSCREEN, "FULLSCREEN"}, {node_icon_items_SPLITSCREEN, "SPLITSCREEN"}, {node_icon_items_RIGHTARROW_THIN, "RIGHTARROW_THIN"}, {node_icon_items_BORDERMOVE, "BORDERMOVE"}, {node_icon_items_VIEWZOOM, "VIEWZOOM"}, {node_icon_items_ZOOMIN, "ZOOMIN"}, {node_icon_items_ZOOMOUT, "ZOOMOUT"}, {node_icon_items_PANEL_CLOSE, "PANEL_CLOSE"}, {node_icon_items_COPY_ID, "COPY_ID"}, {node_icon_items_EYEDROPPER, "EYEDROPPER"}, {node_icon_items_LINK_AREA, "LINK_AREA"}, {node_icon_items_AUTO, "AUTO"}, {node_icon_items_CHECKBOX_DEHLT, "CHECKBOX_DEHLT"}, {node_icon_items_CHECKBOX_HLT, "CHECKBOX_HLT"}, {node_icon_items_UNLOCKED, "UNLOCKED"}, {node_icon_items_LOCKED, "LOCKED"}, {node_icon_items_UNPINNED, "UNPINNED"}, {node_icon_items_PINNED, "PINNED"}, {node_icon_items_SCREEN_BACK, "SCREEN_BACK"}, {node_icon_items_RIGHTARROW, "RIGHTARROW"}, {node_icon_items_DOWNARROW_HLT, "DOWNARROW_HLT"}, {node_icon_items_DOTSUP, "DOTSUP"}, {node_icon_items_DOTSDOWN, "DOTSDOWN"}, {node_icon_items_LINK, "LINK"}, {node_icon_items_INLINK, "INLINK"}, {node_icon_items_PLUGIN, "PLUGIN"}, {node_icon_items_HELP, "HELP"}, {node_icon_items_GHOST_ENABLED, "GHOST_ENABLED"}, {node_icon_items_COLOR, "COLOR"}, {node_icon_items_LINKED, "LINKED"}, {node_icon_items_UNLINKED, "UNLINKED"}, {node_icon_items_HAND, "HAND"}, {node_icon_items_ZOOM_ALL, "ZOOM_ALL"}, {node_icon_items_ZOOM_SELECTED, "ZOOM_SELECTED"}, {node_icon_items_ZOOM_PREVIOUS, "ZOOM_PREVIOUS"}, {node_icon_items_ZOOM_IN, "ZOOM_IN"}, {node_icon_items_ZOOM_OUT, "ZOOM_OUT"}, {node_icon_items_RENDER_REGION, "RENDER_REGION"}, {node_icon_items_BORDER_RECT, "BORDER_RECT"}, {node_icon_items_BORDER_LASSO, "BORDER_LASSO"}, {node_icon_items_FREEZE, "FREEZE"}, {node_icon_items_STYLUS_PRESSURE, "STYLUS_PRESSURE"}, {node_icon_items_GHOST_DISABLED, "GHOST_DISABLED"}, {node_icon_items_NEW, "NEW"}, {node_icon_items_FILE_TICK, "FILE_TICK"}, {node_icon_items_QUIT, "QUIT"}, {node_icon_items_URL, "URL"}, {node_icon_items_RECOVER_LAST, "RECOVER_LAST"}, {node_icon_items_FULLSCREEN_ENTER, "FULLSCREEN_ENTER"}, {node_icon_items_FULLSCREEN_EXIT, "FULLSCREEN_EXIT"}, {node_icon_items_BLANK1, "BLANK1"}, {node_icon_items_LAMP, "LAMP"}, {node_icon_items_MATERIAL, "MATERIAL"}, {node_icon_items_TEXTURE, "TEXTURE"}, {node_icon_items_ANIM, "ANIM"}, {node_icon_items_WORLD, "WORLD"}, {node_icon_items_SCENE, "SCENE"}, {node_icon_items_EDIT, "EDIT"}, {node_icon_items_GAME, "GAME"}, {node_icon_items_RADIO, "RADIO"}, {node_icon_items_SCRIPT, "SCRIPT"}, {node_icon_items_PARTICLES, "PARTICLES"}, {node_icon_items_PHYSICS, "PHYSICS"}, {node_icon_items_SPEAKER, "SPEAKER"}, {node_icon_items_TEXTURE_SHADED, "TEXTURE_SHADED"}, {node_icon_items_VIEW3D, "VIEW3D"}, {node_icon_items_IPO, "IPO"}, {node_icon_items_OOPS, "OOPS"}, {node_icon_items_BUTS, "BUTS"}, {node_icon_items_FILESEL, "FILESEL"}, {node_icon_items_IMAGE_COL, "IMAGE_COL"}, {node_icon_items_INFO, "INFO"}, {node_icon_items_SEQUENCE, "SEQUENCE"}, {node_icon_items_TEXT, "TEXT"}, {node_icon_items_IMASEL, "IMASEL"}, {node_icon_items_SOUND, "SOUND"}, {node_icon_items_ACTION, "ACTION"}, {node_icon_items_NLA, "NLA"}, {node_icon_items_SCRIPTWIN, "SCRIPTWIN"}, {node_icon_items_TIME, "TIME"}, {node_icon_items_NODETREE, "NODETREE"}, {node_icon_items_LOGIC, "LOGIC"}, {node_icon_items_CONSOLE, "CONSOLE"}, {node_icon_items_PREFERENCES, "PREFERENCES"}, {node_icon_items_CLIP, "CLIP"}, {node_icon_items_ASSET_MANAGER, "ASSET_MANAGER"}, {node_icon_items_OBJECT_DATAMODE, "OBJECT_DATAMODE"}, {node_icon_items_EDITMODE_HLT, "EDITMODE_HLT"}, {node_icon_items_FACESEL_HLT, "FACESEL_HLT"}, {node_icon_items_VPAINT_HLT, "VPAINT_HLT"}, {node_icon_items_TPAINT_HLT, "TPAINT_HLT"}, {node_icon_items_WPAINT_HLT, "WPAINT_HLT"}, {node_icon_items_SCULPTMODE_HLT, "SCULPTMODE_HLT"}, {node_icon_items_POSE_HLT, "POSE_HLT"}, {node_icon_items_PARTICLEMODE, "PARTICLEMODE"}, {node_icon_items_LIGHTPAINT, "LIGHTPAINT"}, {node_icon_items_SCENE_DATA, "SCENE_DATA"}, {node_icon_items_RENDERLAYERS, "RENDERLAYERS"}, {node_icon_items_WORLD_DATA, "WORLD_DATA"}, {node_icon_items_OBJECT_DATA, "OBJECT_DATA"}, {node_icon_items_MESH_DATA, "MESH_DATA"}, {node_icon_items_CURVE_DATA, "CURVE_DATA"}, {node_icon_items_META_DATA, "META_DATA"}, {node_icon_items_LATTICE_DATA, "LATTICE_DATA"}, {node_icon_items_LAMP_DATA, "LAMP_DATA"}, {node_icon_items_MATERIAL_DATA, "MATERIAL_DATA"}, {node_icon_items_TEXTURE_DATA, "TEXTURE_DATA"}, {node_icon_items_ANIM_DATA, "ANIM_DATA"}, {node_icon_items_CAMERA_DATA, "CAMERA_DATA"}, {node_icon_items_PARTICLE_DATA, "PARTICLE_DATA"}, {node_icon_items_LIBRARY_DATA_DIRECT, "LIBRARY_DATA_DIRECT"}, {node_icon_items_GROUP, "GROUP"}, {node_icon_items_ARMATURE_DATA, "ARMATURE_DATA"}, {node_icon_items_POSE_DATA, "POSE_DATA"}, {node_icon_items_BONE_DATA, "BONE_DATA"}, {node_icon_items_CONSTRAINT, "CONSTRAINT"}, {node_icon_items_SHAPEKEY_DATA, "SHAPEKEY_DATA"}, {node_icon_items_CONSTRAINT_BONE, "CONSTRAINT_BONE"}, {node_icon_items_CAMERA_STEREO, "CAMERA_STEREO"}, {node_icon_items_PACKAGE, "PACKAGE"}, {node_icon_items_UGLYPACKAGE, "UGLYPACKAGE"}, {node_icon_items_BRUSH_DATA, "BRUSH_DATA"}, {node_icon_items_IMAGE_DATA, "IMAGE_DATA"}, {node_icon_items_FILE, "FILE"}, {node_icon_items_FCURVE, "FCURVE"}, {node_icon_items_FONT_DATA, "FONT_DATA"}, {node_icon_items_RENDER_RESULT, "RENDER_RESULT"}, {node_icon_items_SURFACE_DATA, "SURFACE_DATA"}, {node_icon_items_EMPTY_DATA, "EMPTY_DATA"}, {node_icon_items_SETTINGS, "SETTINGS"}, {node_icon_items_RENDER_ANIMATION, "RENDER_ANIMATION"}, {node_icon_items_RENDER_STILL, "RENDER_STILL"}, {node_icon_items_LIBRARY_DATA_BROKEN, "LIBRARY_DATA_BROKEN"}, {node_icon_items_BOIDS, "BOIDS"}, {node_icon_items_STRANDS, "STRANDS"}, {node_icon_items_LIBRARY_DATA_INDIRECT, "LIBRARY_DATA_INDIRECT"}, {node_icon_items_GREASEPENCIL, "GREASEPENCIL"}, {node_icon_items_LINE_DATA, "LINE_DATA"}, {node_icon_items_GROUP_BONE, "GROUP_BONE"}, {node_icon_items_GROUP_VERTEX, "GROUP_VERTEX"}, {node_icon_items_GROUP_VCOL, "GROUP_VCOL"}, {node_icon_items_GROUP_UVS, "GROUP_UVS"}, {node_icon_items_RNA, "RNA"}, {node_icon_items_RNA_ADD, "RNA_ADD"}, {node_icon_items_OUTLINER_OB_EMPTY, "OUTLINER_OB_EMPTY"}, {node_icon_items_OUTLINER_OB_MESH, "OUTLINER_OB_MESH"}, {node_icon_items_OUTLINER_OB_CURVE, "OUTLINER_OB_CURVE"}, {node_icon_items_OUTLINER_OB_LATTICE, "OUTLINER_OB_LATTICE"}, {node_icon_items_OUTLINER_OB_META, "OUTLINER_OB_META"}, {node_icon_items_OUTLINER_OB_LAMP, "OUTLINER_OB_LAMP"}, {node_icon_items_OUTLINER_OB_CAMERA, "OUTLINER_OB_CAMERA"}, {node_icon_items_OUTLINER_OB_ARMATURE, "OUTLINER_OB_ARMATURE"}, {node_icon_items_OUTLINER_OB_FONT, "OUTLINER_OB_FONT"}, {node_icon_items_OUTLINER_OB_SURFACE, "OUTLINER_OB_SURFACE"}, {node_icon_items_OUTLINER_OB_SPEAKER, "OUTLINER_OB_SPEAKER"}, {node_icon_items_RESTRICT_VIEW_OFF, "RESTRICT_VIEW_OFF"}, {node_icon_items_RESTRICT_VIEW_ON, "RESTRICT_VIEW_ON"}, {node_icon_items_RESTRICT_SELECT_OFF, "RESTRICT_SELECT_OFF"}, {node_icon_items_RESTRICT_SELECT_ON, "RESTRICT_SELECT_ON"}, {node_icon_items_RESTRICT_RENDER_OFF, "RESTRICT_RENDER_OFF"}, {node_icon_items_RESTRICT_RENDER_ON, "RESTRICT_RENDER_ON"}, {node_icon_items_OUTLINER_DATA_EMPTY, "OUTLINER_DATA_EMPTY"}, {node_icon_items_OUTLINER_DATA_MESH, "OUTLINER_DATA_MESH"}, {node_icon_items_OUTLINER_DATA_CURVE, "OUTLINER_DATA_CURVE"}, {node_icon_items_OUTLINER_DATA_LATTICE, "OUTLINER_DATA_LATTICE"}, {node_icon_items_OUTLINER_DATA_META, "OUTLINER_DATA_META"}, {node_icon_items_OUTLINER_DATA_LAMP, "OUTLINER_DATA_LAMP"}, {node_icon_items_OUTLINER_DATA_CAMERA, "OUTLINER_DATA_CAMERA"}, {node_icon_items_OUTLINER_DATA_ARMATURE, "OUTLINER_DATA_ARMATURE"}, {node_icon_items_OUTLINER_DATA_FONT, "OUTLINER_DATA_FONT"}, {node_icon_items_OUTLINER_DATA_SURFACE, "OUTLINER_DATA_SURFACE"}, {node_icon_items_OUTLINER_DATA_SPEAKER, "OUTLINER_DATA_SPEAKER"}, {node_icon_items_OUTLINER_DATA_POSE, "OUTLINER_DATA_POSE"}, {node_icon_items_MESH_PLANE, "MESH_PLANE"}, {node_icon_items_MESH_CUBE, "MESH_CUBE"}, {node_icon_items_MESH_CIRCLE, "MESH_CIRCLE"}, {node_icon_items_MESH_UVSPHERE, "MESH_UVSPHERE"}, {node_icon_items_MESH_ICOSPHERE, "MESH_ICOSPHERE"}, {node_icon_items_MESH_GRID, "MESH_GRID"}, {node_icon_items_MESH_MONKEY, "MESH_MONKEY"}, {node_icon_items_MESH_CYLINDER, "MESH_CYLINDER"}, {node_icon_items_MESH_TORUS, "MESH_TORUS"}, {node_icon_items_MESH_CONE, "MESH_CONE"}, {node_icon_items_LAMP_POINT, "LAMP_POINT"}, {node_icon_items_LAMP_SUN, "LAMP_SUN"}, {node_icon_items_LAMP_SPOT, "LAMP_SPOT"}, {node_icon_items_LAMP_HEMI, "LAMP_HEMI"}, {node_icon_items_LAMP_AREA, "LAMP_AREA"}, {node_icon_items_META_EMPTY, "META_EMPTY"}, {node_icon_items_META_PLANE, "META_PLANE"}, {node_icon_items_META_CUBE, "META_CUBE"}, {node_icon_items_META_BALL, "META_BALL"}, {node_icon_items_META_ELLIPSOID, "META_ELLIPSOID"}, {node_icon_items_META_CAPSULE, "META_CAPSULE"}, {node_icon_items_SURFACE_NCURVE, "SURFACE_NCURVE"}, {node_icon_items_SURFACE_NCIRCLE, "SURFACE_NCIRCLE"}, {node_icon_items_SURFACE_NSURFACE, "SURFACE_NSURFACE"}, {node_icon_items_SURFACE_NCYLINDER, "SURFACE_NCYLINDER"}, {node_icon_items_SURFACE_NSPHERE, "SURFACE_NSPHERE"}, {node_icon_items_SURFACE_NTORUS, "SURFACE_NTORUS"}, {node_icon_items_CURVE_BEZCURVE, "CURVE_BEZCURVE"}, {node_icon_items_CURVE_BEZCIRCLE, "CURVE_BEZCIRCLE"}, {node_icon_items_CURVE_NCURVE, "CURVE_NCURVE"}, {node_icon_items_CURVE_NCIRCLE, "CURVE_NCIRCLE"}, {node_icon_items_CURVE_PATH, "CURVE_PATH"}, {node_icon_items_COLOR_RED, "COLOR_RED"}, {node_icon_items_COLOR_GREEN, "COLOR_GREEN"}, {node_icon_items_COLOR_BLUE, "COLOR_BLUE"}, {node_icon_items_TRIA_RIGHT_BAR, "TRIA_RIGHT_BAR"}, {node_icon_items_TRIA_DOWN_BAR, "TRIA_DOWN_BAR"}, {node_icon_items_TRIA_LEFT_BAR, "TRIA_LEFT_BAR"}, {node_icon_items_TRIA_UP_BAR, "TRIA_UP_BAR"}, {node_icon_items_FORCE_FORCE, "FORCE_FORCE"}, {node_icon_items_FORCE_WIND, "FORCE_WIND"}, {node_icon_items_FORCE_VORTEX, "FORCE_VORTEX"}, {node_icon_items_FORCE_MAGNETIC, "FORCE_MAGNETIC"}, {node_icon_items_FORCE_HARMONIC, "FORCE_HARMONIC"}, {node_icon_items_FORCE_CHARGE, "FORCE_CHARGE"}, {node_icon_items_FORCE_LENNARDJONES, "FORCE_LENNARDJONES"}, {node_icon_items_FORCE_TEXTURE, "FORCE_TEXTURE"}, {node_icon_items_FORCE_CURVE, "FORCE_CURVE"}, {node_icon_items_FORCE_BOID, "FORCE_BOID"}, {node_icon_items_FORCE_TURBULENCE, "FORCE_TURBULENCE"}, {node_icon_items_FORCE_DRAG, "FORCE_DRAG"}, {node_icon_items_FORCE_SMOKEFLOW, "FORCE_SMOKEFLOW"}, {node_icon_items_MODIFIER, "MODIFIER"}, {node_icon_items_MOD_WAVE, "MOD_WAVE"}, {node_icon_items_MOD_BUILD, "MOD_BUILD"}, {node_icon_items_MOD_DECIM, "MOD_DECIM"}, {node_icon_items_MOD_MIRROR, "MOD_MIRROR"}, {node_icon_items_MOD_SOFT, "MOD_SOFT"}, {node_icon_items_MOD_SUBSURF, "MOD_SUBSURF"}, {node_icon_items_HOOK, "HOOK"}, {node_icon_items_MOD_PHYSICS, "MOD_PHYSICS"}, {node_icon_items_MOD_PARTICLES, "MOD_PARTICLES"}, {node_icon_items_MOD_BOOLEAN, "MOD_BOOLEAN"}, {node_icon_items_MOD_EDGESPLIT, "MOD_EDGESPLIT"}, {node_icon_items_MOD_ARRAY, "MOD_ARRAY"}, {node_icon_items_MOD_UVPROJECT, "MOD_UVPROJECT"}, {node_icon_items_MOD_DISPLACE, "MOD_DISPLACE"}, {node_icon_items_MOD_CURVE, "MOD_CURVE"}, {node_icon_items_MOD_LATTICE, "MOD_LATTICE"}, {node_icon_items_CONSTRAINT_DATA, "CONSTRAINT_DATA"}, {node_icon_items_MOD_ARMATURE, "MOD_ARMATURE"}, {node_icon_items_MOD_SHRINKWRAP, "MOD_SHRINKWRAP"}, {node_icon_items_MOD_CAST, "MOD_CAST"}, {node_icon_items_MOD_MESHDEFORM, "MOD_MESHDEFORM"}, {node_icon_items_MOD_BEVEL, "MOD_BEVEL"}, {node_icon_items_MOD_SMOOTH, "MOD_SMOOTH"}, {node_icon_items_MOD_SIMPLEDEFORM, "MOD_SIMPLEDEFORM"}, {node_icon_items_MOD_MASK, "MOD_MASK"}, {node_icon_items_MOD_CLOTH, "MOD_CLOTH"}, {node_icon_items_MOD_EXPLODE, "MOD_EXPLODE"}, {node_icon_items_MOD_FLUIDSIM, "MOD_FLUIDSIM"}, {node_icon_items_MOD_MULTIRES, "MOD_MULTIRES"}, {node_icon_items_MOD_SMOKE, "MOD_SMOKE"}, {node_icon_items_MOD_SOLIDIFY, "MOD_SOLIDIFY"}, {node_icon_items_MOD_SCREW, "MOD_SCREW"}, {node_icon_items_MOD_VERTEX_WEIGHT, "MOD_VERTEX_WEIGHT"}, {node_icon_items_MOD_DYNAMICPAINT, "MOD_DYNAMICPAINT"}, {node_icon_items_MOD_REMESH, "MOD_REMESH"}, {node_icon_items_MOD_OCEAN, "MOD_OCEAN"}, {node_icon_items_MOD_WARP, "MOD_WARP"}, {node_icon_items_MOD_SKIN, "MOD_SKIN"}, {node_icon_items_MOD_TRIANGULATE, "MOD_TRIANGULATE"}, {node_icon_items_MOD_WIREFRAME, "MOD_WIREFRAME"}, {node_icon_items_MOD_DATA_TRANSFER, "MOD_DATA_TRANSFER"}, {node_icon_items_MOD_NORMALEDIT, "MOD_NORMALEDIT"}, {node_icon_items_REC, "REC"}, {node_icon_items_PLAY, "PLAY"}, {node_icon_items_FF, "FF"}, {node_icon_items_REW, "REW"}, {node_icon_items_PAUSE, "PAUSE"}, {node_icon_items_PREV_KEYFRAME, "PREV_KEYFRAME"}, {node_icon_items_NEXT_KEYFRAME, "NEXT_KEYFRAME"}, {node_icon_items_PLAY_AUDIO, "PLAY_AUDIO"}, {node_icon_items_PLAY_REVERSE, "PLAY_REVERSE"}, {node_icon_items_PREVIEW_RANGE, "PREVIEW_RANGE"}, {node_icon_items_ACTION_TWEAK, "ACTION_TWEAK"}, {node_icon_items_PMARKER_ACT, "PMARKER_ACT"}, {node_icon_items_PMARKER_SEL, "PMARKER_SEL"}, {node_icon_items_PMARKER, "PMARKER"}, {node_icon_items_MARKER_HLT, "MARKER_HLT"}, {node_icon_items_MARKER, "MARKER"}, {node_icon_items_SPACE2, "SPACE2"}, {node_icon_items_SPACE3, "SPACE3"}, {node_icon_items_KEYINGSET, "KEYINGSET"}, {node_icon_items_KEY_DEHLT, "KEY_DEHLT"}, {node_icon_items_KEY_HLT, "KEY_HLT"}, {node_icon_items_MUTE_IPO_OFF, "MUTE_IPO_OFF"}, {node_icon_items_MUTE_IPO_ON, "MUTE_IPO_ON"}, {node_icon_items_VISIBLE_IPO_OFF, "VISIBLE_IPO_OFF"}, {node_icon_items_VISIBLE_IPO_ON, "VISIBLE_IPO_ON"}, {node_icon_items_DRIVER, "DRIVER"}, {node_icon_items_SOLO_OFF, "SOLO_OFF"}, {node_icon_items_SOLO_ON, "SOLO_ON"}, {node_icon_items_FRAME_PREV, "FRAME_PREV"}, {node_icon_items_FRAME_NEXT, "FRAME_NEXT"}, {node_icon_items_NLA_PUSHDOWN, "NLA_PUSHDOWN"}, {node_icon_items_IPO_CONSTANT, "IPO_CONSTANT"}, {node_icon_items_IPO_LINEAR, "IPO_LINEAR"}, {node_icon_items_IPO_BEZIER, "IPO_BEZIER"}, {node_icon_items_IPO_SINE, "IPO_SINE"}, {node_icon_items_IPO_QUAD, "IPO_QUAD"}, {node_icon_items_IPO_CUBIC, "IPO_CUBIC"}, {node_icon_items_IPO_QUART, "IPO_QUART"}, {node_icon_items_IPO_QUINT, "IPO_QUINT"}, {node_icon_items_IPO_EXPO, "IPO_EXPO"}, {node_icon_items_IPO_CIRC, "IPO_CIRC"}, {node_icon_items_IPO_BOUNCE, "IPO_BOUNCE"}, {node_icon_items_IPO_ELASTIC, "IPO_ELASTIC"}, {node_icon_items_IPO_BACK, "IPO_BACK"}, {node_icon_items_IPO_EASE_IN, "IPO_EASE_IN"}, {node_icon_items_IPO_EASE_OUT, "IPO_EASE_OUT"}, {node_icon_items_IPO_EASE_IN_OUT, "IPO_EASE_IN_OUT"}, {node_icon_items_VERTEXSEL, "VERTEXSEL"}, {node_icon_items_EDGESEL, "EDGESEL"}, {node_icon_items_FACESEL, "FACESEL"}, {node_icon_items_LOOPSEL, "LOOPSEL"}, {node_icon_items_ROTATE, "ROTATE"}, {node_icon_items_CURSOR, "CURSOR"}, {node_icon_items_ROTATECOLLECTION, "ROTATECOLLECTION"}, {node_icon_items_ROTATECENTER, "ROTATECENTER"}, {node_icon_items_ROTACTIVE, "ROTACTIVE"}, {node_icon_items_ALIGN, "ALIGN"}, {node_icon_items_SMOOTHCURVE, "SMOOTHCURVE"}, {node_icon_items_SPHERECURVE, "SPHERECURVE"}, {node_icon_items_ROOTCURVE, "ROOTCURVE"}, {node_icon_items_SHARPCURVE, "SHARPCURVE"}, {node_icon_items_LINCURVE, "LINCURVE"}, {node_icon_items_NOCURVE, "NOCURVE"}, {node_icon_items_RNDCURVE, "RNDCURVE"}, {node_icon_items_PROP_OFF, "PROP_OFF"}, {node_icon_items_PROP_ON, "PROP_ON"}, {node_icon_items_PROP_CON, "PROP_CON"}, {node_icon_items_SCULPT_DYNTOPO, "SCULPT_DYNTOPO"}, {node_icon_items_PARTICLE_POINT, "PARTICLE_POINT"}, {node_icon_items_PARTICLE_TIP, "PARTICLE_TIP"}, {node_icon_items_PARTICLE_PATH, "PARTICLE_PATH"}, {node_icon_items_MAN_TRANS, "MAN_TRANS"}, {node_icon_items_MAN_ROT, "MAN_ROT"}, {node_icon_items_MAN_SCALE, "MAN_SCALE"}, {node_icon_items_MANIPUL, "MANIPUL"}, {node_icon_items_SNAP_OFF, "SNAP_OFF"}, {node_icon_items_SNAP_ON, "SNAP_ON"}, {node_icon_items_SNAP_NORMAL, "SNAP_NORMAL"}, {node_icon_items_SNAP_INCREMENT, "SNAP_INCREMENT"}, {node_icon_items_SNAP_VERTEX, "SNAP_VERTEX"}, {node_icon_items_SNAP_EDGE, "SNAP_EDGE"}, {node_icon_items_SNAP_FACE, "SNAP_FACE"}, {node_icon_items_SNAP_VOLUME, "SNAP_VOLUME"}, {node_icon_items_STICKY_UVS_LOC, "STICKY_UVS_LOC"}, {node_icon_items_STICKY_UVS_DISABLE, "STICKY_UVS_DISABLE"}, {node_icon_items_STICKY_UVS_VERT, "STICKY_UVS_VERT"}, {node_icon_items_CLIPUV_DEHLT, "CLIPUV_DEHLT"}, {node_icon_items_CLIPUV_HLT, "CLIPUV_HLT"}, {node_icon_items_SNAP_PEEL_OBJECT, "SNAP_PEEL_OBJECT"}, {node_icon_items_GRID, "GRID"}, {node_icon_items_PASTEDOWN, "PASTEDOWN"}, {node_icon_items_COPYDOWN, "COPYDOWN"}, {node_icon_items_PASTEFLIPUP, "PASTEFLIPUP"}, {node_icon_items_PASTEFLIPDOWN, "PASTEFLIPDOWN"}, {node_icon_items_SNAP_SURFACE, "SNAP_SURFACE"}, {node_icon_items_AUTOMERGE_ON, "AUTOMERGE_ON"}, {node_icon_items_AUTOMERGE_OFF, "AUTOMERGE_OFF"}, {node_icon_items_RETOPO, "RETOPO"}, {node_icon_items_UV_VERTEXSEL, "UV_VERTEXSEL"}, {node_icon_items_UV_EDGESEL, "UV_EDGESEL"}, {node_icon_items_UV_FACESEL, "UV_FACESEL"}, {node_icon_items_UV_ISLANDSEL, "UV_ISLANDSEL"}, {node_icon_items_UV_SYNC_SELECT, "UV_SYNC_SELECT"}, {node_icon_items_BBOX, "BBOX"}, {node_icon_items_WIRE, "WIRE"}, {node_icon_items_SOLID, "SOLID"}, {node_icon_items_SMOOTH, "SMOOTH"}, {node_icon_items_POTATO, "POTATO"}, {node_icon_items_ORTHO, "ORTHO"}, {node_icon_items_LOCKVIEW_OFF, "LOCKVIEW_OFF"}, {node_icon_items_LOCKVIEW_ON, "LOCKVIEW_ON"}, {node_icon_items_AXIS_SIDE, "AXIS_SIDE"}, {node_icon_items_AXIS_FRONT, "AXIS_FRONT"}, {node_icon_items_AXIS_TOP, "AXIS_TOP"}, {node_icon_items_NDOF_DOM, "NDOF_DOM"}, {node_icon_items_NDOF_TURN, "NDOF_TURN"}, {node_icon_items_NDOF_FLY, "NDOF_FLY"}, {node_icon_items_NDOF_TRANS, "NDOF_TRANS"}, {node_icon_items_LAYER_USED, "LAYER_USED"}, {node_icon_items_LAYER_ACTIVE, "LAYER_ACTIVE"}, {node_icon_items_SORTALPHA, "SORTALPHA"}, {node_icon_items_SORTBYEXT, "SORTBYEXT"}, {node_icon_items_SORTTIME, "SORTTIME"}, {node_icon_items_SORTSIZE, "SORTSIZE"}, {node_icon_items_LONGDISPLAY, "LONGDISPLAY"}, {node_icon_items_SHORTDISPLAY, "SHORTDISPLAY"}, {node_icon_items_GHOST, "GHOST"}, {node_icon_items_IMGDISPLAY, "IMGDISPLAY"}, {node_icon_items_SAVE_AS, "SAVE_AS"}, {node_icon_items_SAVE_COPY, "SAVE_COPY"}, {node_icon_items_BOOKMARKS, "BOOKMARKS"}, {node_icon_items_FONTPREVIEW, "FONTPREVIEW"}, {node_icon_items_FILTER, "FILTER"}, {node_icon_items_NEWFOLDER, "NEWFOLDER"}, {node_icon_items_OPEN_RECENT, "OPEN_RECENT"}, {node_icon_items_FILE_PARENT, "FILE_PARENT"}, {node_icon_items_FILE_REFRESH, "FILE_REFRESH"}, {node_icon_items_FILE_FOLDER, "FILE_FOLDER"}, {node_icon_items_FILE_BLANK, "FILE_BLANK"}, {node_icon_items_FILE_BLEND, "FILE_BLEND"}, {node_icon_items_FILE_IMAGE, "FILE_IMAGE"}, {node_icon_items_FILE_MOVIE, "FILE_MOVIE"}, {node_icon_items_FILE_SCRIPT, "FILE_SCRIPT"}, {node_icon_items_FILE_SOUND, "FILE_SOUND"}, {node_icon_items_FILE_FONT, "FILE_FONT"}, {node_icon_items_FILE_TEXT, "FILE_TEXT"}, {node_icon_items_RECOVER_AUTO, "RECOVER_AUTO"}, {node_icon_items_SAVE_PREFS, "SAVE_PREFS"}, {node_icon_items_LINK_BLEND, "LINK_BLEND"}, {node_icon_items_APPEND_BLEND, "APPEND_BLEND"}, {node_icon_items_IMPORT, "IMPORT"}, {node_icon_items_EXPORT, "EXPORT"}, {node_icon_items_EXTERNAL_DATA, "EXTERNAL_DATA"}, {node_icon_items_LOAD_FACTORY, "LOAD_FACTORY"}, {node_icon_items_LOOP_BACK, "LOOP_BACK"}, {node_icon_items_LOOP_FORWARDS, "LOOP_FORWARDS"}, {node_icon_items_BACK, "BACK"}, {node_icon_items_FORWARD, "FORWARD"}, {node_icon_items_FILE_HIDDEN, "FILE_HIDDEN"}, {node_icon_items_FILE_BACKUP, "FILE_BACKUP"}, {node_icon_items_DISK_DRIVE, "DISK_DRIVE"}, {node_icon_items_MATPLANE, "MATPLANE"}, {node_icon_items_MATSPHERE, "MATSPHERE"}, {node_icon_items_MATCUBE, "MATCUBE"}, {node_icon_items_MONKEY, "MONKEY"}, {node_icon_items_HAIR, "HAIR"}, {node_icon_items_ALIASED, "ALIASED"}, {node_icon_items_ANTIALIASED, "ANTIALIASED"}, {node_icon_items_MAT_SPHERE_SKY, "MAT_SPHERE_SKY"}, {node_icon_items_WORDWRAP_OFF, "WORDWRAP_OFF"}, {node_icon_items_WORDWRAP_ON, "WORDWRAP_ON"}, {node_icon_items_SYNTAX_OFF, "SYNTAX_OFF"}, {node_icon_items_SYNTAX_ON, "SYNTAX_ON"}, {node_icon_items_LINENUMBERS_OFF, "LINENUMBERS_OFF"}, {node_icon_items_LINENUMBERS_ON, "LINENUMBERS_ON"}, {node_icon_items_SCRIPTPLUGINS, "SCRIPTPLUGINS"}, {node_icon_items_SEQ_SEQUENCER, "SEQ_SEQUENCER"}, {node_icon_items_SEQ_PREVIEW, "SEQ_PREVIEW"}, {node_icon_items_SEQ_LUMA_WAVEFORM, "SEQ_LUMA_WAVEFORM"}, {node_icon_items_SEQ_CHROMA_SCOPE, "SEQ_CHROMA_SCOPE"}, {node_icon_items_SEQ_HISTOGRAM, "SEQ_HISTOGRAM"}, {node_icon_items_SEQ_SPLITVIEW, "SEQ_SPLITVIEW"}, {node_icon_items_IMAGE_RGB, "IMAGE_RGB"}, {node_icon_items_IMAGE_RGB_ALPHA, "IMAGE_RGB_ALPHA"}, {node_icon_items_IMAGE_ALPHA, "IMAGE_ALPHA"}, {node_icon_items_IMAGE_ZDEPTH, "IMAGE_ZDEPTH"}, {node_icon_items_IMAGEFILE, "IMAGEFILE"}, {node_icon_items_BRUSH_ADD, "BRUSH_ADD"}, {node_icon_items_BRUSH_BLOB, "BRUSH_BLOB"}, {node_icon_items_BRUSH_BLUR, "BRUSH_BLUR"}, {node_icon_items_BRUSH_CLAY, "BRUSH_CLAY"}, {node_icon_items_BRUSH_CLAY_STRIPS, "BRUSH_CLAY_STRIPS"}, {node_icon_items_BRUSH_CLONE, "BRUSH_CLONE"}, {node_icon_items_BRUSH_CREASE, "BRUSH_CREASE"}, {node_icon_items_BRUSH_DARKEN, "BRUSH_DARKEN"}, {node_icon_items_BRUSH_FILL, "BRUSH_FILL"}, {node_icon_items_BRUSH_FLATTEN, "BRUSH_FLATTEN"}, {node_icon_items_BRUSH_GRAB, "BRUSH_GRAB"}, {node_icon_items_BRUSH_INFLATE, "BRUSH_INFLATE"}, {node_icon_items_BRUSH_LAYER, "BRUSH_LAYER"}, {node_icon_items_BRUSH_LIGHTEN, "BRUSH_LIGHTEN"}, {node_icon_items_BRUSH_MASK, "BRUSH_MASK"}, {node_icon_items_BRUSH_MIX, "BRUSH_MIX"}, {node_icon_items_BRUSH_MULTIPLY, "BRUSH_MULTIPLY"}, {node_icon_items_BRUSH_NUDGE, "BRUSH_NUDGE"}, {node_icon_items_BRUSH_PINCH, "BRUSH_PINCH"}, {node_icon_items_BRUSH_SCRAPE, "BRUSH_SCRAPE"}, {node_icon_items_BRUSH_SCULPT_DRAW, "BRUSH_SCULPT_DRAW"}, {node_icon_items_BRUSH_SMEAR, "BRUSH_SMEAR"}, {node_icon_items_BRUSH_SMOOTH, "BRUSH_SMOOTH"}, {node_icon_items_BRUSH_SNAKE_HOOK, "BRUSH_SNAKE_HOOK"}, {node_icon_items_BRUSH_SOFTEN, "BRUSH_SOFTEN"}, {node_icon_items_BRUSH_SUBTRACT, "BRUSH_SUBTRACT"}, {node_icon_items_BRUSH_TEXDRAW, "BRUSH_TEXDRAW"}, {node_icon_items_BRUSH_TEXFILL, "BRUSH_TEXFILL"}, {node_icon_items_BRUSH_TEXMASK, "BRUSH_TEXMASK"}, {node_icon_items_BRUSH_THUMB, "BRUSH_THUMB"}, {node_icon_items_BRUSH_ROTATE, "BRUSH_ROTATE"}, {node_icon_items_BRUSH_VERTEXDRAW, "BRUSH_VERTEXDRAW"}, {node_icon_items_MATCAP_01, "MATCAP_01"}, {node_icon_items_MATCAP_02, "MATCAP_02"}, {node_icon_items_MATCAP_03, "MATCAP_03"}, {node_icon_items_MATCAP_04, "MATCAP_04"}, {node_icon_items_MATCAP_05, "MATCAP_05"}, {node_icon_items_MATCAP_06, "MATCAP_06"}, {node_icon_items_MATCAP_07, "MATCAP_07"}, {node_icon_items_MATCAP_08, "MATCAP_08"}, {node_icon_items_MATCAP_09, "MATCAP_09"}, {node_icon_items_MATCAP_10, "MATCAP_10"}, {node_icon_items_MATCAP_11, "MATCAP_11"}, {node_icon_items_MATCAP_12, "MATCAP_12"}, {node_icon_items_MATCAP_13, "MATCAP_13"}, {node_icon_items_MATCAP_14, "MATCAP_14"}, {node_icon_items_MATCAP_15, "MATCAP_15"}, {node_icon_items_MATCAP_16, "MATCAP_16"}, {node_icon_items_MATCAP_17, "MATCAP_17"}, {node_icon_items_MATCAP_18, "MATCAP_18"}, {node_icon_items_MATCAP_19, "MATCAP_19"}, {node_icon_items_MATCAP_20, "MATCAP_20"}, {node_icon_items_MATCAP_21, "MATCAP_21"}, {node_icon_items_MATCAP_22, "MATCAP_22"}, {node_icon_items_MATCAP_23, "MATCAP_23"}, {node_icon_items_MATCAP_24, "MATCAP_24"}};
 	};
 
-	const std::map<std::string, int> string_to_node_icon_items = create_string_to_node_icon_items();
-	const std::map<int, std::string> node_icon_items_to_string = create_node_icon_items_to_string();
+	static const std::map<std::string, int> string_to_node_icon_items = create_string_to_node_icon_items();
+	static const std::map<int, std::string> node_icon_items_to_string = create_node_icon_items_to_string();
 
 	node_icon_items_enum bl_icon() {
 		STRING_TYPE_GETTER("bl_icon", static_cast<node_icon_items_enum>(string_to_node_icon_items.at(resstr)))
@@ -42652,8 +42652,8 @@ public:
 		return {{node_socket_type_items_CUSTOM, "CUSTOM"}, {node_socket_type_items_VALUE, "VALUE"}, {node_socket_type_items_INT, "INT"}, {node_socket_type_items_BOOLEAN, "BOOLEAN"}, {node_socket_type_items_VECTOR, "VECTOR"}, {node_socket_type_items_STRING, "STRING"}, {node_socket_type_items_RGBA, "RGBA"}, {node_socket_type_items_SHADER, "SHADER"}};
 	};
 
-	const std::map<std::string, int> string_to_node_socket_type_items = create_string_to_node_socket_type_items();
-	const std::map<int, std::string> node_socket_type_items_to_string = create_node_socket_type_items_to_string();
+	static const std::map<std::string, int> string_to_node_socket_type_items = create_string_to_node_socket_type_items();
+	static const std::map<int, std::string> node_socket_type_items_to_string = create_node_socket_type_items_to_string();
 
 	node_socket_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<node_socket_type_items_enum>(string_to_node_socket_type_items.at(resstr)))
@@ -43542,8 +43542,8 @@ public:
 		return {{node_quality_items_HIGH, "HIGH"}, {node_quality_items_MEDIUM, "MEDIUM"}, {node_quality_items_LOW, "LOW"}};
 	};
 
-	const std::map<std::string, int> string_to_node_quality_items = create_string_to_node_quality_items();
-	const std::map<int, std::string> node_quality_items_to_string = create_node_quality_items_to_string();
+	static const std::map<std::string, int> string_to_node_quality_items = create_string_to_node_quality_items();
+	static const std::map<int, std::string> node_quality_items_to_string = create_node_quality_items_to_string();
 
 	node_quality_items_enum render_quality() {
 		STRING_TYPE_GETTER("render_quality", static_cast<node_quality_items_enum>(string_to_node_quality_items.at(resstr)))
@@ -43578,8 +43578,8 @@ public:
 		return {{node_chunksize_items_32, "32"}, {node_chunksize_items_64, "64"}, {node_chunksize_items_128, "128"}, {node_chunksize_items_256, "256"}, {node_chunksize_items_512, "512"}, {node_chunksize_items_1024, "1024"}};
 	};
 
-	const std::map<std::string, int> string_to_node_chunksize_items = create_string_to_node_chunksize_items();
-	const std::map<int, std::string> node_chunksize_items_to_string = create_node_chunksize_items_to_string();
+	static const std::map<std::string, int> string_to_node_chunksize_items = create_string_to_node_chunksize_items();
+	static const std::map<int, std::string> node_chunksize_items_to_string = create_node_chunksize_items_to_string();
 
 	node_chunksize_items_enum chunk_size() {
 		STRING_TYPE_GETTER("chunk_size", static_cast<node_chunksize_items_enum>(string_to_node_chunksize_items.at(resstr)))
@@ -43953,8 +43953,8 @@ public:
 		return {{ramp_blend_items_MIX, "MIX"}, {ramp_blend_items_ADD, "ADD"}, {ramp_blend_items_MULTIPLY, "MULTIPLY"}, {ramp_blend_items_SUBTRACT, "SUBTRACT"}, {ramp_blend_items_SCREEN, "SCREEN"}, {ramp_blend_items_DIVIDE, "DIVIDE"}, {ramp_blend_items_DIFFERENCE, "DIFFERENCE"}, {ramp_blend_items_DARKEN, "DARKEN"}, {ramp_blend_items_LIGHTEN, "LIGHTEN"}, {ramp_blend_items_OVERLAY, "OVERLAY"}, {ramp_blend_items_DODGE, "DODGE"}, {ramp_blend_items_BURN, "BURN"}, {ramp_blend_items_HUE, "HUE"}, {ramp_blend_items_SATURATION, "SATURATION"}, {ramp_blend_items_VALUE, "VALUE"}, {ramp_blend_items_COLOR, "COLOR"}, {ramp_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {ramp_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
-	const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
+	static const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
+	static const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
 
 	ramp_blend_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<ramp_blend_items_enum>(string_to_ramp_blend_items.at(resstr)))
@@ -44211,8 +44211,8 @@ public:
 		return {{prop_vect_type_items_TEXTURE, "TEXTURE"}, {prop_vect_type_items_POINT, "POINT"}, {prop_vect_type_items_VECTOR, "VECTOR"}, {prop_vect_type_items_NORMAL, "NORMAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_vect_type_items = create_string_to_prop_vect_type_items();
-	const std::map<int, std::string> prop_vect_type_items_to_string = create_prop_vect_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_vect_type_items = create_string_to_prop_vect_type_items();
+	static const std::map<int, std::string> prop_vect_type_items_to_string = create_prop_vect_type_items_to_string();
 
 	prop_vect_type_items_enum vector_type() {
 		STRING_TYPE_GETTER("vector_type", static_cast<prop_vect_type_items_enum>(string_to_prop_vect_type_items.at(resstr)))
@@ -44433,8 +44433,8 @@ public:
 		return {{node_math_items_ADD, "ADD"}, {node_math_items_SUBTRACT, "SUBTRACT"}, {node_math_items_MULTIPLY, "MULTIPLY"}, {node_math_items_DIVIDE, "DIVIDE"}, {node_math_items_SINE, "SINE"}, {node_math_items_COSINE, "COSINE"}, {node_math_items_TANGENT, "TANGENT"}, {node_math_items_ARCSINE, "ARCSINE"}, {node_math_items_ARCCOSINE, "ARCCOSINE"}, {node_math_items_ARCTANGENT, "ARCTANGENT"}, {node_math_items_POWER, "POWER"}, {node_math_items_LOGARITHM, "LOGARITHM"}, {node_math_items_MINIMUM, "MINIMUM"}, {node_math_items_MAXIMUM, "MAXIMUM"}, {node_math_items_ROUND, "ROUND"}, {node_math_items_LESS_THAN, "LESS_THAN"}, {node_math_items_GREATER_THAN, "GREATER_THAN"}, {node_math_items_MODULO, "MODULO"}, {node_math_items_ABSOLUTE, "ABSOLUTE"}};
 	};
 
-	const std::map<std::string, int> string_to_node_math_items = create_string_to_node_math_items();
-	const std::map<int, std::string> node_math_items_to_string = create_node_math_items_to_string();
+	static const std::map<std::string, int> string_to_node_math_items = create_string_to_node_math_items();
+	static const std::map<int, std::string> node_math_items_to_string = create_node_math_items_to_string();
 
 	node_math_items_enum operation() {
 		STRING_TYPE_GETTER("operation", static_cast<node_math_items_enum>(string_to_node_math_items.at(resstr)))
@@ -44492,8 +44492,8 @@ public:
 		return {{node_vec_math_items_ADD, "ADD"}, {node_vec_math_items_SUBTRACT, "SUBTRACT"}, {node_vec_math_items_AVERAGE, "AVERAGE"}, {node_vec_math_items_DOT_PRODUCT, "DOT_PRODUCT"}, {node_vec_math_items_CROSS_PRODUCT, "CROSS_PRODUCT"}, {node_vec_math_items_NORMALIZE, "NORMALIZE"}};
 	};
 
-	const std::map<std::string, int> string_to_node_vec_math_items = create_string_to_node_vec_math_items();
-	const std::map<int, std::string> node_vec_math_items_to_string = create_node_vec_math_items_to_string();
+	static const std::map<std::string, int> string_to_node_vec_math_items = create_string_to_node_vec_math_items();
+	static const std::map<int, std::string> node_vec_math_items_to_string = create_node_vec_math_items_to_string();
 
 	node_vec_math_items_enum operation() {
 		STRING_TYPE_GETTER("operation", static_cast<node_vec_math_items_enum>(string_to_node_vec_math_items.at(resstr)))
@@ -44822,8 +44822,8 @@ public:
 		return {{ramp_blend_items_MIX, "MIX"}, {ramp_blend_items_ADD, "ADD"}, {ramp_blend_items_MULTIPLY, "MULTIPLY"}, {ramp_blend_items_SUBTRACT, "SUBTRACT"}, {ramp_blend_items_SCREEN, "SCREEN"}, {ramp_blend_items_DIVIDE, "DIVIDE"}, {ramp_blend_items_DIFFERENCE, "DIFFERENCE"}, {ramp_blend_items_DARKEN, "DARKEN"}, {ramp_blend_items_LIGHTEN, "LIGHTEN"}, {ramp_blend_items_OVERLAY, "OVERLAY"}, {ramp_blend_items_DODGE, "DODGE"}, {ramp_blend_items_BURN, "BURN"}, {ramp_blend_items_HUE, "HUE"}, {ramp_blend_items_SATURATION, "SATURATION"}, {ramp_blend_items_VALUE, "VALUE"}, {ramp_blend_items_COLOR, "COLOR"}, {ramp_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {ramp_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
-	const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
+	static const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
+	static const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
 
 	ramp_blend_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<ramp_blend_items_enum>(string_to_ramp_blend_items.at(resstr)))
@@ -45078,8 +45078,8 @@ public:
 		return {{node_anisotropic_items_BECKMANN, "BECKMANN"}, {node_anisotropic_items_GGX, "GGX"}, {node_anisotropic_items_ASHIKHMIN_SHIRLEY, "ASHIKHMIN_SHIRLEY"}};
 	};
 
-	const std::map<std::string, int> string_to_node_anisotropic_items = create_string_to_node_anisotropic_items();
-	const std::map<int, std::string> node_anisotropic_items_to_string = create_node_anisotropic_items_to_string();
+	static const std::map<std::string, int> string_to_node_anisotropic_items = create_string_to_node_anisotropic_items();
+	static const std::map<int, std::string> node_anisotropic_items_to_string = create_node_anisotropic_items_to_string();
 
 	node_anisotropic_items_enum distribution() {
 		STRING_TYPE_GETTER("distribution", static_cast<node_anisotropic_items_enum>(string_to_node_anisotropic_items.at(resstr)))
@@ -45150,8 +45150,8 @@ public:
 		return {{node_glossy_items_SHARP, "SHARP"}, {node_glossy_items_BECKMANN, "BECKMANN"}, {node_glossy_items_GGX, "GGX"}, {node_glossy_items_ASHIKHMIN_SHIRLEY, "ASHIKHMIN_SHIRLEY"}};
 	};
 
-	const std::map<std::string, int> string_to_node_glossy_items = create_string_to_node_glossy_items();
-	const std::map<int, std::string> node_glossy_items_to_string = create_node_glossy_items_to_string();
+	static const std::map<std::string, int> string_to_node_glossy_items = create_string_to_node_glossy_items();
+	static const std::map<int, std::string> node_glossy_items_to_string = create_node_glossy_items_to_string();
 
 	node_glossy_items_enum distribution() {
 		STRING_TYPE_GETTER("distribution", static_cast<node_glossy_items_enum>(string_to_node_glossy_items.at(resstr)))
@@ -45198,8 +45198,8 @@ public:
 		return {{node_glass_items_SHARP, "SHARP"}, {node_glass_items_BECKMANN, "BECKMANN"}, {node_glass_items_GGX, "GGX"}};
 	};
 
-	const std::map<std::string, int> string_to_node_glass_items = create_string_to_node_glass_items();
-	const std::map<int, std::string> node_glass_items_to_string = create_node_glass_items_to_string();
+	static const std::map<std::string, int> string_to_node_glass_items = create_string_to_node_glass_items();
+	static const std::map<int, std::string> node_glass_items_to_string = create_node_glass_items_to_string();
 
 	node_glass_items_enum distribution() {
 		STRING_TYPE_GETTER("distribution", static_cast<node_glass_items_enum>(string_to_node_glass_items.at(resstr)))
@@ -45246,8 +45246,8 @@ public:
 		return {{node_glass_items_SHARP, "SHARP"}, {node_glass_items_BECKMANN, "BECKMANN"}, {node_glass_items_GGX, "GGX"}};
 	};
 
-	const std::map<std::string, int> string_to_node_glass_items = create_string_to_node_glass_items();
-	const std::map<int, std::string> node_glass_items_to_string = create_node_glass_items_to_string();
+	static const std::map<std::string, int> string_to_node_glass_items = create_string_to_node_glass_items();
+	static const std::map<int, std::string> node_glass_items_to_string = create_node_glass_items_to_string();
 
 	node_glass_items_enum distribution() {
 		STRING_TYPE_GETTER("distribution", static_cast<node_glass_items_enum>(string_to_node_glass_items.at(resstr)))
@@ -45362,8 +45362,8 @@ public:
 		return {{node_toon_items_DIFFUSE, "DIFFUSE"}, {node_toon_items_GLOSSY, "GLOSSY"}};
 	};
 
-	const std::map<std::string, int> string_to_node_toon_items = create_string_to_node_toon_items();
-	const std::map<int, std::string> node_toon_items_to_string = create_node_toon_items_to_string();
+	static const std::map<std::string, int> string_to_node_toon_items = create_string_to_node_toon_items();
+	static const std::map<int, std::string> node_toon_items_to_string = create_node_toon_items_to_string();
 
 	node_toon_items_enum component() {
 		STRING_TYPE_GETTER("component", static_cast<node_toon_items_enum>(string_to_node_toon_items.at(resstr)))
@@ -45409,8 +45409,8 @@ public:
 		return {{node_hair_items_Reflection, "Reflection"}, {node_hair_items_Transmission, "Transmission"}};
 	};
 
-	const std::map<std::string, int> string_to_node_hair_items = create_string_to_node_hair_items();
-	const std::map<int, std::string> node_hair_items_to_string = create_node_hair_items_to_string();
+	static const std::map<std::string, int> string_to_node_hair_items = create_string_to_node_hair_items();
+	static const std::map<int, std::string> node_hair_items_to_string = create_node_hair_items_to_string();
 
 	node_hair_items_enum component() {
 		STRING_TYPE_GETTER("component", static_cast<node_hair_items_enum>(string_to_node_hair_items.at(resstr)))
@@ -45456,8 +45456,8 @@ public:
 		return {{prop_subsurface_falloff_items_CUBIC, "CUBIC"}, {prop_subsurface_falloff_items_GAUSSIAN, "GAUSSIAN"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_subsurface_falloff_items = create_string_to_prop_subsurface_falloff_items();
-	const std::map<int, std::string> prop_subsurface_falloff_items_to_string = create_prop_subsurface_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_prop_subsurface_falloff_items = create_string_to_prop_subsurface_falloff_items();
+	static const std::map<int, std::string> prop_subsurface_falloff_items_to_string = create_prop_subsurface_falloff_items_to_string();
 
 	prop_subsurface_falloff_items_enum falloff() {
 		STRING_TYPE_GETTER("falloff", static_cast<prop_subsurface_falloff_items_enum>(string_to_prop_subsurface_falloff_items.at(resstr)))
@@ -45821,8 +45821,8 @@ public:
 		return {{prop_space_items_TANGENT, "TANGENT"}, {prop_space_items_OBJECT, "OBJECT"}, {prop_space_items_WORLD, "WORLD"}, {prop_space_items_BLENDER_OBJECT, "BLENDER_OBJECT"}, {prop_space_items_BLENDER_WORLD, "BLENDER_WORLD"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_space_items = create_string_to_prop_space_items();
-	const std::map<int, std::string> prop_space_items_to_string = create_prop_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_space_items = create_string_to_prop_space_items();
+	static const std::map<int, std::string> prop_space_items_to_string = create_prop_space_items_to_string();
 
 	prop_space_items_enum space() {
 		STRING_TYPE_GETTER("space", static_cast<prop_space_items_enum>(string_to_prop_space_items.at(resstr)))
@@ -45876,8 +45876,8 @@ public:
 		return {{prop_direction_type_items_RADIAL, "RADIAL"}, {prop_direction_type_items_UV_MAP, "UV_MAP"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_direction_type_items = create_string_to_prop_direction_type_items();
-	const std::map<int, std::string> prop_direction_type_items_to_string = create_prop_direction_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_direction_type_items = create_string_to_prop_direction_type_items();
+	static const std::map<int, std::string> prop_direction_type_items_to_string = create_prop_direction_type_items_to_string();
 
 	prop_direction_type_items_enum direction_type() {
 		STRING_TYPE_GETTER("direction_type", static_cast<prop_direction_type_items_enum>(string_to_prop_direction_type_items.at(resstr)))
@@ -45901,8 +45901,8 @@ public:
 		return {{prop_axis_items_X, "X"}, {prop_axis_items_Y, "Y"}, {prop_axis_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_axis_items = create_string_to_prop_axis_items();
-	const std::map<int, std::string> prop_axis_items_to_string = create_prop_axis_items_to_string();
+	static const std::map<std::string, int> string_to_prop_axis_items = create_string_to_prop_axis_items();
+	static const std::map<int, std::string> prop_axis_items_to_string = create_prop_axis_items_to_string();
 
 	prop_axis_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<prop_axis_items_enum>(string_to_prop_axis_items.at(resstr)))
@@ -45966,8 +45966,8 @@ public:
 		return {{node_script_mode_items_INTERNAL, "INTERNAL"}, {node_script_mode_items_EXTERNAL, "EXTERNAL"}};
 	};
 
-	const std::map<std::string, int> string_to_node_script_mode_items = create_string_to_node_script_mode_items();
-	const std::map<int, std::string> node_script_mode_items_to_string = create_node_script_mode_items_to_string();
+	static const std::map<std::string, int> string_to_node_script_mode_items = create_string_to_node_script_mode_items();
+	static const std::map<int, std::string> node_script_mode_items_to_string = create_node_script_mode_items_to_string();
 
 	node_script_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<node_script_mode_items_enum>(string_to_node_script_mode_items.at(resstr)))
@@ -46049,8 +46049,8 @@ public:
 		return {{prop_color_space_items_COLOR, "COLOR"}, {prop_color_space_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_color_space_items = create_string_to_prop_color_space_items();
-	const std::map<int, std::string> prop_color_space_items_to_string = create_prop_color_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_color_space_items = create_string_to_prop_color_space_items();
+	static const std::map<int, std::string> prop_color_space_items_to_string = create_prop_color_space_items_to_string();
 
 	prop_color_space_items_enum color_space() {
 		STRING_TYPE_GETTER("color_space", static_cast<prop_color_space_items_enum>(string_to_prop_color_space_items.at(resstr)))
@@ -46075,8 +46075,8 @@ public:
 		return {{prop_projection_items_FLAT, "FLAT"}, {prop_projection_items_BOX, "BOX"}, {prop_projection_items_SPHERE, "SPHERE"}, {prop_projection_items_TUBE, "TUBE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_projection_items = create_string_to_prop_projection_items();
-	const std::map<int, std::string> prop_projection_items_to_string = create_prop_projection_items_to_string();
+	static const std::map<std::string, int> string_to_prop_projection_items = create_string_to_prop_projection_items();
+	static const std::map<int, std::string> prop_projection_items_to_string = create_prop_projection_items_to_string();
 
 	prop_projection_items_enum projection() {
 		STRING_TYPE_GETTER("projection", static_cast<prop_projection_items_enum>(string_to_prop_projection_items.at(resstr)))
@@ -46101,8 +46101,8 @@ public:
 		return {{prop_interpolation_items_Linear, "Linear"}, {prop_interpolation_items_Closest, "Closest"}, {prop_interpolation_items_Cubic, "Cubic"}, {prop_interpolation_items_Smart, "Smart"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_interpolation_items = create_string_to_prop_interpolation_items();
-	const std::map<int, std::string> prop_interpolation_items_to_string = create_prop_interpolation_items_to_string();
+	static const std::map<std::string, int> string_to_prop_interpolation_items = create_string_to_prop_interpolation_items();
+	static const std::map<int, std::string> prop_interpolation_items_to_string = create_prop_interpolation_items_to_string();
 
 	prop_interpolation_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<prop_interpolation_items_enum>(string_to_prop_interpolation_items.at(resstr)))
@@ -46172,8 +46172,8 @@ public:
 		return {{prop_color_space_items_COLOR, "COLOR"}, {prop_color_space_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_color_space_items = create_string_to_prop_color_space_items();
-	const std::map<int, std::string> prop_color_space_items_to_string = create_prop_color_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_color_space_items = create_string_to_prop_color_space_items();
+	static const std::map<int, std::string> prop_color_space_items_to_string = create_prop_color_space_items_to_string();
 
 	prop_color_space_items_enum color_space() {
 		STRING_TYPE_GETTER("color_space", static_cast<prop_color_space_items_enum>(string_to_prop_color_space_items.at(resstr)))
@@ -46196,8 +46196,8 @@ public:
 		return {{prop_projection_items_EQUIRECTANGULAR, "EQUIRECTANGULAR"}, {prop_projection_items_MIRROR_BALL, "MIRROR_BALL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_projection_items = create_string_to_prop_projection_items();
-	const std::map<int, std::string> prop_projection_items_to_string = create_prop_projection_items_to_string();
+	static const std::map<std::string, int> string_to_prop_projection_items = create_string_to_prop_projection_items();
+	static const std::map<int, std::string> prop_projection_items_to_string = create_prop_projection_items_to_string();
 
 	prop_projection_items_enum projection() {
 		STRING_TYPE_GETTER("projection", static_cast<prop_projection_items_enum>(string_to_prop_projection_items.at(resstr)))
@@ -46255,8 +46255,8 @@ public:
 		return {{prop_sky_type_PREETHAM, "PREETHAM"}, {prop_sky_type_HOSEK_WILKIE, "HOSEK_WILKIE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_sky_type = create_string_to_prop_sky_type();
-	const std::map<int, std::string> prop_sky_type_to_string = create_prop_sky_type_to_string();
+	static const std::map<std::string, int> string_to_prop_sky_type = create_string_to_prop_sky_type();
+	static const std::map<int, std::string> prop_sky_type_to_string = create_prop_sky_type_to_string();
 
 	prop_sky_type_enum sky_type() {
 		STRING_TYPE_GETTER("sky_type", static_cast<prop_sky_type_enum>(string_to_prop_sky_type.at(resstr)))
@@ -46339,8 +46339,8 @@ public:
 		return {{prop_gradient_type_LINEAR, "LINEAR"}, {prop_gradient_type_QUADRATIC, "QUADRATIC"}, {prop_gradient_type_EASING, "EASING"}, {prop_gradient_type_DIAGONAL, "DIAGONAL"}, {prop_gradient_type_SPHERICAL, "SPHERICAL"}, {prop_gradient_type_QUADRATIC_SPHERE, "QUADRATIC_SPHERE"}, {prop_gradient_type_RADIAL, "RADIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_gradient_type = create_string_to_prop_gradient_type();
-	const std::map<int, std::string> prop_gradient_type_to_string = create_prop_gradient_type_to_string();
+	static const std::map<std::string, int> string_to_prop_gradient_type = create_string_to_prop_gradient_type();
+	static const std::map<int, std::string> prop_gradient_type_to_string = create_prop_gradient_type_to_string();
 
 	prop_gradient_type_enum gradient_type() {
 		STRING_TYPE_GETTER("gradient_type", static_cast<prop_gradient_type_enum>(string_to_prop_gradient_type.at(resstr)))
@@ -46464,8 +46464,8 @@ public:
 		return {{prop_wave_type_items_BANDS, "BANDS"}, {prop_wave_type_items_RINGS, "RINGS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_wave_type_items = create_string_to_prop_wave_type_items();
-	const std::map<int, std::string> prop_wave_type_items_to_string = create_prop_wave_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_wave_type_items = create_string_to_prop_wave_type_items();
+	static const std::map<int, std::string> prop_wave_type_items_to_string = create_prop_wave_type_items_to_string();
 
 	prop_wave_type_items_enum wave_type() {
 		STRING_TYPE_GETTER("wave_type", static_cast<prop_wave_type_items_enum>(string_to_prop_wave_type_items.at(resstr)))
@@ -46522,8 +46522,8 @@ public:
 		return {{prop_musgrave_type_MULTIFRACTAL, "MULTIFRACTAL"}, {prop_musgrave_type_RIDGED_MULTIFRACTAL, "RIDGED_MULTIFRACTAL"}, {prop_musgrave_type_HYBRID_MULTIFRACTAL, "HYBRID_MULTIFRACTAL"}, {prop_musgrave_type_FBM, "FBM"}, {prop_musgrave_type_HETERO_TERRAIN, "HETERO_TERRAIN"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_musgrave_type = create_string_to_prop_musgrave_type();
-	const std::map<int, std::string> prop_musgrave_type_to_string = create_prop_musgrave_type_to_string();
+	static const std::map<std::string, int> string_to_prop_musgrave_type = create_string_to_prop_musgrave_type();
+	static const std::map<int, std::string> prop_musgrave_type_to_string = create_prop_musgrave_type_to_string();
 
 	prop_musgrave_type_enum musgrave_type() {
 		STRING_TYPE_GETTER("musgrave_type", static_cast<prop_musgrave_type_enum>(string_to_prop_musgrave_type.at(resstr)))
@@ -46577,8 +46577,8 @@ public:
 		return {{prop_coloring_items_INTENSITY, "INTENSITY"}, {prop_coloring_items_CELLS, "CELLS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_coloring_items = create_string_to_prop_coloring_items();
-	const std::map<int, std::string> prop_coloring_items_to_string = create_prop_coloring_items_to_string();
+	static const std::map<std::string, int> string_to_prop_coloring_items = create_string_to_prop_coloring_items();
+	static const std::map<int, std::string> prop_coloring_items_to_string = create_prop_coloring_items_to_string();
 
 	prop_coloring_items_enum coloring() {
 		STRING_TYPE_GETTER("coloring", static_cast<prop_coloring_items_enum>(string_to_prop_coloring_items.at(resstr)))
@@ -46752,8 +46752,8 @@ public:
 		return {{prop_vect_type_items_POINT, "POINT"}, {prop_vect_type_items_VECTOR, "VECTOR"}, {prop_vect_type_items_NORMAL, "NORMAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_vect_type_items = create_string_to_prop_vect_type_items();
-	const std::map<int, std::string> prop_vect_type_items_to_string = create_prop_vect_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_vect_type_items = create_string_to_prop_vect_type_items();
+	static const std::map<int, std::string> prop_vect_type_items_to_string = create_prop_vect_type_items_to_string();
 
 	prop_vect_type_items_enum vector_type() {
 		STRING_TYPE_GETTER("vector_type", static_cast<prop_vect_type_items_enum>(string_to_prop_vect_type_items.at(resstr)))
@@ -46777,8 +46777,8 @@ public:
 		return {{prop_vect_space_items_WORLD, "WORLD"}, {prop_vect_space_items_OBJECT, "OBJECT"}, {prop_vect_space_items_CAMERA, "CAMERA"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_vect_space_items = create_string_to_prop_vect_space_items();
-	const std::map<int, std::string> prop_vect_space_items_to_string = create_prop_vect_space_items_to_string();
+	static const std::map<std::string, int> string_to_prop_vect_space_items = create_string_to_prop_vect_space_items();
+	static const std::map<int, std::string> prop_vect_space_items_to_string = create_prop_vect_space_items_to_string();
 
 	prop_vect_space_items_enum convert_from() {
 		STRING_TYPE_GETTER("convert_from", static_cast<prop_vect_space_items_enum>(string_to_prop_vect_space_items.at(resstr)))
@@ -46996,8 +46996,8 @@ public:
 		return {{tileorder_items_CENTEROUT, "CENTEROUT"}, {tileorder_items_RANDOM, "RANDOM"}, {tileorder_items_BOTTOMUP, "BOTTOMUP"}, {tileorder_items_RULE_OF_THIRDS, "RULE_OF_THIRDS"}};
 	};
 
-	const std::map<std::string, int> string_to_tileorder_items = create_string_to_tileorder_items();
-	const std::map<int, std::string> tileorder_items_to_string = create_tileorder_items_to_string();
+	static const std::map<std::string, int> string_to_tileorder_items = create_string_to_tileorder_items();
+	static const std::map<int, std::string> tileorder_items_to_string = create_tileorder_items_to_string();
 
 	tileorder_items_enum tile_order() {
 		STRING_TYPE_GETTER("tile_order", static_cast<tileorder_items_enum>(string_to_tileorder_items.at(resstr)))
@@ -47129,8 +47129,8 @@ public:
 		return {{ramp_blend_items_MIX, "MIX"}, {ramp_blend_items_ADD, "ADD"}, {ramp_blend_items_MULTIPLY, "MULTIPLY"}, {ramp_blend_items_SUBTRACT, "SUBTRACT"}, {ramp_blend_items_SCREEN, "SCREEN"}, {ramp_blend_items_DIVIDE, "DIVIDE"}, {ramp_blend_items_DIFFERENCE, "DIFFERENCE"}, {ramp_blend_items_DARKEN, "DARKEN"}, {ramp_blend_items_LIGHTEN, "LIGHTEN"}, {ramp_blend_items_OVERLAY, "OVERLAY"}, {ramp_blend_items_DODGE, "DODGE"}, {ramp_blend_items_BURN, "BURN"}, {ramp_blend_items_HUE, "HUE"}, {ramp_blend_items_SATURATION, "SATURATION"}, {ramp_blend_items_VALUE, "VALUE"}, {ramp_blend_items_COLOR, "COLOR"}, {ramp_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {ramp_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
-	const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
+	static const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
+	static const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
 
 	ramp_blend_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<ramp_blend_items_enum>(string_to_ramp_blend_items.at(resstr)))
@@ -47391,8 +47391,8 @@ public:
 		return {{aspect_correction_type_items_NONE, "NONE"}, {aspect_correction_type_items_Y, "Y"}, {aspect_correction_type_items_X, "X"}};
 	};
 
-	const std::map<std::string, int> string_to_aspect_correction_type_items = create_string_to_aspect_correction_type_items();
-	const std::map<int, std::string> aspect_correction_type_items_to_string = create_aspect_correction_type_items_to_string();
+	static const std::map<std::string, int> string_to_aspect_correction_type_items = create_string_to_aspect_correction_type_items();
+	static const std::map<int, std::string> aspect_correction_type_items_to_string = create_aspect_correction_type_items_to_string();
 
 	aspect_correction_type_items_enum aspect_correction() {
 		STRING_TYPE_GETTER("aspect_correction", static_cast<aspect_correction_type_items_enum>(string_to_aspect_correction_type_items.at(resstr)))
@@ -47445,8 +47445,8 @@ public:
 		return {{filter_type_items_FLAT, "FLAT"}, {filter_type_items_TENT, "TENT"}, {filter_type_items_QUAD, "QUAD"}, {filter_type_items_CUBIC, "CUBIC"}, {filter_type_items_GAUSS, "GAUSS"}, {filter_type_items_FAST_GAUSS, "FAST_GAUSS"}, {filter_type_items_CATROM, "CATROM"}, {filter_type_items_MITCH, "MITCH"}};
 	};
 
-	const std::map<std::string, int> string_to_filter_type_items = create_string_to_filter_type_items();
-	const std::map<int, std::string> filter_type_items_to_string = create_filter_type_items_to_string();
+	static const std::map<std::string, int> string_to_filter_type_items = create_string_to_filter_type_items();
+	static const std::map<int, std::string> filter_type_items_to_string = create_filter_type_items_to_string();
 
 	filter_type_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<filter_type_items_enum>(string_to_filter_type_items.at(resstr)))
@@ -47513,8 +47513,8 @@ public:
 		return {{node_filter_items_SOFTEN, "SOFTEN"}, {node_filter_items_SHARPEN, "SHARPEN"}, {node_filter_items_LAPLACE, "LAPLACE"}, {node_filter_items_SOBEL, "SOBEL"}, {node_filter_items_PREWITT, "PREWITT"}, {node_filter_items_KIRSCH, "KIRSCH"}, {node_filter_items_SHADOW, "SHADOW"}};
 	};
 
-	const std::map<std::string, int> string_to_node_filter_items = create_string_to_node_filter_items();
-	const std::map<int, std::string> node_filter_items_to_string = create_node_filter_items_to_string();
+	static const std::map<std::string, int> string_to_node_filter_items = create_string_to_node_filter_items();
+	static const std::map<int, std::string> node_filter_items_to_string = create_node_filter_items_to_string();
 
 	node_filter_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<node_filter_items_enum>(string_to_node_filter_items.at(resstr)))
@@ -47935,8 +47935,8 @@ public:
 		return {{prop_image_layer_items_PLACEHOLDER, "PLACEHOLDER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_image_layer_items = create_string_to_prop_image_layer_items();
-	const std::map<int, std::string> prop_image_layer_items_to_string = create_prop_image_layer_items_to_string();
+	static const std::map<std::string, int> string_to_prop_image_layer_items = create_string_to_prop_image_layer_items();
+	static const std::map<int, std::string> prop_image_layer_items_to_string = create_prop_image_layer_items_to_string();
 
 	prop_image_layer_items_enum layer() {
 		STRING_TYPE_GETTER("layer", static_cast<prop_image_layer_items_enum>(string_to_prop_image_layer_items.at(resstr)))
@@ -47966,8 +47966,8 @@ public:
 		return {{prop_image_view_items_ALL, "ALL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_image_view_items = create_string_to_prop_image_view_items();
-	const std::map<int, std::string> prop_image_view_items_to_string = create_prop_image_view_items_to_string();
+	static const std::map<std::string, int> string_to_prop_image_view_items = create_string_to_prop_image_view_items();
+	static const std::map<int, std::string> prop_image_view_items_to_string = create_prop_image_view_items_to_string();
 
 	prop_image_view_items_enum view() {
 		STRING_TYPE_GETTER("view", static_cast<prop_image_view_items_enum>(string_to_prop_image_view_items.at(resstr)))
@@ -48022,8 +48022,8 @@ public:
 		return {{prop_scene_layer_items_PLACEHOLDER, "PLACEHOLDER"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_scene_layer_items = create_string_to_prop_scene_layer_items();
-	const std::map<int, std::string> prop_scene_layer_items_to_string = create_prop_scene_layer_items_to_string();
+	static const std::map<std::string, int> string_to_prop_scene_layer_items = create_string_to_prop_scene_layer_items();
+	static const std::map<int, std::string> prop_scene_layer_items_to_string = create_prop_scene_layer_items_to_string();
 
 	prop_scene_layer_items_enum layer() {
 		STRING_TYPE_GETTER("layer", static_cast<prop_scene_layer_items_enum>(string_to_prop_scene_layer_items.at(resstr)))
@@ -48190,8 +48190,8 @@ public:
 		return {{translate_items_NONE, "NONE"}, {translate_items_XAXIS, "XAXIS"}, {translate_items_YAXIS, "YAXIS"}, {translate_items_BOTH, "BOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_translate_items = create_string_to_translate_items();
-	const std::map<int, std::string> translate_items_to_string = create_translate_items_to_string();
+	static const std::map<std::string, int> string_to_translate_items = create_string_to_translate_items();
+	static const std::map<int, std::string> translate_items_to_string = create_translate_items_to_string();
 
 	translate_items_enum wrap_axis() {
 		STRING_TYPE_GETTER("wrap_axis", static_cast<translate_items_enum>(string_to_translate_items.at(resstr)))
@@ -48301,8 +48301,8 @@ public:
 		return {{mode_items_STEP, "STEP"}, {mode_items_THRESHOLD, "THRESHOLD"}, {mode_items_DISTANCE, "DISTANCE"}, {mode_items_FEATHER, "FEATHER"}};
 	};
 
-	const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
-	const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
+	static const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
 
 	mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<mode_items_enum>(string_to_mode_items.at(resstr)))
@@ -48345,8 +48345,8 @@ public:
 		return {{proportional_falloff_curve_only_items_SMOOTH, "SMOOTH"}, {proportional_falloff_curve_only_items_SPHERE, "SPHERE"}, {proportional_falloff_curve_only_items_ROOT, "ROOT"}, {proportional_falloff_curve_only_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {proportional_falloff_curve_only_items_SHARP, "SHARP"}, {proportional_falloff_curve_only_items_LINEAR, "LINEAR"}};
 	};
 
-	const std::map<std::string, int> string_to_proportional_falloff_curve_only_items = create_string_to_proportional_falloff_curve_only_items();
-	const std::map<int, std::string> proportional_falloff_curve_only_items_to_string = create_proportional_falloff_curve_only_items_to_string();
+	static const std::map<std::string, int> string_to_proportional_falloff_curve_only_items = create_string_to_proportional_falloff_curve_only_items();
+	static const std::map<int, std::string> proportional_falloff_curve_only_items_to_string = create_proportional_falloff_curve_only_items_to_string();
 
 	proportional_falloff_curve_only_items_enum falloff() {
 		STRING_TYPE_GETTER("falloff", static_cast<proportional_falloff_curve_only_items_enum>(string_to_proportional_falloff_curve_only_items.at(resstr)))
@@ -48463,8 +48463,8 @@ public:
 		return {{node_sampler_type_items_NEAREST, "NEAREST"}, {node_sampler_type_items_BILINEAR, "BILINEAR"}, {node_sampler_type_items_BICUBIC, "BICUBIC"}};
 	};
 
-	const std::map<std::string, int> string_to_node_sampler_type_items = create_string_to_node_sampler_type_items();
-	const std::map<int, std::string> node_sampler_type_items_to_string = create_node_sampler_type_items_to_string();
+	static const std::map<std::string, int> string_to_node_sampler_type_items = create_string_to_node_sampler_type_items();
+	static const std::map<int, std::string> node_sampler_type_items_to_string = create_node_sampler_type_items_to_string();
 
 	node_sampler_type_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<node_sampler_type_items_enum>(string_to_node_sampler_type_items.at(resstr)))
@@ -48512,8 +48512,8 @@ public:
 		return {{space_items_RELATIVE, "RELATIVE"}, {space_items_ABSOLUTE, "ABSOLUTE"}, {space_items_SCENE_SIZE, "SCENE_SIZE"}, {space_items_RENDER_SIZE, "RENDER_SIZE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_items = create_string_to_space_items();
-	const std::map<int, std::string> space_items_to_string = create_space_items_to_string();
+	static const std::map<std::string, int> string_to_space_items = create_string_to_space_items();
+	static const std::map<int, std::string> space_items_to_string = create_space_items_to_string();
 
 	space_items_enum space() {
 		STRING_TYPE_GETTER("space", static_cast<space_items_enum>(string_to_space_items.at(resstr)))
@@ -48537,8 +48537,8 @@ public:
 		return {{space_frame_items_STRETCH, "STRETCH"}, {space_frame_items_FIT, "FIT"}, {space_frame_items_CROP, "CROP"}};
 	};
 
-	const std::map<std::string, int> string_to_space_frame_items = create_string_to_space_frame_items();
-	const std::map<int, std::string> space_frame_items_to_string = create_space_frame_items_to_string();
+	static const std::map<std::string, int> string_to_space_frame_items = create_string_to_space_frame_items();
+	static const std::map<int, std::string> space_frame_items_to_string = create_space_frame_items_to_string();
 
 	space_frame_items_enum frame_method() {
 		STRING_TYPE_GETTER("frame_method", static_cast<space_frame_items_enum>(string_to_space_frame_items.at(resstr)))
@@ -48601,8 +48601,8 @@ public:
 		return {{node_ycc_items_ITUBT601, "ITUBT601"}, {node_ycc_items_ITUBT709, "ITUBT709"}, {node_ycc_items_JFIF, "JFIF"}};
 	};
 
-	const std::map<std::string, int> string_to_node_ycc_items = create_string_to_node_ycc_items();
-	const std::map<int, std::string> node_ycc_items_to_string = create_node_ycc_items_to_string();
+	static const std::map<std::string, int> string_to_node_ycc_items = create_string_to_node_ycc_items();
+	static const std::map<int, std::string> node_ycc_items_to_string = create_node_ycc_items_to_string();
 
 	node_ycc_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<node_ycc_items_enum>(string_to_node_ycc_items.at(resstr)))
@@ -48649,8 +48649,8 @@ public:
 		return {{node_ycc_items_ITUBT601, "ITUBT601"}, {node_ycc_items_ITUBT709, "ITUBT709"}, {node_ycc_items_JFIF, "JFIF"}};
 	};
 
-	const std::map<std::string, int> string_to_node_ycc_items = create_string_to_node_ycc_items();
-	const std::map<int, std::string> node_ycc_items_to_string = create_node_ycc_items_to_string();
+	static const std::map<std::string, int> string_to_node_ycc_items = create_string_to_node_ycc_items();
+	static const std::map<int, std::string> node_ycc_items_to_string = create_node_ycc_items_to_string();
 
 	node_ycc_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<node_ycc_items_enum>(string_to_node_ycc_items.at(resstr)))
@@ -48782,8 +48782,8 @@ public:
 		return {{channel_items_R, "R"}, {channel_items_G, "G"}, {channel_items_B, "B"}};
 	};
 
-	const std::map<std::string, int> string_to_channel_items = create_string_to_channel_items();
-	const std::map<int, std::string> channel_items_to_string = create_channel_items_to_string();
+	static const std::map<std::string, int> string_to_channel_items = create_string_to_channel_items();
+	static const std::map<int, std::string> channel_items_to_string = create_channel_items_to_string();
 
 	channel_items_enum channel() {
 		STRING_TYPE_GETTER("channel", static_cast<channel_items_enum>(string_to_channel_items.at(resstr)))
@@ -48806,8 +48806,8 @@ public:
 		return {{algorithm_items_SIMPLE, "SIMPLE"}, {algorithm_items_AVERAGE, "AVERAGE"}};
 	};
 
-	const std::map<std::string, int> string_to_algorithm_items = create_string_to_algorithm_items();
-	const std::map<int, std::string> algorithm_items_to_string = create_algorithm_items_to_string();
+	static const std::map<std::string, int> string_to_algorithm_items = create_string_to_algorithm_items();
+	static const std::map<int, std::string> algorithm_items_to_string = create_algorithm_items_to_string();
 
 	algorithm_items_enum limit_method() {
 		STRING_TYPE_GETTER("limit_method", static_cast<algorithm_items_enum>(string_to_algorithm_items.at(resstr)))
@@ -48831,8 +48831,8 @@ public:
 		return {{limit_channel_items_R, "R"}, {limit_channel_items_G, "G"}, {limit_channel_items_B, "B"}};
 	};
 
-	const std::map<std::string, int> string_to_limit_channel_items = create_string_to_limit_channel_items();
-	const std::map<int, std::string> limit_channel_items_to_string = create_limit_channel_items_to_string();
+	static const std::map<std::string, int> string_to_limit_channel_items = create_string_to_limit_channel_items();
+	static const std::map<int, std::string> limit_channel_items_to_string = create_limit_channel_items_to_string();
 
 	limit_channel_items_enum limit_channel() {
 		STRING_TYPE_GETTER("limit_channel", static_cast<limit_channel_items_enum>(string_to_limit_channel_items.at(resstr)))
@@ -48983,8 +48983,8 @@ public:
 		return {{color_space_items_RGB, "RGB"}, {color_space_items_HSV, "HSV"}, {color_space_items_YUV, "YUV"}, {color_space_items_YCC, "YCC"}};
 	};
 
-	const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
-	const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
+	static const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
+	static const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
 
 	color_space_items_enum color_space() {
 		STRING_TYPE_GETTER("color_space", static_cast<color_space_items_enum>(string_to_color_space_items.at(resstr)))
@@ -49008,8 +49008,8 @@ public:
 		return {{prop_tri_channel_items_R, "R"}, {prop_tri_channel_items_G, "G"}, {prop_tri_channel_items_B, "B"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_tri_channel_items = create_string_to_prop_tri_channel_items();
-	const std::map<int, std::string> prop_tri_channel_items_to_string = create_prop_tri_channel_items_to_string();
+	static const std::map<std::string, int> string_to_prop_tri_channel_items = create_string_to_prop_tri_channel_items();
+	static const std::map<int, std::string> prop_tri_channel_items_to_string = create_prop_tri_channel_items_to_string();
 
 	prop_tri_channel_items_enum matte_channel() {
 		STRING_TYPE_GETTER("matte_channel", static_cast<prop_tri_channel_items_enum>(string_to_prop_tri_channel_items.at(resstr)))
@@ -49032,8 +49032,8 @@ public:
 		return {{algorithm_items_SINGLE, "SINGLE"}, {algorithm_items_MAX, "MAX"}};
 	};
 
-	const std::map<std::string, int> string_to_algorithm_items = create_string_to_algorithm_items();
-	const std::map<int, std::string> algorithm_items_to_string = create_algorithm_items_to_string();
+	static const std::map<std::string, int> string_to_algorithm_items = create_string_to_algorithm_items();
+	static const std::map<int, std::string> algorithm_items_to_string = create_algorithm_items_to_string();
 
 	algorithm_items_enum limit_method() {
 		STRING_TYPE_GETTER("limit_method", static_cast<algorithm_items_enum>(string_to_algorithm_items.at(resstr)))
@@ -49104,8 +49104,8 @@ public:
 		return {{node_flip_items_X, "X"}, {node_flip_items_Y, "Y"}, {node_flip_items_XY, "XY"}};
 	};
 
-	const std::map<std::string, int> string_to_node_flip_items = create_string_to_node_flip_items();
-	const std::map<int, std::string> node_flip_items_to_string = create_node_flip_items_to_string();
+	static const std::map<std::string, int> string_to_node_flip_items = create_string_to_node_flip_items();
+	static const std::map<int, std::string> node_flip_items_to_string = create_node_flip_items_to_string();
 
 	node_flip_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<node_flip_items_enum>(string_to_node_flip_items.at(resstr)))
@@ -49151,8 +49151,8 @@ public:
 		return {{axis_items_X, "X"}, {axis_items_Y, "Y"}};
 	};
 
-	const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
-	const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
+	static const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
+	static const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
 
 	axis_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<axis_items_enum>(string_to_axis_items.at(resstr)))
@@ -49276,8 +49276,8 @@ public:
 		return {{InnerEdgeMode_items_ALL, "ALL"}, {InnerEdgeMode_items_ADJACENT_ONLY, "ADJACENT_ONLY"}};
 	};
 
-	const std::map<std::string, int> string_to_InnerEdgeMode_items = create_string_to_InnerEdgeMode_items();
-	const std::map<int, std::string> InnerEdgeMode_items_to_string = create_InnerEdgeMode_items_to_string();
+	static const std::map<std::string, int> string_to_InnerEdgeMode_items = create_string_to_InnerEdgeMode_items();
+	static const std::map<int, std::string> InnerEdgeMode_items_to_string = create_InnerEdgeMode_items_to_string();
 
 	InnerEdgeMode_items_enum inner_mode() {
 		STRING_TYPE_GETTER("inner_mode", static_cast<InnerEdgeMode_items_enum>(string_to_InnerEdgeMode_items.at(resstr)))
@@ -49300,8 +49300,8 @@ public:
 		return {{BufEdgeMode_items_BLEED_OUT, "BLEED_OUT"}, {BufEdgeMode_items_KEEP_IN, "KEEP_IN"}};
 	};
 
-	const std::map<std::string, int> string_to_BufEdgeMode_items = create_string_to_BufEdgeMode_items();
-	const std::map<int, std::string> BufEdgeMode_items_to_string = create_BufEdgeMode_items_to_string();
+	static const std::map<std::string, int> string_to_BufEdgeMode_items = create_string_to_BufEdgeMode_items();
+	static const std::map<int, std::string> BufEdgeMode_items_to_string = create_BufEdgeMode_items_to_string();
 
 	BufEdgeMode_items_enum edge_mode() {
 		STRING_TYPE_GETTER("edge_mode", static_cast<BufEdgeMode_items_enum>(string_to_BufEdgeMode_items.at(resstr)))
@@ -49354,8 +49354,8 @@ public:
 		return {{bokeh_items_OCTAGON, "OCTAGON"}, {bokeh_items_HEPTAGON, "HEPTAGON"}, {bokeh_items_HEXAGON, "HEXAGON"}, {bokeh_items_PENTAGON, "PENTAGON"}, {bokeh_items_SQUARE, "SQUARE"}, {bokeh_items_TRIANGLE, "TRIANGLE"}, {bokeh_items_CIRCLE, "CIRCLE"}};
 	};
 
-	const std::map<std::string, int> string_to_bokeh_items = create_string_to_bokeh_items();
-	const std::map<int, std::string> bokeh_items_to_string = create_bokeh_items_to_string();
+	static const std::map<std::string, int> string_to_bokeh_items = create_string_to_bokeh_items();
+	static const std::map<int, std::string> bokeh_items_to_string = create_bokeh_items_to_string();
 
 	bokeh_items_enum bokeh() {
 		STRING_TYPE_GETTER("bokeh", static_cast<bokeh_items_enum>(string_to_bokeh_items.at(resstr)))
@@ -49528,8 +49528,8 @@ public:
 		return {{node_math_items_ADD, "ADD"}, {node_math_items_SUBTRACT, "SUBTRACT"}, {node_math_items_MULTIPLY, "MULTIPLY"}, {node_math_items_DIVIDE, "DIVIDE"}, {node_math_items_SINE, "SINE"}, {node_math_items_COSINE, "COSINE"}, {node_math_items_TANGENT, "TANGENT"}, {node_math_items_ARCSINE, "ARCSINE"}, {node_math_items_ARCCOSINE, "ARCCOSINE"}, {node_math_items_ARCTANGENT, "ARCTANGENT"}, {node_math_items_POWER, "POWER"}, {node_math_items_LOGARITHM, "LOGARITHM"}, {node_math_items_MINIMUM, "MINIMUM"}, {node_math_items_MAXIMUM, "MAXIMUM"}, {node_math_items_ROUND, "ROUND"}, {node_math_items_LESS_THAN, "LESS_THAN"}, {node_math_items_GREATER_THAN, "GREATER_THAN"}, {node_math_items_MODULO, "MODULO"}, {node_math_items_ABSOLUTE, "ABSOLUTE"}};
 	};
 
-	const std::map<std::string, int> string_to_node_math_items = create_string_to_node_math_items();
-	const std::map<int, std::string> node_math_items_to_string = create_node_math_items_to_string();
+	static const std::map<std::string, int> string_to_node_math_items = create_string_to_node_math_items();
+	static const std::map<int, std::string> node_math_items_to_string = create_node_math_items_to_string();
 
 	node_math_items_enum operation() {
 		STRING_TYPE_GETTER("operation", static_cast<node_math_items_enum>(string_to_node_math_items.at(resstr)))
@@ -49967,8 +49967,8 @@ public:
 		return {{type_items_STRAIGHT_TO_PREMUL, "STRAIGHT_TO_PREMUL"}, {type_items_PREMUL_TO_STRAIGHT, "PREMUL_TO_STRAIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
-	const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
+	static const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
+	static const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
 
 	type_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<type_items_enum>(string_to_type_items.at(resstr)))
@@ -50016,8 +50016,8 @@ public:
 		return {{type_items_GHOSTS, "GHOSTS"}, {type_items_STREAKS, "STREAKS"}, {type_items_FOG_GLOW, "FOG_GLOW"}, {type_items_SIMPLE_STAR, "SIMPLE_STAR"}};
 	};
 
-	const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
-	const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
+	static const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
+	static const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
 
 	type_items_enum glare_type() {
 		STRING_TYPE_GETTER("glare_type", static_cast<type_items_enum>(string_to_type_items.at(resstr)))
@@ -50041,8 +50041,8 @@ public:
 		return {{quality_items_HIGH, "HIGH"}, {quality_items_MEDIUM, "MEDIUM"}, {quality_items_LOW, "LOW"}};
 	};
 
-	const std::map<std::string, int> string_to_quality_items = create_string_to_quality_items();
-	const std::map<int, std::string> quality_items_to_string = create_quality_items_to_string();
+	static const std::map<std::string, int> string_to_quality_items = create_string_to_quality_items();
+	static const std::map<int, std::string> quality_items_to_string = create_quality_items_to_string();
 
 	quality_items_enum quality() {
 		STRING_TYPE_GETTER("quality", static_cast<quality_items_enum>(string_to_quality_items.at(resstr)))
@@ -50160,8 +50160,8 @@ public:
 		return {{type_items_RD_PHOTORECEPTOR, "RD_PHOTORECEPTOR"}, {type_items_RH_SIMPLE, "RH_SIMPLE"}};
 	};
 
-	const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
-	const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
+	static const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
+	static const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
 
 	type_items_enum tonemap_type() {
 		STRING_TYPE_GETTER("tonemap_type", static_cast<type_items_enum>(string_to_type_items.at(resstr)))
@@ -50313,8 +50313,8 @@ public:
 		return {{channel_items_COMBINED_RGB, "COMBINED_RGB"}, {channel_items_RED, "RED"}, {channel_items_GREEN, "GREEN"}, {channel_items_BLUE, "BLUE"}, {channel_items_LUMINANCE, "LUMINANCE"}};
 	};
 
-	const std::map<std::string, int> string_to_channel_items = create_string_to_channel_items();
-	const std::map<int, std::string> channel_items_to_string = create_channel_items_to_string();
+	static const std::map<std::string, int> string_to_channel_items = create_string_to_channel_items();
+	static const std::map<int, std::string> channel_items_to_string = create_channel_items_to_string();
 
 	channel_items_enum channel() {
 		STRING_TYPE_GETTER("channel", static_cast<channel_items_enum>(string_to_channel_items.at(resstr)))
@@ -50407,8 +50407,8 @@ public:
 		return {{color_space_items_RGB, "RGB"}, {color_space_items_YCC, "YCC"}};
 	};
 
-	const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
-	const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
+	static const std::map<std::string, int> string_to_color_space_items = create_string_to_color_space_items();
+	static const std::map<int, std::string> color_space_items_to_string = create_color_space_items_to_string();
 
 	color_space_items_enum channel() {
 		STRING_TYPE_GETTER("channel", static_cast<color_space_items_enum>(string_to_color_space_items.at(resstr)))
@@ -50470,8 +50470,8 @@ public:
 		return {{type_items_LIFT_GAMMA_GAIN, "LIFT_GAMMA_GAIN"}, {type_items_OFFSET_POWER_SLOPE, "OFFSET_POWER_SLOPE"}};
 	};
 
-	const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
-	const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
+	static const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
+	static const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
 
 	type_items_enum correction_method() {
 		STRING_TYPE_GETTER("correction_method", static_cast<type_items_enum>(string_to_type_items.at(resstr)))
@@ -50618,8 +50618,8 @@ public:
 		return {{node_sampler_type_items_NEAREST, "NEAREST"}, {node_sampler_type_items_BILINEAR, "BILINEAR"}, {node_sampler_type_items_BICUBIC, "BICUBIC"}};
 	};
 
-	const std::map<std::string, int> string_to_node_sampler_type_items = create_string_to_node_sampler_type_items();
-	const std::map<int, std::string> node_sampler_type_items_to_string = create_node_sampler_type_items_to_string();
+	static const std::map<std::string, int> string_to_node_sampler_type_items = create_string_to_node_sampler_type_items();
+	static const std::map<int, std::string> node_sampler_type_items_to_string = create_node_sampler_type_items_to_string();
 
 	node_sampler_type_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<node_sampler_type_items_enum>(string_to_node_sampler_type_items.at(resstr)))
@@ -50668,8 +50668,8 @@ public:
 		return {{node_sampler_type_items_NEAREST, "NEAREST"}, {node_sampler_type_items_BILINEAR, "BILINEAR"}, {node_sampler_type_items_BICUBIC, "BICUBIC"}};
 	};
 
-	const std::map<std::string, int> string_to_node_sampler_type_items = create_string_to_node_sampler_type_items();
-	const std::map<int, std::string> node_sampler_type_items_to_string = create_node_sampler_type_items_to_string();
+	static const std::map<std::string, int> string_to_node_sampler_type_items = create_string_to_node_sampler_type_items();
+	static const std::map<int, std::string> node_sampler_type_items_to_string = create_node_sampler_type_items_to_string();
 
 	node_sampler_type_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<node_sampler_type_items_enum>(string_to_node_sampler_type_items.at(resstr)))
@@ -50717,8 +50717,8 @@ public:
 		return {{distortion_type_items_UNDISTORT, "UNDISTORT"}, {distortion_type_items_DISTORT, "DISTORT"}};
 	};
 
-	const std::map<std::string, int> string_to_distortion_type_items = create_string_to_distortion_type_items();
-	const std::map<int, std::string> distortion_type_items_to_string = create_distortion_type_items_to_string();
+	static const std::map<std::string, int> string_to_distortion_type_items = create_string_to_distortion_type_items();
+	static const std::map<int, std::string> distortion_type_items_to_string = create_distortion_type_items_to_string();
 
 	distortion_type_items_enum distortion_type() {
 		STRING_TYPE_GETTER("distortion_type", static_cast<distortion_type_items_enum>(string_to_distortion_type_items.at(resstr)))
@@ -50766,8 +50766,8 @@ public:
 		return {{node_masktype_items_ADD, "ADD"}, {node_masktype_items_SUBTRACT, "SUBTRACT"}, {node_masktype_items_MULTIPLY, "MULTIPLY"}, {node_masktype_items_NOT, "NOT"}};
 	};
 
-	const std::map<std::string, int> string_to_node_masktype_items = create_string_to_node_masktype_items();
-	const std::map<int, std::string> node_masktype_items_to_string = create_node_masktype_items_to_string();
+	static const std::map<std::string, int> string_to_node_masktype_items = create_string_to_node_masktype_items();
+	static const std::map<int, std::string> node_masktype_items_to_string = create_node_masktype_items_to_string();
 
 	node_masktype_items_enum mask_type() {
 		STRING_TYPE_GETTER("mask_type", static_cast<node_masktype_items_enum>(string_to_node_masktype_items.at(resstr)))
@@ -50855,8 +50855,8 @@ public:
 		return {{node_masktype_items_ADD, "ADD"}, {node_masktype_items_SUBTRACT, "SUBTRACT"}, {node_masktype_items_MULTIPLY, "MULTIPLY"}, {node_masktype_items_NOT, "NOT"}};
 	};
 
-	const std::map<std::string, int> string_to_node_masktype_items = create_string_to_node_masktype_items();
-	const std::map<int, std::string> node_masktype_items_to_string = create_node_masktype_items_to_string();
+	static const std::map<std::string, int> string_to_node_masktype_items = create_string_to_node_masktype_items();
+	static const std::map<int, std::string> node_masktype_items_to_string = create_node_masktype_items_to_string();
 
 	node_masktype_items_enum mask_type() {
 		STRING_TYPE_GETTER("mask_type", static_cast<node_masktype_items_enum>(string_to_node_masktype_items.at(resstr)))
@@ -51372,8 +51372,8 @@ public:
 		return {{aspect_type_items_SCENE, "SCENE"}, {aspect_type_items_FIXED, "FIXED"}, {aspect_type_items_FIXED_SCENE, "FIXED_SCENE"}};
 	};
 
-	const std::map<std::string, int> string_to_aspect_type_items = create_string_to_aspect_type_items();
-	const std::map<int, std::string> aspect_type_items_to_string = create_aspect_type_items_to_string();
+	static const std::map<std::string, int> string_to_aspect_type_items = create_string_to_aspect_type_items();
+	static const std::map<int, std::string> aspect_type_items_to_string = create_aspect_type_items_to_string();
 
 	aspect_type_items_enum size_source() {
 		STRING_TYPE_GETTER("size_source", static_cast<aspect_type_items_enum>(string_to_aspect_type_items.at(resstr)))
@@ -51552,8 +51552,8 @@ public:
 		return {{proportional_falloff_curve_only_items_SMOOTH, "SMOOTH"}, {proportional_falloff_curve_only_items_SPHERE, "SPHERE"}, {proportional_falloff_curve_only_items_ROOT, "ROOT"}, {proportional_falloff_curve_only_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {proportional_falloff_curve_only_items_SHARP, "SHARP"}, {proportional_falloff_curve_only_items_LINEAR, "LINEAR"}};
 	};
 
-	const std::map<std::string, int> string_to_proportional_falloff_curve_only_items = create_string_to_proportional_falloff_curve_only_items();
-	const std::map<int, std::string> proportional_falloff_curve_only_items_to_string = create_proportional_falloff_curve_only_items_to_string();
+	static const std::map<std::string, int> string_to_proportional_falloff_curve_only_items = create_string_to_proportional_falloff_curve_only_items();
+	static const std::map<int, std::string> proportional_falloff_curve_only_items_to_string = create_proportional_falloff_curve_only_items_to_string();
 
 	proportional_falloff_curve_only_items_enum feather_falloff() {
 		STRING_TYPE_GETTER("feather_falloff", static_cast<proportional_falloff_curve_only_items_enum>(string_to_proportional_falloff_curve_only_items.at(resstr)))
@@ -51611,8 +51611,8 @@ public:
 		return {{position_items_ABSOLUTE, "ABSOLUTE"}, {position_items_RELATIVE_START, "RELATIVE_START"}, {position_items_RELATIVE_FRAME, "RELATIVE_FRAME"}, {position_items_ABSOLUTE_FRAME, "ABSOLUTE_FRAME"}};
 	};
 
-	const std::map<std::string, int> string_to_position_items = create_string_to_position_items();
-	const std::map<int, std::string> position_items_to_string = create_position_items_to_string();
+	static const std::map<std::string, int> string_to_position_items = create_string_to_position_items();
+	static const std::map<int, std::string> position_items_to_string = create_position_items_to_string();
 
 	position_items_enum position() {
 		STRING_TYPE_GETTER("position", static_cast<position_items_enum>(string_to_position_items.at(resstr)))
@@ -51993,8 +51993,8 @@ public:
 		return {{node_math_items_ADD, "ADD"}, {node_math_items_SUBTRACT, "SUBTRACT"}, {node_math_items_MULTIPLY, "MULTIPLY"}, {node_math_items_DIVIDE, "DIVIDE"}, {node_math_items_SINE, "SINE"}, {node_math_items_COSINE, "COSINE"}, {node_math_items_TANGENT, "TANGENT"}, {node_math_items_ARCSINE, "ARCSINE"}, {node_math_items_ARCCOSINE, "ARCCOSINE"}, {node_math_items_ARCTANGENT, "ARCTANGENT"}, {node_math_items_POWER, "POWER"}, {node_math_items_LOGARITHM, "LOGARITHM"}, {node_math_items_MINIMUM, "MINIMUM"}, {node_math_items_MAXIMUM, "MAXIMUM"}, {node_math_items_ROUND, "ROUND"}, {node_math_items_LESS_THAN, "LESS_THAN"}, {node_math_items_GREATER_THAN, "GREATER_THAN"}, {node_math_items_MODULO, "MODULO"}, {node_math_items_ABSOLUTE, "ABSOLUTE"}};
 	};
 
-	const std::map<std::string, int> string_to_node_math_items = create_string_to_node_math_items();
-	const std::map<int, std::string> node_math_items_to_string = create_node_math_items_to_string();
+	static const std::map<std::string, int> string_to_node_math_items = create_string_to_node_math_items();
+	static const std::map<int, std::string> node_math_items_to_string = create_node_math_items_to_string();
 
 	node_math_items_enum operation() {
 		STRING_TYPE_GETTER("operation", static_cast<node_math_items_enum>(string_to_node_math_items.at(resstr)))
@@ -52064,8 +52064,8 @@ public:
 		return {{ramp_blend_items_MIX, "MIX"}, {ramp_blend_items_ADD, "ADD"}, {ramp_blend_items_MULTIPLY, "MULTIPLY"}, {ramp_blend_items_SUBTRACT, "SUBTRACT"}, {ramp_blend_items_SCREEN, "SCREEN"}, {ramp_blend_items_DIVIDE, "DIVIDE"}, {ramp_blend_items_DIFFERENCE, "DIFFERENCE"}, {ramp_blend_items_DARKEN, "DARKEN"}, {ramp_blend_items_LIGHTEN, "LIGHTEN"}, {ramp_blend_items_OVERLAY, "OVERLAY"}, {ramp_blend_items_DODGE, "DODGE"}, {ramp_blend_items_BURN, "BURN"}, {ramp_blend_items_HUE, "HUE"}, {ramp_blend_items_SATURATION, "SATURATION"}, {ramp_blend_items_VALUE, "VALUE"}, {ramp_blend_items_COLOR, "COLOR"}, {ramp_blend_items_SOFT_LIGHT, "SOFT_LIGHT"}, {ramp_blend_items_LINEAR_LIGHT, "LINEAR_LIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
-	const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
+	static const std::map<std::string, int> string_to_ramp_blend_items = create_string_to_ramp_blend_items();
+	static const std::map<int, std::string> ramp_blend_items_to_string = create_ramp_blend_items_to_string();
 
 	ramp_blend_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<ramp_blend_items_enum>(string_to_ramp_blend_items.at(resstr)))
@@ -52949,8 +52949,8 @@ public:
 		return {{object_type_items_MESH, "MESH"}, {object_type_items_CURVE, "CURVE"}, {object_type_items_SURFACE, "SURFACE"}, {object_type_items_META, "META"}, {object_type_items_FONT, "FONT"}, {object_type_items_ARMATURE, "ARMATURE"}, {object_type_items_LATTICE, "LATTICE"}, {object_type_items_EMPTY, "EMPTY"}, {object_type_items_CAMERA, "CAMERA"}, {object_type_items_LAMP, "LAMP"}, {object_type_items_SPEAKER, "SPEAKER"}};
 	};
 
-	const std::map<std::string, int> string_to_object_type_items = create_string_to_object_type_items();
-	const std::map<int, std::string> object_type_items_to_string = create_object_type_items_to_string();
+	static const std::map<std::string, int> string_to_object_type_items = create_string_to_object_type_items();
+	static const std::map<int, std::string> object_type_items_to_string = create_object_type_items_to_string();
 
 	object_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<object_type_items_enum>(string_to_object_type_items.at(resstr)))
@@ -52979,8 +52979,8 @@ public:
 		return {{object_mode_items_OBJECT, "OBJECT"}, {object_mode_items_EDIT, "EDIT"}, {object_mode_items_POSE, "POSE"}, {object_mode_items_SCULPT, "SCULPT"}, {object_mode_items_VERTEX_PAINT, "VERTEX_PAINT"}, {object_mode_items_WEIGHT_PAINT, "WEIGHT_PAINT"}, {object_mode_items_TEXTURE_PAINT, "TEXTURE_PAINT"}, {object_mode_items_PARTICLE_EDIT, "PARTICLE_EDIT"}};
 	};
 
-	const std::map<std::string, int> string_to_object_mode_items = create_string_to_object_mode_items();
-	const std::map<int, std::string> object_mode_items_to_string = create_object_mode_items_to_string();
+	static const std::map<std::string, int> string_to_object_mode_items = create_string_to_object_mode_items();
+	static const std::map<int, std::string> object_mode_items_to_string = create_object_mode_items_to_string();
 
 	object_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<object_mode_items_enum>(string_to_object_mode_items.at(resstr)))
@@ -53043,8 +53043,8 @@ public:
 		return {{parent_type_items_OBJECT, "OBJECT"}, {parent_type_items_ARMATURE, "ARMATURE"}, {parent_type_items_LATTICE, "LATTICE"}, {parent_type_items_VERTEX, "VERTEX"}, {parent_type_items_VERTEX_3, "VERTEX_3"}, {parent_type_items_BONE, "BONE"}};
 	};
 
-	const std::map<std::string, int> string_to_parent_type_items = create_string_to_parent_type_items();
-	const std::map<int, std::string> parent_type_items_to_string = create_parent_type_items_to_string();
+	static const std::map<std::string, int> string_to_parent_type_items = create_string_to_parent_type_items();
+	static const std::map<int, std::string> parent_type_items_to_string = create_parent_type_items_to_string();
 
 	parent_type_items_enum parent_type() {
 		STRING_TYPE_GETTER("parent_type", static_cast<parent_type_items_enum>(string_to_parent_type_items.at(resstr)))
@@ -53087,8 +53087,8 @@ public:
 		return {{object_axis_items_POS_X, "POS_X"}, {object_axis_items_POS_Y, "POS_Y"}, {object_axis_items_POS_Z, "POS_Z"}, {object_axis_items_NEG_X, "NEG_X"}, {object_axis_items_NEG_Y, "NEG_Y"}, {object_axis_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
-	const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
+	static const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
+	static const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
 
 	object_axis_items_enum track_axis() {
 		STRING_TYPE_GETTER("track_axis", static_cast<object_axis_items_enum>(string_to_object_axis_items.at(resstr)))
@@ -53112,8 +53112,8 @@ public:
 		return {{up_items_X, "X"}, {up_items_Y, "Y"}, {up_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_up_items = create_string_to_up_items();
-	const std::map<int, std::string> up_items_to_string = create_up_items_to_string();
+	static const std::map<std::string, int> string_to_up_items = create_string_to_up_items();
+	static const std::map<int, std::string> up_items_to_string = create_up_items_to_string();
 
 	up_items_enum up_axis() {
 		STRING_TYPE_GETTER("up_axis", static_cast<up_items_enum>(string_to_up_items.at(resstr)))
@@ -53196,8 +53196,8 @@ public:
 		return {{prop_rotmode_items_QUATERNION, "QUATERNION"}, {prop_rotmode_items_XYZ, "XYZ"}, {prop_rotmode_items_XZY, "XZY"}, {prop_rotmode_items_YXZ, "YXZ"}, {prop_rotmode_items_YZX, "YZX"}, {prop_rotmode_items_ZXY, "ZXY"}, {prop_rotmode_items_ZYX, "ZYX"}, {prop_rotmode_items_AXIS_ANGLE, "AXIS_ANGLE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_rotmode_items = create_string_to_prop_rotmode_items();
-	const std::map<int, std::string> prop_rotmode_items_to_string = create_prop_rotmode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_rotmode_items = create_string_to_prop_rotmode_items();
+	static const std::map<int, std::string> prop_rotmode_items_to_string = create_prop_rotmode_items_to_string();
 
 	prop_rotmode_items_enum rotation_mode() {
 		STRING_TYPE_GETTER("rotation_mode", static_cast<prop_rotmode_items_enum>(string_to_prop_rotmode_items.at(resstr)))
@@ -53358,8 +53358,8 @@ public:
 		return {{object_empty_drawtype_items_PLAIN_AXES, "PLAIN_AXES"}, {object_empty_drawtype_items_ARROWS, "ARROWS"}, {object_empty_drawtype_items_SINGLE_ARROW, "SINGLE_ARROW"}, {object_empty_drawtype_items_CIRCLE, "CIRCLE"}, {object_empty_drawtype_items_CUBE, "CUBE"}, {object_empty_drawtype_items_SPHERE, "SPHERE"}, {object_empty_drawtype_items_CONE, "CONE"}, {object_empty_drawtype_items_IMAGE, "IMAGE"}};
 	};
 
-	const std::map<std::string, int> string_to_object_empty_drawtype_items = create_string_to_object_empty_drawtype_items();
-	const std::map<int, std::string> object_empty_drawtype_items_to_string = create_object_empty_drawtype_items_to_string();
+	static const std::map<std::string, int> string_to_object_empty_drawtype_items = create_string_to_object_empty_drawtype_items();
+	static const std::map<int, std::string> object_empty_drawtype_items_to_string = create_object_empty_drawtype_items_to_string();
 
 	object_empty_drawtype_items_enum empty_draw_type() {
 		STRING_TYPE_GETTER("empty_draw_type", static_cast<object_empty_drawtype_items_enum>(string_to_object_empty_drawtype_items.at(resstr)))
@@ -53501,8 +53501,8 @@ public:
 		return {{dupli_items_NONE, "NONE"}, {dupli_items_FRAMES, "FRAMES"}, {dupli_items_VERTS, "VERTS"}, {dupli_items_FACES, "FACES"}, {dupli_items_GROUP, "GROUP"}};
 	};
 
-	const std::map<std::string, int> string_to_dupli_items = create_string_to_dupli_items();
-	const std::map<int, std::string> dupli_items_to_string = create_dupli_items_to_string();
+	static const std::map<std::string, int> string_to_dupli_items = create_string_to_dupli_items();
+	static const std::map<int, std::string> dupli_items_to_string = create_dupli_items_to_string();
 
 	dupli_items_enum dupli_type() {
 		STRING_TYPE_GETTER("dupli_type", static_cast<dupli_items_enum>(string_to_dupli_items.at(resstr)))
@@ -53605,8 +53605,8 @@ public:
 		return {{drawtype_items_BOUNDS, "BOUNDS"}, {drawtype_items_WIRE, "WIRE"}, {drawtype_items_SOLID, "SOLID"}, {drawtype_items_TEXTURED, "TEXTURED"}};
 	};
 
-	const std::map<std::string, int> string_to_drawtype_items = create_string_to_drawtype_items();
-	const std::map<int, std::string> drawtype_items_to_string = create_drawtype_items_to_string();
+	static const std::map<std::string, int> string_to_drawtype_items = create_string_to_drawtype_items();
+	static const std::map<int, std::string> drawtype_items_to_string = create_drawtype_items_to_string();
 
 	drawtype_items_enum draw_type() {
 		STRING_TYPE_GETTER("draw_type", static_cast<drawtype_items_enum>(string_to_drawtype_items.at(resstr)))
@@ -53640,8 +53640,8 @@ public:
 		return {{boundtype_items_BOX, "BOX"}, {boundtype_items_SPHERE, "SPHERE"}, {boundtype_items_CYLINDER, "CYLINDER"}, {boundtype_items_CONE, "CONE"}, {boundtype_items_CAPSULE, "CAPSULE"}};
 	};
 
-	const std::map<std::string, int> string_to_boundtype_items = create_string_to_boundtype_items();
-	const std::map<int, std::string> boundtype_items_to_string = create_boundtype_items_to_string();
+	static const std::map<std::string, int> string_to_boundtype_items = create_string_to_boundtype_items();
+	static const std::map<int, std::string> boundtype_items_to_string = create_boundtype_items_to_string();
 
 	boundtype_items_enum draw_bounds_type() {
 		STRING_TYPE_GETTER("draw_bounds_type", static_cast<boundtype_items_enum>(string_to_boundtype_items.at(resstr)))
@@ -53770,8 +53770,8 @@ public:
 		return {{space_items_WORLD, "WORLD"}, {space_items_POSE, "POSE"}, {space_items_LOCAL_WITH_PARENT, "LOCAL_WITH_PARENT"}, {space_items_LOCAL, "LOCAL"}};
 	};
 
-	const std::map<std::string, int> string_to_space_items = create_string_to_space_items();
-	const std::map<int, std::string> space_items_to_string = create_space_items_to_string();
+	static const std::map<std::string, int> string_to_space_items = create_string_to_space_items();
+	static const std::map<int, std::string> space_items_to_string = create_space_items_to_string();
 
 	VFLOAT16 convert_space(PoseBone pose_bone, VFLOAT16 matrix, space_items_enum from_space = space_items_WORLD, space_items_enum to_space = space_items_WORLD);
 
@@ -53802,8 +53802,8 @@ public:
 		return {{mesh_type_items_PREVIEW, "PREVIEW"}, {mesh_type_items_RENDER, "RENDER"}};
 	};
 
-	const std::map<std::string, int> string_to_mesh_type_items = create_string_to_mesh_type_items();
-	const std::map<int, std::string> mesh_type_items_to_string = create_mesh_type_items_to_string();
+	static const std::map<std::string, int> string_to_mesh_type_items = create_string_to_mesh_type_items();
+	static const std::map<int, std::string> mesh_type_items_to_string = create_mesh_type_items_to_string();
 
 	Mesh to_mesh(Scene scene, bool apply_modifiers, mesh_type_items_enum settings, bool calc_tessface = true, bool calc_undeformed = false);
 
@@ -53821,8 +53821,8 @@ public:
 		return {{dupli_eval_mode_items_VIEWPORT, "VIEWPORT"}, {dupli_eval_mode_items_PREVIEW, "PREVIEW"}, {dupli_eval_mode_items_RENDER, "RENDER"}};
 	};
 
-	const std::map<std::string, int> string_to_dupli_eval_mode_items = create_string_to_dupli_eval_mode_items();
-	const std::map<int, std::string> dupli_eval_mode_items_to_string = create_dupli_eval_mode_items_to_string();
+	static const std::map<std::string, int> string_to_dupli_eval_mode_items = create_string_to_dupli_eval_mode_items();
+	static const std::map<int, std::string> dupli_eval_mode_items_to_string = create_dupli_eval_mode_items_to_string();
 
 	void dupli_list_create(Scene scene, dupli_eval_mode_items_enum settings = dupli_eval_mode_items_VIEWPORT);
 
@@ -53902,8 +53902,8 @@ public:
 		return {{mesh_dm_info_items_SOURCE, "SOURCE"}, {mesh_dm_info_items_DEFORM, "DEFORM"}, {mesh_dm_info_items_FINAL, "FINAL"}};
 	};
 
-	const std::map<std::string, int> string_to_mesh_dm_info_items = create_string_to_mesh_dm_info_items();
-	const std::map<int, std::string> mesh_dm_info_items_to_string = create_mesh_dm_info_items_to_string();
+	static const std::map<std::string, int> string_to_mesh_dm_info_items = create_string_to_mesh_dm_info_items();
+	static const std::map<int, std::string> mesh_dm_info_items_to_string = create_mesh_dm_info_items_to_string();
 
 	std::string dm_info(mesh_dm_info_items_enum type) {
 		PYTHON_FUNCTION_ARGS_CALL("dm_info", "s", mesh_dm_info_items_to_string.at(type))
@@ -53985,8 +53985,8 @@ public:
 		return {{body_type_items_NO_COLLISION, "NO_COLLISION"}, {body_type_items_STATIC, "STATIC"}, {body_type_items_DYNAMIC, "DYNAMIC"}, {body_type_items_RIGID_BODY, "RIGID_BODY"}, {body_type_items_SOFT_BODY, "SOFT_BODY"}, {body_type_items_OCCLUDER, "OCCLUDER"}, {body_type_items_SENSOR, "SENSOR"}, {body_type_items_NAVMESH, "NAVMESH"}, {body_type_items_CHARACTER, "CHARACTER"}};
 	};
 
-	const std::map<std::string, int> string_to_body_type_items = create_string_to_body_type_items();
-	const std::map<int, std::string> body_type_items_to_string = create_body_type_items_to_string();
+	static const std::map<std::string, int> string_to_body_type_items = create_string_to_body_type_items();
+	static const std::map<int, std::string> body_type_items_to_string = create_body_type_items_to_string();
 
 	body_type_items_enum physics_type() {
 		STRING_TYPE_GETTER("physics_type", static_cast<body_type_items_enum>(string_to_body_type_items.at(resstr)))
@@ -54254,8 +54254,8 @@ public:
 		return {{collision_bounds_items_BOX, "BOX"}, {collision_bounds_items_SPHERE, "SPHERE"}, {collision_bounds_items_CYLINDER, "CYLINDER"}, {collision_bounds_items_CONE, "CONE"}, {collision_bounds_items_CONVEX_HULL, "CONVEX_HULL"}, {collision_bounds_items_TRIANGLE_MESH, "TRIANGLE_MESH"}, {collision_bounds_items_CAPSULE, "CAPSULE"}};
 	};
 
-	const std::map<std::string, int> string_to_collision_bounds_items = create_string_to_collision_bounds_items();
-	const std::map<int, std::string> collision_bounds_items_to_string = create_collision_bounds_items_to_string();
+	static const std::map<std::string, int> string_to_collision_bounds_items = create_string_to_collision_bounds_items();
+	static const std::map<int, std::string> collision_bounds_items_to_string = create_collision_bounds_items_to_string();
 
 	collision_bounds_items_enum collision_bounds_type() {
 		STRING_TYPE_GETTER("collision_bounds_type", static_cast<collision_bounds_items_enum>(string_to_collision_bounds_items.at(resstr)))
@@ -54427,8 +54427,8 @@ public:
 		return {{assign_mode_items_REPLACE, "REPLACE"}, {assign_mode_items_ADD, "ADD"}, {assign_mode_items_SUBTRACT, "SUBTRACT"}};
 	};
 
-	const std::map<std::string, int> string_to_assign_mode_items = create_string_to_assign_mode_items();
-	const std::map<int, std::string> assign_mode_items_to_string = create_assign_mode_items_to_string();
+	static const std::map<std::string, int> string_to_assign_mode_items = create_string_to_assign_mode_items();
+	static const std::map<int, std::string> assign_mode_items_to_string = create_assign_mode_items_to_string();
 
 	void add(int index[1], float weight, assign_mode_items_enum type) {
 		ARRAY_TO_PYOBJ(index, "i", 1)
@@ -54472,8 +54472,8 @@ public:
 		return {{link_items_OBJECT, "OBJECT"}, {link_items_DATA, "DATA"}};
 	};
 
-	const std::map<std::string, int> string_to_link_items = create_string_to_link_items();
-	const std::map<int, std::string> link_items_to_string = create_link_items_to_string();
+	static const std::map<std::string, int> string_to_link_items = create_string_to_link_items();
+	static const std::map<int, std::string> link_items_to_string = create_link_items_to_string();
 
 	link_items_enum link() {
 		STRING_TYPE_GETTER("link", static_cast<link_items_enum>(string_to_link_items.at(resstr)))
@@ -54567,8 +54567,8 @@ public:
 		return {{dupli_items_NONE, "NONE"}, {dupli_items_FRAMES, "FRAMES"}, {dupli_items_VERTS, "VERTS"}, {dupli_items_FACES, "FACES"}, {dupli_items_GROUP, "GROUP"}};
 	};
 
-	const std::map<std::string, int> string_to_dupli_items = create_string_to_dupli_items();
-	const std::map<int, std::string> dupli_items_to_string = create_dupli_items_to_string();
+	static const std::map<std::string, int> string_to_dupli_items = create_string_to_dupli_items();
+	static const std::map<int, std::string> dupli_items_to_string = create_dupli_items_to_string();
 
 	dupli_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<dupli_items_enum>(string_to_dupli_items.at(resstr)))
@@ -54680,8 +54680,8 @@ public:
 		return {{point_cache_compress_items_NO, "NO"}, {point_cache_compress_items_LIGHT, "LIGHT"}, {point_cache_compress_items_HEAVY, "HEAVY"}};
 	};
 
-	const std::map<std::string, int> string_to_point_cache_compress_items = create_string_to_point_cache_compress_items();
-	const std::map<int, std::string> point_cache_compress_items_to_string = create_point_cache_compress_items_to_string();
+	static const std::map<std::string, int> string_to_point_cache_compress_items = create_string_to_point_cache_compress_items();
+	static const std::map<int, std::string> point_cache_compress_items_to_string = create_point_cache_compress_items_to_string();
 
 	point_cache_compress_items_enum compression() {
 		STRING_TYPE_GETTER("compression", static_cast<point_cache_compress_items_enum>(string_to_point_cache_compress_items.at(resstr)))
@@ -55046,8 +55046,8 @@ public:
 		return {{field_type_items_NONE, "NONE"}, {field_type_items_FORCE, "FORCE"}, {field_type_items_WIND, "WIND"}, {field_type_items_VORTEX, "VORTEX"}, {field_type_items_MAGNET, "MAGNET"}, {field_type_items_HARMONIC, "HARMONIC"}, {field_type_items_CHARGE, "CHARGE"}, {field_type_items_LENNARDJ, "LENNARDJ"}, {field_type_items_TEXTURE, "TEXTURE"}, {field_type_items_GUIDE, "GUIDE"}, {field_type_items_BOID, "BOID"}, {field_type_items_TURBULENCE, "TURBULENCE"}, {field_type_items_DRAG, "DRAG"}, {field_type_items_SMOKE_FLOW, "SMOKE_FLOW"}};
 	};
 
-	const std::map<std::string, int> string_to_field_type_items = create_string_to_field_type_items();
-	const std::map<int, std::string> field_type_items_to_string = create_field_type_items_to_string();
+	static const std::map<std::string, int> string_to_field_type_items = create_string_to_field_type_items();
+	static const std::map<int, std::string> field_type_items_to_string = create_field_type_items_to_string();
 
 	field_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<field_type_items_enum>(string_to_field_type_items.at(resstr)))
@@ -55072,8 +55072,8 @@ public:
 		return {{effector_shape_items_POINT, "POINT"}, {effector_shape_items_PLANE, "PLANE"}, {effector_shape_items_SURFACE, "SURFACE"}, {effector_shape_items_POINTS, "POINTS"}};
 	};
 
-	const std::map<std::string, int> string_to_effector_shape_items = create_string_to_effector_shape_items();
-	const std::map<int, std::string> effector_shape_items_to_string = create_effector_shape_items_to_string();
+	static const std::map<std::string, int> string_to_effector_shape_items = create_string_to_effector_shape_items();
+	static const std::map<int, std::string> effector_shape_items_to_string = create_effector_shape_items_to_string();
 
 	effector_shape_items_enum shape() {
 		STRING_TYPE_GETTER("shape", static_cast<effector_shape_items_enum>(string_to_effector_shape_items.at(resstr)))
@@ -55097,8 +55097,8 @@ public:
 		return {{falloff_items_SPHERE, "SPHERE"}, {falloff_items_TUBE, "TUBE"}, {falloff_items_CONE, "CONE"}};
 	};
 
-	const std::map<std::string, int> string_to_falloff_items = create_string_to_falloff_items();
-	const std::map<int, std::string> falloff_items_to_string = create_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_falloff_items = create_string_to_falloff_items();
+	static const std::map<int, std::string> falloff_items_to_string = create_falloff_items_to_string();
 
 	falloff_items_enum falloff_type() {
 		STRING_TYPE_GETTER("falloff_type", static_cast<falloff_items_enum>(string_to_falloff_items.at(resstr)))
@@ -55122,8 +55122,8 @@ public:
 		return {{texture_items_RGB, "RGB"}, {texture_items_GRADIENT, "GRADIENT"}, {texture_items_CURL, "CURL"}};
 	};
 
-	const std::map<std::string, int> string_to_texture_items = create_string_to_texture_items();
-	const std::map<int, std::string> texture_items_to_string = create_texture_items_to_string();
+	static const std::map<std::string, int> string_to_texture_items = create_string_to_texture_items();
+	static const std::map<int, std::string> texture_items_to_string = create_texture_items_to_string();
 
 	texture_items_enum texture_mode() {
 		STRING_TYPE_GETTER("texture_mode", static_cast<texture_items_enum>(string_to_texture_items.at(resstr)))
@@ -55147,8 +55147,8 @@ public:
 		return {{zdirection_items_BOTH, "BOTH"}, {zdirection_items_POSITIVE, "POSITIVE"}, {zdirection_items_NEGATIVE, "NEGATIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_zdirection_items = create_string_to_zdirection_items();
-	const std::map<int, std::string> zdirection_items_to_string = create_zdirection_items_to_string();
+	static const std::map<std::string, int> string_to_zdirection_items = create_string_to_zdirection_items();
+	static const std::map<int, std::string> zdirection_items_to_string = create_zdirection_items_to_string();
 
 	zdirection_items_enum z_direction() {
 		STRING_TYPE_GETTER("z_direction", static_cast<zdirection_items_enum>(string_to_zdirection_items.at(resstr)))
@@ -55472,8 +55472,8 @@ public:
 		return {{guide_kink_items_NONE, "NONE"}, {guide_kink_items_CURL, "CURL"}, {guide_kink_items_RADIAL, "RADIAL"}, {guide_kink_items_WAVE, "WAVE"}, {guide_kink_items_BRAID, "BRAID"}, {guide_kink_items_ROTATION, "ROTATION"}, {guide_kink_items_ROLL, "ROLL"}};
 	};
 
-	const std::map<std::string, int> string_to_guide_kink_items = create_string_to_guide_kink_items();
-	const std::map<int, std::string> guide_kink_items_to_string = create_guide_kink_items_to_string();
+	static const std::map<std::string, int> string_to_guide_kink_items = create_string_to_guide_kink_items();
+	static const std::map<int, std::string> guide_kink_items_to_string = create_guide_kink_items_to_string();
 
 	guide_kink_items_enum guide_kink_type() {
 		STRING_TYPE_GETTER("guide_kink_type", static_cast<guide_kink_items_enum>(string_to_guide_kink_items.at(resstr)))
@@ -55497,8 +55497,8 @@ public:
 		return {{guide_kink_axis_items_X, "X"}, {guide_kink_axis_items_Y, "Y"}, {guide_kink_axis_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_guide_kink_axis_items = create_string_to_guide_kink_axis_items();
-	const std::map<int, std::string> guide_kink_axis_items_to_string = create_guide_kink_axis_items_to_string();
+	static const std::map<std::string, int> string_to_guide_kink_axis_items = create_string_to_guide_kink_axis_items();
+	static const std::map<int, std::string> guide_kink_axis_items_to_string = create_guide_kink_axis_items_to_string();
 
 	guide_kink_axis_items_enum guide_kink_axis() {
 		STRING_TYPE_GETTER("guide_kink_axis", static_cast<guide_kink_axis_items_enum>(string_to_guide_kink_axis_items.at(resstr)))
@@ -55808,8 +55808,8 @@ public:
 		return {{collision_type_items_MANUAL, "MANUAL"}, {collision_type_items_AVERAGE, "AVERAGE"}, {collision_type_items_MINIMAL, "MINIMAL"}, {collision_type_items_MAXIMAL, "MAXIMAL"}, {collision_type_items_MINMAX, "MINMAX"}};
 	};
 
-	const std::map<std::string, int> string_to_collision_type_items = create_string_to_collision_type_items();
-	const std::map<int, std::string> collision_type_items_to_string = create_collision_type_items_to_string();
+	static const std::map<std::string, int> string_to_collision_type_items = create_string_to_collision_type_items();
+	static const std::map<int, std::string> collision_type_items_to_string = create_collision_type_items_to_string();
 
 	collision_type_items_enum collision_type() {
 		STRING_TYPE_GETTER("collision_type", static_cast<collision_type_items_enum>(string_to_collision_type_items.at(resstr)))
@@ -55984,8 +55984,8 @@ public:
 		return {{aerodynamics_type_SIMPLE, "SIMPLE"}, {aerodynamics_type_LIFT_FORCE, "LIFT_FORCE"}};
 	};
 
-	const std::map<std::string, int> string_to_aerodynamics_type = create_string_to_aerodynamics_type();
-	const std::map<int, std::string> aerodynamics_type_to_string = create_aerodynamics_type_to_string();
+	static const std::map<std::string, int> string_to_aerodynamics_type = create_string_to_aerodynamics_type();
+	static const std::map<int, std::string> aerodynamics_type_to_string = create_aerodynamics_type_to_string();
 
 	aerodynamics_type_enum aerodynamics_type() {
 		STRING_TYPE_GETTER("aerodynamics_type", static_cast<aerodynamics_type_enum>(string_to_aerodynamics_type.at(resstr)))
@@ -56133,8 +56133,8 @@ public:
 		return {{mode_items_FRIEND, "FRIEND"}, {mode_items_NEUTRAL, "NEUTRAL"}, {mode_items_ENEMY, "ENEMY"}};
 	};
 
-	const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
-	const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
+	static const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
 
 	mode_items_enum alliance() {
 		STRING_TYPE_GETTER("alliance", static_cast<mode_items_enum>(string_to_mode_items.at(resstr)))
@@ -56163,8 +56163,8 @@ public:
 		return {{sph_solver_items_DDR, "DDR"}, {sph_solver_items_CLASSICAL, "CLASSICAL"}};
 	};
 
-	const std::map<std::string, int> string_to_sph_solver_items = create_string_to_sph_solver_items();
-	const std::map<int, std::string> sph_solver_items_to_string = create_sph_solver_items_to_string();
+	static const std::map<std::string, int> string_to_sph_solver_items = create_string_to_sph_solver_items();
+	static const std::map<int, std::string> sph_solver_items_to_string = create_sph_solver_items_to_string();
 
 	sph_solver_items_enum solver() {
 		STRING_TYPE_GETTER("solver", static_cast<sph_solver_items_enum>(string_to_sph_solver_items.at(resstr)))
@@ -56560,8 +56560,8 @@ public:
 		return {{alive_items_DEAD, "DEAD"}, {alive_items_UNBORN, "UNBORN"}, {alive_items_ALIVE, "ALIVE"}, {alive_items_DYING, "DYING"}};
 	};
 
-	const std::map<std::string, int> string_to_alive_items = create_string_to_alive_items();
-	const std::map<int, std::string> alive_items_to_string = create_alive_items_to_string();
+	static const std::map<std::string, int> string_to_alive_items = create_string_to_alive_items();
+	static const std::map<int, std::string> alive_items_to_string = create_alive_items_to_string();
 
 	alive_items_enum alive_state() {
 		STRING_TYPE_GETTER("alive_state", static_cast<alive_items_enum>(string_to_alive_items.at(resstr)))
@@ -56965,8 +56965,8 @@ public:
 		return {{resolution_items_PREVIEW, "PREVIEW"}, {resolution_items_RENDER, "RENDER"}};
 	};
 
-	const std::map<std::string, int> string_to_resolution_items = create_string_to_resolution_items();
-	const std::map<int, std::string> resolution_items_to_string = create_resolution_items_to_string();
+	static const std::map<std::string, int> string_to_resolution_items = create_string_to_resolution_items();
+	static const std::map<int, std::string> resolution_items_to_string = create_resolution_items_to_string();
 
 	void set_resolution(Scene scene, Object object_value, resolution_items_enum resolution = resolution_items_PREVIEW);
 
@@ -57013,8 +57013,8 @@ public:
 		return {{texco_items_GLOBAL, "GLOBAL"}, {texco_items_OBJECT, "OBJECT"}, {texco_items_UV, "UV"}, {texco_items_ORCO, "ORCO"}, {texco_items_STRAND, "STRAND"}};
 	};
 
-	const std::map<std::string, int> string_to_texco_items = create_string_to_texco_items();
-	const std::map<int, std::string> texco_items_to_string = create_texco_items_to_string();
+	static const std::map<std::string, int> string_to_texco_items = create_string_to_texco_items();
+	static const std::map<int, std::string> texco_items_to_string = create_texco_items_to_string();
 
 	texco_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<texco_items_enum>(string_to_texco_items.at(resstr)))
@@ -57051,8 +57051,8 @@ public:
 		return {{prop_x_mapping_items_NONE, "NONE"}, {prop_x_mapping_items_X, "X"}, {prop_x_mapping_items_Y, "Y"}, {prop_x_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_x_mapping_items = create_string_to_prop_x_mapping_items();
-	const std::map<int, std::string> prop_x_mapping_items_to_string = create_prop_x_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_x_mapping_items = create_string_to_prop_x_mapping_items();
+	static const std::map<int, std::string> prop_x_mapping_items_to_string = create_prop_x_mapping_items_to_string();
 
 	prop_x_mapping_items_enum mapping_x() {
 		STRING_TYPE_GETTER("mapping_x", static_cast<prop_x_mapping_items_enum>(string_to_prop_x_mapping_items.at(resstr)))
@@ -57077,8 +57077,8 @@ public:
 		return {{prop_y_mapping_items_NONE, "NONE"}, {prop_y_mapping_items_X, "X"}, {prop_y_mapping_items_Y, "Y"}, {prop_y_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_y_mapping_items = create_string_to_prop_y_mapping_items();
-	const std::map<int, std::string> prop_y_mapping_items_to_string = create_prop_y_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_y_mapping_items = create_string_to_prop_y_mapping_items();
+	static const std::map<int, std::string> prop_y_mapping_items_to_string = create_prop_y_mapping_items_to_string();
 
 	prop_y_mapping_items_enum mapping_y() {
 		STRING_TYPE_GETTER("mapping_y", static_cast<prop_y_mapping_items_enum>(string_to_prop_y_mapping_items.at(resstr)))
@@ -57103,8 +57103,8 @@ public:
 		return {{prop_z_mapping_items_NONE, "NONE"}, {prop_z_mapping_items_X, "X"}, {prop_z_mapping_items_Y, "Y"}, {prop_z_mapping_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_z_mapping_items = create_string_to_prop_z_mapping_items();
-	const std::map<int, std::string> prop_z_mapping_items_to_string = create_prop_z_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_z_mapping_items = create_string_to_prop_z_mapping_items();
+	static const std::map<int, std::string> prop_z_mapping_items_to_string = create_prop_z_mapping_items_to_string();
 
 	prop_z_mapping_items_enum mapping_z() {
 		STRING_TYPE_GETTER("mapping_z", static_cast<prop_z_mapping_items_enum>(string_to_prop_z_mapping_items.at(resstr)))
@@ -57129,8 +57129,8 @@ public:
 		return {{prop_mapping_items_FLAT, "FLAT"}, {prop_mapping_items_CUBE, "CUBE"}, {prop_mapping_items_TUBE, "TUBE"}, {prop_mapping_items_SPHERE, "SPHERE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
-	const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mapping_items = create_string_to_prop_mapping_items();
+	static const std::map<int, std::string> prop_mapping_items_to_string = create_prop_mapping_items_to_string();
 
 	prop_mapping_items_enum mapping() {
 		STRING_TYPE_GETTER("mapping", static_cast<prop_mapping_items_enum>(string_to_prop_mapping_items.at(resstr)))
@@ -57559,8 +57559,8 @@ public:
 		return {{type_items_EMITTER, "EMITTER"}, {type_items_HAIR, "HAIR"}};
 	};
 
-	const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
-	const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
+	static const std::map<std::string, int> string_to_type_items = create_string_to_type_items();
+	static const std::map<int, std::string> type_items_to_string = create_type_items_to_string();
 
 	type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<type_items_enum>(string_to_type_items.at(resstr)))
@@ -57584,8 +57584,8 @@ public:
 		return {{part_reactor_from_items_VERT, "VERT"}, {part_reactor_from_items_FACE, "FACE"}, {part_reactor_from_items_VOLUME, "VOLUME"}};
 	};
 
-	const std::map<std::string, int> string_to_part_reactor_from_items = create_string_to_part_reactor_from_items();
-	const std::map<int, std::string> part_reactor_from_items_to_string = create_part_reactor_from_items_to_string();
+	static const std::map<std::string, int> string_to_part_reactor_from_items = create_string_to_part_reactor_from_items();
+	static const std::map<int, std::string> part_reactor_from_items_to_string = create_part_reactor_from_items_to_string();
 
 	part_reactor_from_items_enum emit_from() {
 		STRING_TYPE_GETTER("emit_from", static_cast<part_reactor_from_items_enum>(string_to_part_reactor_from_items.at(resstr)))
@@ -57609,8 +57609,8 @@ public:
 		return {{part_dist_items_JIT, "JIT"}, {part_dist_items_RAND, "RAND"}, {part_dist_items_GRID, "GRID"}};
 	};
 
-	const std::map<std::string, int> string_to_part_dist_items = create_string_to_part_dist_items();
-	const std::map<int, std::string> part_dist_items_to_string = create_part_dist_items_to_string();
+	static const std::map<std::string, int> string_to_part_dist_items = create_string_to_part_dist_items();
+	static const std::map<int, std::string> part_dist_items_to_string = create_part_dist_items_to_string();
 
 	part_dist_items_enum distribution() {
 		STRING_TYPE_GETTER("distribution", static_cast<part_dist_items_enum>(string_to_part_dist_items.at(resstr)))
@@ -57636,8 +57636,8 @@ public:
 		return {{phys_type_items_NO, "NO"}, {phys_type_items_NEWTON, "NEWTON"}, {phys_type_items_KEYED, "KEYED"}, {phys_type_items_BOIDS, "BOIDS"}, {phys_type_items_FLUID, "FLUID"}};
 	};
 
-	const std::map<std::string, int> string_to_phys_type_items = create_string_to_phys_type_items();
-	const std::map<int, std::string> phys_type_items_to_string = create_phys_type_items_to_string();
+	static const std::map<std::string, int> string_to_phys_type_items = create_string_to_phys_type_items();
+	static const std::map<int, std::string> phys_type_items_to_string = create_phys_type_items_to_string();
 
 	phys_type_items_enum physics_type() {
 		STRING_TYPE_GETTER("physics_type", static_cast<phys_type_items_enum>(string_to_phys_type_items.at(resstr)))
@@ -57668,8 +57668,8 @@ public:
 		return {{rot_mode_items_NONE, "NONE"}, {rot_mode_items_NOR, "NOR"}, {rot_mode_items_NOR_TAN, "NOR_TAN"}, {rot_mode_items_VEL, "VEL"}, {rot_mode_items_GLOB_X, "GLOB_X"}, {rot_mode_items_GLOB_Y, "GLOB_Y"}, {rot_mode_items_GLOB_Z, "GLOB_Z"}, {rot_mode_items_OB_X, "OB_X"}, {rot_mode_items_OB_Y, "OB_Y"}, {rot_mode_items_OB_Z, "OB_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_rot_mode_items = create_string_to_rot_mode_items();
-	const std::map<int, std::string> rot_mode_items_to_string = create_rot_mode_items_to_string();
+	static const std::map<std::string, int> string_to_rot_mode_items = create_string_to_rot_mode_items();
+	static const std::map<int, std::string> rot_mode_items_to_string = create_rot_mode_items_to_string();
 
 	rot_mode_items_enum rotation_mode() {
 		STRING_TYPE_GETTER("rotation_mode", static_cast<rot_mode_items_enum>(string_to_rot_mode_items.at(resstr)))
@@ -57698,8 +57698,8 @@ public:
 		return {{ave_mode_items_NONE, "NONE"}, {ave_mode_items_VELOCITY, "VELOCITY"}, {ave_mode_items_HORIZONTAL, "HORIZONTAL"}, {ave_mode_items_VERTICAL, "VERTICAL"}, {ave_mode_items_GLOBAL_X, "GLOBAL_X"}, {ave_mode_items_GLOBAL_Y, "GLOBAL_Y"}, {ave_mode_items_GLOBAL_Z, "GLOBAL_Z"}, {ave_mode_items_RAND, "RAND"}};
 	};
 
-	const std::map<std::string, int> string_to_ave_mode_items = create_string_to_ave_mode_items();
-	const std::map<int, std::string> ave_mode_items_to_string = create_ave_mode_items_to_string();
+	static const std::map<std::string, int> string_to_ave_mode_items = create_string_to_ave_mode_items();
+	static const std::map<int, std::string> ave_mode_items_to_string = create_ave_mode_items_to_string();
 
 	ave_mode_items_enum angular_velocity_mode() {
 		STRING_TYPE_GETTER("angular_velocity_mode", static_cast<ave_mode_items_enum>(string_to_ave_mode_items.at(resstr)))
@@ -57723,8 +57723,8 @@ public:
 		return {{react_event_items_DEATH, "DEATH"}, {react_event_items_COLLIDE, "COLLIDE"}, {react_event_items_NEAR, "NEAR"}};
 	};
 
-	const std::map<std::string, int> string_to_react_event_items = create_string_to_react_event_items();
-	const std::map<int, std::string> react_event_items_to_string = create_react_event_items_to_string();
+	static const std::map<std::string, int> string_to_react_event_items = create_string_to_react_event_items();
+	static const std::map<int, std::string> react_event_items_to_string = create_react_event_items_to_string();
 
 	react_event_items_enum react_event() {
 		STRING_TYPE_GETTER("react_event", static_cast<react_event_items_enum>(string_to_react_event_items.at(resstr)))
@@ -57895,8 +57895,8 @@ public:
 		return {{part_draw_as_items_NONE, "NONE"}, {part_draw_as_items_RENDER, "RENDER"}, {part_draw_as_items_DOT, "DOT"}, {part_draw_as_items_CIRC, "CIRC"}, {part_draw_as_items_CROSS, "CROSS"}, {part_draw_as_items_AXIS, "AXIS"}};
 	};
 
-	const std::map<std::string, int> string_to_part_draw_as_items = create_string_to_part_draw_as_items();
-	const std::map<int, std::string> part_draw_as_items_to_string = create_part_draw_as_items_to_string();
+	static const std::map<std::string, int> string_to_part_draw_as_items = create_string_to_part_draw_as_items();
+	static const std::map<int, std::string> part_draw_as_items_to_string = create_part_draw_as_items_to_string();
 
 	part_draw_as_items_enum draw_method() {
 		STRING_TYPE_GETTER("draw_method", static_cast<part_draw_as_items_enum>(string_to_part_draw_as_items.at(resstr)))
@@ -57924,8 +57924,8 @@ public:
 		return {{part_ren_as_items_NONE, "NONE"}, {part_ren_as_items_HALO, "HALO"}, {part_ren_as_items_LINE, "LINE"}, {part_ren_as_items_PATH, "PATH"}, {part_ren_as_items_OBJECT, "OBJECT"}, {part_ren_as_items_GROUP, "GROUP"}, {part_ren_as_items_BILLBOARD, "BILLBOARD"}};
 	};
 
-	const std::map<std::string, int> string_to_part_ren_as_items = create_string_to_part_ren_as_items();
-	const std::map<int, std::string> part_ren_as_items_to_string = create_part_ren_as_items_to_string();
+	static const std::map<std::string, int> string_to_part_ren_as_items = create_string_to_part_ren_as_items();
+	static const std::map<int, std::string> part_ren_as_items_to_string = create_part_ren_as_items_to_string();
 
 	part_ren_as_items_enum render_type() {
 		STRING_TYPE_GETTER("render_type", static_cast<part_ren_as_items_enum>(string_to_part_ren_as_items.at(resstr)))
@@ -57950,8 +57950,8 @@ public:
 		return {{draw_col_items_NONE, "NONE"}, {draw_col_items_MATERIAL, "MATERIAL"}, {draw_col_items_VELOCITY, "VELOCITY"}, {draw_col_items_ACCELERATION, "ACCELERATION"}};
 	};
 
-	const std::map<std::string, int> string_to_draw_col_items = create_string_to_draw_col_items();
-	const std::map<int, std::string> draw_col_items_to_string = create_draw_col_items_to_string();
+	static const std::map<std::string, int> string_to_draw_col_items = create_string_to_draw_col_items();
+	static const std::map<int, std::string> draw_col_items_to_string = create_draw_col_items_to_string();
 
 	draw_col_items_enum draw_color() {
 		STRING_TYPE_GETTER("draw_color", static_cast<draw_col_items_enum>(string_to_draw_col_items.at(resstr)))
@@ -57983,8 +57983,8 @@ public:
 		return {{child_type_items_NONE, "NONE"}, {child_type_items_SIMPLE, "SIMPLE"}, {child_type_items_INTERPOLATED, "INTERPOLATED"}};
 	};
 
-	const std::map<std::string, int> string_to_child_type_items = create_string_to_child_type_items();
-	const std::map<int, std::string> child_type_items_to_string = create_child_type_items_to_string();
+	static const std::map<std::string, int> string_to_child_type_items = create_string_to_child_type_items();
+	static const std::map<int, std::string> child_type_items_to_string = create_child_type_items_to_string();
 
 	child_type_items_enum child_type() {
 		STRING_TYPE_GETTER("child_type", static_cast<child_type_items_enum>(string_to_child_type_items.at(resstr)))
@@ -58078,8 +58078,8 @@ public:
 		return {{part_mat_items_DUMMY, "DUMMY"}};
 	};
 
-	const std::map<std::string, int> string_to_part_mat_items = create_string_to_part_mat_items();
-	const std::map<int, std::string> part_mat_items_to_string = create_part_mat_items_to_string();
+	static const std::map<std::string, int> string_to_part_mat_items = create_string_to_part_mat_items();
+	static const std::map<int, std::string> part_mat_items_to_string = create_part_mat_items_to_string();
 
 	part_mat_items_enum material_slot() {
 		STRING_TYPE_GETTER("material_slot", static_cast<part_mat_items_enum>(string_to_part_mat_items.at(resstr)))
@@ -58104,8 +58104,8 @@ public:
 		return {{integrator_type_items_EULER, "EULER"}, {integrator_type_items_VERLET, "VERLET"}, {integrator_type_items_MIDPOINT, "MIDPOINT"}, {integrator_type_items_RK4, "RK4"}};
 	};
 
-	const std::map<std::string, int> string_to_integrator_type_items = create_string_to_integrator_type_items();
-	const std::map<int, std::string> integrator_type_items_to_string = create_integrator_type_items_to_string();
+	static const std::map<std::string, int> string_to_integrator_type_items = create_string_to_integrator_type_items();
+	static const std::map<int, std::string> integrator_type_items_to_string = create_integrator_type_items_to_string();
 
 	integrator_type_items_enum integrator() {
 		STRING_TYPE_GETTER("integrator", static_cast<integrator_type_items_enum>(string_to_integrator_type_items.at(resstr)))
@@ -58132,8 +58132,8 @@ public:
 		return {{kink_type_items_NO, "NO"}, {kink_type_items_CURL, "CURL"}, {kink_type_items_RADIAL, "RADIAL"}, {kink_type_items_WAVE, "WAVE"}, {kink_type_items_BRAID, "BRAID"}, {kink_type_items_SPIRAL, "SPIRAL"}};
 	};
 
-	const std::map<std::string, int> string_to_kink_type_items = create_string_to_kink_type_items();
-	const std::map<int, std::string> kink_type_items_to_string = create_kink_type_items_to_string();
+	static const std::map<std::string, int> string_to_kink_type_items = create_string_to_kink_type_items();
+	static const std::map<int, std::string> kink_type_items_to_string = create_kink_type_items_to_string();
 
 	kink_type_items_enum kink() {
 		STRING_TYPE_GETTER("kink", static_cast<kink_type_items_enum>(string_to_kink_type_items.at(resstr)))
@@ -58157,8 +58157,8 @@ public:
 		return {{kink_axis_items_X, "X"}, {kink_axis_items_Y, "Y"}, {kink_axis_items_Z, "Z"}};
 	};
 
-	const std::map<std::string, int> string_to_kink_axis_items = create_string_to_kink_axis_items();
-	const std::map<int, std::string> kink_axis_items_to_string = create_kink_axis_items_to_string();
+	static const std::map<std::string, int> string_to_kink_axis_items = create_string_to_kink_axis_items();
+	static const std::map<int, std::string> kink_axis_items_to_string = create_kink_axis_items_to_string();
 
 	kink_axis_items_enum kink_axis() {
 		STRING_TYPE_GETTER("kink_axis", static_cast<kink_axis_items_enum>(string_to_kink_axis_items.at(resstr)))
@@ -58192,8 +58192,8 @@ public:
 		return {{bb_align_items_X, "X"}, {bb_align_items_Y, "Y"}, {bb_align_items_Z, "Z"}, {bb_align_items_VIEW, "VIEW"}, {bb_align_items_VEL, "VEL"}};
 	};
 
-	const std::map<std::string, int> string_to_bb_align_items = create_string_to_bb_align_items();
-	const std::map<int, std::string> bb_align_items_to_string = create_bb_align_items_to_string();
+	static const std::map<std::string, int> string_to_bb_align_items = create_string_to_bb_align_items();
+	static const std::map<int, std::string> bb_align_items_to_string = create_bb_align_items_to_string();
 
 	bb_align_items_enum billboard_align() {
 		STRING_TYPE_GETTER("billboard_align", static_cast<bb_align_items_enum>(string_to_bb_align_items.at(resstr)))
@@ -58226,8 +58226,8 @@ public:
 		return {{bb_anim_items_NONE, "NONE"}, {bb_anim_items_AGE, "AGE"}, {bb_anim_items_FRAME, "FRAME"}, {bb_anim_items_ANGLE, "ANGLE"}};
 	};
 
-	const std::map<std::string, int> string_to_bb_anim_items = create_string_to_bb_anim_items();
-	const std::map<int, std::string> bb_anim_items_to_string = create_bb_anim_items_to_string();
+	static const std::map<std::string, int> string_to_bb_anim_items = create_string_to_bb_anim_items();
+	static const std::map<int, std::string> bb_anim_items_to_string = create_bb_anim_items_to_string();
 
 	bb_anim_items_enum billboard_animation() {
 		STRING_TYPE_GETTER("billboard_animation", static_cast<bb_anim_items_enum>(string_to_bb_anim_items.at(resstr)))
@@ -58251,8 +58251,8 @@ public:
 		return {{bb_split_offset_items_NONE, "NONE"}, {bb_split_offset_items_LINEAR, "LINEAR"}, {bb_split_offset_items_RANDOM, "RANDOM"}};
 	};
 
-	const std::map<std::string, int> string_to_bb_split_offset_items = create_string_to_bb_split_offset_items();
-	const std::map<int, std::string> bb_split_offset_items_to_string = create_bb_split_offset_items_to_string();
+	static const std::map<std::string, int> string_to_bb_split_offset_items = create_string_to_bb_split_offset_items();
+	static const std::map<int, std::string> bb_split_offset_items_to_string = create_bb_split_offset_items_to_string();
 
 	bb_split_offset_items_enum billboard_offset_split() {
 		STRING_TYPE_GETTER("billboard_offset_split", static_cast<bb_split_offset_items_enum>(string_to_bb_split_offset_items.at(resstr)))
@@ -59065,8 +59065,8 @@ public:
 		return {{prop_iksolver_items_LEGACY, "LEGACY"}, {prop_iksolver_items_ITASC, "ITASC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_iksolver_items = create_string_to_prop_iksolver_items();
-	const std::map<int, std::string> prop_iksolver_items_to_string = create_prop_iksolver_items_to_string();
+	static const std::map<std::string, int> string_to_prop_iksolver_items = create_string_to_prop_iksolver_items();
+	static const std::map<int, std::string> prop_iksolver_items_to_string = create_prop_iksolver_items_to_string();
 
 	prop_iksolver_items_enum ik_solver() {
 		STRING_TYPE_GETTER("ik_solver", static_cast<prop_iksolver_items_enum>(string_to_prop_iksolver_items.at(resstr)))
@@ -59175,8 +59175,8 @@ public:
 		return {{posebone_rotmode_items_QUATERNION, "QUATERNION"}, {posebone_rotmode_items_XYZ, "XYZ"}, {posebone_rotmode_items_XZY, "XZY"}, {posebone_rotmode_items_YXZ, "YXZ"}, {posebone_rotmode_items_YZX, "YZX"}, {posebone_rotmode_items_ZXY, "ZXY"}, {posebone_rotmode_items_ZYX, "ZYX"}, {posebone_rotmode_items_AXIS_ANGLE, "AXIS_ANGLE"}};
 	};
 
-	const std::map<std::string, int> string_to_posebone_rotmode_items = create_string_to_posebone_rotmode_items();
-	const std::map<int, std::string> posebone_rotmode_items_to_string = create_posebone_rotmode_items_to_string();
+	static const std::map<std::string, int> string_to_posebone_rotmode_items = create_string_to_posebone_rotmode_items();
+	static const std::map<int, std::string> posebone_rotmode_items_to_string = create_posebone_rotmode_items_to_string();
 
 	posebone_rotmode_items_enum rotation_mode() {
 		STRING_TYPE_GETTER("rotation_mode", static_cast<posebone_rotmode_items_enum>(string_to_posebone_rotmode_items.at(resstr)))
@@ -59480,8 +59480,8 @@ public:
 		return {{prop_iksolver_items_LEGACY, "LEGACY"}, {prop_iksolver_items_ITASC, "ITASC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_iksolver_items = create_string_to_prop_iksolver_items();
-	const std::map<int, std::string> prop_iksolver_items_to_string = create_prop_iksolver_items_to_string();
+	static const std::map<std::string, int> string_to_prop_iksolver_items = create_string_to_prop_iksolver_items();
+	static const std::map<int, std::string> prop_iksolver_items_to_string = create_prop_iksolver_items_to_string();
 
 	prop_iksolver_items_enum ik_solver() {
 		STRING_TYPE_GETTER("ik_solver", static_cast<prop_iksolver_items_enum>(string_to_prop_iksolver_items.at(resstr)))
@@ -59534,8 +59534,8 @@ public:
 		return {{prop_itasc_mode_items_ANIMATION, "ANIMATION"}, {prop_itasc_mode_items_SIMULATION, "SIMULATION"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_itasc_mode_items = create_string_to_prop_itasc_mode_items();
-	const std::map<int, std::string> prop_itasc_mode_items_to_string = create_prop_itasc_mode_items_to_string();
+	static const std::map<std::string, int> string_to_prop_itasc_mode_items = create_string_to_prop_itasc_mode_items();
+	static const std::map<int, std::string> prop_itasc_mode_items_to_string = create_prop_itasc_mode_items_to_string();
 
 	prop_itasc_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<prop_itasc_mode_items_enum>(string_to_prop_itasc_mode_items.at(resstr)))
@@ -59559,8 +59559,8 @@ public:
 		return {{prop_itasc_reiteration_items_NEVER, "NEVER"}, {prop_itasc_reiteration_items_INITIAL, "INITIAL"}, {prop_itasc_reiteration_items_ALWAYS, "ALWAYS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_itasc_reiteration_items = create_string_to_prop_itasc_reiteration_items();
-	const std::map<int, std::string> prop_itasc_reiteration_items_to_string = create_prop_itasc_reiteration_items_to_string();
+	static const std::map<std::string, int> string_to_prop_itasc_reiteration_items = create_string_to_prop_itasc_reiteration_items();
+	static const std::map<int, std::string> prop_itasc_reiteration_items_to_string = create_prop_itasc_reiteration_items_to_string();
 
 	prop_itasc_reiteration_items_enum reiteration_method() {
 		STRING_TYPE_GETTER("reiteration_method", static_cast<prop_itasc_reiteration_items_enum>(string_to_prop_itasc_reiteration_items.at(resstr)))
@@ -59623,8 +59623,8 @@ public:
 		return {{prop_solver_items_SDLS, "SDLS"}, {prop_solver_items_DLS, "DLS"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_solver_items = create_string_to_prop_solver_items();
-	const std::map<int, std::string> prop_solver_items_to_string = create_prop_solver_items_to_string();
+	static const std::map<std::string, int> string_to_prop_solver_items = create_string_to_prop_solver_items();
+	static const std::map<int, std::string> prop_solver_items_to_string = create_prop_solver_items_to_string();
 
 	prop_solver_items_enum solver() {
 		STRING_TYPE_GETTER("solver", static_cast<prop_solver_items_enum>(string_to_prop_solver_items.at(resstr)))
@@ -59697,8 +59697,8 @@ public:
 		return {{color_sets_items_DEFAULT, "DEFAULT"}, {color_sets_items_THEME01, "THEME01"}, {color_sets_items_THEME02, "THEME02"}, {color_sets_items_THEME03, "THEME03"}, {color_sets_items_THEME04, "THEME04"}, {color_sets_items_THEME05, "THEME05"}, {color_sets_items_THEME06, "THEME06"}, {color_sets_items_THEME07, "THEME07"}, {color_sets_items_THEME08, "THEME08"}, {color_sets_items_THEME09, "THEME09"}, {color_sets_items_THEME10, "THEME10"}, {color_sets_items_THEME11, "THEME11"}, {color_sets_items_THEME12, "THEME12"}, {color_sets_items_THEME13, "THEME13"}, {color_sets_items_THEME14, "THEME14"}, {color_sets_items_THEME15, "THEME15"}, {color_sets_items_THEME16, "THEME16"}, {color_sets_items_THEME17, "THEME17"}, {color_sets_items_THEME18, "THEME18"}, {color_sets_items_THEME19, "THEME19"}, {color_sets_items_THEME20, "THEME20"}, {color_sets_items_CUSTOM, "CUSTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_color_sets_items = create_string_to_color_sets_items();
-	const std::map<int, std::string> color_sets_items_to_string = create_color_sets_items_to_string();
+	static const std::map<std::string, int> string_to_color_sets_items = create_string_to_color_sets_items();
+	static const std::map<int, std::string> color_sets_items_to_string = create_color_sets_items_to_string();
 
 	color_sets_items_enum color_set() {
 		STRING_TYPE_GETTER("color_set", static_cast<color_sets_items_enum>(string_to_color_sets_items.at(resstr)))
@@ -59748,8 +59748,8 @@ public:
 		return {{gameproperty_type_items_BOOL, "BOOL"}, {gameproperty_type_items_INT, "INT"}, {gameproperty_type_items_FLOAT, "FLOAT"}, {gameproperty_type_items_STRING, "STRING"}, {gameproperty_type_items_TIMER, "TIMER"}};
 	};
 
-	const std::map<std::string, int> string_to_gameproperty_type_items = create_string_to_gameproperty_type_items();
-	const std::map<int, std::string> gameproperty_type_items_to_string = create_gameproperty_type_items_to_string();
+	static const std::map<std::string, int> string_to_gameproperty_type_items = create_string_to_gameproperty_type_items();
+	static const std::map<int, std::string> gameproperty_type_items_to_string = create_gameproperty_type_items_to_string();
 
 	gameproperty_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<gameproperty_type_items_enum>(string_to_gameproperty_type_items.at(resstr)))
@@ -60059,8 +60059,8 @@ public:
 		return {{items_DEBUG, "DEBUG"}, {items_INFO, "INFO"}, {items_OPERATOR, "OPERATOR"}, {items_PROPERTY, "PROPERTY"}, {items_WARNING, "WARNING"}, {items_ERROR, "ERROR"}, {items_ERROR_INVALID_INPUT, "ERROR_INVALID_INPUT"}, {items_ERROR_INVALID_CONTEXT, "ERROR_INVALID_CONTEXT"}, {items_ERROR_OUT_OF_MEMORY, "ERROR_OUT_OF_MEMORY"}};
 	};
 
-	const std::map<std::string, int> string_to_items = create_string_to_items();
-	const std::map<int, std::string> items_to_string = create_items_to_string();
+	static const std::map<std::string, int> string_to_items = create_string_to_items();
+	static const std::map<int, std::string> items_to_string = create_items_to_string();
 
 	void report(items_enum type, const std::string message) {
 		PYTHON_FUNCTION_ARGS_CALL("report", "ss", items_to_string.at(type), message)
@@ -60636,8 +60636,8 @@ public:
 		return {{render_pass_type_items_COMBINED, "COMBINED"}, {render_pass_type_items_Z, "Z"}, {render_pass_type_items_COLOR, "COLOR"}, {render_pass_type_items_DIFFUSE, "DIFFUSE"}, {render_pass_type_items_SPECULAR, "SPECULAR"}, {render_pass_type_items_SHADOW, "SHADOW"}, {render_pass_type_items_AO, "AO"}, {render_pass_type_items_REFLECTION, "REFLECTION"}, {render_pass_type_items_NORMAL, "NORMAL"}, {render_pass_type_items_VECTOR, "VECTOR"}, {render_pass_type_items_REFRACTION, "REFRACTION"}, {render_pass_type_items_OBJECT_INDEX, "OBJECT_INDEX"}, {render_pass_type_items_UV, "UV"}, {render_pass_type_items_MIST, "MIST"}, {render_pass_type_items_EMIT, "EMIT"}, {render_pass_type_items_ENVIRONMENT, "ENVIRONMENT"}, {render_pass_type_items_MATERIAL_INDEX, "MATERIAL_INDEX"}, {render_pass_type_items_DIFFUSE_DIRECT, "DIFFUSE_DIRECT"}, {render_pass_type_items_DIFFUSE_INDIRECT, "DIFFUSE_INDIRECT"}, {render_pass_type_items_DIFFUSE_COLOR, "DIFFUSE_COLOR"}, {render_pass_type_items_GLOSSY_DIRECT, "GLOSSY_DIRECT"}, {render_pass_type_items_GLOSSY_INDIRECT, "GLOSSY_INDIRECT"}, {render_pass_type_items_GLOSSY_COLOR, "GLOSSY_COLOR"}, {render_pass_type_items_TRANSMISSION_DIRECT, "TRANSMISSION_DIRECT"}, {render_pass_type_items_TRANSMISSION_INDIRECT, "TRANSMISSION_INDIRECT"}, {render_pass_type_items_TRANSMISSION_COLOR, "TRANSMISSION_COLOR"}, {render_pass_type_items_SUBSURFACE_DIRECT, "SUBSURFACE_DIRECT"}, {render_pass_type_items_SUBSURFACE_INDIRECT, "SUBSURFACE_INDIRECT"}, {render_pass_type_items_SUBSURFACE_COLOR, "SUBSURFACE_COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_render_pass_type_items = create_string_to_render_pass_type_items();
-	const std::map<int, std::string> render_pass_type_items_to_string = create_render_pass_type_items_to_string();
+	static const std::map<std::string, int> string_to_render_pass_type_items = create_string_to_render_pass_type_items();
+	static const std::map<int, std::string> render_pass_type_items_to_string = create_render_pass_type_items_to_string();
 
 	render_pass_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<render_pass_type_items_enum>(string_to_render_pass_type_items.at(resstr)))
@@ -60677,8 +60677,8 @@ public:
 		return {{render_pass_debug_type_items_BVH_TRAVERSAL_STEPS, "BVH_TRAVERSAL_STEPS"}, {render_pass_debug_type_items_BVH_TRAVERSED_INSTANCES, "BVH_TRAVERSED_INSTANCES"}, {render_pass_debug_type_items_RAY_BOUNCES, "RAY_BOUNCES"}};
 	};
 
-	const std::map<std::string, int> string_to_render_pass_debug_type_items = create_string_to_render_pass_debug_type_items();
-	const std::map<int, std::string> render_pass_debug_type_items_to_string = create_render_pass_debug_type_items_to_string();
+	static const std::map<std::string, int> string_to_render_pass_debug_type_items = create_string_to_render_pass_debug_type_items();
+	static const std::map<int, std::string> render_pass_debug_type_items_to_string = create_render_pass_debug_type_items_to_string();
 
 	render_pass_debug_type_items_enum debug_type() {
 		STRING_TYPE_GETTER("debug_type", static_cast<render_pass_debug_type_items_enum>(string_to_render_pass_debug_type_items.at(resstr)))
@@ -60857,8 +60857,8 @@ public:
 		return {{rigidbody_object_type_items_ACTIVE, "ACTIVE"}, {rigidbody_object_type_items_PASSIVE, "PASSIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_rigidbody_object_type_items = create_string_to_rigidbody_object_type_items();
-	const std::map<int, std::string> rigidbody_object_type_items_to_string = create_rigidbody_object_type_items_to_string();
+	static const std::map<std::string, int> string_to_rigidbody_object_type_items = create_string_to_rigidbody_object_type_items();
+	static const std::map<int, std::string> rigidbody_object_type_items_to_string = create_rigidbody_object_type_items_to_string();
 
 	rigidbody_object_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<rigidbody_object_type_items_enum>(string_to_rigidbody_object_type_items.at(resstr)))
@@ -60882,8 +60882,8 @@ public:
 		return {{rigidbody_mesh_source_items_BASE, "BASE"}, {rigidbody_mesh_source_items_DEFORM, "DEFORM"}, {rigidbody_mesh_source_items_FINAL, "FINAL"}};
 	};
 
-	const std::map<std::string, int> string_to_rigidbody_mesh_source_items = create_string_to_rigidbody_mesh_source_items();
-	const std::map<int, std::string> rigidbody_mesh_source_items_to_string = create_rigidbody_mesh_source_items_to_string();
+	static const std::map<std::string, int> string_to_rigidbody_mesh_source_items = create_string_to_rigidbody_mesh_source_items();
+	static const std::map<int, std::string> rigidbody_mesh_source_items_to_string = create_rigidbody_mesh_source_items_to_string();
 
 	rigidbody_mesh_source_items_enum mesh_source() {
 		STRING_TYPE_GETTER("mesh_source", static_cast<rigidbody_mesh_source_items_enum>(string_to_rigidbody_mesh_source_items.at(resstr)))
@@ -60919,8 +60919,8 @@ public:
 		return {{rigidbody_object_shape_items_BOX, "BOX"}, {rigidbody_object_shape_items_SPHERE, "SPHERE"}, {rigidbody_object_shape_items_CAPSULE, "CAPSULE"}, {rigidbody_object_shape_items_CYLINDER, "CYLINDER"}, {rigidbody_object_shape_items_CONE, "CONE"}, {rigidbody_object_shape_items_CONVEX_HULL, "CONVEX_HULL"}, {rigidbody_object_shape_items_MESH, "MESH"}};
 	};
 
-	const std::map<std::string, int> string_to_rigidbody_object_shape_items = create_string_to_rigidbody_object_shape_items();
-	const std::map<int, std::string> rigidbody_object_shape_items_to_string = create_rigidbody_object_shape_items_to_string();
+	static const std::map<std::string, int> string_to_rigidbody_object_shape_items = create_string_to_rigidbody_object_shape_items();
+	static const std::map<int, std::string> rigidbody_object_shape_items_to_string = create_rigidbody_object_shape_items_to_string();
 
 	rigidbody_object_shape_items_enum collision_shape() {
 		STRING_TYPE_GETTER("collision_shape", static_cast<rigidbody_object_shape_items_enum>(string_to_rigidbody_object_shape_items.at(resstr)))
@@ -61067,8 +61067,8 @@ public:
 		return {{rigidbody_constraint_type_items_FIXED, "FIXED"}, {rigidbody_constraint_type_items_POINT, "POINT"}, {rigidbody_constraint_type_items_HINGE, "HINGE"}, {rigidbody_constraint_type_items_SLIDER, "SLIDER"}, {rigidbody_constraint_type_items_PISTON, "PISTON"}, {rigidbody_constraint_type_items_GENERIC, "GENERIC"}, {rigidbody_constraint_type_items_GENERIC_SPRING, "GENERIC_SPRING"}, {rigidbody_constraint_type_items_MOTOR, "MOTOR"}};
 	};
 
-	const std::map<std::string, int> string_to_rigidbody_constraint_type_items = create_string_to_rigidbody_constraint_type_items();
-	const std::map<int, std::string> rigidbody_constraint_type_items_to_string = create_rigidbody_constraint_type_items_to_string();
+	static const std::map<std::string, int> string_to_rigidbody_constraint_type_items = create_string_to_rigidbody_constraint_type_items();
+	static const std::map<int, std::string> rigidbody_constraint_type_items_to_string = create_rigidbody_constraint_type_items_to_string();
 
 	rigidbody_constraint_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<rigidbody_constraint_type_items_enum>(string_to_rigidbody_constraint_type_items.at(resstr)))
@@ -61576,8 +61576,8 @@ public:
 		return {{sync_mode_items_NONE, "NONE"}, {sync_mode_items_FRAME_DROP, "FRAME_DROP"}, {sync_mode_items_AUDIO_SYNC, "AUDIO_SYNC"}};
 	};
 
-	const std::map<std::string, int> string_to_sync_mode_items = create_string_to_sync_mode_items();
-	const std::map<int, std::string> sync_mode_items_to_string = create_sync_mode_items_to_string();
+	static const std::map<std::string, int> string_to_sync_mode_items = create_string_to_sync_mode_items();
+	static const std::map<int, std::string> sync_mode_items_to_string = create_sync_mode_items_to_string();
 
 	sync_mode_items_enum sync_mode() {
 		STRING_TYPE_GETTER("sync_mode", static_cast<sync_mode_items_enum>(string_to_sync_mode_items.at(resstr)))
@@ -61697,8 +61697,8 @@ public:
 		return {{audio_distance_model_items_NONE, "NONE"}, {audio_distance_model_items_INVERSE, "INVERSE"}, {audio_distance_model_items_INVERSE_CLAMPED, "INVERSE_CLAMPED"}, {audio_distance_model_items_LINEAR, "LINEAR"}, {audio_distance_model_items_LINEAR_CLAMPED, "LINEAR_CLAMPED"}, {audio_distance_model_items_EXPONENT, "EXPONENT"}, {audio_distance_model_items_EXPONENT_CLAMPED, "EXPONENT_CLAMPED"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_distance_model_items = create_string_to_audio_distance_model_items();
-	const std::map<int, std::string> audio_distance_model_items_to_string = create_audio_distance_model_items_to_string();
+	static const std::map<std::string, int> string_to_audio_distance_model_items = create_string_to_audio_distance_model_items();
+	static const std::map<int, std::string> audio_distance_model_items_to_string = create_audio_distance_model_items_to_string();
 
 	audio_distance_model_items_enum audio_distance_model() {
 		STRING_TYPE_GETTER("audio_distance_model", static_cast<audio_distance_model_items_enum>(string_to_audio_distance_model_items.at(resstr)))
@@ -61836,8 +61836,8 @@ public:
 		return {{draw_groupuser_items_NONE, "NONE"}, {draw_groupuser_items_ACTIVE, "ACTIVE"}, {draw_groupuser_items_ALL, "ALL"}};
 	};
 
-	const std::map<std::string, int> string_to_draw_groupuser_items = create_string_to_draw_groupuser_items();
-	const std::map<int, std::string> draw_groupuser_items_to_string = create_draw_groupuser_items_to_string();
+	static const std::map<std::string, int> string_to_draw_groupuser_items = create_string_to_draw_groupuser_items();
+	static const std::map<int, std::string> draw_groupuser_items_to_string = create_draw_groupuser_items_to_string();
 
 	draw_groupuser_items_enum vertex_group_user() {
 		STRING_TYPE_GETTER("vertex_group_user", static_cast<draw_groupuser_items_enum>(string_to_draw_groupuser_items.at(resstr)))
@@ -61861,8 +61861,8 @@ public:
 		return {{vertex_group_select_items_ALL, "ALL"}, {vertex_group_select_items_BONE_DEFORM, "BONE_DEFORM"}, {vertex_group_select_items_OTHER_DEFORM, "OTHER_DEFORM"}};
 	};
 
-	const std::map<std::string, int> string_to_vertex_group_select_items = create_string_to_vertex_group_select_items();
-	const std::map<int, std::string> vertex_group_select_items_to_string = create_vertex_group_select_items_to_string();
+	static const std::map<std::string, int> string_to_vertex_group_select_items = create_string_to_vertex_group_select_items();
+	static const std::map<int, std::string> vertex_group_select_items_to_string = create_vertex_group_select_items_to_string();
 
 	vertex_group_select_items_enum vertex_group_subset() {
 		STRING_TYPE_GETTER("vertex_group_subset", static_cast<vertex_group_select_items_enum>(string_to_vertex_group_select_items.at(resstr)))
@@ -61920,8 +61920,8 @@ public:
 		return {{uv_sculpt_tool_items_PINCH, "PINCH"}, {uv_sculpt_tool_items_RELAX, "RELAX"}, {uv_sculpt_tool_items_GRAB, "GRAB"}};
 	};
 
-	const std::map<std::string, int> string_to_uv_sculpt_tool_items = create_string_to_uv_sculpt_tool_items();
-	const std::map<int, std::string> uv_sculpt_tool_items_to_string = create_uv_sculpt_tool_items_to_string();
+	static const std::map<std::string, int> string_to_uv_sculpt_tool_items = create_string_to_uv_sculpt_tool_items();
+	static const std::map<int, std::string> uv_sculpt_tool_items_to_string = create_uv_sculpt_tool_items_to_string();
 
 	uv_sculpt_tool_items_enum uv_sculpt_tool() {
 		STRING_TYPE_GETTER("uv_sculpt_tool", static_cast<uv_sculpt_tool_items_enum>(string_to_uv_sculpt_tool_items.at(resstr)))
@@ -61944,8 +61944,8 @@ public:
 		return {{uv_sculpt_relaxation_items_LAPLACIAN, "LAPLACIAN"}, {uv_sculpt_relaxation_items_HC, "HC"}};
 	};
 
-	const std::map<std::string, int> string_to_uv_sculpt_relaxation_items = create_string_to_uv_sculpt_relaxation_items();
-	const std::map<int, std::string> uv_sculpt_relaxation_items_to_string = create_uv_sculpt_relaxation_items_to_string();
+	static const std::map<std::string, int> string_to_uv_sculpt_relaxation_items = create_string_to_uv_sculpt_relaxation_items();
+	static const std::map<int, std::string> uv_sculpt_relaxation_items_to_string = create_uv_sculpt_relaxation_items_to_string();
 
 	uv_sculpt_relaxation_items_enum uv_relax_method() {
 		STRING_TYPE_GETTER("uv_relax_method", static_cast<uv_sculpt_relaxation_items_enum>(string_to_uv_sculpt_relaxation_items.at(resstr)))
@@ -61970,8 +61970,8 @@ public:
 		return {{proportional_editing_items_DISABLED, "DISABLED"}, {proportional_editing_items_ENABLED, "ENABLED"}, {proportional_editing_items_PROJECTED, "PROJECTED"}, {proportional_editing_items_CONNECTED, "CONNECTED"}};
 	};
 
-	const std::map<std::string, int> string_to_proportional_editing_items = create_string_to_proportional_editing_items();
-	const std::map<int, std::string> proportional_editing_items_to_string = create_proportional_editing_items_to_string();
+	static const std::map<std::string, int> string_to_proportional_editing_items = create_string_to_proportional_editing_items();
+	static const std::map<int, std::string> proportional_editing_items_to_string = create_proportional_editing_items_to_string();
 
 	proportional_editing_items_enum proportional_edit() {
 		STRING_TYPE_GETTER("proportional_edit", static_cast<proportional_editing_items_enum>(string_to_proportional_editing_items.at(resstr)))
@@ -62040,8 +62040,8 @@ public:
 		return {{proportional_falloff_items_SMOOTH, "SMOOTH"}, {proportional_falloff_items_SPHERE, "SPHERE"}, {proportional_falloff_items_ROOT, "ROOT"}, {proportional_falloff_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {proportional_falloff_items_SHARP, "SHARP"}, {proportional_falloff_items_LINEAR, "LINEAR"}, {proportional_falloff_items_CONSTANT, "CONSTANT"}, {proportional_falloff_items_RANDOM, "RANDOM"}};
 	};
 
-	const std::map<std::string, int> string_to_proportional_falloff_items = create_string_to_proportional_falloff_items();
-	const std::map<int, std::string> proportional_falloff_items_to_string = create_proportional_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_proportional_falloff_items = create_string_to_proportional_falloff_items();
+	static const std::map<int, std::string> proportional_falloff_items_to_string = create_proportional_falloff_items_to_string();
 
 	proportional_falloff_items_enum proportional_edit_falloff() {
 		STRING_TYPE_GETTER("proportional_edit_falloff", static_cast<proportional_falloff_items_enum>(string_to_proportional_falloff_items.at(resstr)))
@@ -62123,8 +62123,8 @@ public:
 		return {{snap_element_items_INCREMENT, "INCREMENT"}, {snap_element_items_VERTEX, "VERTEX"}, {snap_element_items_EDGE, "EDGE"}, {snap_element_items_FACE, "FACE"}, {snap_element_items_VOLUME, "VOLUME"}};
 	};
 
-	const std::map<std::string, int> string_to_snap_element_items = create_string_to_snap_element_items();
-	const std::map<int, std::string> snap_element_items_to_string = create_snap_element_items_to_string();
+	static const std::map<std::string, int> string_to_snap_element_items = create_string_to_snap_element_items();
+	static const std::map<int, std::string> snap_element_items_to_string = create_snap_element_items_to_string();
 
 	snap_element_items_enum snap_element() {
 		STRING_TYPE_GETTER("snap_element", static_cast<snap_element_items_enum>(string_to_snap_element_items.at(resstr)))
@@ -62149,8 +62149,8 @@ public:
 		return {{snap_node_element_items_GRID, "GRID"}, {snap_node_element_items_NODE_X, "NODE_X"}, {snap_node_element_items_NODE_Y, "NODE_Y"}, {snap_node_element_items_NODE_XY, "NODE_XY"}};
 	};
 
-	const std::map<std::string, int> string_to_snap_node_element_items = create_string_to_snap_node_element_items();
-	const std::map<int, std::string> snap_node_element_items_to_string = create_snap_node_element_items_to_string();
+	static const std::map<std::string, int> string_to_snap_node_element_items = create_string_to_snap_node_element_items();
+	static const std::map<int, std::string> snap_node_element_items_to_string = create_snap_node_element_items_to_string();
 
 	snap_node_element_items_enum snap_node_element() {
 		STRING_TYPE_GETTER("snap_node_element", static_cast<snap_node_element_items_enum>(string_to_snap_node_element_items.at(resstr)))
@@ -62173,8 +62173,8 @@ public:
 		return {{snap_uv_element_items_INCREMENT, "INCREMENT"}, {snap_uv_element_items_VERTEX, "VERTEX"}};
 	};
 
-	const std::map<std::string, int> string_to_snap_uv_element_items = create_string_to_snap_uv_element_items();
-	const std::map<int, std::string> snap_uv_element_items_to_string = create_snap_uv_element_items_to_string();
+	static const std::map<std::string, int> string_to_snap_uv_element_items = create_string_to_snap_uv_element_items();
+	static const std::map<int, std::string> snap_uv_element_items_to_string = create_snap_uv_element_items_to_string();
 
 	snap_uv_element_items_enum snap_uv_element() {
 		STRING_TYPE_GETTER("snap_uv_element", static_cast<snap_uv_element_items_enum>(string_to_snap_uv_element_items.at(resstr)))
@@ -62199,8 +62199,8 @@ public:
 		return {{snap_target_items_CLOSEST, "CLOSEST"}, {snap_target_items_CENTER, "CENTER"}, {snap_target_items_MEDIAN, "MEDIAN"}, {snap_target_items_ACTIVE, "ACTIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_snap_target_items = create_string_to_snap_target_items();
-	const std::map<int, std::string> snap_target_items_to_string = create_snap_target_items_to_string();
+	static const std::map<std::string, int> string_to_snap_target_items = create_string_to_snap_target_items();
+	static const std::map<int, std::string> snap_target_items_to_string = create_snap_target_items_to_string();
 
 	snap_target_items_enum snap_target() {
 		STRING_TYPE_GETTER("snap_target", static_cast<snap_target_items_enum>(string_to_snap_target_items.at(resstr)))
@@ -62255,8 +62255,8 @@ public:
 		return {{gpencil_source_3d_items_SCENE, "SCENE"}, {gpencil_source_3d_items_OBJECT, "OBJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_gpencil_source_3d_items = create_string_to_gpencil_source_3d_items();
-	const std::map<int, std::string> gpencil_source_3d_items_to_string = create_gpencil_source_3d_items_to_string();
+	static const std::map<std::string, int> string_to_gpencil_source_3d_items = create_string_to_gpencil_source_3d_items();
+	static const std::map<int, std::string> gpencil_source_3d_items_to_string = create_gpencil_source_3d_items_to_string();
 
 	gpencil_source_3d_items_enum grease_pencil_source() {
 		STRING_TYPE_GETTER("grease_pencil_source", static_cast<gpencil_source_3d_items_enum>(string_to_gpencil_source_3d_items.at(resstr)))
@@ -62287,8 +62287,8 @@ public:
 		return {{auto_key_items_ADD_REPLACE_KEYS, "ADD_REPLACE_KEYS"}, {auto_key_items_REPLACE_KEYS, "REPLACE_KEYS"}};
 	};
 
-	const std::map<std::string, int> string_to_auto_key_items = create_string_to_auto_key_items();
-	const std::map<int, std::string> auto_key_items_to_string = create_auto_key_items_to_string();
+	static const std::map<std::string, int> string_to_auto_key_items = create_string_to_auto_key_items();
+	static const std::map<int, std::string> auto_key_items_to_string = create_auto_key_items_to_string();
 
 	auto_key_items_enum auto_keying_mode() {
 		STRING_TYPE_GETTER("auto_keying_mode", static_cast<auto_key_items_enum>(string_to_auto_key_items.at(resstr)))
@@ -62329,8 +62329,8 @@ public:
 		return {{uv_select_mode_items_VERTEX, "VERTEX"}, {uv_select_mode_items_EDGE, "EDGE"}, {uv_select_mode_items_FACE, "FACE"}, {uv_select_mode_items_ISLAND, "ISLAND"}};
 	};
 
-	const std::map<std::string, int> string_to_uv_select_mode_items = create_string_to_uv_select_mode_items();
-	const std::map<int, std::string> uv_select_mode_items_to_string = create_uv_select_mode_items_to_string();
+	static const std::map<std::string, int> string_to_uv_select_mode_items = create_string_to_uv_select_mode_items();
+	static const std::map<int, std::string> uv_select_mode_items_to_string = create_uv_select_mode_items_to_string();
 
 	uv_select_mode_items_enum uv_select_mode() {
 		STRING_TYPE_GETTER("uv_select_mode", static_cast<uv_select_mode_items_enum>(string_to_uv_select_mode_items.at(resstr)))
@@ -62389,8 +62389,8 @@ public:
 		return {{edge_tag_items_SELECT, "SELECT"}, {edge_tag_items_SEAM, "SEAM"}, {edge_tag_items_SHARP, "SHARP"}, {edge_tag_items_CREASE, "CREASE"}, {edge_tag_items_BEVEL, "BEVEL"}, {edge_tag_items_FREESTYLE, "FREESTYLE"}};
 	};
 
-	const std::map<std::string, int> string_to_edge_tag_items = create_string_to_edge_tag_items();
-	const std::map<int, std::string> edge_tag_items_to_string = create_edge_tag_items_to_string();
+	static const std::map<std::string, int> string_to_edge_tag_items = create_string_to_edge_tag_items();
+	static const std::map<int, std::string> edge_tag_items_to_string = create_edge_tag_items_to_string();
 
 	edge_tag_items_enum edge_path_mode() {
 		STRING_TYPE_GETTER("edge_path_mode", static_cast<edge_tag_items_enum>(string_to_edge_tag_items.at(resstr)))
@@ -62498,8 +62498,8 @@ public:
 		return {{retarget_roll_items_NONE, "NONE"}, {retarget_roll_items_VIEW, "VIEW"}, {retarget_roll_items_JOINT, "JOINT"}};
 	};
 
-	const std::map<std::string, int> string_to_retarget_roll_items = create_string_to_retarget_roll_items();
-	const std::map<int, std::string> retarget_roll_items_to_string = create_retarget_roll_items_to_string();
+	static const std::map<std::string, int> string_to_retarget_roll_items = create_string_to_retarget_roll_items();
+	static const std::map<int, std::string> retarget_roll_items_to_string = create_retarget_roll_items_to_string();
 
 	retarget_roll_items_enum etch_roll_mode() {
 		STRING_TYPE_GETTER("etch_roll_mode", static_cast<retarget_roll_items_enum>(string_to_retarget_roll_items.at(resstr)))
@@ -62524,8 +62524,8 @@ public:
 		return {{sketch_convert_items_FIXED, "FIXED"}, {sketch_convert_items_LENGTH, "LENGTH"}, {sketch_convert_items_ADAPTIVE, "ADAPTIVE"}, {sketch_convert_items_RETARGET, "RETARGET"}};
 	};
 
-	const std::map<std::string, int> string_to_sketch_convert_items = create_string_to_sketch_convert_items();
-	const std::map<int, std::string> sketch_convert_items_to_string = create_sketch_convert_items_to_string();
+	static const std::map<std::string, int> string_to_sketch_convert_items = create_string_to_sketch_convert_items();
+	static const std::map<int, std::string> sketch_convert_items_to_string = create_sketch_convert_items_to_string();
 
 	sketch_convert_items_enum etch_convert_mode() {
 		STRING_TYPE_GETTER("etch_convert_mode", static_cast<sketch_convert_items_enum>(string_to_sketch_convert_items.at(resstr)))
@@ -62671,8 +62671,8 @@ public:
 		return {{stat_type_OVERHANG, "OVERHANG"}, {stat_type_THICKNESS, "THICKNESS"}, {stat_type_INTERSECT, "INTERSECT"}, {stat_type_DISTORT, "DISTORT"}, {stat_type_SHARP, "SHARP"}};
 	};
 
-	const std::map<std::string, int> string_to_stat_type = create_string_to_stat_type();
-	const std::map<int, std::string> stat_type_to_string = create_stat_type_to_string();
+	static const std::map<std::string, int> string_to_stat_type = create_string_to_stat_type();
+	static const std::map<int, std::string> stat_type_to_string = create_stat_type_to_string();
 
 	stat_type_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<stat_type_enum>(string_to_stat_type.at(resstr)))
@@ -62715,8 +62715,8 @@ public:
 		return {{object_axis_items_POS_X, "POS_X"}, {object_axis_items_POS_Y, "POS_Y"}, {object_axis_items_POS_Z, "POS_Z"}, {object_axis_items_NEG_X, "NEG_X"}, {object_axis_items_NEG_Y, "NEG_Y"}, {object_axis_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
-	const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
+	static const std::map<std::string, int> string_to_object_axis_items = create_string_to_object_axis_items();
+	static const std::map<int, std::string> object_axis_items_to_string = create_object_axis_items_to_string();
 
 	object_axis_items_enum overhang_axis() {
 		STRING_TYPE_GETTER("overhang_axis", static_cast<object_axis_items_enum>(string_to_object_axis_items.at(resstr)))
@@ -62802,8 +62802,8 @@ public:
 		return {{unit_systems_NONE, "NONE"}, {unit_systems_METRIC, "METRIC"}, {unit_systems_IMPERIAL, "IMPERIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_unit_systems = create_string_to_unit_systems();
-	const std::map<int, std::string> unit_systems_to_string = create_unit_systems_to_string();
+	static const std::map<std::string, int> string_to_unit_systems = create_string_to_unit_systems();
+	static const std::map<int, std::string> unit_systems_to_string = create_unit_systems_to_string();
 
 	unit_systems_enum system() {
 		STRING_TYPE_GETTER("system", static_cast<unit_systems_enum>(string_to_unit_systems.at(resstr)))
@@ -62826,8 +62826,8 @@ public:
 		return {{rotation_units_DEGREES, "DEGREES"}, {rotation_units_RADIANS, "RADIANS"}};
 	};
 
-	const std::map<std::string, int> string_to_rotation_units = create_string_to_rotation_units();
-	const std::map<int, std::string> rotation_units_to_string = create_rotation_units_to_string();
+	static const std::map<std::string, int> string_to_rotation_units = create_string_to_rotation_units();
+	static const std::map<int, std::string> rotation_units_to_string = create_rotation_units_to_string();
 
 	rotation_units_enum system_rotation() {
 		STRING_TYPE_GETTER("system_rotation", static_cast<rotation_units_enum>(string_to_rotation_units.at(resstr)))
@@ -62874,8 +62874,8 @@ public:
 		return {{stereo3d_display_items_ANAGLYPH, "ANAGLYPH"}, {stereo3d_display_items_INTERLACE, "INTERLACE"}, {stereo3d_display_items_SIDEBYSIDE, "SIDEBYSIDE"}, {stereo3d_display_items_TOPBOTTOM, "TOPBOTTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_display_items = create_string_to_stereo3d_display_items();
-	const std::map<int, std::string> stereo3d_display_items_to_string = create_stereo3d_display_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_display_items = create_string_to_stereo3d_display_items();
+	static const std::map<int, std::string> stereo3d_display_items_to_string = create_stereo3d_display_items_to_string();
 
 	stereo3d_display_items_enum display_mode() {
 		STRING_TYPE_GETTER("display_mode", static_cast<stereo3d_display_items_enum>(string_to_stereo3d_display_items.at(resstr)))
@@ -62899,8 +62899,8 @@ public:
 		return {{stereo3d_anaglyph_type_items_RED_CYAN, "RED_CYAN"}, {stereo3d_anaglyph_type_items_GREEN_MAGENTA, "GREEN_MAGENTA"}, {stereo3d_anaglyph_type_items_YELLOW_BLUE, "YELLOW_BLUE"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_anaglyph_type_items = create_string_to_stereo3d_anaglyph_type_items();
-	const std::map<int, std::string> stereo3d_anaglyph_type_items_to_string = create_stereo3d_anaglyph_type_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_anaglyph_type_items = create_string_to_stereo3d_anaglyph_type_items();
+	static const std::map<int, std::string> stereo3d_anaglyph_type_items_to_string = create_stereo3d_anaglyph_type_items_to_string();
 
 	stereo3d_anaglyph_type_items_enum anaglyph_type() {
 		STRING_TYPE_GETTER("anaglyph_type", static_cast<stereo3d_anaglyph_type_items_enum>(string_to_stereo3d_anaglyph_type_items.at(resstr)))
@@ -62924,8 +62924,8 @@ public:
 		return {{stereo3d_interlace_type_items_ROW_INTERLEAVED, "ROW_INTERLEAVED"}, {stereo3d_interlace_type_items_COLUMN_INTERLEAVED, "COLUMN_INTERLEAVED"}, {stereo3d_interlace_type_items_CHECKERBOARD_INTERLEAVED, "CHECKERBOARD_INTERLEAVED"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_interlace_type_items = create_string_to_stereo3d_interlace_type_items();
-	const std::map<int, std::string> stereo3d_interlace_type_items_to_string = create_stereo3d_interlace_type_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_interlace_type_items = create_string_to_stereo3d_interlace_type_items();
+	static const std::map<int, std::string> stereo3d_interlace_type_items_to_string = create_stereo3d_interlace_type_items_to_string();
 
 	stereo3d_interlace_type_items_enum interlace_type() {
 		STRING_TYPE_GETTER("interlace_type", static_cast<stereo3d_interlace_type_items_enum>(string_to_stereo3d_interlace_type_items.at(resstr)))
@@ -62996,8 +62996,8 @@ public:
 		return {{image_type_items_BMP, "BMP"}, {image_type_items_IRIS, "IRIS"}, {image_type_items_PNG, "PNG"}, {image_type_items_JPEG, "JPEG"}, {image_type_items_JPEG2000, "JPEG2000"}, {image_type_items_TARGA, "TARGA"}, {image_type_items_TARGA_RAW, "TARGA_RAW"}, {image_type_items_CINEON, "CINEON"}, {image_type_items_DPX, "DPX"}, {image_type_items_OPEN_EXR_MULTILAYER, "OPEN_EXR_MULTILAYER"}, {image_type_items_OPEN_EXR, "OPEN_EXR"}, {image_type_items_HDR, "HDR"}, {image_type_items_TIFF, "TIFF"}, {image_type_items_AVI_JPEG, "AVI_JPEG"}, {image_type_items_AVI_RAW, "AVI_RAW"}, {image_type_items_FRAMESERVER, "FRAMESERVER"}, {image_type_items_H264, "H264"}, {image_type_items_FFMPEG, "FFMPEG"}, {image_type_items_THEORA, "THEORA"}, {image_type_items_XVID, "XVID"}};
 	};
 
-	const std::map<std::string, int> string_to_image_type_items = create_string_to_image_type_items();
-	const std::map<int, std::string> image_type_items_to_string = create_image_type_items_to_string();
+	static const std::map<std::string, int> string_to_image_type_items = create_string_to_image_type_items();
+	static const std::map<int, std::string> image_type_items_to_string = create_image_type_items_to_string();
 
 	image_type_items_enum file_format() {
 		STRING_TYPE_GETTER("file_format", static_cast<image_type_items_enum>(string_to_image_type_items.at(resstr)))
@@ -63021,8 +63021,8 @@ public:
 		return {{image_color_mode_items_BW, "BW"}, {image_color_mode_items_RGB, "RGB"}, {image_color_mode_items_RGBA, "RGBA"}};
 	};
 
-	const std::map<std::string, int> string_to_image_color_mode_items = create_string_to_image_color_mode_items();
-	const std::map<int, std::string> image_color_mode_items_to_string = create_image_color_mode_items_to_string();
+	static const std::map<std::string, int> string_to_image_color_mode_items = create_string_to_image_color_mode_items();
+	static const std::map<int, std::string> image_color_mode_items_to_string = create_image_color_mode_items_to_string();
 
 	image_color_mode_items_enum color_mode() {
 		STRING_TYPE_GETTER("color_mode", static_cast<image_color_mode_items_enum>(string_to_image_color_mode_items.at(resstr)))
@@ -63048,8 +63048,8 @@ public:
 		return {{image_color_depth_items_8, "8"}, {image_color_depth_items_10, "10"}, {image_color_depth_items_12, "12"}, {image_color_depth_items_16, "16"}, {image_color_depth_items_32, "32"}};
 	};
 
-	const std::map<std::string, int> string_to_image_color_depth_items = create_string_to_image_color_depth_items();
-	const std::map<int, std::string> image_color_depth_items_to_string = create_image_color_depth_items_to_string();
+	static const std::map<std::string, int> string_to_image_color_depth_items = create_string_to_image_color_depth_items();
+	static const std::map<int, std::string> image_color_depth_items_to_string = create_image_color_depth_items_to_string();
 
 	image_color_depth_items_enum color_depth() {
 		STRING_TYPE_GETTER("color_depth", static_cast<image_color_depth_items_enum>(string_to_image_color_depth_items.at(resstr)))
@@ -63112,8 +63112,8 @@ public:
 		return {{exr_codec_items_NONE, "NONE"}, {exr_codec_items_PXR24, "PXR24"}, {exr_codec_items_ZIP, "ZIP"}, {exr_codec_items_PIZ, "PIZ"}, {exr_codec_items_RLE, "RLE"}, {exr_codec_items_ZIPS, "ZIPS"}, {exr_codec_items_B44, "B44"}, {exr_codec_items_B44A, "B44A"}, {exr_codec_items_DWAA, "DWAA"}, {exr_codec_items_DWAB, "DWAB"}};
 	};
 
-	const std::map<std::string, int> string_to_exr_codec_items = create_string_to_exr_codec_items();
-	const std::map<int, std::string> exr_codec_items_to_string = create_exr_codec_items_to_string();
+	static const std::map<std::string, int> string_to_exr_codec_items = create_string_to_exr_codec_items();
+	static const std::map<int, std::string> exr_codec_items_to_string = create_exr_codec_items_to_string();
 
 	exr_codec_items_enum exr_codec() {
 		STRING_TYPE_GETTER("exr_codec", static_cast<exr_codec_items_enum>(string_to_exr_codec_items.at(resstr)))
@@ -63160,8 +63160,8 @@ public:
 		return {{jp2_codec_items_JP2, "JP2"}, {jp2_codec_items_J2K, "J2K"}};
 	};
 
-	const std::map<std::string, int> string_to_jp2_codec_items = create_string_to_jp2_codec_items();
-	const std::map<int, std::string> jp2_codec_items_to_string = create_jp2_codec_items_to_string();
+	static const std::map<std::string, int> string_to_jp2_codec_items = create_string_to_jp2_codec_items();
+	static const std::map<int, std::string> jp2_codec_items_to_string = create_jp2_codec_items_to_string();
 
 	jp2_codec_items_enum jpeg2k_codec() {
 		STRING_TYPE_GETTER("jpeg2k_codec", static_cast<jp2_codec_items_enum>(string_to_jp2_codec_items.at(resstr)))
@@ -63216,8 +63216,8 @@ public:
 		return {{views_format_items_INDIVIDUAL, "INDIVIDUAL"}, {views_format_items_STEREO_3D, "STEREO_3D"}};
 	};
 
-	const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
-	const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
+	static const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
+	static const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
 
 	views_format_items_enum views_format() {
 		STRING_TYPE_GETTER("views_format", static_cast<views_format_items_enum>(string_to_views_format_items.at(resstr)))
@@ -63275,8 +63275,8 @@ public:
 		return {{vsync_items_OFF, "OFF"}, {vsync_items_ON, "ON"}, {vsync_items_ADAPTIVE, "ADAPTIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_vsync_items = create_string_to_vsync_items();
-	const std::map<int, std::string> vsync_items_to_string = create_vsync_items_to_string();
+	static const std::map<std::string, int> string_to_vsync_items = create_string_to_vsync_items();
+	static const std::map<int, std::string> vsync_items_to_string = create_vsync_items_to_string();
 
 	vsync_items_enum vsync() {
 		STRING_TYPE_GETTER("vsync", static_cast<vsync_items_enum>(string_to_vsync_items.at(resstr)))
@@ -63302,8 +63302,8 @@ public:
 		return {{aasamples_items_SAMPLES_0, "SAMPLES_0"}, {aasamples_items_SAMPLES_2, "SAMPLES_2"}, {aasamples_items_SAMPLES_4, "SAMPLES_4"}, {aasamples_items_SAMPLES_8, "SAMPLES_8"}, {aasamples_items_SAMPLES_16, "SAMPLES_16"}};
 	};
 
-	const std::map<std::string, int> string_to_aasamples_items = create_string_to_aasamples_items();
-	const std::map<int, std::string> aasamples_items_to_string = create_aasamples_items_to_string();
+	static const std::map<std::string, int> string_to_aasamples_items = create_string_to_aasamples_items();
+	static const std::map<int, std::string> aasamples_items_to_string = create_aasamples_items_to_string();
 
 	aasamples_items_enum samples() {
 		STRING_TYPE_GETTER("samples", static_cast<aasamples_items_enum>(string_to_aasamples_items.at(resstr)))
@@ -63516,8 +63516,8 @@ public:
 		return {{event_type_items_NONE, "NONE"}, {event_type_items_LEFTMOUSE, "LEFTMOUSE"}, {event_type_items_MIDDLEMOUSE, "MIDDLEMOUSE"}, {event_type_items_RIGHTMOUSE, "RIGHTMOUSE"}, {event_type_items_BUTTON4MOUSE, "BUTTON4MOUSE"}, {event_type_items_BUTTON5MOUSE, "BUTTON5MOUSE"}, {event_type_items_BUTTON6MOUSE, "BUTTON6MOUSE"}, {event_type_items_BUTTON7MOUSE, "BUTTON7MOUSE"}, {event_type_items_ACTIONMOUSE, "ACTIONMOUSE"}, {event_type_items_SELECTMOUSE, "SELECTMOUSE"}, {event_type_items_MOUSEMOVE, "MOUSEMOVE"}, {event_type_items_INBETWEEN_MOUSEMOVE, "INBETWEEN_MOUSEMOVE"}, {event_type_items_TRACKPADPAN, "TRACKPADPAN"}, {event_type_items_TRACKPADZOOM, "TRACKPADZOOM"}, {event_type_items_MOUSEROTATE, "MOUSEROTATE"}, {event_type_items_WHEELUPMOUSE, "WHEELUPMOUSE"}, {event_type_items_WHEELDOWNMOUSE, "WHEELDOWNMOUSE"}, {event_type_items_WHEELINMOUSE, "WHEELINMOUSE"}, {event_type_items_WHEELOUTMOUSE, "WHEELOUTMOUSE"}, {event_type_items_EVT_TWEAK_L, "EVT_TWEAK_L"}, {event_type_items_EVT_TWEAK_M, "EVT_TWEAK_M"}, {event_type_items_EVT_TWEAK_R, "EVT_TWEAK_R"}, {event_type_items_EVT_TWEAK_A, "EVT_TWEAK_A"}, {event_type_items_EVT_TWEAK_S, "EVT_TWEAK_S"}, {event_type_items_A, "A"}, {event_type_items_B, "B"}, {event_type_items_C, "C"}, {event_type_items_D, "D"}, {event_type_items_E, "E"}, {event_type_items_F, "F"}, {event_type_items_G, "G"}, {event_type_items_H, "H"}, {event_type_items_I, "I"}, {event_type_items_J, "J"}, {event_type_items_K, "K"}, {event_type_items_L, "L"}, {event_type_items_M, "M"}, {event_type_items_N, "N"}, {event_type_items_O, "O"}, {event_type_items_P, "P"}, {event_type_items_Q, "Q"}, {event_type_items_R, "R"}, {event_type_items_S, "S"}, {event_type_items_T, "T"}, {event_type_items_U, "U"}, {event_type_items_V, "V"}, {event_type_items_W, "W"}, {event_type_items_X, "X"}, {event_type_items_Y, "Y"}, {event_type_items_Z, "Z"}, {event_type_items_ZERO, "ZERO"}, {event_type_items_ONE, "ONE"}, {event_type_items_TWO, "TWO"}, {event_type_items_THREE, "THREE"}, {event_type_items_FOUR, "FOUR"}, {event_type_items_FIVE, "FIVE"}, {event_type_items_SIX, "SIX"}, {event_type_items_SEVEN, "SEVEN"}, {event_type_items_EIGHT, "EIGHT"}, {event_type_items_NINE, "NINE"}, {event_type_items_LEFT_CTRL, "LEFT_CTRL"}, {event_type_items_LEFT_ALT, "LEFT_ALT"}, {event_type_items_LEFT_SHIFT, "LEFT_SHIFT"}, {event_type_items_RIGHT_ALT, "RIGHT_ALT"}, {event_type_items_RIGHT_CTRL, "RIGHT_CTRL"}, {event_type_items_RIGHT_SHIFT, "RIGHT_SHIFT"}, {event_type_items_OSKEY, "OSKEY"}, {event_type_items_GRLESS, "GRLESS"}, {event_type_items_ESC, "ESC"}, {event_type_items_TAB, "TAB"}, {event_type_items_RET, "RET"}, {event_type_items_SPACE, "SPACE"}, {event_type_items_LINE_FEED, "LINE_FEED"}, {event_type_items_BACK_SPACE, "BACK_SPACE"}, {event_type_items_DEL, "DEL"}, {event_type_items_SEMI_COLON, "SEMI_COLON"}, {event_type_items_PERIOD, "PERIOD"}, {event_type_items_COMMA, "COMMA"}, {event_type_items_QUOTE, "QUOTE"}, {event_type_items_ACCENT_GRAVE, "ACCENT_GRAVE"}, {event_type_items_MINUS, "MINUS"}, {event_type_items_SLASH, "SLASH"}, {event_type_items_BACK_SLASH, "BACK_SLASH"}, {event_type_items_EQUAL, "EQUAL"}, {event_type_items_LEFT_BRACKET, "LEFT_BRACKET"}, {event_type_items_RIGHT_BRACKET, "RIGHT_BRACKET"}, {event_type_items_LEFT_ARROW, "LEFT_ARROW"}, {event_type_items_DOWN_ARROW, "DOWN_ARROW"}, {event_type_items_RIGHT_ARROW, "RIGHT_ARROW"}, {event_type_items_UP_ARROW, "UP_ARROW"}, {event_type_items_NUMPAD_2, "NUMPAD_2"}, {event_type_items_NUMPAD_4, "NUMPAD_4"}, {event_type_items_NUMPAD_6, "NUMPAD_6"}, {event_type_items_NUMPAD_8, "NUMPAD_8"}, {event_type_items_NUMPAD_1, "NUMPAD_1"}, {event_type_items_NUMPAD_3, "NUMPAD_3"}, {event_type_items_NUMPAD_5, "NUMPAD_5"}, {event_type_items_NUMPAD_7, "NUMPAD_7"}, {event_type_items_NUMPAD_9, "NUMPAD_9"}, {event_type_items_NUMPAD_PERIOD, "NUMPAD_PERIOD"}, {event_type_items_NUMPAD_SLASH, "NUMPAD_SLASH"}, {event_type_items_NUMPAD_ASTERIX, "NUMPAD_ASTERIX"}, {event_type_items_NUMPAD_0, "NUMPAD_0"}, {event_type_items_NUMPAD_MINUS, "NUMPAD_MINUS"}, {event_type_items_NUMPAD_ENTER, "NUMPAD_ENTER"}, {event_type_items_NUMPAD_PLUS, "NUMPAD_PLUS"}, {event_type_items_F1, "F1"}, {event_type_items_F2, "F2"}, {event_type_items_F3, "F3"}, {event_type_items_F4, "F4"}, {event_type_items_F5, "F5"}, {event_type_items_F6, "F6"}, {event_type_items_F7, "F7"}, {event_type_items_F8, "F8"}, {event_type_items_F9, "F9"}, {event_type_items_F10, "F10"}, {event_type_items_F11, "F11"}, {event_type_items_F12, "F12"}, {event_type_items_F13, "F13"}, {event_type_items_F14, "F14"}, {event_type_items_F15, "F15"}, {event_type_items_F16, "F16"}, {event_type_items_F17, "F17"}, {event_type_items_F18, "F18"}, {event_type_items_F19, "F19"}, {event_type_items_PAUSE, "PAUSE"}, {event_type_items_INSERT, "INSERT"}, {event_type_items_HOME, "HOME"}, {event_type_items_PAGE_UP, "PAGE_UP"}, {event_type_items_PAGE_DOWN, "PAGE_DOWN"}, {event_type_items_END, "END"}, {event_type_items_MEDIA_PLAY, "MEDIA_PLAY"}, {event_type_items_MEDIA_STOP, "MEDIA_STOP"}, {event_type_items_MEDIA_FIRST, "MEDIA_FIRST"}, {event_type_items_MEDIA_LAST, "MEDIA_LAST"}, {event_type_items_TEXTINPUT, "TEXTINPUT"}, {event_type_items_WINDOW_DEACTIVATE, "WINDOW_DEACTIVATE"}, {event_type_items_TIMER, "TIMER"}, {event_type_items_TIMER0, "TIMER0"}, {event_type_items_TIMER1, "TIMER1"}, {event_type_items_TIMER2, "TIMER2"}, {event_type_items_TIMER_JOBS, "TIMER_JOBS"}, {event_type_items_TIMER_AUTOSAVE, "TIMER_AUTOSAVE"}, {event_type_items_TIMER_REPORT, "TIMER_REPORT"}, {event_type_items_TIMERREGION, "TIMERREGION"}, {event_type_items_NDOF_MOTION, "NDOF_MOTION"}, {event_type_items_NDOF_BUTTON_MENU, "NDOF_BUTTON_MENU"}, {event_type_items_NDOF_BUTTON_FIT, "NDOF_BUTTON_FIT"}, {event_type_items_NDOF_BUTTON_TOP, "NDOF_BUTTON_TOP"}, {event_type_items_NDOF_BUTTON_BOTTOM, "NDOF_BUTTON_BOTTOM"}, {event_type_items_NDOF_BUTTON_LEFT, "NDOF_BUTTON_LEFT"}, {event_type_items_NDOF_BUTTON_RIGHT, "NDOF_BUTTON_RIGHT"}, {event_type_items_NDOF_BUTTON_FRONT, "NDOF_BUTTON_FRONT"}, {event_type_items_NDOF_BUTTON_BACK, "NDOF_BUTTON_BACK"}, {event_type_items_NDOF_BUTTON_ISO1, "NDOF_BUTTON_ISO1"}, {event_type_items_NDOF_BUTTON_ISO2, "NDOF_BUTTON_ISO2"}, {event_type_items_NDOF_BUTTON_ROLL_CW, "NDOF_BUTTON_ROLL_CW"}, {event_type_items_NDOF_BUTTON_ROLL_CCW, "NDOF_BUTTON_ROLL_CCW"}, {event_type_items_NDOF_BUTTON_SPIN_CW, "NDOF_BUTTON_SPIN_CW"}, {event_type_items_NDOF_BUTTON_SPIN_CCW, "NDOF_BUTTON_SPIN_CCW"}, {event_type_items_NDOF_BUTTON_TILT_CW, "NDOF_BUTTON_TILT_CW"}, {event_type_items_NDOF_BUTTON_TILT_CCW, "NDOF_BUTTON_TILT_CCW"}, {event_type_items_NDOF_BUTTON_ROTATE, "NDOF_BUTTON_ROTATE"}, {event_type_items_NDOF_BUTTON_PANZOOM, "NDOF_BUTTON_PANZOOM"}, {event_type_items_NDOF_BUTTON_DOMINANT, "NDOF_BUTTON_DOMINANT"}, {event_type_items_NDOF_BUTTON_PLUS, "NDOF_BUTTON_PLUS"}, {event_type_items_NDOF_BUTTON_MINUS, "NDOF_BUTTON_MINUS"}, {event_type_items_NDOF_BUTTON_ESC, "NDOF_BUTTON_ESC"}, {event_type_items_NDOF_BUTTON_ALT, "NDOF_BUTTON_ALT"}, {event_type_items_NDOF_BUTTON_SHIFT, "NDOF_BUTTON_SHIFT"}, {event_type_items_NDOF_BUTTON_CTRL, "NDOF_BUTTON_CTRL"}, {event_type_items_NDOF_BUTTON_1, "NDOF_BUTTON_1"}, {event_type_items_NDOF_BUTTON_2, "NDOF_BUTTON_2"}, {event_type_items_NDOF_BUTTON_3, "NDOF_BUTTON_3"}, {event_type_items_NDOF_BUTTON_4, "NDOF_BUTTON_4"}, {event_type_items_NDOF_BUTTON_5, "NDOF_BUTTON_5"}, {event_type_items_NDOF_BUTTON_6, "NDOF_BUTTON_6"}, {event_type_items_NDOF_BUTTON_7, "NDOF_BUTTON_7"}, {event_type_items_NDOF_BUTTON_8, "NDOF_BUTTON_8"}, {event_type_items_NDOF_BUTTON_9, "NDOF_BUTTON_9"}, {event_type_items_NDOF_BUTTON_10, "NDOF_BUTTON_10"}, {event_type_items_NDOF_BUTTON_A, "NDOF_BUTTON_A"}, {event_type_items_NDOF_BUTTON_B, "NDOF_BUTTON_B"}, {event_type_items_NDOF_BUTTON_C, "NDOF_BUTTON_C"}};
 	};
 
-	const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
-	const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
+	static const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
+	static const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
 
 	event_type_items_enum exit_key() {
 		STRING_TYPE_GETTER("exit_key", static_cast<event_type_items_enum>(string_to_event_type_items.at(resstr)))
@@ -63541,8 +63541,8 @@ public:
 		return {{storage_items_AUTO, "AUTO"}, {storage_items_IMMEDIATE, "IMMEDIATE"}, {storage_items_VERTEX_ARRAY, "VERTEX_ARRAY"}};
 	};
 
-	const std::map<std::string, int> string_to_storage_items = create_string_to_storage_items();
-	const std::map<int, std::string> storage_items_to_string = create_storage_items_to_string();
+	static const std::map<std::string, int> string_to_storage_items = create_string_to_storage_items();
+	static const std::map<int, std::string> storage_items_to_string = create_storage_items_to_string();
 
 	storage_items_enum raster_storage() {
 		STRING_TYPE_GETTER("raster_storage", static_cast<storage_items_enum>(string_to_storage_items.at(resstr)))
@@ -63590,8 +63590,8 @@ public:
 		return {{framing_types_items_LETTERBOX, "LETTERBOX"}, {framing_types_items_EXTEND, "EXTEND"}, {framing_types_items_SCALE, "SCALE"}};
 	};
 
-	const std::map<std::string, int> string_to_framing_types_items = create_string_to_framing_types_items();
-	const std::map<int, std::string> framing_types_items_to_string = create_framing_types_items_to_string();
+	static const std::map<std::string, int> string_to_framing_types_items = create_string_to_framing_types_items();
+	static const std::map<int, std::string> framing_types_items_to_string = create_framing_types_items_to_string();
 
 	framing_types_items_enum frame_type() {
 		STRING_TYPE_GETTER("frame_type", static_cast<framing_types_items_enum>(string_to_framing_types_items.at(resstr)))
@@ -63623,8 +63623,8 @@ public:
 		return {{stereo_items_NONE, "NONE"}, {stereo_items_STEREO, "STEREO"}, {stereo_items_DOME, "DOME"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo_items = create_string_to_stereo_items();
-	const std::map<int, std::string> stereo_items_to_string = create_stereo_items_to_string();
+	static const std::map<std::string, int> string_to_stereo_items = create_string_to_stereo_items();
+	static const std::map<int, std::string> stereo_items_to_string = create_stereo_items_to_string();
 
 	stereo_items_enum stereo() {
 		STRING_TYPE_GETTER("stereo", static_cast<stereo_items_enum>(string_to_stereo_items.at(resstr)))
@@ -63652,8 +63652,8 @@ public:
 		return {{stereo_modes_items_QUADBUFFERED, "QUADBUFFERED"}, {stereo_modes_items_ABOVEBELOW, "ABOVEBELOW"}, {stereo_modes_items_INTERLACED, "INTERLACED"}, {stereo_modes_items_ANAGLYPH, "ANAGLYPH"}, {stereo_modes_items_SIDEBYSIDE, "SIDEBYSIDE"}, {stereo_modes_items_VINTERLACE, "VINTERLACE"}, {stereo_modes_items_3DTVTOPBOTTOM, "3DTVTOPBOTTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo_modes_items = create_string_to_stereo_modes_items();
-	const std::map<int, std::string> stereo_modes_items_to_string = create_stereo_modes_items_to_string();
+	static const std::map<std::string, int> string_to_stereo_modes_items = create_string_to_stereo_modes_items();
+	static const std::map<int, std::string> stereo_modes_items_to_string = create_stereo_modes_items_to_string();
 
 	stereo_modes_items_enum stereo_mode() {
 		STRING_TYPE_GETTER("stereo_mode", static_cast<stereo_modes_items_enum>(string_to_stereo_modes_items.at(resstr)))
@@ -63687,8 +63687,8 @@ public:
 		return {{dome_modes_items_FISHEYE, "FISHEYE"}, {dome_modes_items_TRUNCATED_FRONT, "TRUNCATED_FRONT"}, {dome_modes_items_TRUNCATED_REAR, "TRUNCATED_REAR"}, {dome_modes_items_ENVMAP, "ENVMAP"}, {dome_modes_items_PANORAM_SPH, "PANORAM_SPH"}};
 	};
 
-	const std::map<std::string, int> string_to_dome_modes_items = create_string_to_dome_modes_items();
-	const std::map<int, std::string> dome_modes_items_to_string = create_dome_modes_items_to_string();
+	static const std::map<std::string, int> string_to_dome_modes_items = create_string_to_dome_modes_items();
+	static const std::map<int, std::string> dome_modes_items_to_string = create_dome_modes_items_to_string();
 
 	dome_modes_items_enum dome_mode() {
 		STRING_TYPE_GETTER("dome_mode", static_cast<dome_modes_items_enum>(string_to_dome_modes_items.at(resstr)))
@@ -63745,8 +63745,8 @@ public:
 		return {{physics_engine_items_NONE, "NONE"}, {physics_engine_items_BULLET, "BULLET"}};
 	};
 
-	const std::map<std::string, int> string_to_physics_engine_items = create_string_to_physics_engine_items();
-	const std::map<int, std::string> physics_engine_items_to_string = create_physics_engine_items_to_string();
+	static const std::map<std::string, int> string_to_physics_engine_items = create_string_to_physics_engine_items();
+	static const std::map<int, std::string> physics_engine_items_to_string = create_physics_engine_items_to_string();
 
 	physics_engine_items_enum physics_engine() {
 		STRING_TYPE_GETTER("physics_engine", static_cast<physics_engine_items_enum>(string_to_physics_engine_items.at(resstr)))
@@ -63945,8 +63945,8 @@ public:
 		return {{material_items_MULTITEXTURE, "MULTITEXTURE"}, {material_items_GLSL, "GLSL"}};
 	};
 
-	const std::map<std::string, int> string_to_material_items = create_string_to_material_items();
-	const std::map<int, std::string> material_items_to_string = create_material_items_to_string();
+	static const std::map<std::string, int> string_to_material_items = create_string_to_material_items();
+	static const std::map<int, std::string> material_items_to_string = create_material_items_to_string();
 
 	material_items_enum material_mode() {
 		STRING_TYPE_GETTER("material_mode", static_cast<material_items_enum>(string_to_material_items.at(resstr)))
@@ -64034,8 +64034,8 @@ public:
 		return {{obstacle_simulation_items_NONE, "NONE"}, {obstacle_simulation_items_RVO_RAYS, "RVO_RAYS"}, {obstacle_simulation_items_RVO_CELLS, "RVO_CELLS"}};
 	};
 
-	const std::map<std::string, int> string_to_obstacle_simulation_items = create_string_to_obstacle_simulation_items();
-	const std::map<int, std::string> obstacle_simulation_items_to_string = create_obstacle_simulation_items_to_string();
+	static const std::map<std::string, int> string_to_obstacle_simulation_items = create_string_to_obstacle_simulation_items();
+	static const std::map<int, std::string> obstacle_simulation_items_to_string = create_obstacle_simulation_items_to_string();
 
 	obstacle_simulation_items_enum obstacle_simulation() {
 		STRING_TYPE_GETTER("obstacle_simulation", static_cast<obstacle_simulation_items_enum>(string_to_obstacle_simulation_items.at(resstr)))
@@ -64299,8 +64299,8 @@ public:
 		return {{ffmpeg_format_items_MPEG1, "MPEG1"}, {ffmpeg_format_items_MPEG2, "MPEG2"}, {ffmpeg_format_items_MPEG4, "MPEG4"}, {ffmpeg_format_items_AVI, "AVI"}, {ffmpeg_format_items_QUICKTIME, "QUICKTIME"}, {ffmpeg_format_items_DV, "DV"}, {ffmpeg_format_items_H264, "H264"}, {ffmpeg_format_items_XVID, "XVID"}, {ffmpeg_format_items_OGG, "OGG"}, {ffmpeg_format_items_MKV, "MKV"}, {ffmpeg_format_items_FLASH, "FLASH"}};
 	};
 
-	const std::map<std::string, int> string_to_ffmpeg_format_items = create_string_to_ffmpeg_format_items();
-	const std::map<int, std::string> ffmpeg_format_items_to_string = create_ffmpeg_format_items_to_string();
+	static const std::map<std::string, int> string_to_ffmpeg_format_items = create_string_to_ffmpeg_format_items();
+	static const std::map<int, std::string> ffmpeg_format_items_to_string = create_ffmpeg_format_items_to_string();
 
 	ffmpeg_format_items_enum format() {
 		STRING_TYPE_GETTER("format", static_cast<ffmpeg_format_items_enum>(string_to_ffmpeg_format_items.at(resstr)))
@@ -64334,8 +64334,8 @@ public:
 		return {{ffmpeg_codec_items_NONE, "NONE"}, {ffmpeg_codec_items_MPEG1, "MPEG1"}, {ffmpeg_codec_items_MPEG2, "MPEG2"}, {ffmpeg_codec_items_MPEG4, "MPEG4"}, {ffmpeg_codec_items_HUFFYUV, "HUFFYUV"}, {ffmpeg_codec_items_DV, "DV"}, {ffmpeg_codec_items_H264, "H264"}, {ffmpeg_codec_items_THEORA, "THEORA"}, {ffmpeg_codec_items_FLASH, "FLASH"}, {ffmpeg_codec_items_FFV1, "FFV1"}, {ffmpeg_codec_items_QTRLE, "QTRLE"}, {ffmpeg_codec_items_DNXHD, "DNXHD"}, {ffmpeg_codec_items_PNG, "PNG"}};
 	};
 
-	const std::map<std::string, int> string_to_ffmpeg_codec_items = create_string_to_ffmpeg_codec_items();
-	const std::map<int, std::string> ffmpeg_codec_items_to_string = create_ffmpeg_codec_items_to_string();
+	static const std::map<std::string, int> string_to_ffmpeg_codec_items = create_string_to_ffmpeg_codec_items();
+	static const std::map<int, std::string> ffmpeg_codec_items_to_string = create_ffmpeg_codec_items_to_string();
 
 	ffmpeg_codec_items_enum codec() {
 		STRING_TYPE_GETTER("codec", static_cast<ffmpeg_codec_items_enum>(string_to_ffmpeg_codec_items.at(resstr)))
@@ -64436,8 +64436,8 @@ public:
 		return {{ffmpeg_audio_codec_items_NONE, "NONE"}, {ffmpeg_audio_codec_items_MP2, "MP2"}, {ffmpeg_audio_codec_items_MP3, "MP3"}, {ffmpeg_audio_codec_items_AC3, "AC3"}, {ffmpeg_audio_codec_items_AAC, "AAC"}, {ffmpeg_audio_codec_items_VORBIS, "VORBIS"}, {ffmpeg_audio_codec_items_FLAC, "FLAC"}, {ffmpeg_audio_codec_items_PCM, "PCM"}};
 	};
 
-	const std::map<std::string, int> string_to_ffmpeg_audio_codec_items = create_string_to_ffmpeg_audio_codec_items();
-	const std::map<int, std::string> ffmpeg_audio_codec_items_to_string = create_ffmpeg_audio_codec_items_to_string();
+	static const std::map<std::string, int> string_to_ffmpeg_audio_codec_items = create_string_to_ffmpeg_audio_codec_items();
+	static const std::map<int, std::string> ffmpeg_audio_codec_items_to_string = create_ffmpeg_audio_codec_items_to_string();
 
 	ffmpeg_audio_codec_items_enum audio_codec() {
 		STRING_TYPE_GETTER("audio_codec", static_cast<ffmpeg_audio_codec_items_enum>(string_to_ffmpeg_audio_codec_items.at(resstr)))
@@ -64487,8 +64487,8 @@ public:
 		return {{audio_channel_items_MONO, "MONO"}, {audio_channel_items_STEREO, "STEREO"}, {audio_channel_items_SURROUND4, "SURROUND4"}, {audio_channel_items_SURROUND51, "SURROUND51"}, {audio_channel_items_SURROUND71, "SURROUND71"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_channel_items = create_string_to_audio_channel_items();
-	const std::map<int, std::string> audio_channel_items_to_string = create_audio_channel_items_to_string();
+	static const std::map<std::string, int> string_to_audio_channel_items = create_string_to_audio_channel_items();
+	static const std::map<int, std::string> audio_channel_items_to_string = create_audio_channel_items_to_string();
 
 	audio_channel_items_enum audio_channels() {
 		STRING_TYPE_GETTER("audio_channels", static_cast<audio_channel_items_enum>(string_to_audio_channel_items.at(resstr)))
@@ -64634,8 +64634,8 @@ public:
 		return {{pixel_filter_items_BOX, "BOX"}, {pixel_filter_items_TENT, "TENT"}, {pixel_filter_items_QUADRATIC, "QUADRATIC"}, {pixel_filter_items_CUBIC, "CUBIC"}, {pixel_filter_items_CATMULLROM, "CATMULLROM"}, {pixel_filter_items_GAUSSIAN, "GAUSSIAN"}, {pixel_filter_items_MITCHELL, "MITCHELL"}};
 	};
 
-	const std::map<std::string, int> string_to_pixel_filter_items = create_string_to_pixel_filter_items();
-	const std::map<int, std::string> pixel_filter_items_to_string = create_pixel_filter_items_to_string();
+	static const std::map<std::string, int> string_to_pixel_filter_items = create_string_to_pixel_filter_items();
+	static const std::map<int, std::string> pixel_filter_items_to_string = create_pixel_filter_items_to_string();
 
 	pixel_filter_items_enum pixel_filter_type() {
 		STRING_TYPE_GETTER("pixel_filter_type", static_cast<pixel_filter_items_enum>(string_to_pixel_filter_items.at(resstr)))
@@ -64666,8 +64666,8 @@ public:
 		return {{alpha_mode_items_SKY, "SKY"}, {alpha_mode_items_TRANSPARENT, "TRANSPARENT"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -64692,8 +64692,8 @@ public:
 		return {{octree_resolution_items_64, "64"}, {octree_resolution_items_128, "128"}, {octree_resolution_items_256, "256"}, {octree_resolution_items_512, "512"}};
 	};
 
-	const std::map<std::string, int> string_to_octree_resolution_items = create_string_to_octree_resolution_items();
-	const std::map<int, std::string> octree_resolution_items_to_string = create_octree_resolution_items_to_string();
+	static const std::map<std::string, int> string_to_octree_resolution_items = create_string_to_octree_resolution_items();
+	static const std::map<int, std::string> octree_resolution_items_to_string = create_octree_resolution_items_to_string();
 
 	octree_resolution_items_enum octree_resolution() {
 		STRING_TYPE_GETTER("octree_resolution", static_cast<octree_resolution_items_enum>(string_to_octree_resolution_items.at(resstr)))
@@ -64719,8 +64719,8 @@ public:
 		return {{raytrace_structure_items_AUTO, "AUTO"}, {raytrace_structure_items_OCTREE, "OCTREE"}, {raytrace_structure_items_VBVH, "VBVH"}, {raytrace_structure_items_SIMD_SVBVH, "SIMD_SVBVH"}, {raytrace_structure_items_SIMD_QBVH, "SIMD_QBVH"}};
 	};
 
-	const std::map<std::string, int> string_to_raytrace_structure_items = create_string_to_raytrace_structure_items();
-	const std::map<int, std::string> raytrace_structure_items_to_string = create_raytrace_structure_items_to_string();
+	static const std::map<std::string, int> string_to_raytrace_structure_items = create_string_to_raytrace_structure_items();
+	static const std::map<int, std::string> raytrace_structure_items_to_string = create_raytrace_structure_items_to_string();
 
 	raytrace_structure_items_enum raytrace_method() {
 		STRING_TYPE_GETTER("raytrace_method", static_cast<raytrace_structure_items_enum>(string_to_raytrace_structure_items.at(resstr)))
@@ -64769,8 +64769,8 @@ public:
 		return {{fixed_oversample_items_5, "5"}, {fixed_oversample_items_8, "8"}, {fixed_oversample_items_11, "11"}, {fixed_oversample_items_16, "16"}};
 	};
 
-	const std::map<std::string, int> string_to_fixed_oversample_items = create_string_to_fixed_oversample_items();
-	const std::map<int, std::string> fixed_oversample_items_to_string = create_fixed_oversample_items_to_string();
+	static const std::map<std::string, int> string_to_fixed_oversample_items = create_string_to_fixed_oversample_items();
+	static const std::map<int, std::string> fixed_oversample_items_to_string = create_fixed_oversample_items_to_string();
 
 	fixed_oversample_items_enum antialiasing_samples() {
 		STRING_TYPE_GETTER("antialiasing_samples", static_cast<fixed_oversample_items_enum>(string_to_fixed_oversample_items.at(resstr)))
@@ -64801,8 +64801,8 @@ public:
 		return {{field_order_items_EVEN_FIRST, "EVEN_FIRST"}, {field_order_items_ODD_FIRST, "ODD_FIRST"}};
 	};
 
-	const std::map<std::string, int> string_to_field_order_items = create_string_to_field_order_items();
-	const std::map<int, std::string> field_order_items_to_string = create_field_order_items_to_string();
+	static const std::map<std::string, int> string_to_field_order_items = create_string_to_field_order_items();
+	static const std::map<int, std::string> field_order_items_to_string = create_field_order_items_to_string();
 
 	field_order_items_enum field_order() {
 		STRING_TYPE_GETTER("field_order", static_cast<field_order_items_enum>(string_to_field_order_items.at(resstr)))
@@ -64913,8 +64913,8 @@ public:
 		return {{threads_mode_items_AUTO, "AUTO"}, {threads_mode_items_FIXED, "FIXED"}};
 	};
 
-	const std::map<std::string, int> string_to_threads_mode_items = create_string_to_threads_mode_items();
-	const std::map<int, std::string> threads_mode_items_to_string = create_threads_mode_items_to_string();
+	static const std::map<std::string, int> string_to_threads_mode_items = create_string_to_threads_mode_items();
+	static const std::map<int, std::string> threads_mode_items_to_string = create_threads_mode_items_to_string();
 
 	threads_mode_items_enum threads_mode() {
 		STRING_TYPE_GETTER("threads_mode", static_cast<threads_mode_items_enum>(string_to_threads_mode_items.at(resstr)))
@@ -65099,8 +65099,8 @@ public:
 		return {{display_mode_items_SCREEN, "SCREEN"}, {display_mode_items_AREA, "AREA"}, {display_mode_items_WINDOW, "WINDOW"}, {display_mode_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_display_mode_items = create_string_to_display_mode_items();
-	const std::map<int, std::string> display_mode_items_to_string = create_display_mode_items_to_string();
+	static const std::map<std::string, int> string_to_display_mode_items = create_string_to_display_mode_items();
+	static const std::map<int, std::string> display_mode_items_to_string = create_display_mode_items_to_string();
 
 	display_mode_items_enum display_mode() {
 		STRING_TYPE_GETTER("display_mode", static_cast<display_mode_items_enum>(string_to_display_mode_items.at(resstr)))
@@ -65159,8 +65159,8 @@ public:
 		return {{bake_mode_items_FULL, "FULL"}, {bake_mode_items_AO, "AO"}, {bake_mode_items_SHADOW, "SHADOW"}, {bake_mode_items_NORMALS, "NORMALS"}, {bake_mode_items_TEXTURE, "TEXTURE"}, {bake_mode_items_DISPLACEMENT, "DISPLACEMENT"}, {bake_mode_items_DERIVATIVE, "DERIVATIVE"}, {bake_mode_items_VERTEX_COLORS, "VERTEX_COLORS"}, {bake_mode_items_EMIT, "EMIT"}, {bake_mode_items_ALPHA, "ALPHA"}, {bake_mode_items_MIRROR_INTENSITY, "MIRROR_INTENSITY"}, {bake_mode_items_MIRROR_COLOR, "MIRROR_COLOR"}, {bake_mode_items_SPEC_INTENSITY, "SPEC_INTENSITY"}, {bake_mode_items_SPEC_COLOR, "SPEC_COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_bake_mode_items = create_string_to_bake_mode_items();
-	const std::map<int, std::string> bake_mode_items_to_string = create_bake_mode_items_to_string();
+	static const std::map<std::string, int> string_to_bake_mode_items = create_string_to_bake_mode_items();
+	static const std::map<int, std::string> bake_mode_items_to_string = create_bake_mode_items_to_string();
 
 	bake_mode_items_enum bake_type() {
 		STRING_TYPE_GETTER("bake_type", static_cast<bake_mode_items_enum>(string_to_bake_mode_items.at(resstr)))
@@ -65185,8 +65185,8 @@ public:
 		return {{bake_normal_space_items_CAMERA, "CAMERA"}, {bake_normal_space_items_WORLD, "WORLD"}, {bake_normal_space_items_OBJECT, "OBJECT"}, {bake_normal_space_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_bake_normal_space_items = create_string_to_bake_normal_space_items();
-	const std::map<int, std::string> bake_normal_space_items_to_string = create_bake_normal_space_items_to_string();
+	static const std::map<std::string, int> string_to_bake_normal_space_items = create_string_to_bake_normal_space_items();
+	static const std::map<int, std::string> bake_normal_space_items_to_string = create_bake_normal_space_items_to_string();
 
 	bake_normal_space_items_enum bake_normal_space() {
 		STRING_TYPE_GETTER("bake_normal_space", static_cast<bake_normal_space_items_enum>(string_to_bake_normal_space_items.at(resstr)))
@@ -65210,8 +65210,8 @@ public:
 		return {{bake_qyad_split_items_AUTO, "AUTO"}, {bake_qyad_split_items_FIXED, "FIXED"}, {bake_qyad_split_items_FIXED_ALT, "FIXED_ALT"}};
 	};
 
-	const std::map<std::string, int> string_to_bake_qyad_split_items = create_string_to_bake_qyad_split_items();
-	const std::map<int, std::string> bake_qyad_split_items_to_string = create_bake_qyad_split_items_to_string();
+	static const std::map<std::string, int> string_to_bake_qyad_split_items = create_string_to_bake_qyad_split_items();
+	static const std::map<int, std::string> bake_qyad_split_items_to_string = create_bake_qyad_split_items_to_string();
 
 	bake_qyad_split_items_enum bake_quad_split() {
 		STRING_TYPE_GETTER("bake_quad_split", static_cast<bake_qyad_split_items_enum>(string_to_bake_qyad_split_items.at(resstr)))
@@ -65494,8 +65494,8 @@ public:
 		return {{viewport_shade_items_BOUNDBOX, "BOUNDBOX"}, {viewport_shade_items_WIREFRAME, "WIREFRAME"}, {viewport_shade_items_SOLID, "SOLID"}, {viewport_shade_items_TEXTURED, "TEXTURED"}, {viewport_shade_items_MATERIAL, "MATERIAL"}, {viewport_shade_items_RENDERED, "RENDERED"}};
 	};
 
-	const std::map<std::string, int> string_to_viewport_shade_items = create_string_to_viewport_shade_items();
-	const std::map<int, std::string> viewport_shade_items_to_string = create_viewport_shade_items_to_string();
+	static const std::map<std::string, int> string_to_viewport_shade_items = create_string_to_viewport_shade_items();
+	static const std::map<int, std::string> viewport_shade_items_to_string = create_viewport_shade_items_to_string();
 
 	viewport_shade_items_enum sequencer_gl_preview() {
 		STRING_TYPE_GETTER("sequencer_gl_preview", static_cast<viewport_shade_items_enum>(string_to_viewport_shade_items.at(resstr)))
@@ -65556,8 +65556,8 @@ public:
 		return {{views_format_items_STEREO_3D, "STEREO_3D"}, {views_format_items_MULTIVIEW, "MULTIVIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
-	const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
+	static const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
+	static const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
 
 	views_format_items_enum views_format() {
 		STRING_TYPE_GETTER("views_format", static_cast<views_format_items_enum>(string_to_views_format_items.at(resstr)))
@@ -65579,8 +65579,8 @@ public:
 		return {{engine_items_BLENDER_RENDER, "BLENDER_RENDER"}};
 	};
 
-	const std::map<std::string, int> string_to_engine_items = create_string_to_engine_items();
-	const std::map<int, std::string> engine_items_to_string = create_engine_items_to_string();
+	static const std::map<std::string, int> string_to_engine_items = create_string_to_engine_items();
+	static const std::map<int, std::string> engine_items_to_string = create_engine_items_to_string();
 
 	engine_items_enum engine() {
 		STRING_TYPE_GETTER("engine", static_cast<engine_items_enum>(string_to_engine_items.at(resstr)))
@@ -65699,8 +65699,8 @@ public:
 		return {{freestyle_thickness_items_ABSOLUTE, "ABSOLUTE"}, {freestyle_thickness_items_RELATIVE, "RELATIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_freestyle_thickness_items = create_string_to_freestyle_thickness_items();
-	const std::map<int, std::string> freestyle_thickness_items_to_string = create_freestyle_thickness_items_to_string();
+	static const std::map<std::string, int> string_to_freestyle_thickness_items = create_string_to_freestyle_thickness_items();
+	static const std::map<int, std::string> freestyle_thickness_items_to_string = create_freestyle_thickness_items_to_string();
 
 	freestyle_thickness_items_enum line_thickness_mode() {
 		STRING_TYPE_GETTER("line_thickness_mode", static_cast<freestyle_thickness_items_enum>(string_to_freestyle_thickness_items.at(resstr)))
@@ -65794,8 +65794,8 @@ public:
 		return {{normal_space_items_OBJECT, "OBJECT"}, {normal_space_items_TANGENT, "TANGENT"}};
 	};
 
-	const std::map<std::string, int> string_to_normal_space_items = create_string_to_normal_space_items();
-	const std::map<int, std::string> normal_space_items_to_string = create_normal_space_items_to_string();
+	static const std::map<std::string, int> string_to_normal_space_items = create_string_to_normal_space_items();
+	static const std::map<int, std::string> normal_space_items_to_string = create_normal_space_items_to_string();
 
 	normal_space_items_enum normal_space() {
 		STRING_TYPE_GETTER("normal_space", static_cast<normal_space_items_enum>(string_to_normal_space_items.at(resstr)))
@@ -65822,8 +65822,8 @@ public:
 		return {{normal_swizzle_items_POS_X, "POS_X"}, {normal_swizzle_items_POS_Y, "POS_Y"}, {normal_swizzle_items_POS_Z, "POS_Z"}, {normal_swizzle_items_NEG_X, "NEG_X"}, {normal_swizzle_items_NEG_Y, "NEG_Y"}, {normal_swizzle_items_NEG_Z, "NEG_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_normal_swizzle_items = create_string_to_normal_swizzle_items();
-	const std::map<int, std::string> normal_swizzle_items_to_string = create_normal_swizzle_items_to_string();
+	static const std::map<std::string, int> string_to_normal_swizzle_items = create_string_to_normal_swizzle_items();
+	static const std::map<int, std::string> normal_swizzle_items_to_string = create_normal_swizzle_items_to_string();
 
 	normal_swizzle_items_enum normal_r() {
 		STRING_TYPE_GETTER("normal_r", static_cast<normal_swizzle_items_enum>(string_to_normal_swizzle_items.at(resstr)))
@@ -65866,8 +65866,8 @@ public:
 		return {{bake_save_mode_items_INTERNAL, "INTERNAL"}, {bake_save_mode_items_EXTERNAL, "EXTERNAL"}};
 	};
 
-	const std::map<std::string, int> string_to_bake_save_mode_items = create_string_to_bake_save_mode_items();
-	const std::map<int, std::string> bake_save_mode_items_to_string = create_bake_save_mode_items_to_string();
+	static const std::map<std::string, int> string_to_bake_save_mode_items = create_string_to_bake_save_mode_items();
+	static const std::map<int, std::string> bake_save_mode_items_to_string = create_bake_save_mode_items_to_string();
 
 	bake_save_mode_items_enum save_mode() {
 		STRING_TYPE_GETTER("save_mode", static_cast<bake_save_mode_items_enum>(string_to_bake_save_mode_items.at(resstr)))
@@ -66452,8 +66452,8 @@ public:
 		return {{edge_type_negation_items_INCLUSIVE, "INCLUSIVE"}, {edge_type_negation_items_EXCLUSIVE, "EXCLUSIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_edge_type_negation_items = create_string_to_edge_type_negation_items();
-	const std::map<int, std::string> edge_type_negation_items_to_string = create_edge_type_negation_items_to_string();
+	static const std::map<std::string, int> string_to_edge_type_negation_items = create_string_to_edge_type_negation_items();
+	static const std::map<int, std::string> edge_type_negation_items_to_string = create_edge_type_negation_items_to_string();
 
 	edge_type_negation_items_enum edge_type_negation() {
 		STRING_TYPE_GETTER("edge_type_negation", static_cast<edge_type_negation_items_enum>(string_to_edge_type_negation_items.at(resstr)))
@@ -66476,8 +66476,8 @@ public:
 		return {{edge_type_combination_items_OR, "OR"}, {edge_type_combination_items_AND, "AND"}};
 	};
 
-	const std::map<std::string, int> string_to_edge_type_combination_items = create_string_to_edge_type_combination_items();
-	const std::map<int, std::string> edge_type_combination_items_to_string = create_edge_type_combination_items_to_string();
+	static const std::map<std::string, int> string_to_edge_type_combination_items = create_string_to_edge_type_combination_items();
+	static const std::map<int, std::string> edge_type_combination_items_to_string = create_edge_type_combination_items_to_string();
 
 	edge_type_combination_items_enum edge_type_combination() {
 		STRING_TYPE_GETTER("edge_type_combination", static_cast<edge_type_combination_items_enum>(string_to_edge_type_combination_items.at(resstr)))
@@ -66504,8 +66504,8 @@ public:
 		return {{group_negation_items_INCLUSIVE, "INCLUSIVE"}, {group_negation_items_EXCLUSIVE, "EXCLUSIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_group_negation_items = create_string_to_group_negation_items();
-	const std::map<int, std::string> group_negation_items_to_string = create_group_negation_items_to_string();
+	static const std::map<std::string, int> string_to_group_negation_items = create_string_to_group_negation_items();
+	static const std::map<int, std::string> group_negation_items_to_string = create_group_negation_items_to_string();
 
 	group_negation_items_enum group_negation() {
 		STRING_TYPE_GETTER("group_negation", static_cast<group_negation_items_enum>(string_to_group_negation_items.at(resstr)))
@@ -66528,8 +66528,8 @@ public:
 		return {{face_mark_negation_items_INCLUSIVE, "INCLUSIVE"}, {face_mark_negation_items_EXCLUSIVE, "EXCLUSIVE"}};
 	};
 
-	const std::map<std::string, int> string_to_face_mark_negation_items = create_string_to_face_mark_negation_items();
-	const std::map<int, std::string> face_mark_negation_items_to_string = create_face_mark_negation_items_to_string();
+	static const std::map<std::string, int> string_to_face_mark_negation_items = create_string_to_face_mark_negation_items();
+	static const std::map<int, std::string> face_mark_negation_items_to_string = create_face_mark_negation_items_to_string();
 
 	face_mark_negation_items_enum face_mark_negation() {
 		STRING_TYPE_GETTER("face_mark_negation", static_cast<face_mark_negation_items_enum>(string_to_face_mark_negation_items.at(resstr)))
@@ -66552,8 +66552,8 @@ public:
 		return {{face_mark_condition_items_ONE, "ONE"}, {face_mark_condition_items_BOTH, "BOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_face_mark_condition_items = create_string_to_face_mark_condition_items();
-	const std::map<int, std::string> face_mark_condition_items_to_string = create_face_mark_condition_items_to_string();
+	static const std::map<std::string, int> string_to_face_mark_condition_items = create_string_to_face_mark_condition_items();
+	static const std::map<int, std::string> face_mark_condition_items_to_string = create_face_mark_condition_items_to_string();
 
 	face_mark_condition_items_enum face_mark_condition() {
 		STRING_TYPE_GETTER("face_mark_condition", static_cast<face_mark_condition_items_enum>(string_to_face_mark_condition_items.at(resstr)))
@@ -66721,8 +66721,8 @@ public:
 		return {{visibility_items_VISIBLE, "VISIBLE"}, {visibility_items_HIDDEN, "HIDDEN"}, {visibility_items_RANGE, "RANGE"}};
 	};
 
-	const std::map<std::string, int> string_to_visibility_items = create_string_to_visibility_items();
-	const std::map<int, std::string> visibility_items_to_string = create_visibility_items_to_string();
+	static const std::map<std::string, int> string_to_visibility_items = create_string_to_visibility_items();
+	static const std::map<int, std::string> visibility_items_to_string = create_visibility_items_to_string();
 
 	visibility_items_enum visibility() {
 		STRING_TYPE_GETTER("visibility", static_cast<visibility_items_enum>(string_to_visibility_items.at(resstr)))
@@ -66787,8 +66787,8 @@ public:
 		return {{freestyle_ui_mode_items_SCRIPT, "SCRIPT"}, {freestyle_ui_mode_items_EDITOR, "EDITOR"}};
 	};
 
-	const std::map<std::string, int> string_to_freestyle_ui_mode_items = create_string_to_freestyle_ui_mode_items();
-	const std::map<int, std::string> freestyle_ui_mode_items_to_string = create_freestyle_ui_mode_items_to_string();
+	static const std::map<std::string, int> string_to_freestyle_ui_mode_items = create_string_to_freestyle_ui_mode_items();
+	static const std::map<int, std::string> freestyle_ui_mode_items_to_string = create_freestyle_ui_mode_items_to_string();
 
 	freestyle_ui_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<freestyle_ui_mode_items_enum>(string_to_freestyle_ui_mode_items.at(resstr)))
@@ -67205,8 +67205,8 @@ public:
 		return {{space_type_items_EMPTY, "EMPTY"}, {space_type_items_VIEW_3D, "VIEW_3D"}, {space_type_items_TIMELINE, "TIMELINE"}, {space_type_items_GRAPH_EDITOR, "GRAPH_EDITOR"}, {space_type_items_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {space_type_items_NLA_EDITOR, "NLA_EDITOR"}, {space_type_items_IMAGE_EDITOR, "IMAGE_EDITOR"}, {space_type_items_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {space_type_items_CLIP_EDITOR, "CLIP_EDITOR"}, {space_type_items_TEXT_EDITOR, "TEXT_EDITOR"}, {space_type_items_NODE_EDITOR, "NODE_EDITOR"}, {space_type_items_LOGIC_EDITOR, "LOGIC_EDITOR"}, {space_type_items_PROPERTIES, "PROPERTIES"}, {space_type_items_OUTLINER, "OUTLINER"}, {space_type_items_USER_PREFERENCES, "USER_PREFERENCES"}, {space_type_items_INFO, "INFO"}, {space_type_items_FILE_BROWSER, "FILE_BROWSER"}, {space_type_items_CONSOLE, "CONSOLE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
-	const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
+	static const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
+	static const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
 
 	space_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<space_type_items_enum>(string_to_space_type_items.at(resstr)))
@@ -67289,8 +67289,8 @@ public:
 		return {{region_type_items_WINDOW, "WINDOW"}, {region_type_items_HEADER, "HEADER"}, {region_type_items_CHANNELS, "CHANNELS"}, {region_type_items_TEMPORARY, "TEMPORARY"}, {region_type_items_UI, "UI"}, {region_type_items_TOOLS, "TOOLS"}, {region_type_items_TOOL_PROPS, "TOOL_PROPS"}, {region_type_items_PREVIEW, "PREVIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
-	const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
+	static const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
+	static const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
 
 	region_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<region_type_items_enum>(string_to_region_type_items.at(resstr)))
@@ -67565,8 +67565,8 @@ public:
 		return {{symmetrize_direction_items_NEGATIVE_X, "NEGATIVE_X"}, {symmetrize_direction_items_POSITIVE_X, "POSITIVE_X"}, {symmetrize_direction_items_NEGATIVE_Y, "NEGATIVE_Y"}, {symmetrize_direction_items_POSITIVE_Y, "POSITIVE_Y"}, {symmetrize_direction_items_NEGATIVE_Z, "NEGATIVE_Z"}, {symmetrize_direction_items_POSITIVE_Z, "POSITIVE_Z"}};
 	};
 
-	const std::map<std::string, int> string_to_symmetrize_direction_items = create_string_to_symmetrize_direction_items();
-	const std::map<int, std::string> symmetrize_direction_items_to_string = create_symmetrize_direction_items_to_string();
+	static const std::map<std::string, int> string_to_symmetrize_direction_items = create_string_to_symmetrize_direction_items();
+	static const std::map<int, std::string> symmetrize_direction_items_to_string = create_symmetrize_direction_items_to_string();
 
 	symmetrize_direction_items_enum symmetrize_direction() {
 		STRING_TYPE_GETTER("symmetrize_direction", static_cast<symmetrize_direction_items_enum>(string_to_symmetrize_direction_items.at(resstr)))
@@ -67590,8 +67590,8 @@ public:
 		return {{detail_refine_items_SUBDIVIDE, "SUBDIVIDE"}, {detail_refine_items_COLLAPSE, "COLLAPSE"}, {detail_refine_items_SUBDIVIDE_COLLAPSE, "SUBDIVIDE_COLLAPSE"}};
 	};
 
-	const std::map<std::string, int> string_to_detail_refine_items = create_string_to_detail_refine_items();
-	const std::map<int, std::string> detail_refine_items_to_string = create_detail_refine_items_to_string();
+	static const std::map<std::string, int> string_to_detail_refine_items = create_string_to_detail_refine_items();
+	static const std::map<int, std::string> detail_refine_items_to_string = create_detail_refine_items_to_string();
 
 	detail_refine_items_enum detail_refine_method() {
 		STRING_TYPE_GETTER("detail_refine_method", static_cast<detail_refine_items_enum>(string_to_detail_refine_items.at(resstr)))
@@ -67615,8 +67615,8 @@ public:
 		return {{detail_type_items_RELATIVE, "RELATIVE"}, {detail_type_items_CONSTANT, "CONSTANT"}, {detail_type_items_BRUSH, "BRUSH"}};
 	};
 
-	const std::map<std::string, int> string_to_detail_type_items = create_string_to_detail_type_items();
-	const std::map<int, std::string> detail_type_items_to_string = create_detail_type_items_to_string();
+	static const std::map<std::string, int> string_to_detail_type_items = create_string_to_detail_type_items();
+	static const std::map<int, std::string> detail_type_items_to_string = create_detail_type_items_to_string();
 
 	detail_type_items_enum detail_type_method() {
 		STRING_TYPE_GETTER("detail_type_method", static_cast<detail_type_items_enum>(string_to_detail_type_items.at(resstr)))
@@ -67793,8 +67793,8 @@ public:
 		return {{paint_type_items_MATERIAL, "MATERIAL"}, {paint_type_items_IMAGE, "IMAGE"}};
 	};
 
-	const std::map<std::string, int> string_to_paint_type_items = create_string_to_paint_type_items();
-	const std::map<int, std::string> paint_type_items_to_string = create_paint_type_items_to_string();
+	static const std::map<std::string, int> string_to_paint_type_items = create_string_to_paint_type_items();
+	static const std::map<int, std::string> paint_type_items_to_string = create_paint_type_items_to_string();
 
 	paint_type_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<paint_type_items_enum>(string_to_paint_type_items.at(resstr)))
@@ -67868,8 +67868,8 @@ public:
 		return {{particle_edit_hair_brush_items_NONE, "NONE"}, {particle_edit_hair_brush_items_COMB, "COMB"}, {particle_edit_hair_brush_items_SMOOTH, "SMOOTH"}, {particle_edit_hair_brush_items_ADD, "ADD"}, {particle_edit_hair_brush_items_LENGTH, "LENGTH"}, {particle_edit_hair_brush_items_PUFF, "PUFF"}, {particle_edit_hair_brush_items_CUT, "CUT"}, {particle_edit_hair_brush_items_WEIGHT, "WEIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_particle_edit_hair_brush_items = create_string_to_particle_edit_hair_brush_items();
-	const std::map<int, std::string> particle_edit_hair_brush_items_to_string = create_particle_edit_hair_brush_items_to_string();
+	static const std::map<std::string, int> string_to_particle_edit_hair_brush_items = create_string_to_particle_edit_hair_brush_items();
+	static const std::map<int, std::string> particle_edit_hair_brush_items_to_string = create_particle_edit_hair_brush_items_to_string();
 
 	particle_edit_hair_brush_items_enum tool() {
 		STRING_TYPE_GETTER("tool", static_cast<particle_edit_hair_brush_items_enum>(string_to_particle_edit_hair_brush_items.at(resstr)))
@@ -67893,8 +67893,8 @@ public:
 		return {{select_mode_items_PATH, "PATH"}, {select_mode_items_POINT, "POINT"}, {select_mode_items_TIP, "TIP"}};
 	};
 
-	const std::map<std::string, int> string_to_select_mode_items = create_string_to_select_mode_items();
-	const std::map<int, std::string> select_mode_items_to_string = create_select_mode_items_to_string();
+	static const std::map<std::string, int> string_to_select_mode_items = create_string_to_select_mode_items();
+	static const std::map<int, std::string> select_mode_items_to_string = create_select_mode_items_to_string();
 
 	select_mode_items_enum select_mode() {
 		STRING_TYPE_GETTER("select_mode", static_cast<select_mode_items_enum>(string_to_select_mode_items.at(resstr)))
@@ -68008,8 +68008,8 @@ public:
 		return {{edit_type_items_PARTICLES, "PARTICLES"}, {edit_type_items_SOFT_BODY, "SOFT_BODY"}, {edit_type_items_CLOTH, "CLOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_edit_type_items = create_string_to_edit_type_items();
-	const std::map<int, std::string> edit_type_items_to_string = create_edit_type_items_to_string();
+	static const std::map<std::string, int> string_to_edit_type_items = create_string_to_edit_type_items();
+	static const std::map<int, std::string> edit_type_items_to_string = create_edit_type_items_to_string();
 
 	edit_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<edit_type_items_enum>(string_to_edit_type_items.at(resstr)))
@@ -68094,8 +68094,8 @@ public:
 		return {{puff_mode_ADD, "ADD"}, {puff_mode_SUB, "SUB"}};
 	};
 
-	const std::map<std::string, int> string_to_puff_mode = create_string_to_puff_mode();
-	const std::map<int, std::string> puff_mode_to_string = create_puff_mode_to_string();
+	static const std::map<std::string, int> string_to_puff_mode = create_string_to_puff_mode();
+	static const std::map<int, std::string> puff_mode_to_string = create_puff_mode_to_string();
 
 	puff_mode_enum puff_mode() {
 		STRING_TYPE_GETTER("puff_mode", static_cast<puff_mode_enum>(string_to_puff_mode.at(resstr)))
@@ -68126,8 +68126,8 @@ public:
 		return {{length_mode_GROW, "GROW"}, {length_mode_SHRINK, "SHRINK"}};
 	};
 
-	const std::map<std::string, int> string_to_length_mode = create_string_to_length_mode();
-	const std::map<int, std::string> length_mode_to_string = create_length_mode_to_string();
+	static const std::map<std::string, int> string_to_length_mode = create_string_to_length_mode();
+	static const std::map<int, std::string> length_mode_to_string = create_length_mode_to_string();
 
 	length_mode_enum length_mode() {
 		STRING_TYPE_GETTER("length_mode", static_cast<length_mode_enum>(string_to_length_mode.at(resstr)))
@@ -68180,8 +68180,8 @@ public:
 		return {{sensor_type_items_ACTUATOR, "ACTUATOR"}, {sensor_type_items_ALWAYS, "ALWAYS"}, {sensor_type_items_ARMATURE, "ARMATURE"}, {sensor_type_items_COLLISION, "COLLISION"}, {sensor_type_items_DELAY, "DELAY"}, {sensor_type_items_JOYSTICK, "JOYSTICK"}, {sensor_type_items_KEYBOARD, "KEYBOARD"}, {sensor_type_items_MESSAGE, "MESSAGE"}, {sensor_type_items_MOUSE, "MOUSE"}, {sensor_type_items_NEAR, "NEAR"}, {sensor_type_items_PROPERTY, "PROPERTY"}, {sensor_type_items_RADAR, "RADAR"}, {sensor_type_items_RANDOM, "RANDOM"}, {sensor_type_items_RAY, "RAY"}};
 	};
 
-	const std::map<std::string, int> string_to_sensor_type_items = create_string_to_sensor_type_items();
-	const std::map<int, std::string> sensor_type_items_to_string = create_sensor_type_items_to_string();
+	static const std::map<std::string, int> string_to_sensor_type_items = create_string_to_sensor_type_items();
+	static const std::map<int, std::string> sensor_type_items_to_string = create_sensor_type_items_to_string();
 
 	sensor_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<sensor_type_items_enum>(string_to_sensor_type_items.at(resstr)))
@@ -68336,8 +68336,8 @@ public:
 		return {{mouse_event_items_LEFTCLICK, "LEFTCLICK"}, {mouse_event_items_MIDDLECLICK, "MIDDLECLICK"}, {mouse_event_items_RIGHTCLICK, "RIGHTCLICK"}, {mouse_event_items_WHEELUP, "WHEELUP"}, {mouse_event_items_WHEELDOWN, "WHEELDOWN"}, {mouse_event_items_MOVEMENT, "MOVEMENT"}, {mouse_event_items_MOUSEOVER, "MOUSEOVER"}, {mouse_event_items_MOUSEOVERANY, "MOUSEOVERANY"}};
 	};
 
-	const std::map<std::string, int> string_to_mouse_event_items = create_string_to_mouse_event_items();
-	const std::map<int, std::string> mouse_event_items_to_string = create_mouse_event_items_to_string();
+	static const std::map<std::string, int> string_to_mouse_event_items = create_string_to_mouse_event_items();
+	static const std::map<int, std::string> mouse_event_items_to_string = create_mouse_event_items_to_string();
 
 	mouse_event_items_enum mouse_event() {
 		STRING_TYPE_GETTER("mouse_event", static_cast<mouse_event_items_enum>(string_to_mouse_event_items.at(resstr)))
@@ -68368,8 +68368,8 @@ public:
 		return {{prop_mouse_type_items_PROPERTY, "PROPERTY"}, {prop_mouse_type_items_MATERIAL, "MATERIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_mouse_type_items = create_string_to_prop_mouse_type_items();
-	const std::map<int, std::string> prop_mouse_type_items_to_string = create_prop_mouse_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_mouse_type_items = create_string_to_prop_mouse_type_items();
+	static const std::map<int, std::string> prop_mouse_type_items_to_string = create_prop_mouse_type_items_to_string();
 
 	prop_mouse_type_items_enum use_material() {
 		STRING_TYPE_GETTER("use_material", static_cast<prop_mouse_type_items_enum>(string_to_prop_mouse_type_items.at(resstr)))
@@ -68604,8 +68604,8 @@ public:
 		return {{event_type_items_NONE, "NONE"}, {event_type_items_LEFTMOUSE, "LEFTMOUSE"}, {event_type_items_MIDDLEMOUSE, "MIDDLEMOUSE"}, {event_type_items_RIGHTMOUSE, "RIGHTMOUSE"}, {event_type_items_BUTTON4MOUSE, "BUTTON4MOUSE"}, {event_type_items_BUTTON5MOUSE, "BUTTON5MOUSE"}, {event_type_items_BUTTON6MOUSE, "BUTTON6MOUSE"}, {event_type_items_BUTTON7MOUSE, "BUTTON7MOUSE"}, {event_type_items_ACTIONMOUSE, "ACTIONMOUSE"}, {event_type_items_SELECTMOUSE, "SELECTMOUSE"}, {event_type_items_MOUSEMOVE, "MOUSEMOVE"}, {event_type_items_INBETWEEN_MOUSEMOVE, "INBETWEEN_MOUSEMOVE"}, {event_type_items_TRACKPADPAN, "TRACKPADPAN"}, {event_type_items_TRACKPADZOOM, "TRACKPADZOOM"}, {event_type_items_MOUSEROTATE, "MOUSEROTATE"}, {event_type_items_WHEELUPMOUSE, "WHEELUPMOUSE"}, {event_type_items_WHEELDOWNMOUSE, "WHEELDOWNMOUSE"}, {event_type_items_WHEELINMOUSE, "WHEELINMOUSE"}, {event_type_items_WHEELOUTMOUSE, "WHEELOUTMOUSE"}, {event_type_items_EVT_TWEAK_L, "EVT_TWEAK_L"}, {event_type_items_EVT_TWEAK_M, "EVT_TWEAK_M"}, {event_type_items_EVT_TWEAK_R, "EVT_TWEAK_R"}, {event_type_items_EVT_TWEAK_A, "EVT_TWEAK_A"}, {event_type_items_EVT_TWEAK_S, "EVT_TWEAK_S"}, {event_type_items_A, "A"}, {event_type_items_B, "B"}, {event_type_items_C, "C"}, {event_type_items_D, "D"}, {event_type_items_E, "E"}, {event_type_items_F, "F"}, {event_type_items_G, "G"}, {event_type_items_H, "H"}, {event_type_items_I, "I"}, {event_type_items_J, "J"}, {event_type_items_K, "K"}, {event_type_items_L, "L"}, {event_type_items_M, "M"}, {event_type_items_N, "N"}, {event_type_items_O, "O"}, {event_type_items_P, "P"}, {event_type_items_Q, "Q"}, {event_type_items_R, "R"}, {event_type_items_S, "S"}, {event_type_items_T, "T"}, {event_type_items_U, "U"}, {event_type_items_V, "V"}, {event_type_items_W, "W"}, {event_type_items_X, "X"}, {event_type_items_Y, "Y"}, {event_type_items_Z, "Z"}, {event_type_items_ZERO, "ZERO"}, {event_type_items_ONE, "ONE"}, {event_type_items_TWO, "TWO"}, {event_type_items_THREE, "THREE"}, {event_type_items_FOUR, "FOUR"}, {event_type_items_FIVE, "FIVE"}, {event_type_items_SIX, "SIX"}, {event_type_items_SEVEN, "SEVEN"}, {event_type_items_EIGHT, "EIGHT"}, {event_type_items_NINE, "NINE"}, {event_type_items_LEFT_CTRL, "LEFT_CTRL"}, {event_type_items_LEFT_ALT, "LEFT_ALT"}, {event_type_items_LEFT_SHIFT, "LEFT_SHIFT"}, {event_type_items_RIGHT_ALT, "RIGHT_ALT"}, {event_type_items_RIGHT_CTRL, "RIGHT_CTRL"}, {event_type_items_RIGHT_SHIFT, "RIGHT_SHIFT"}, {event_type_items_OSKEY, "OSKEY"}, {event_type_items_GRLESS, "GRLESS"}, {event_type_items_ESC, "ESC"}, {event_type_items_TAB, "TAB"}, {event_type_items_RET, "RET"}, {event_type_items_SPACE, "SPACE"}, {event_type_items_LINE_FEED, "LINE_FEED"}, {event_type_items_BACK_SPACE, "BACK_SPACE"}, {event_type_items_DEL, "DEL"}, {event_type_items_SEMI_COLON, "SEMI_COLON"}, {event_type_items_PERIOD, "PERIOD"}, {event_type_items_COMMA, "COMMA"}, {event_type_items_QUOTE, "QUOTE"}, {event_type_items_ACCENT_GRAVE, "ACCENT_GRAVE"}, {event_type_items_MINUS, "MINUS"}, {event_type_items_SLASH, "SLASH"}, {event_type_items_BACK_SLASH, "BACK_SLASH"}, {event_type_items_EQUAL, "EQUAL"}, {event_type_items_LEFT_BRACKET, "LEFT_BRACKET"}, {event_type_items_RIGHT_BRACKET, "RIGHT_BRACKET"}, {event_type_items_LEFT_ARROW, "LEFT_ARROW"}, {event_type_items_DOWN_ARROW, "DOWN_ARROW"}, {event_type_items_RIGHT_ARROW, "RIGHT_ARROW"}, {event_type_items_UP_ARROW, "UP_ARROW"}, {event_type_items_NUMPAD_2, "NUMPAD_2"}, {event_type_items_NUMPAD_4, "NUMPAD_4"}, {event_type_items_NUMPAD_6, "NUMPAD_6"}, {event_type_items_NUMPAD_8, "NUMPAD_8"}, {event_type_items_NUMPAD_1, "NUMPAD_1"}, {event_type_items_NUMPAD_3, "NUMPAD_3"}, {event_type_items_NUMPAD_5, "NUMPAD_5"}, {event_type_items_NUMPAD_7, "NUMPAD_7"}, {event_type_items_NUMPAD_9, "NUMPAD_9"}, {event_type_items_NUMPAD_PERIOD, "NUMPAD_PERIOD"}, {event_type_items_NUMPAD_SLASH, "NUMPAD_SLASH"}, {event_type_items_NUMPAD_ASTERIX, "NUMPAD_ASTERIX"}, {event_type_items_NUMPAD_0, "NUMPAD_0"}, {event_type_items_NUMPAD_MINUS, "NUMPAD_MINUS"}, {event_type_items_NUMPAD_ENTER, "NUMPAD_ENTER"}, {event_type_items_NUMPAD_PLUS, "NUMPAD_PLUS"}, {event_type_items_F1, "F1"}, {event_type_items_F2, "F2"}, {event_type_items_F3, "F3"}, {event_type_items_F4, "F4"}, {event_type_items_F5, "F5"}, {event_type_items_F6, "F6"}, {event_type_items_F7, "F7"}, {event_type_items_F8, "F8"}, {event_type_items_F9, "F9"}, {event_type_items_F10, "F10"}, {event_type_items_F11, "F11"}, {event_type_items_F12, "F12"}, {event_type_items_F13, "F13"}, {event_type_items_F14, "F14"}, {event_type_items_F15, "F15"}, {event_type_items_F16, "F16"}, {event_type_items_F17, "F17"}, {event_type_items_F18, "F18"}, {event_type_items_F19, "F19"}, {event_type_items_PAUSE, "PAUSE"}, {event_type_items_INSERT, "INSERT"}, {event_type_items_HOME, "HOME"}, {event_type_items_PAGE_UP, "PAGE_UP"}, {event_type_items_PAGE_DOWN, "PAGE_DOWN"}, {event_type_items_END, "END"}, {event_type_items_MEDIA_PLAY, "MEDIA_PLAY"}, {event_type_items_MEDIA_STOP, "MEDIA_STOP"}, {event_type_items_MEDIA_FIRST, "MEDIA_FIRST"}, {event_type_items_MEDIA_LAST, "MEDIA_LAST"}, {event_type_items_TEXTINPUT, "TEXTINPUT"}, {event_type_items_WINDOW_DEACTIVATE, "WINDOW_DEACTIVATE"}, {event_type_items_TIMER, "TIMER"}, {event_type_items_TIMER0, "TIMER0"}, {event_type_items_TIMER1, "TIMER1"}, {event_type_items_TIMER2, "TIMER2"}, {event_type_items_TIMER_JOBS, "TIMER_JOBS"}, {event_type_items_TIMER_AUTOSAVE, "TIMER_AUTOSAVE"}, {event_type_items_TIMER_REPORT, "TIMER_REPORT"}, {event_type_items_TIMERREGION, "TIMERREGION"}, {event_type_items_NDOF_MOTION, "NDOF_MOTION"}, {event_type_items_NDOF_BUTTON_MENU, "NDOF_BUTTON_MENU"}, {event_type_items_NDOF_BUTTON_FIT, "NDOF_BUTTON_FIT"}, {event_type_items_NDOF_BUTTON_TOP, "NDOF_BUTTON_TOP"}, {event_type_items_NDOF_BUTTON_BOTTOM, "NDOF_BUTTON_BOTTOM"}, {event_type_items_NDOF_BUTTON_LEFT, "NDOF_BUTTON_LEFT"}, {event_type_items_NDOF_BUTTON_RIGHT, "NDOF_BUTTON_RIGHT"}, {event_type_items_NDOF_BUTTON_FRONT, "NDOF_BUTTON_FRONT"}, {event_type_items_NDOF_BUTTON_BACK, "NDOF_BUTTON_BACK"}, {event_type_items_NDOF_BUTTON_ISO1, "NDOF_BUTTON_ISO1"}, {event_type_items_NDOF_BUTTON_ISO2, "NDOF_BUTTON_ISO2"}, {event_type_items_NDOF_BUTTON_ROLL_CW, "NDOF_BUTTON_ROLL_CW"}, {event_type_items_NDOF_BUTTON_ROLL_CCW, "NDOF_BUTTON_ROLL_CCW"}, {event_type_items_NDOF_BUTTON_SPIN_CW, "NDOF_BUTTON_SPIN_CW"}, {event_type_items_NDOF_BUTTON_SPIN_CCW, "NDOF_BUTTON_SPIN_CCW"}, {event_type_items_NDOF_BUTTON_TILT_CW, "NDOF_BUTTON_TILT_CW"}, {event_type_items_NDOF_BUTTON_TILT_CCW, "NDOF_BUTTON_TILT_CCW"}, {event_type_items_NDOF_BUTTON_ROTATE, "NDOF_BUTTON_ROTATE"}, {event_type_items_NDOF_BUTTON_PANZOOM, "NDOF_BUTTON_PANZOOM"}, {event_type_items_NDOF_BUTTON_DOMINANT, "NDOF_BUTTON_DOMINANT"}, {event_type_items_NDOF_BUTTON_PLUS, "NDOF_BUTTON_PLUS"}, {event_type_items_NDOF_BUTTON_MINUS, "NDOF_BUTTON_MINUS"}, {event_type_items_NDOF_BUTTON_ESC, "NDOF_BUTTON_ESC"}, {event_type_items_NDOF_BUTTON_ALT, "NDOF_BUTTON_ALT"}, {event_type_items_NDOF_BUTTON_SHIFT, "NDOF_BUTTON_SHIFT"}, {event_type_items_NDOF_BUTTON_CTRL, "NDOF_BUTTON_CTRL"}, {event_type_items_NDOF_BUTTON_1, "NDOF_BUTTON_1"}, {event_type_items_NDOF_BUTTON_2, "NDOF_BUTTON_2"}, {event_type_items_NDOF_BUTTON_3, "NDOF_BUTTON_3"}, {event_type_items_NDOF_BUTTON_4, "NDOF_BUTTON_4"}, {event_type_items_NDOF_BUTTON_5, "NDOF_BUTTON_5"}, {event_type_items_NDOF_BUTTON_6, "NDOF_BUTTON_6"}, {event_type_items_NDOF_BUTTON_7, "NDOF_BUTTON_7"}, {event_type_items_NDOF_BUTTON_8, "NDOF_BUTTON_8"}, {event_type_items_NDOF_BUTTON_9, "NDOF_BUTTON_9"}, {event_type_items_NDOF_BUTTON_10, "NDOF_BUTTON_10"}, {event_type_items_NDOF_BUTTON_A, "NDOF_BUTTON_A"}, {event_type_items_NDOF_BUTTON_B, "NDOF_BUTTON_B"}, {event_type_items_NDOF_BUTTON_C, "NDOF_BUTTON_C"}};
 	};
 
-	const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
-	const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
+	static const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
+	static const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
 
 	event_type_items_enum key() {
 		STRING_TYPE_GETTER("key", static_cast<event_type_items_enum>(string_to_event_type_items.at(resstr)))
@@ -68678,8 +68678,8 @@ public:
 		return {{prop_type_items_PROPEQUAL, "PROPEQUAL"}, {prop_type_items_PROPNEQUAL, "PROPNEQUAL"}, {prop_type_items_PROPINTERVAL, "PROPINTERVAL"}, {prop_type_items_PROPCHANGED, "PROPCHANGED"}, {prop_type_items_PROPLESSTHAN, "PROPLESSTHAN"}, {prop_type_items_PROPGREATERTHAN, "PROPGREATERTHAN"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum evaluation_type() {
 		STRING_TYPE_GETTER("evaluation_type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -68743,8 +68743,8 @@ public:
 		return {{prop_type_items_STATECHG, "STATECHG"}, {prop_type_items_LINERRORBELOW, "LINERRORBELOW"}, {prop_type_items_LINERRORABOVE, "LINERRORABOVE"}, {prop_type_items_ROTERRORBELOW, "ROTERRORBELOW"}, {prop_type_items_ROTERRORABOVE, "ROTERRORABOVE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
-	const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_type_items = create_string_to_prop_type_items();
+	static const std::map<int, std::string> prop_type_items_to_string = create_prop_type_items_to_string();
 
 	prop_type_items_enum test_type() {
 		STRING_TYPE_GETTER("test_type", static_cast<prop_type_items_enum>(string_to_prop_type_items.at(resstr)))
@@ -68891,8 +68891,8 @@ public:
 		return {{axis_items_XAXIS, "XAXIS"}, {axis_items_YAXIS, "YAXIS"}, {axis_items_ZAXIS, "ZAXIS"}, {axis_items_NEGXAXIS, "NEGXAXIS"}, {axis_items_NEGYAXIS, "NEGYAXIS"}, {axis_items_NEGZAXIS, "NEGZAXIS"}};
 	};
 
-	const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
-	const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
+	static const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
+	static const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
 
 	axis_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<axis_items_enum>(string_to_axis_items.at(resstr)))
@@ -68951,8 +68951,8 @@ public:
 		return {{prop_ray_type_items_PROPERTY, "PROPERTY"}, {prop_ray_type_items_MATERIAL, "MATERIAL"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_ray_type_items = create_string_to_prop_ray_type_items();
-	const std::map<int, std::string> prop_ray_type_items_to_string = create_prop_ray_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_ray_type_items = create_string_to_prop_ray_type_items();
+	static const std::map<int, std::string> prop_ray_type_items_to_string = create_prop_ray_type_items_to_string();
 
 	prop_ray_type_items_enum ray_type() {
 		STRING_TYPE_GETTER("ray_type", static_cast<prop_ray_type_items_enum>(string_to_prop_ray_type_items.at(resstr)))
@@ -69011,8 +69011,8 @@ public:
 		return {{axis_items_XAXIS, "XAXIS"}, {axis_items_YAXIS, "YAXIS"}, {axis_items_ZAXIS, "ZAXIS"}, {axis_items_NEGXAXIS, "NEGXAXIS"}, {axis_items_NEGYAXIS, "NEGYAXIS"}, {axis_items_NEGZAXIS, "NEGZAXIS"}};
 	};
 
-	const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
-	const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
+	static const std::map<std::string, int> string_to_axis_items = create_string_to_axis_items();
+	static const std::map<int, std::string> axis_items_to_string = create_axis_items_to_string();
 
 	axis_items_enum axis() {
 		STRING_TYPE_GETTER("axis", static_cast<axis_items_enum>(string_to_axis_items.at(resstr)))
@@ -69065,8 +69065,8 @@ public:
 		return {{event_type_items_BUTTON, "BUTTON"}, {event_type_items_AXIS, "AXIS"}, {event_type_items_HAT, "HAT"}, {event_type_items_AXIS_SINGLE, "AXIS_SINGLE"}};
 	};
 
-	const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
-	const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
+	static const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
+	static const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
 
 	event_type_items_enum event_type() {
 		STRING_TYPE_GETTER("event_type", static_cast<event_type_items_enum>(string_to_event_type_items.at(resstr)))
@@ -69123,8 +69123,8 @@ public:
 		return {{axis_direction_items_RIGHTAXIS, "RIGHTAXIS"}, {axis_direction_items_UPAXIS, "UPAXIS"}, {axis_direction_items_LEFTAXIS, "LEFTAXIS"}, {axis_direction_items_DOWNAXIS, "DOWNAXIS"}};
 	};
 
-	const std::map<std::string, int> string_to_axis_direction_items = create_string_to_axis_direction_items();
-	const std::map<int, std::string> axis_direction_items_to_string = create_axis_direction_items_to_string();
+	static const std::map<std::string, int> string_to_axis_direction_items = create_string_to_axis_direction_items();
+	static const std::map<int, std::string> axis_direction_items_to_string = create_axis_direction_items_to_string();
 
 	axis_direction_items_enum axis_direction() {
 		STRING_TYPE_GETTER("axis_direction", static_cast<axis_direction_items_enum>(string_to_axis_direction_items.at(resstr)))
@@ -69169,8 +69169,8 @@ public:
 		return {{hat_direction_items_UP, "UP"}, {hat_direction_items_DOWN, "DOWN"}, {hat_direction_items_LEFT, "LEFT"}, {hat_direction_items_RIGHT, "RIGHT"}, {hat_direction_items_UPRIGHT, "UPRIGHT"}, {hat_direction_items_DOWNLEFT, "DOWNLEFT"}, {hat_direction_items_UPLEFT, "UPLEFT"}, {hat_direction_items_DOWNRIGHT, "DOWNRIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_hat_direction_items = create_string_to_hat_direction_items();
-	const std::map<int, std::string> hat_direction_items_to_string = create_hat_direction_items_to_string();
+	static const std::map<std::string, int> string_to_hat_direction_items = create_string_to_hat_direction_items();
+	static const std::map<int, std::string> hat_direction_items_to_string = create_hat_direction_items_to_string();
 
 	hat_direction_items_enum hat_direction() {
 		STRING_TYPE_GETTER("hat_direction", static_cast<hat_direction_items_enum>(string_to_hat_direction_items.at(resstr)))
@@ -69374,8 +69374,8 @@ public:
 		return {{seq_tc_items_NONE, "NONE"}, {seq_tc_items_RECORD_RUN, "RECORD_RUN"}, {seq_tc_items_FREE_RUN, "FREE_RUN"}, {seq_tc_items_FREE_RUN_REC_DATE, "FREE_RUN_REC_DATE"}, {seq_tc_items_RECORD_RUN_NO_GAPS, "RECORD_RUN_NO_GAPS"}};
 	};
 
-	const std::map<std::string, int> string_to_seq_tc_items = create_string_to_seq_tc_items();
-	const std::map<int, std::string> seq_tc_items_to_string = create_seq_tc_items_to_string();
+	static const std::map<std::string, int> string_to_seq_tc_items = create_string_to_seq_tc_items();
+	static const std::map<int, std::string> seq_tc_items_to_string = create_seq_tc_items_to_string();
 
 	seq_tc_items_enum timecode() {
 		STRING_TYPE_GETTER("timecode", static_cast<seq_tc_items_enum>(string_to_seq_tc_items.at(resstr)))
@@ -69516,8 +69516,8 @@ public:
 		return {{seq_type_items_IMAGE, "IMAGE"}, {seq_type_items_META, "META"}, {seq_type_items_SCENE, "SCENE"}, {seq_type_items_MOVIE, "MOVIE"}, {seq_type_items_MOVIECLIP, "MOVIECLIP"}, {seq_type_items_MASK, "MASK"}, {seq_type_items_SOUND, "SOUND"}, {seq_type_items_CROSS, "CROSS"}, {seq_type_items_ADD, "ADD"}, {seq_type_items_SUBTRACT, "SUBTRACT"}, {seq_type_items_ALPHA_OVER, "ALPHA_OVER"}, {seq_type_items_ALPHA_UNDER, "ALPHA_UNDER"}, {seq_type_items_GAMMA_CROSS, "GAMMA_CROSS"}, {seq_type_items_MULTIPLY, "MULTIPLY"}, {seq_type_items_OVER_DROP, "OVER_DROP"}, {seq_type_items_WIPE, "WIPE"}, {seq_type_items_GLOW, "GLOW"}, {seq_type_items_TRANSFORM, "TRANSFORM"}, {seq_type_items_COLOR, "COLOR"}, {seq_type_items_SPEED, "SPEED"}, {seq_type_items_MULTICAM, "MULTICAM"}, {seq_type_items_ADJUSTMENT, "ADJUSTMENT"}, {seq_type_items_GAUSSIAN_BLUR, "GAUSSIAN_BLUR"}, {seq_type_items_TEXT, "TEXT"}};
 	};
 
-	const std::map<std::string, int> string_to_seq_type_items = create_string_to_seq_type_items();
-	const std::map<int, std::string> seq_type_items_to_string = create_seq_type_items_to_string();
+	static const std::map<std::string, int> string_to_seq_type_items = create_string_to_seq_type_items();
+	static const std::map<int, std::string> seq_type_items_to_string = create_seq_type_items_to_string();
 
 	seq_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<seq_type_items_enum>(string_to_seq_type_items.at(resstr)))
@@ -69675,8 +69675,8 @@ public:
 		return {{blend_mode_items_REPLACE, "REPLACE"}, {blend_mode_items_CROSS, "CROSS"}, {blend_mode_items_ADD, "ADD"}, {blend_mode_items_SUBTRACT, "SUBTRACT"}, {blend_mode_items_ALPHA_OVER, "ALPHA_OVER"}, {blend_mode_items_ALPHA_UNDER, "ALPHA_UNDER"}, {blend_mode_items_GAMMA_CROSS, "GAMMA_CROSS"}, {blend_mode_items_MULTIPLY, "MULTIPLY"}, {blend_mode_items_OVER_DROP, "OVER_DROP"}};
 	};
 
-	const std::map<std::string, int> string_to_blend_mode_items = create_string_to_blend_mode_items();
-	const std::map<int, std::string> blend_mode_items_to_string = create_blend_mode_items_to_string();
+	static const std::map<std::string, int> string_to_blend_mode_items = create_string_to_blend_mode_items();
+	static const std::map<int, std::string> blend_mode_items_to_string = create_blend_mode_items_to_string();
 
 	blend_mode_items_enum blend_type() {
 		STRING_TYPE_GETTER("blend_type", static_cast<blend_mode_items_enum>(string_to_blend_mode_items.at(resstr)))
@@ -69792,8 +69792,8 @@ public:
 		return {{editing_storage_items_PER_STRIP, "PER_STRIP"}, {editing_storage_items_PROJECT, "PROJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_editing_storage_items = create_string_to_editing_storage_items();
-	const std::map<int, std::string> editing_storage_items_to_string = create_editing_storage_items_to_string();
+	static const std::map<std::string, int> string_to_editing_storage_items = create_string_to_editing_storage_items();
+	static const std::map<int, std::string> editing_storage_items_to_string = create_editing_storage_items_to_string();
 
 	editing_storage_items_enum proxy_storage() {
 		STRING_TYPE_GETTER("proxy_storage", static_cast<editing_storage_items_enum>(string_to_editing_storage_items.at(resstr)))
@@ -69850,8 +69850,8 @@ public:
 		return {{views_format_items_INDIVIDUAL, "INDIVIDUAL"}, {views_format_items_STEREO_3D, "STEREO_3D"}};
 	};
 
-	const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
-	const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
+	static const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
+	static const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
 
 	views_format_items_enum views_format() {
 		STRING_TYPE_GETTER("views_format", static_cast<views_format_items_enum>(string_to_views_format_items.at(resstr)))
@@ -69886,8 +69886,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -70040,8 +70040,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -70202,8 +70202,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -70376,8 +70376,8 @@ public:
 		return {{views_format_items_INDIVIDUAL, "INDIVIDUAL"}, {views_format_items_STEREO_3D, "STEREO_3D"}};
 	};
 
-	const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
-	const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
+	static const std::map<std::string, int> string_to_views_format_items = create_string_to_views_format_items();
+	static const std::map<int, std::string> views_format_items_to_string = create_views_format_items_to_string();
 
 	views_format_items_enum views_format() {
 		STRING_TYPE_GETTER("views_format", static_cast<views_format_items_enum>(string_to_views_format_items.at(resstr)))
@@ -70412,8 +70412,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -70578,8 +70578,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -70714,8 +70714,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -70912,8 +70912,8 @@ public:
 		return {{alpha_mode_items_STRAIGHT, "STRAIGHT"}, {alpha_mode_items_PREMUL, "PREMUL"}};
 	};
 
-	const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
-	const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
+	static const std::map<std::string, int> string_to_alpha_mode_items = create_string_to_alpha_mode_items();
+	static const std::map<int, std::string> alpha_mode_items_to_string = create_alpha_mode_items_to_string();
 
 	alpha_mode_items_enum alpha_mode() {
 		STRING_TYPE_GETTER("alpha_mode", static_cast<alpha_mode_items_enum>(string_to_alpha_mode_items.at(resstr)))
@@ -71468,8 +71468,8 @@ public:
 		return {{translation_unit_items_PIXELS, "PIXELS"}, {translation_unit_items_PERCENT, "PERCENT"}};
 	};
 
-	const std::map<std::string, int> string_to_translation_unit_items = create_string_to_translation_unit_items();
-	const std::map<int, std::string> translation_unit_items_to_string = create_translation_unit_items_to_string();
+	static const std::map<std::string, int> string_to_translation_unit_items = create_string_to_translation_unit_items();
+	static const std::map<int, std::string> translation_unit_items_to_string = create_translation_unit_items_to_string();
 
 	translation_unit_items_enum translation_unit() {
 		STRING_TYPE_GETTER("translation_unit", static_cast<translation_unit_items_enum>(string_to_translation_unit_items.at(resstr)))
@@ -71493,8 +71493,8 @@ public:
 		return {{interpolation_items_NONE, "NONE"}, {interpolation_items_BILINEAR, "BILINEAR"}, {interpolation_items_BICUBIC, "BICUBIC"}};
 	};
 
-	const std::map<std::string, int> string_to_interpolation_items = create_string_to_interpolation_items();
-	const std::map<int, std::string> interpolation_items_to_string = create_interpolation_items_to_string();
+	static const std::map<std::string, int> string_to_interpolation_items = create_string_to_interpolation_items();
+	static const std::map<int, std::string> interpolation_items_to_string = create_interpolation_items_to_string();
 
 	interpolation_items_enum interpolation() {
 		STRING_TYPE_GETTER("interpolation", static_cast<interpolation_items_enum>(string_to_interpolation_items.at(resstr)))
@@ -71551,8 +71551,8 @@ public:
 		return {{wipe_direction_items_OUT, "OUT"}, {wipe_direction_items_IN, "IN"}};
 	};
 
-	const std::map<std::string, int> string_to_wipe_direction_items = create_string_to_wipe_direction_items();
-	const std::map<int, std::string> wipe_direction_items_to_string = create_wipe_direction_items_to_string();
+	static const std::map<std::string, int> string_to_wipe_direction_items = create_string_to_wipe_direction_items();
+	static const std::map<int, std::string> wipe_direction_items_to_string = create_wipe_direction_items_to_string();
 
 	wipe_direction_items_enum direction() {
 		STRING_TYPE_GETTER("direction", static_cast<wipe_direction_items_enum>(string_to_wipe_direction_items.at(resstr)))
@@ -71577,8 +71577,8 @@ public:
 		return {{wipe_type_items_SINGLE, "SINGLE"}, {wipe_type_items_DOUBLE, "DOUBLE"}, {wipe_type_items_IRIS, "IRIS"}, {wipe_type_items_CLOCK, "CLOCK"}};
 	};
 
-	const std::map<std::string, int> string_to_wipe_type_items = create_string_to_wipe_type_items();
-	const std::map<int, std::string> wipe_type_items_to_string = create_wipe_type_items_to_string();
+	static const std::map<std::string, int> string_to_wipe_type_items = create_string_to_wipe_type_items();
+	static const std::map<int, std::string> wipe_type_items_to_string = create_wipe_type_items_to_string();
 
 	wipe_type_items_enum transition_type() {
 		STRING_TYPE_GETTER("transition_type", static_cast<wipe_type_items_enum>(string_to_wipe_type_items.at(resstr)))
@@ -71666,8 +71666,8 @@ public:
 		return {{text_align_items_LEFT, "LEFT"}, {text_align_items_CENTER, "CENTER"}, {text_align_items_RIGHT, "RIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_text_align_items = create_string_to_text_align_items();
-	const std::map<int, std::string> text_align_items_to_string = create_text_align_items_to_string();
+	static const std::map<std::string, int> string_to_text_align_items = create_string_to_text_align_items();
+	static const std::map<int, std::string> text_align_items_to_string = create_text_align_items_to_string();
 
 	text_align_items_enum align() {
 		STRING_TYPE_GETTER("align", static_cast<text_align_items_enum>(string_to_text_align_items.at(resstr)))
@@ -71723,8 +71723,8 @@ public:
 		return {{sequence_modifier_type_items_COLOR_BALANCE, "COLOR_BALANCE"}, {sequence_modifier_type_items_CURVES, "CURVES"}, {sequence_modifier_type_items_HUE_CORRECT, "HUE_CORRECT"}, {sequence_modifier_type_items_BRIGHT_CONTRAST, "BRIGHT_CONTRAST"}, {sequence_modifier_type_items_MASK, "MASK"}};
 	};
 
-	const std::map<std::string, int> string_to_sequence_modifier_type_items = create_string_to_sequence_modifier_type_items();
-	const std::map<int, std::string> sequence_modifier_type_items_to_string = create_sequence_modifier_type_items_to_string();
+	static const std::map<std::string, int> string_to_sequence_modifier_type_items = create_string_to_sequence_modifier_type_items();
+	static const std::map<int, std::string> sequence_modifier_type_items_to_string = create_sequence_modifier_type_items_to_string();
 
 	sequence_modifier_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<sequence_modifier_type_items_enum>(string_to_sequence_modifier_type_items.at(resstr)))
@@ -71763,8 +71763,8 @@ public:
 		return {{mask_input_type_items_STRIP, "STRIP"}, {mask_input_type_items_ID, "ID"}};
 	};
 
-	const std::map<std::string, int> string_to_mask_input_type_items = create_string_to_mask_input_type_items();
-	const std::map<int, std::string> mask_input_type_items_to_string = create_mask_input_type_items_to_string();
+	static const std::map<std::string, int> string_to_mask_input_type_items = create_string_to_mask_input_type_items();
+	static const std::map<int, std::string> mask_input_type_items_to_string = create_mask_input_type_items_to_string();
 
 	mask_input_type_items_enum input_mask_type() {
 		STRING_TYPE_GETTER("input_mask_type", static_cast<mask_input_type_items_enum>(string_to_mask_input_type_items.at(resstr)))
@@ -71891,8 +71891,8 @@ public:
 		return {{prop_noise_type_items_NOISEWAVE, "NOISEWAVE"}, {prop_noise_type_items_NOISEFFT, "NOISEFFT"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_noise_type_items = create_string_to_prop_noise_type_items();
-	const std::map<int, std::string> prop_noise_type_items_to_string = create_prop_noise_type_items_to_string();
+	static const std::map<std::string, int> string_to_prop_noise_type_items = create_string_to_prop_noise_type_items();
+	static const std::map<int, std::string> prop_noise_type_items_to_string = create_prop_noise_type_items_to_string();
 
 	prop_noise_type_items_enum noise_type() {
 		STRING_TYPE_GETTER("noise_type", static_cast<prop_noise_type_items_enum>(string_to_prop_noise_type_items.at(resstr)))
@@ -71979,8 +71979,8 @@ public:
 		return {{smoke_cache_comp_items_CACHELIGHT, "CACHELIGHT"}, {smoke_cache_comp_items_CACHEHEAVY, "CACHEHEAVY"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_cache_comp_items = create_string_to_smoke_cache_comp_items();
-	const std::map<int, std::string> smoke_cache_comp_items_to_string = create_smoke_cache_comp_items_to_string();
+	static const std::map<std::string, int> string_to_smoke_cache_comp_items = create_string_to_smoke_cache_comp_items();
+	static const std::map<int, std::string> smoke_cache_comp_items_to_string = create_smoke_cache_comp_items_to_string();
 
 	smoke_cache_comp_items_enum point_cache_compress_type() {
 		STRING_TYPE_GETTER("point_cache_compress_type", static_cast<smoke_cache_comp_items_enum>(string_to_smoke_cache_comp_items.at(resstr)))
@@ -72004,8 +72004,8 @@ public:
 		return {{smoke_domain_colli_items_BORDEROPEN, "BORDEROPEN"}, {smoke_domain_colli_items_BORDERVERTICAL, "BORDERVERTICAL"}, {smoke_domain_colli_items_BORDERCLOSED, "BORDERCLOSED"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_domain_colli_items = create_string_to_smoke_domain_colli_items();
-	const std::map<int, std::string> smoke_domain_colli_items_to_string = create_smoke_domain_colli_items_to_string();
+	static const std::map<std::string, int> string_to_smoke_domain_colli_items = create_string_to_smoke_domain_colli_items();
+	static const std::map<int, std::string> smoke_domain_colli_items_to_string = create_smoke_domain_colli_items_to_string();
 
 	smoke_domain_colli_items_enum collision_extents() {
 		STRING_TYPE_GETTER("collision_extents", static_cast<smoke_domain_colli_items_enum>(string_to_smoke_domain_colli_items.at(resstr)))
@@ -72033,8 +72033,8 @@ public:
 		return {{smoke_highres_sampling_items_FULLSAMPLE, "FULLSAMPLE"}, {smoke_highres_sampling_items_LINEAR, "LINEAR"}, {smoke_highres_sampling_items_NEAREST, "NEAREST"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_highres_sampling_items = create_string_to_smoke_highres_sampling_items();
-	const std::map<int, std::string> smoke_highres_sampling_items_to_string = create_smoke_highres_sampling_items_to_string();
+	static const std::map<std::string, int> string_to_smoke_highres_sampling_items = create_string_to_smoke_highres_sampling_items();
+	static const std::map<int, std::string> smoke_highres_sampling_items_to_string = create_smoke_highres_sampling_items_to_string();
 
 	smoke_highres_sampling_items_enum highres_sampling() {
 		STRING_TYPE_GETTER("highres_sampling", static_cast<smoke_highres_sampling_items_enum>(string_to_smoke_highres_sampling_items.at(resstr)))
@@ -72253,8 +72253,8 @@ public:
 		return {{smoke_flow_types_OUTFLOW, "OUTFLOW"}, {smoke_flow_types_SMOKE, "SMOKE"}, {smoke_flow_types_BOTH, "BOTH"}, {smoke_flow_types_FIRE, "FIRE"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_flow_types = create_string_to_smoke_flow_types();
-	const std::map<int, std::string> smoke_flow_types_to_string = create_smoke_flow_types_to_string();
+	static const std::map<std::string, int> string_to_smoke_flow_types = create_string_to_smoke_flow_types();
+	static const std::map<int, std::string> smoke_flow_types_to_string = create_smoke_flow_types_to_string();
 
 	smoke_flow_types_enum smoke_flow_type() {
 		STRING_TYPE_GETTER("smoke_flow_type", static_cast<smoke_flow_types_enum>(string_to_smoke_flow_types.at(resstr)))
@@ -72277,8 +72277,8 @@ public:
 		return {{smoke_flow_sources_PARTICLES, "PARTICLES"}, {smoke_flow_sources_MESH, "MESH"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_flow_sources = create_string_to_smoke_flow_sources();
-	const std::map<int, std::string> smoke_flow_sources_to_string = create_smoke_flow_sources_to_string();
+	static const std::map<std::string, int> string_to_smoke_flow_sources = create_string_to_smoke_flow_sources();
+	static const std::map<int, std::string> smoke_flow_sources_to_string = create_smoke_flow_sources_to_string();
 
 	smoke_flow_sources_enum smoke_flow_source() {
 		STRING_TYPE_GETTER("smoke_flow_source", static_cast<smoke_flow_sources_enum>(string_to_smoke_flow_sources.at(resstr)))
@@ -72397,8 +72397,8 @@ public:
 		return {{smoke_flow_texture_types_AUTO, "AUTO"}, {smoke_flow_texture_types_UV, "UV"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_flow_texture_types = create_string_to_smoke_flow_texture_types();
-	const std::map<int, std::string> smoke_flow_texture_types_to_string = create_smoke_flow_texture_types_to_string();
+	static const std::map<std::string, int> string_to_smoke_flow_texture_types = create_string_to_smoke_flow_texture_types();
+	static const std::map<int, std::string> smoke_flow_texture_types_to_string = create_smoke_flow_texture_types_to_string();
 
 	smoke_flow_texture_types_enum texture_map_type() {
 		STRING_TYPE_GETTER("texture_map_type", static_cast<smoke_flow_texture_types_enum>(string_to_smoke_flow_texture_types.at(resstr)))
@@ -72456,8 +72456,8 @@ public:
 		return {{smoke_coll_type_items_COLLSTATIC, "COLLSTATIC"}, {smoke_coll_type_items_COLLRIGID, "COLLRIGID"}, {smoke_coll_type_items_COLLANIMATED, "COLLANIMATED"}};
 	};
 
-	const std::map<std::string, int> string_to_smoke_coll_type_items = create_string_to_smoke_coll_type_items();
-	const std::map<int, std::string> smoke_coll_type_items_to_string = create_smoke_coll_type_items_to_string();
+	static const std::map<std::string, int> string_to_smoke_coll_type_items = create_string_to_smoke_coll_type_items();
+	static const std::map<int, std::string> smoke_coll_type_items_to_string = create_smoke_coll_type_items_to_string();
 
 	smoke_coll_type_items_enum collision_type() {
 		STRING_TYPE_GETTER("collision_type", static_cast<smoke_coll_type_items_enum>(string_to_smoke_coll_type_items.at(resstr)))
@@ -72502,8 +72502,8 @@ public:
 		return {{space_type_items_EMPTY, "EMPTY"}, {space_type_items_VIEW_3D, "VIEW_3D"}, {space_type_items_TIMELINE, "TIMELINE"}, {space_type_items_GRAPH_EDITOR, "GRAPH_EDITOR"}, {space_type_items_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {space_type_items_NLA_EDITOR, "NLA_EDITOR"}, {space_type_items_IMAGE_EDITOR, "IMAGE_EDITOR"}, {space_type_items_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {space_type_items_CLIP_EDITOR, "CLIP_EDITOR"}, {space_type_items_TEXT_EDITOR, "TEXT_EDITOR"}, {space_type_items_NODE_EDITOR, "NODE_EDITOR"}, {space_type_items_LOGIC_EDITOR, "LOGIC_EDITOR"}, {space_type_items_PROPERTIES, "PROPERTIES"}, {space_type_items_OUTLINER, "OUTLINER"}, {space_type_items_USER_PREFERENCES, "USER_PREFERENCES"}, {space_type_items_INFO, "INFO"}, {space_type_items_FILE_BROWSER, "FILE_BROWSER"}, {space_type_items_CONSOLE, "CONSOLE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
-	const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
+	static const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
+	static const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
 
 	space_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<space_type_items_enum>(string_to_space_type_items.at(resstr)))
@@ -72590,8 +72590,8 @@ public:
 		return {{draw_channels_items_COLOR_ALPHA, "COLOR_ALPHA"}, {draw_channels_items_COLOR, "COLOR"}, {draw_channels_items_ALPHA, "ALPHA"}, {draw_channels_items_Z_BUFFER, "Z_BUFFER"}};
 	};
 
-	const std::map<std::string, int> string_to_draw_channels_items = create_string_to_draw_channels_items();
-	const std::map<int, std::string> draw_channels_items_to_string = create_draw_channels_items_to_string();
+	static const std::map<std::string, int> string_to_draw_channels_items = create_string_to_draw_channels_items();
+	static const std::map<int, std::string> draw_channels_items_to_string = create_draw_channels_items_to_string();
 
 	draw_channels_items_enum draw_channels() {
 		STRING_TYPE_GETTER("draw_channels", static_cast<draw_channels_items_enum>(string_to_draw_channels_items.at(resstr)))
@@ -72625,8 +72625,8 @@ public:
 		return {{image_space_mode_items_VIEW, "VIEW"}, {image_space_mode_items_PAINT, "PAINT"}, {image_space_mode_items_MASK, "MASK"}};
 	};
 
-	const std::map<std::string, int> string_to_image_space_mode_items = create_string_to_image_space_mode_items();
-	const std::map<int, std::string> image_space_mode_items_to_string = create_image_space_mode_items_to_string();
+	static const std::map<std::string, int> string_to_image_space_mode_items = create_string_to_image_space_mode_items();
+	static const std::map<int, std::string> image_space_mode_items_to_string = create_image_space_mode_items_to_string();
 
 	image_space_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<image_space_mode_items_enum>(string_to_image_space_mode_items.at(resstr)))
@@ -72660,8 +72660,8 @@ public:
 		return {{pivot_items_full_BOUNDING_BOX_CENTER, "BOUNDING_BOX_CENTER"}, {pivot_items_full_CURSOR, "CURSOR"}, {pivot_items_full_INDIVIDUAL_ORIGINS, "INDIVIDUAL_ORIGINS"}, {pivot_items_full_MEDIAN_POINT, "MEDIAN_POINT"}, {pivot_items_full_ACTIVE_ELEMENT, "ACTIVE_ELEMENT"}};
 	};
 
-	const std::map<std::string, int> string_to_pivot_items_full = create_string_to_pivot_items_full();
-	const std::map<int, std::string> pivot_items_full_to_string = create_pivot_items_full_to_string();
+	static const std::map<std::string, int> string_to_pivot_items_full = create_string_to_pivot_items_full();
+	static const std::map<int, std::string> pivot_items_full_to_string = create_pivot_items_full_to_string();
 
 	pivot_items_full_enum pivot_point() {
 		STRING_TYPE_GETTER("pivot_point", static_cast<pivot_items_full_enum>(string_to_pivot_items_full.at(resstr)))
@@ -72732,8 +72732,8 @@ public:
 		return {{dt_uv_items_OUTLINE, "OUTLINE"}, {dt_uv_items_DASH, "DASH"}, {dt_uv_items_BLACK, "BLACK"}, {dt_uv_items_WHITE, "WHITE"}};
 	};
 
-	const std::map<std::string, int> string_to_dt_uv_items = create_string_to_dt_uv_items();
-	const std::map<int, std::string> dt_uv_items_to_string = create_dt_uv_items_to_string();
+	static const std::map<std::string, int> string_to_dt_uv_items = create_string_to_dt_uv_items();
+	static const std::map<int, std::string> dt_uv_items_to_string = create_dt_uv_items_to_string();
 
 	dt_uv_items_enum mask_draw_type() {
 		STRING_TYPE_GETTER("mask_draw_type", static_cast<dt_uv_items_enum>(string_to_dt_uv_items.at(resstr)))
@@ -72772,8 +72772,8 @@ public:
 		return {{overlay_mode_items_ALPHACHANNEL, "ALPHACHANNEL"}, {overlay_mode_items_COMBINED, "COMBINED"}};
 	};
 
-	const std::map<std::string, int> string_to_overlay_mode_items = create_string_to_overlay_mode_items();
-	const std::map<int, std::string> overlay_mode_items_to_string = create_overlay_mode_items_to_string();
+	static const std::map<std::string, int> string_to_overlay_mode_items = create_string_to_overlay_mode_items();
+	static const std::map<int, std::string> overlay_mode_items_to_string = create_overlay_mode_items_to_string();
 
 	overlay_mode_items_enum mask_overlay_mode() {
 		STRING_TYPE_GETTER("mask_overlay_mode", static_cast<overlay_mode_items_enum>(string_to_overlay_mode_items.at(resstr)))
@@ -72803,8 +72803,8 @@ public:
 		return {{sticky_mode_items_DISABLED, "DISABLED"}, {sticky_mode_items_SHARED_LOCATION, "SHARED_LOCATION"}, {sticky_mode_items_SHARED_VERTEX, "SHARED_VERTEX"}};
 	};
 
-	const std::map<std::string, int> string_to_sticky_mode_items = create_string_to_sticky_mode_items();
-	const std::map<int, std::string> sticky_mode_items_to_string = create_sticky_mode_items_to_string();
+	static const std::map<std::string, int> string_to_sticky_mode_items = create_string_to_sticky_mode_items();
+	static const std::map<int, std::string> sticky_mode_items_to_string = create_sticky_mode_items_to_string();
 
 	sticky_mode_items_enum sticky_select_mode() {
 		STRING_TYPE_GETTER("sticky_select_mode", static_cast<sticky_mode_items_enum>(string_to_sticky_mode_items.at(resstr)))
@@ -72829,8 +72829,8 @@ public:
 		return {{dt_uv_items_OUTLINE, "OUTLINE"}, {dt_uv_items_DASH, "DASH"}, {dt_uv_items_BLACK, "BLACK"}, {dt_uv_items_WHITE, "WHITE"}};
 	};
 
-	const std::map<std::string, int> string_to_dt_uv_items = create_string_to_dt_uv_items();
-	const std::map<int, std::string> dt_uv_items_to_string = create_dt_uv_items_to_string();
+	static const std::map<std::string, int> string_to_dt_uv_items = create_string_to_dt_uv_items();
+	static const std::map<int, std::string> dt_uv_items_to_string = create_dt_uv_items_to_string();
 
 	dt_uv_items_enum edge_draw_type() {
 		STRING_TYPE_GETTER("edge_draw_type", static_cast<dt_uv_items_enum>(string_to_dt_uv_items.at(resstr)))
@@ -72869,8 +72869,8 @@ public:
 		return {{dt_uvstretch_items_ANGLE, "ANGLE"}, {dt_uvstretch_items_AREA, "AREA"}};
 	};
 
-	const std::map<std::string, int> string_to_dt_uvstretch_items = create_string_to_dt_uvstretch_items();
-	const std::map<int, std::string> dt_uvstretch_items_to_string = create_dt_uvstretch_items_to_string();
+	static const std::map<std::string, int> string_to_dt_uvstretch_items = create_string_to_dt_uvstretch_items();
+	static const std::map<int, std::string> dt_uvstretch_items_to_string = create_dt_uvstretch_items_to_string();
 
 	dt_uvstretch_items_enum draw_stretch_type() {
 		STRING_TYPE_GETTER("draw_stretch_type", static_cast<dt_uvstretch_items_enum>(string_to_dt_uvstretch_items.at(resstr)))
@@ -72972,8 +72972,8 @@ public:
 		return {{view_type_items_SEQUENCER, "SEQUENCER"}, {view_type_items_PREVIEW, "PREVIEW"}, {view_type_items_SEQUENCER_PREVIEW, "SEQUENCER_PREVIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_view_type_items = create_string_to_view_type_items();
-	const std::map<int, std::string> view_type_items_to_string = create_view_type_items_to_string();
+	static const std::map<std::string, int> string_to_view_type_items = create_string_to_view_type_items();
+	static const std::map<int, std::string> view_type_items_to_string = create_view_type_items_to_string();
 
 	view_type_items_enum view_type() {
 		STRING_TYPE_GETTER("view_type", static_cast<view_type_items_enum>(string_to_view_type_items.at(resstr)))
@@ -72998,8 +72998,8 @@ public:
 		return {{display_mode_items_IMAGE, "IMAGE"}, {display_mode_items_WAVEFORM, "WAVEFORM"}, {display_mode_items_VECTOR_SCOPE, "VECTOR_SCOPE"}, {display_mode_items_HISTOGRAM, "HISTOGRAM"}};
 	};
 
-	const std::map<std::string, int> string_to_display_mode_items = create_string_to_display_mode_items();
-	const std::map<int, std::string> display_mode_items_to_string = create_display_mode_items_to_string();
+	static const std::map<std::string, int> string_to_display_mode_items = create_string_to_display_mode_items();
+	static const std::map<int, std::string> display_mode_items_to_string = create_display_mode_items_to_string();
 
 	display_mode_items_enum display_mode() {
 		STRING_TYPE_GETTER("display_mode", static_cast<display_mode_items_enum>(string_to_display_mode_items.at(resstr)))
@@ -73102,8 +73102,8 @@ public:
 		return {{preview_channels_items_COLOR_ALPHA, "COLOR_ALPHA"}, {preview_channels_items_COLOR, "COLOR"}};
 	};
 
-	const std::map<std::string, int> string_to_preview_channels_items = create_string_to_preview_channels_items();
-	const std::map<int, std::string> preview_channels_items_to_string = create_preview_channels_items_to_string();
+	static const std::map<std::string, int> string_to_preview_channels_items = create_string_to_preview_channels_items();
+	static const std::map<int, std::string> preview_channels_items_to_string = create_preview_channels_items_to_string();
 
 	preview_channels_items_enum preview_channels() {
 		STRING_TYPE_GETTER("preview_channels", static_cast<preview_channels_items_enum>(string_to_preview_channels_items.at(resstr)))
@@ -73127,8 +73127,8 @@ public:
 		return {{waveform_type_draw_items_NO_WAVEFORMS, "NO_WAVEFORMS"}, {waveform_type_draw_items_ALL_WAVEFORMS, "ALL_WAVEFORMS"}, {waveform_type_draw_items_DEFAULT_WAVEFORMS, "DEFAULT_WAVEFORMS"}};
 	};
 
-	const std::map<std::string, int> string_to_waveform_type_draw_items = create_string_to_waveform_type_draw_items();
-	const std::map<int, std::string> waveform_type_draw_items_to_string = create_waveform_type_draw_items_to_string();
+	static const std::map<std::string, int> string_to_waveform_type_draw_items = create_string_to_waveform_type_draw_items();
+	static const std::map<int, std::string> waveform_type_draw_items_to_string = create_waveform_type_draw_items_to_string();
 
 	waveform_type_draw_items_enum waveform_draw_type() {
 		STRING_TYPE_GETTER("waveform_draw_type", static_cast<waveform_type_draw_items_enum>(string_to_waveform_type_draw_items.at(resstr)))
@@ -73164,8 +73164,8 @@ public:
 		return {{proxy_render_size_items_NONE, "NONE"}, {proxy_render_size_items_SCENE, "SCENE"}, {proxy_render_size_items_PROXY_25, "PROXY_25"}, {proxy_render_size_items_PROXY_50, "PROXY_50"}, {proxy_render_size_items_PROXY_75, "PROXY_75"}, {proxy_render_size_items_PROXY_100, "PROXY_100"}, {proxy_render_size_items_FULL, "FULL"}};
 	};
 
-	const std::map<std::string, int> string_to_proxy_render_size_items = create_string_to_proxy_render_size_items();
-	const std::map<int, std::string> proxy_render_size_items_to_string = create_proxy_render_size_items_to_string();
+	static const std::map<std::string, int> string_to_proxy_render_size_items = create_string_to_proxy_render_size_items();
+	static const std::map<int, std::string> proxy_render_size_items_to_string = create_proxy_render_size_items_to_string();
 
 	proxy_render_size_items_enum proxy_render_size() {
 		STRING_TYPE_GETTER("proxy_render_size", static_cast<proxy_render_size_items_enum>(string_to_proxy_render_size_items.at(resstr)))
@@ -73193,8 +73193,8 @@ public:
 		return {{overlay_type_items_RECTANGLE, "RECTANGLE"}, {overlay_type_items_REFERENCE, "REFERENCE"}, {overlay_type_items_CURRENT, "CURRENT"}};
 	};
 
-	const std::map<std::string, int> string_to_overlay_type_items = create_string_to_overlay_type_items();
-	const std::map<int, std::string> overlay_type_items_to_string = create_overlay_type_items_to_string();
+	static const std::map<std::string, int> string_to_overlay_type_items = create_string_to_overlay_type_items();
+	static const std::map<int, std::string> overlay_type_items_to_string = create_overlay_type_items_to_string();
 
 	overlay_type_items_enum overlay_type() {
 		STRING_TYPE_GETTER("overlay_type", static_cast<overlay_type_items_enum>(string_to_overlay_type_items.at(resstr)))
@@ -73415,8 +73415,8 @@ public:
 		return {{file_display_items_FILE_SHORTDISPLAY, "FILE_SHORTDISPLAY"}, {file_display_items_FILE_LONGDISPLAY, "FILE_LONGDISPLAY"}, {file_display_items_FILE_IMGDISPLAY, "FILE_IMGDISPLAY"}};
 	};
 
-	const std::map<std::string, int> string_to_file_display_items = create_string_to_file_display_items();
-	const std::map<int, std::string> file_display_items_to_string = create_file_display_items_to_string();
+	static const std::map<std::string, int> string_to_file_display_items = create_string_to_file_display_items();
+	static const std::map<int, std::string> file_display_items_to_string = create_file_display_items_to_string();
 
 	file_display_items_enum display_type() {
 		STRING_TYPE_GETTER("display_type", static_cast<file_display_items_enum>(string_to_file_display_items.at(resstr)))
@@ -73457,8 +73457,8 @@ public:
 		return {{file_sort_items_FILE_SORT_ALPHA, "FILE_SORT_ALPHA"}, {file_sort_items_FILE_SORT_EXTENSION, "FILE_SORT_EXTENSION"}, {file_sort_items_FILE_SORT_TIME, "FILE_SORT_TIME"}, {file_sort_items_FILE_SORT_SIZE, "FILE_SORT_SIZE"}};
 	};
 
-	const std::map<std::string, int> string_to_file_sort_items = create_string_to_file_sort_items();
-	const std::map<int, std::string> file_sort_items_to_string = create_file_sort_items_to_string();
+	static const std::map<std::string, int> string_to_file_sort_items = create_string_to_file_sort_items();
+	static const std::map<int, std::string> file_sort_items_to_string = create_file_sort_items_to_string();
 
 	file_sort_items_enum sort_method() {
 		STRING_TYPE_GETTER("sort_method", static_cast<file_sort_items_enum>(string_to_file_sort_items.at(resstr)))
@@ -73571,8 +73571,8 @@ public:
 		return {{thumbnail_size_items_TINY, "TINY"}, {thumbnail_size_items_SMALL, "SMALL"}, {thumbnail_size_items_NORMAL, "NORMAL"}, {thumbnail_size_items_LARGE, "LARGE"}};
 	};
 
-	const std::map<std::string, int> string_to_thumbnail_size_items = create_string_to_thumbnail_size_items();
-	const std::map<int, std::string> thumbnail_size_items_to_string = create_thumbnail_size_items_to_string();
+	static const std::map<std::string, int> string_to_thumbnail_size_items = create_string_to_thumbnail_size_items();
+	static const std::map<int, std::string> thumbnail_size_items_to_string = create_thumbnail_size_items_to_string();
 
 	thumbnail_size_items_enum thumbnail_size() {
 		STRING_TYPE_GETTER("thumbnail_size", static_cast<thumbnail_size_items_enum>(string_to_thumbnail_size_items.at(resstr)))
@@ -73711,8 +73711,8 @@ public:
 		return {{display_mode_items_ALL_SCENES, "ALL_SCENES"}, {display_mode_items_CURRENT_SCENE, "CURRENT_SCENE"}, {display_mode_items_VISIBLE_LAYERS, "VISIBLE_LAYERS"}, {display_mode_items_SELECTED, "SELECTED"}, {display_mode_items_ACTIVE, "ACTIVE"}, {display_mode_items_SAME_TYPES, "SAME_TYPES"}, {display_mode_items_GROUPS, "GROUPS"}, {display_mode_items_SEQUENCE, "SEQUENCE"}, {display_mode_items_LIBRARIES, "LIBRARIES"}, {display_mode_items_DATABLOCKS, "DATABLOCKS"}, {display_mode_items_USER_PREFERENCES, "USER_PREFERENCES"}, {display_mode_items_ORPHAN_DATA, "ORPHAN_DATA"}};
 	};
 
-	const std::map<std::string, int> string_to_display_mode_items = create_string_to_display_mode_items();
-	const std::map<int, std::string> display_mode_items_to_string = create_display_mode_items_to_string();
+	static const std::map<std::string, int> string_to_display_mode_items = create_string_to_display_mode_items();
+	static const std::map<int, std::string> display_mode_items_to_string = create_display_mode_items_to_string();
 
 	display_mode_items_enum display_mode() {
 		STRING_TYPE_GETTER("display_mode", static_cast<display_mode_items_enum>(string_to_display_mode_items.at(resstr)))
@@ -73781,8 +73781,8 @@ public:
 		return {{bgpic_source_items_IMAGE, "IMAGE"}, {bgpic_source_items_MOVIE_CLIP, "MOVIE_CLIP"}};
 	};
 
-	const std::map<std::string, int> string_to_bgpic_source_items = create_string_to_bgpic_source_items();
-	const std::map<int, std::string> bgpic_source_items_to_string = create_bgpic_source_items_to_string();
+	static const std::map<std::string, int> string_to_bgpic_source_items = create_string_to_bgpic_source_items();
+	static const std::map<int, std::string> bgpic_source_items_to_string = create_bgpic_source_items_to_string();
 
 	bgpic_source_items_enum source() {
 		STRING_TYPE_GETTER("source", static_cast<bgpic_source_items_enum>(string_to_bgpic_source_items.at(resstr)))
@@ -73879,8 +73879,8 @@ public:
 		return {{bgpic_axis_items_LEFT, "LEFT"}, {bgpic_axis_items_RIGHT, "RIGHT"}, {bgpic_axis_items_BACK, "BACK"}, {bgpic_axis_items_FRONT, "FRONT"}, {bgpic_axis_items_BOTTOM, "BOTTOM"}, {bgpic_axis_items_TOP, "TOP"}, {bgpic_axis_items_ALL, "ALL"}, {bgpic_axis_items_CAMERA, "CAMERA"}};
 	};
 
-	const std::map<std::string, int> string_to_bgpic_axis_items = create_string_to_bgpic_axis_items();
-	const std::map<int, std::string> bgpic_axis_items_to_string = create_bgpic_axis_items_to_string();
+	static const std::map<std::string, int> string_to_bgpic_axis_items = create_string_to_bgpic_axis_items();
+	static const std::map<int, std::string> bgpic_axis_items_to_string = create_bgpic_axis_items_to_string();
 
 	bgpic_axis_items_enum view_axis() {
 		STRING_TYPE_GETTER("view_axis", static_cast<bgpic_axis_items_enum>(string_to_bgpic_axis_items.at(resstr)))
@@ -73935,8 +73935,8 @@ public:
 		return {{bgpic_draw_depth_items_BACK, "BACK"}, {bgpic_draw_depth_items_FRONT, "FRONT"}};
 	};
 
-	const std::map<std::string, int> string_to_bgpic_draw_depth_items = create_string_to_bgpic_draw_depth_items();
-	const std::map<int, std::string> bgpic_draw_depth_items_to_string = create_bgpic_draw_depth_items_to_string();
+	static const std::map<std::string, int> string_to_bgpic_draw_depth_items = create_string_to_bgpic_draw_depth_items();
+	static const std::map<int, std::string> bgpic_draw_depth_items_to_string = create_bgpic_draw_depth_items_to_string();
 
 	bgpic_draw_depth_items_enum draw_depth() {
 		STRING_TYPE_GETTER("draw_depth", static_cast<bgpic_draw_depth_items_enum>(string_to_bgpic_draw_depth_items.at(resstr)))
@@ -73960,8 +73960,8 @@ public:
 		return {{bgpic_camera_frame_items_STRETCH, "STRETCH"}, {bgpic_camera_frame_items_FIT, "FIT"}, {bgpic_camera_frame_items_CROP, "CROP"}};
 	};
 
-	const std::map<std::string, int> string_to_bgpic_camera_frame_items = create_string_to_bgpic_camera_frame_items();
-	const std::map<int, std::string> bgpic_camera_frame_items_to_string = create_bgpic_camera_frame_items_to_string();
+	static const std::map<std::string, int> string_to_bgpic_camera_frame_items = create_string_to_bgpic_camera_frame_items();
+	static const std::map<int, std::string> bgpic_camera_frame_items_to_string = create_bgpic_camera_frame_items_to_string();
 
 	bgpic_camera_frame_items_enum frame_method() {
 		STRING_TYPE_GETTER("frame_method", static_cast<bgpic_camera_frame_items_enum>(string_to_bgpic_camera_frame_items.at(resstr)))
@@ -74058,8 +74058,8 @@ public:
 		return {{viewport_shade_items_BOUNDBOX, "BOUNDBOX"}, {viewport_shade_items_WIREFRAME, "WIREFRAME"}, {viewport_shade_items_SOLID, "SOLID"}, {viewport_shade_items_TEXTURED, "TEXTURED"}, {viewport_shade_items_MATERIAL, "MATERIAL"}, {viewport_shade_items_RENDERED, "RENDERED"}};
 	};
 
-	const std::map<std::string, int> string_to_viewport_shade_items = create_string_to_viewport_shade_items();
-	const std::map<int, std::string> viewport_shade_items_to_string = create_viewport_shade_items_to_string();
+	static const std::map<std::string, int> string_to_viewport_shade_items = create_string_to_viewport_shade_items();
+	static const std::map<int, std::string> viewport_shade_items_to_string = create_viewport_shade_items_to_string();
 
 	viewport_shade_items_enum viewport_shade() {
 		STRING_TYPE_GETTER("viewport_shade", static_cast<viewport_shade_items_enum>(string_to_viewport_shade_items.at(resstr)))
@@ -74293,8 +74293,8 @@ public:
 		return {{pivot_items_full_BOUNDING_BOX_CENTER, "BOUNDING_BOX_CENTER"}, {pivot_items_full_CURSOR, "CURSOR"}, {pivot_items_full_INDIVIDUAL_ORIGINS, "INDIVIDUAL_ORIGINS"}, {pivot_items_full_MEDIAN_POINT, "MEDIAN_POINT"}, {pivot_items_full_ACTIVE_ELEMENT, "ACTIVE_ELEMENT"}};
 	};
 
-	const std::map<std::string, int> string_to_pivot_items_full = create_string_to_pivot_items_full();
-	const std::map<int, std::string> pivot_items_full_to_string = create_pivot_items_full_to_string();
+	static const std::map<std::string, int> string_to_pivot_items_full = create_string_to_pivot_items_full();
+	static const std::map<int, std::string> pivot_items_full_to_string = create_pivot_items_full_to_string();
 
 	pivot_items_full_enum pivot_point() {
 		STRING_TYPE_GETTER("pivot_point", static_cast<pivot_items_full_enum>(string_to_pivot_items_full.at(resstr)))
@@ -74334,8 +74334,8 @@ public:
 		return {{manipulators_items_TRANSLATE, "TRANSLATE"}, {manipulators_items_ROTATE, "ROTATE"}, {manipulators_items_SCALE, "SCALE"}};
 	};
 
-	const std::map<std::string, int> string_to_manipulators_items = create_string_to_manipulators_items();
-	const std::map<int, std::string> manipulators_items_to_string = create_manipulators_items_to_string();
+	static const std::map<std::string, int> string_to_manipulators_items = create_string_to_manipulators_items();
+	static const std::map<int, std::string> manipulators_items_to_string = create_manipulators_items_to_string();
 
 	manipulators_items_enum transform_manipulators() {
 		STRING_TYPE_GETTER("transform_manipulators", static_cast<manipulators_items_enum>(string_to_manipulators_items.at(resstr)))
@@ -74361,8 +74361,8 @@ public:
 		return {{transform_orientation_items_GLOBAL, "GLOBAL"}, {transform_orientation_items_LOCAL, "LOCAL"}, {transform_orientation_items_NORMAL, "NORMAL"}, {transform_orientation_items_GIMBAL, "GIMBAL"}, {transform_orientation_items_VIEW, "VIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_transform_orientation_items = create_string_to_transform_orientation_items();
-	const std::map<int, std::string> transform_orientation_items_to_string = create_transform_orientation_items_to_string();
+	static const std::map<std::string, int> string_to_transform_orientation_items = create_string_to_transform_orientation_items();
+	static const std::map<int, std::string> transform_orientation_items_to_string = create_transform_orientation_items_to_string();
 
 	transform_orientation_items_enum transform_orientation() {
 		STRING_TYPE_GETTER("transform_orientation", static_cast<transform_orientation_items_enum>(string_to_transform_orientation_items.at(resstr)))
@@ -74446,8 +74446,8 @@ public:
 		return {{bundle_drawtype_items_PLAIN_AXES, "PLAIN_AXES"}, {bundle_drawtype_items_ARROWS, "ARROWS"}, {bundle_drawtype_items_SINGLE_ARROW, "SINGLE_ARROW"}, {bundle_drawtype_items_CIRCLE, "CIRCLE"}, {bundle_drawtype_items_CUBE, "CUBE"}, {bundle_drawtype_items_SPHERE, "SPHERE"}, {bundle_drawtype_items_CONE, "CONE"}};
 	};
 
-	const std::map<std::string, int> string_to_bundle_drawtype_items = create_string_to_bundle_drawtype_items();
-	const std::map<int, std::string> bundle_drawtype_items_to_string = create_bundle_drawtype_items_to_string();
+	static const std::map<std::string, int> string_to_bundle_drawtype_items = create_string_to_bundle_drawtype_items();
+	static const std::map<int, std::string> bundle_drawtype_items_to_string = create_bundle_drawtype_items_to_string();
 
 	bundle_drawtype_items_enum tracks_draw_type() {
 		STRING_TYPE_GETTER("tracks_draw_type", static_cast<bundle_drawtype_items_enum>(string_to_bundle_drawtype_items.at(resstr)))
@@ -74516,8 +74516,8 @@ public:
 		return {{view3d_matcap_items_01, "01"}, {view3d_matcap_items_02, "02"}, {view3d_matcap_items_03, "03"}, {view3d_matcap_items_04, "04"}, {view3d_matcap_items_05, "05"}, {view3d_matcap_items_06, "06"}, {view3d_matcap_items_07, "07"}, {view3d_matcap_items_08, "08"}, {view3d_matcap_items_09, "09"}, {view3d_matcap_items_10, "10"}, {view3d_matcap_items_11, "11"}, {view3d_matcap_items_12, "12"}, {view3d_matcap_items_13, "13"}, {view3d_matcap_items_14, "14"}, {view3d_matcap_items_15, "15"}, {view3d_matcap_items_16, "16"}, {view3d_matcap_items_17, "17"}, {view3d_matcap_items_18, "18"}, {view3d_matcap_items_19, "19"}, {view3d_matcap_items_20, "20"}, {view3d_matcap_items_21, "21"}, {view3d_matcap_items_22, "22"}, {view3d_matcap_items_23, "23"}, {view3d_matcap_items_24, "24"}};
 	};
 
-	const std::map<std::string, int> string_to_view3d_matcap_items = create_string_to_view3d_matcap_items();
-	const std::map<int, std::string> view3d_matcap_items_to_string = create_view3d_matcap_items_to_string();
+	static const std::map<std::string, int> string_to_view3d_matcap_items = create_string_to_view3d_matcap_items();
+	static const std::map<int, std::string> view3d_matcap_items_to_string = create_view3d_matcap_items_to_string();
 
 	view3d_matcap_items_enum matcap_icon() {
 		STRING_TYPE_GETTER("matcap_icon", static_cast<view3d_matcap_items_enum>(string_to_view3d_matcap_items.at(resstr)))
@@ -74544,8 +74544,8 @@ public:
 		return {{stereo3d_eye_items_LEFT_EYE, "LEFT_EYE"}, {stereo3d_eye_items_RIGHT_EYE, "RIGHT_EYE"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_eye_items = create_string_to_stereo3d_eye_items();
-	const std::map<int, std::string> stereo3d_eye_items_to_string = create_stereo3d_eye_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_eye_items = create_string_to_stereo3d_eye_items();
+	static const std::map<int, std::string> stereo3d_eye_items_to_string = create_stereo3d_eye_items_to_string();
 
 	stereo3d_eye_items_enum stereo_3d_eye() {
 		STRING_TYPE_GETTER("stereo_3d_eye", static_cast<stereo3d_eye_items_enum>(string_to_stereo3d_eye_items.at(resstr)))
@@ -74569,8 +74569,8 @@ public:
 		return {{stereo3d_camera_items_LEFT, "LEFT"}, {stereo3d_camera_items_RIGHT, "RIGHT"}, {stereo3d_camera_items_S3D, "S3D"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_camera_items = create_string_to_stereo3d_camera_items();
-	const std::map<int, std::string> stereo3d_camera_items_to_string = create_stereo3d_camera_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_camera_items = create_string_to_stereo3d_camera_items();
+	static const std::map<int, std::string> stereo3d_camera_items_to_string = create_stereo3d_camera_items_to_string();
 
 	stereo3d_camera_items_enum stereo_3d_camera() {
 		STRING_TYPE_GETTER("stereo_3d_camera", static_cast<stereo3d_camera_items_enum>(string_to_stereo3d_camera_items.at(resstr)))
@@ -74688,8 +74688,8 @@ public:
 		return {{rv3d_persp_items_PERSP, "PERSP"}, {rv3d_persp_items_ORTHO, "ORTHO"}, {rv3d_persp_items_CAMERA, "CAMERA"}};
 	};
 
-	const std::map<std::string, int> string_to_rv3d_persp_items = create_string_to_rv3d_persp_items();
-	const std::map<int, std::string> rv3d_persp_items_to_string = create_rv3d_persp_items_to_string();
+	static const std::map<std::string, int> string_to_rv3d_persp_items = create_string_to_rv3d_persp_items();
+	static const std::map<int, std::string> rv3d_persp_items_to_string = create_rv3d_persp_items_to_string();
 
 	rv3d_persp_items_enum view_perspective() {
 		STRING_TYPE_GETTER("view_perspective", static_cast<rv3d_persp_items_enum>(string_to_rv3d_persp_items.at(resstr)))
@@ -74782,8 +74782,8 @@ public:
 		return {{buttons_context_items_SCENE, "SCENE"}, {buttons_context_items_RENDER, "RENDER"}, {buttons_context_items_RENDER_LAYER, "RENDER_LAYER"}, {buttons_context_items_WORLD, "WORLD"}, {buttons_context_items_OBJECT, "OBJECT"}, {buttons_context_items_CONSTRAINT, "CONSTRAINT"}, {buttons_context_items_MODIFIER, "MODIFIER"}, {buttons_context_items_DATA, "DATA"}, {buttons_context_items_BONE, "BONE"}, {buttons_context_items_BONE_CONSTRAINT, "BONE_CONSTRAINT"}, {buttons_context_items_MATERIAL, "MATERIAL"}, {buttons_context_items_TEXTURE, "TEXTURE"}, {buttons_context_items_PARTICLES, "PARTICLES"}, {buttons_context_items_PHYSICS, "PHYSICS"}};
 	};
 
-	const std::map<std::string, int> string_to_buttons_context_items = create_string_to_buttons_context_items();
-	const std::map<int, std::string> buttons_context_items_to_string = create_buttons_context_items_to_string();
+	static const std::map<std::string, int> string_to_buttons_context_items = create_string_to_buttons_context_items();
+	static const std::map<int, std::string> buttons_context_items_to_string = create_buttons_context_items_to_string();
 
 	buttons_context_items_enum context() {
 		STRING_TYPE_GETTER("context", static_cast<buttons_context_items_enum>(string_to_buttons_context_items.at(resstr)))
@@ -74806,8 +74806,8 @@ public:
 		return {{align_items_HORIZONTAL, "HORIZONTAL"}, {align_items_VERTICAL, "VERTICAL"}};
 	};
 
-	const std::map<std::string, int> string_to_align_items = create_string_to_align_items();
-	const std::map<int, std::string> align_items_to_string = create_align_items_to_string();
+	static const std::map<std::string, int> string_to_align_items = create_string_to_align_items();
+	static const std::map<int, std::string> align_items_to_string = create_align_items_to_string();
 
 	align_items_enum align() {
 		STRING_TYPE_GETTER("align", static_cast<align_items_enum>(string_to_align_items.at(resstr)))
@@ -74834,8 +74834,8 @@ public:
 		return {{buttons_texture_context_items_MATERIAL, "MATERIAL"}, {buttons_texture_context_items_WORLD, "WORLD"}, {buttons_texture_context_items_LAMP, "LAMP"}, {buttons_texture_context_items_PARTICLES, "PARTICLES"}, {buttons_texture_context_items_LINESTYLE, "LINESTYLE"}, {buttons_texture_context_items_OTHER, "OTHER"}};
 	};
 
-	const std::map<std::string, int> string_to_buttons_texture_context_items = create_string_to_buttons_texture_context_items();
-	const std::map<int, std::string> buttons_texture_context_items_to_string = create_buttons_texture_context_items_to_string();
+	static const std::map<std::string, int> string_to_buttons_texture_context_items = create_string_to_buttons_texture_context_items();
+	static const std::map<int, std::string> buttons_texture_context_items_to_string = create_buttons_texture_context_items_to_string();
 
 	buttons_texture_context_items_enum texture_context() {
 		STRING_TYPE_GETTER("texture_context", static_cast<buttons_texture_context_items_enum>(string_to_buttons_texture_context_items.at(resstr)))
@@ -74891,8 +74891,8 @@ public:
 		return {{mode_items_DOPESHEET, "DOPESHEET"}, {mode_items_ACTION, "ACTION"}, {mode_items_SHAPEKEY, "SHAPEKEY"}, {mode_items_GPENCIL, "GPENCIL"}, {mode_items_MASK, "MASK"}};
 	};
 
-	const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
-	const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
+	static const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
 
 	mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<mode_items_enum>(string_to_mode_items.at(resstr)))
@@ -74987,8 +74987,8 @@ public:
 		return {{autosnap_items_NONE, "NONE"}, {autosnap_items_STEP, "STEP"}, {autosnap_items_TIME_STEP, "TIME_STEP"}, {autosnap_items_FRAME, "FRAME"}, {autosnap_items_SECOND, "SECOND"}, {autosnap_items_MARKER, "MARKER"}};
 	};
 
-	const std::map<std::string, int> string_to_autosnap_items = create_string_to_autosnap_items();
-	const std::map<int, std::string> autosnap_items_to_string = create_autosnap_items_to_string();
+	static const std::map<std::string, int> string_to_autosnap_items = create_string_to_autosnap_items();
+	static const std::map<int, std::string> autosnap_items_to_string = create_autosnap_items_to_string();
 
 	autosnap_items_enum auto_snap() {
 		STRING_TYPE_GETTER("auto_snap", static_cast<autosnap_items_enum>(string_to_autosnap_items.at(resstr)))
@@ -75017,8 +75017,8 @@ public:
 		return {{mode_items_FCURVES, "FCURVES"}, {mode_items_DRIVERS, "DRIVERS"}};
 	};
 
-	const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
-	const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
+	static const std::map<std::string, int> string_to_mode_items = create_string_to_mode_items();
+	static const std::map<int, std::string> mode_items_to_string = create_mode_items_to_string();
 
 	mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<mode_items_enum>(string_to_mode_items.at(resstr)))
@@ -75138,8 +75138,8 @@ public:
 		return {{gpivot_items_BOUNDING_BOX_CENTER, "BOUNDING_BOX_CENTER"}, {gpivot_items_CURSOR, "CURSOR"}, {gpivot_items_INDIVIDUAL_ORIGINS, "INDIVIDUAL_ORIGINS"}};
 	};
 
-	const std::map<std::string, int> string_to_gpivot_items = create_string_to_gpivot_items();
-	const std::map<int, std::string> gpivot_items_to_string = create_gpivot_items_to_string();
+	static const std::map<std::string, int> string_to_gpivot_items = create_string_to_gpivot_items();
+	static const std::map<int, std::string> gpivot_items_to_string = create_gpivot_items_to_string();
 
 	gpivot_items_enum pivot_point() {
 		STRING_TYPE_GETTER("pivot_point", static_cast<gpivot_items_enum>(string_to_gpivot_items.at(resstr)))
@@ -75170,8 +75170,8 @@ public:
 		return {{autosnap_items_NONE, "NONE"}, {autosnap_items_STEP, "STEP"}, {autosnap_items_TIME_STEP, "TIME_STEP"}, {autosnap_items_FRAME, "FRAME"}, {autosnap_items_SECOND, "SECOND"}, {autosnap_items_MARKER, "MARKER"}};
 	};
 
-	const std::map<std::string, int> string_to_autosnap_items = create_string_to_autosnap_items();
-	const std::map<int, std::string> autosnap_items_to_string = create_autosnap_items_to_string();
+	static const std::map<std::string, int> string_to_autosnap_items = create_string_to_autosnap_items();
+	static const std::map<int, std::string> autosnap_items_to_string = create_autosnap_items_to_string();
 
 	autosnap_items_enum auto_snap() {
 		STRING_TYPE_GETTER("auto_snap", static_cast<autosnap_items_enum>(string_to_autosnap_items.at(resstr)))
@@ -75264,8 +75264,8 @@ public:
 		return {{autosnap_items_NONE, "NONE"}, {autosnap_items_STEP, "STEP"}, {autosnap_items_TIME_STEP, "TIME_STEP"}, {autosnap_items_FRAME, "FRAME"}, {autosnap_items_SECOND, "SECOND"}, {autosnap_items_MARKER, "MARKER"}};
 	};
 
-	const std::map<std::string, int> string_to_autosnap_items = create_string_to_autosnap_items();
-	const std::map<int, std::string> autosnap_items_to_string = create_autosnap_items_to_string();
+	static const std::map<std::string, int> string_to_autosnap_items = create_string_to_autosnap_items();
+	static const std::map<int, std::string> autosnap_items_to_string = create_autosnap_items_to_string();
 
 	autosnap_items_enum auto_snap() {
 		STRING_TYPE_GETTER("auto_snap", static_cast<autosnap_items_enum>(string_to_autosnap_items.at(resstr)))
@@ -75440,8 +75440,8 @@ public:
 		return {{console_line_type_items_OUTPUT, "OUTPUT"}, {console_line_type_items_INPUT, "INPUT"}, {console_line_type_items_INFO, "INFO"}, {console_line_type_items_ERROR, "ERROR"}};
 	};
 
-	const std::map<std::string, int> string_to_console_line_type_items = create_string_to_console_line_type_items();
-	const std::map<int, std::string> console_line_type_items_to_string = create_console_line_type_items_to_string();
+	static const std::map<std::string, int> string_to_console_line_type_items = create_string_to_console_line_type_items();
+	static const std::map<int, std::string> console_line_type_items_to_string = create_console_line_type_items_to_string();
 
 	console_line_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<console_line_type_items_enum>(string_to_console_line_type_items.at(resstr)))
@@ -75516,8 +75516,8 @@ public:
 		return {{filter_type_items_NAME, "NAME"}, {filter_type_items_KEY, "KEY"}};
 	};
 
-	const std::map<std::string, int> string_to_filter_type_items = create_string_to_filter_type_items();
-	const std::map<int, std::string> filter_type_items_to_string = create_filter_type_items_to_string();
+	static const std::map<std::string, int> string_to_filter_type_items = create_string_to_filter_type_items();
+	static const std::map<int, std::string> filter_type_items_to_string = create_filter_type_items_to_string();
 
 	filter_type_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<filter_type_items_enum>(string_to_filter_type_items.at(resstr)))
@@ -75563,8 +75563,8 @@ public:
 		return {{dummy_items_DUMMY, "DUMMY"}};
 	};
 
-	const std::map<std::string, int> string_to_dummy_items = create_string_to_dummy_items();
-	const std::map<int, std::string> dummy_items_to_string = create_dummy_items_to_string();
+	static const std::map<std::string, int> string_to_dummy_items = create_string_to_dummy_items();
+	static const std::map<int, std::string> dummy_items_to_string = create_dummy_items_to_string();
 
 	dummy_items_enum tree_type() {
 		STRING_TYPE_GETTER("tree_type", static_cast<dummy_items_enum>(string_to_dummy_items.at(resstr)))
@@ -75589,8 +75589,8 @@ public:
 		return {{texture_type_items_OBJECT, "OBJECT"}, {texture_type_items_WORLD, "WORLD"}, {texture_type_items_BRUSH, "BRUSH"}, {texture_type_items_LINESTYLE, "LINESTYLE"}};
 	};
 
-	const std::map<std::string, int> string_to_texture_type_items = create_string_to_texture_type_items();
-	const std::map<int, std::string> texture_type_items_to_string = create_texture_type_items_to_string();
+	static const std::map<std::string, int> string_to_texture_type_items = create_string_to_texture_type_items();
+	static const std::map<int, std::string> texture_type_items_to_string = create_texture_type_items_to_string();
 
 	texture_type_items_enum texture_type() {
 		STRING_TYPE_GETTER("texture_type", static_cast<texture_type_items_enum>(string_to_texture_type_items.at(resstr)))
@@ -75614,8 +75614,8 @@ public:
 		return {{shader_type_items_OBJECT, "OBJECT"}, {shader_type_items_WORLD, "WORLD"}, {shader_type_items_LINESTYLE, "LINESTYLE"}};
 	};
 
-	const std::map<std::string, int> string_to_shader_type_items = create_string_to_shader_type_items();
-	const std::map<int, std::string> shader_type_items_to_string = create_shader_type_items_to_string();
+	static const std::map<std::string, int> string_to_shader_type_items = create_string_to_shader_type_items();
+	static const std::map<int, std::string> shader_type_items_to_string = create_shader_type_items_to_string();
 
 	shader_type_items_enum shader_type() {
 		STRING_TYPE_GETTER("shader_type", static_cast<shader_type_items_enum>(string_to_shader_type_items.at(resstr)))
@@ -75718,8 +75718,8 @@ public:
 		return {{backdrop_channels_items_COLOR_ALPHA, "COLOR_ALPHA"}, {backdrop_channels_items_COLOR, "COLOR"}, {backdrop_channels_items_ALPHA, "ALPHA"}, {backdrop_channels_items_RED, "RED"}, {backdrop_channels_items_GREEN, "GREEN"}, {backdrop_channels_items_BLUE, "BLUE"}};
 	};
 
-	const std::map<std::string, int> string_to_backdrop_channels_items = create_string_to_backdrop_channels_items();
-	const std::map<int, std::string> backdrop_channels_items_to_string = create_backdrop_channels_items_to_string();
+	static const std::map<std::string, int> string_to_backdrop_channels_items = create_string_to_backdrop_channels_items();
+	static const std::map<int, std::string> backdrop_channels_items_to_string = create_backdrop_channels_items_to_string();
 
 	backdrop_channels_items_enum backdrop_channels() {
 		STRING_TYPE_GETTER("backdrop_channels", static_cast<backdrop_channels_items_enum>(string_to_backdrop_channels_items.at(resstr)))
@@ -75870,8 +75870,8 @@ public:
 		return {{dt_uv_items_OUTLINE, "OUTLINE"}, {dt_uv_items_DASH, "DASH"}, {dt_uv_items_BLACK, "BLACK"}, {dt_uv_items_WHITE, "WHITE"}};
 	};
 
-	const std::map<std::string, int> string_to_dt_uv_items = create_string_to_dt_uv_items();
-	const std::map<int, std::string> dt_uv_items_to_string = create_dt_uv_items_to_string();
+	static const std::map<std::string, int> string_to_dt_uv_items = create_string_to_dt_uv_items();
+	static const std::map<int, std::string> dt_uv_items_to_string = create_dt_uv_items_to_string();
 
 	dt_uv_items_enum mask_draw_type() {
 		STRING_TYPE_GETTER("mask_draw_type", static_cast<dt_uv_items_enum>(string_to_dt_uv_items.at(resstr)))
@@ -75910,8 +75910,8 @@ public:
 		return {{overlay_mode_items_ALPHACHANNEL, "ALPHACHANNEL"}, {overlay_mode_items_COMBINED, "COMBINED"}};
 	};
 
-	const std::map<std::string, int> string_to_overlay_mode_items = create_string_to_overlay_mode_items();
-	const std::map<int, std::string> overlay_mode_items_to_string = create_overlay_mode_items_to_string();
+	static const std::map<std::string, int> string_to_overlay_mode_items = create_string_to_overlay_mode_items();
+	static const std::map<int, std::string> overlay_mode_items_to_string = create_overlay_mode_items_to_string();
 
 	overlay_mode_items_enum mask_overlay_mode() {
 		STRING_TYPE_GETTER("mask_overlay_mode", static_cast<overlay_mode_items_enum>(string_to_overlay_mode_items.at(resstr)))
@@ -75934,8 +75934,8 @@ public:
 		return {{clip_editor_mode_items_TRACKING, "TRACKING"}, {clip_editor_mode_items_MASK, "MASK"}};
 	};
 
-	const std::map<std::string, int> string_to_clip_editor_mode_items = create_string_to_clip_editor_mode_items();
-	const std::map<int, std::string> clip_editor_mode_items_to_string = create_clip_editor_mode_items_to_string();
+	static const std::map<std::string, int> string_to_clip_editor_mode_items = create_string_to_clip_editor_mode_items();
+	static const std::map<int, std::string> clip_editor_mode_items_to_string = create_clip_editor_mode_items_to_string();
 
 	clip_editor_mode_items_enum mode() {
 		STRING_TYPE_GETTER("mode", static_cast<clip_editor_mode_items_enum>(string_to_clip_editor_mode_items.at(resstr)))
@@ -75959,8 +75959,8 @@ public:
 		return {{view_items_CLIP, "CLIP"}, {view_items_GRAPH, "GRAPH"}, {view_items_DOPESHEET, "DOPESHEET"}};
 	};
 
-	const std::map<std::string, int> string_to_view_items = create_string_to_view_items();
-	const std::map<int, std::string> view_items_to_string = create_view_items_to_string();
+	static const std::map<std::string, int> string_to_view_items = create_string_to_view_items();
+	static const std::map<int, std::string> view_items_to_string = create_view_items_to_string();
 
 	view_items_enum view() {
 		STRING_TYPE_GETTER("view", static_cast<view_items_enum>(string_to_view_items.at(resstr)))
@@ -76201,8 +76201,8 @@ public:
 		return {{gpencil_source_items_CLIP, "CLIP"}, {gpencil_source_items_TRACK, "TRACK"}};
 	};
 
-	const std::map<std::string, int> string_to_gpencil_source_items = create_string_to_gpencil_source_items();
-	const std::map<int, std::string> gpencil_source_items_to_string = create_gpencil_source_items_to_string();
+	static const std::map<std::string, int> string_to_gpencil_source_items = create_string_to_gpencil_source_items();
+	static const std::map<int, std::string> gpencil_source_items_to_string = create_gpencil_source_items_to_string();
 
 	gpencil_source_items_enum grease_pencil_source() {
 		STRING_TYPE_GETTER("grease_pencil_source", static_cast<gpencil_source_items_enum>(string_to_gpencil_source_items.at(resstr)))
@@ -76227,8 +76227,8 @@ public:
 		return {{pivot_items_BOUNDING_BOX_CENTER, "BOUNDING_BOX_CENTER"}, {pivot_items_CURSOR, "CURSOR"}, {pivot_items_INDIVIDUAL_ORIGINS, "INDIVIDUAL_ORIGINS"}, {pivot_items_MEDIAN_POINT, "MEDIAN_POINT"}};
 	};
 
-	const std::map<std::string, int> string_to_pivot_items = create_string_to_pivot_items();
-	const std::map<int, std::string> pivot_items_to_string = create_pivot_items_to_string();
+	static const std::map<std::string, int> string_to_pivot_items = create_string_to_pivot_items();
+	static const std::map<int, std::string> pivot_items_to_string = create_pivot_items_to_string();
 
 	pivot_items_enum pivot_point() {
 		STRING_TYPE_GETTER("pivot_point", static_cast<pivot_items_enum>(string_to_pivot_items.at(resstr)))
@@ -76545,8 +76545,8 @@ public:
 		return {{unpack_method_items_USE_LOCAL, "USE_LOCAL"}, {unpack_method_items_WRITE_LOCAL, "WRITE_LOCAL"}, {unpack_method_items_USE_ORIGINAL, "USE_ORIGINAL"}, {unpack_method_items_WRITE_ORIGINAL, "WRITE_ORIGINAL"}};
 	};
 
-	const std::map<std::string, int> string_to_unpack_method_items = create_string_to_unpack_method_items();
-	const std::map<int, std::string> unpack_method_items_to_string = create_unpack_method_items_to_string();
+	static const std::map<std::string, int> string_to_unpack_method_items = create_string_to_unpack_method_items();
+	static const std::map<int, std::string> unpack_method_items_to_string = create_unpack_method_items_to_string();
 
 	void unpack(unpack_method_items_enum method = unpack_method_items_USE_LOCAL) {
 		PYTHON_FUNCTION_ARGS_CALL("unpack", "s", unpack_method_items_to_string.at(method))
@@ -76589,8 +76589,8 @@ public:
 		return {{operator_context_items_INVOKE_DEFAULT, "INVOKE_DEFAULT"}, {operator_context_items_INVOKE_REGION_WIN, "INVOKE_REGION_WIN"}, {operator_context_items_INVOKE_REGION_CHANNELS, "INVOKE_REGION_CHANNELS"}, {operator_context_items_INVOKE_REGION_PREVIEW, "INVOKE_REGION_PREVIEW"}, {operator_context_items_INVOKE_AREA, "INVOKE_AREA"}, {operator_context_items_INVOKE_SCREEN, "INVOKE_SCREEN"}, {operator_context_items_EXEC_DEFAULT, "EXEC_DEFAULT"}, {operator_context_items_EXEC_REGION_WIN, "EXEC_REGION_WIN"}, {operator_context_items_EXEC_REGION_CHANNELS, "EXEC_REGION_CHANNELS"}, {operator_context_items_EXEC_REGION_PREVIEW, "EXEC_REGION_PREVIEW"}, {operator_context_items_EXEC_AREA, "EXEC_AREA"}, {operator_context_items_EXEC_SCREEN, "EXEC_SCREEN"}};
 	};
 
-	const std::map<std::string, int> string_to_operator_context_items = create_string_to_operator_context_items();
-	const std::map<int, std::string> operator_context_items_to_string = create_operator_context_items_to_string();
+	static const std::map<std::string, int> string_to_operator_context_items = create_string_to_operator_context_items();
+	static const std::map<int, std::string> operator_context_items_to_string = create_operator_context_items_to_string();
 
 	operator_context_items_enum operator_context() {
 		STRING_TYPE_GETTER("operator_context", static_cast<operator_context_items_enum>(string_to_operator_context_items.at(resstr)))
@@ -76631,8 +76631,8 @@ public:
 		return {{alignment_items_EXPAND, "EXPAND"}, {alignment_items_LEFT, "LEFT"}, {alignment_items_CENTER, "CENTER"}, {alignment_items_RIGHT, "RIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_alignment_items = create_string_to_alignment_items();
-	const std::map<int, std::string> alignment_items_to_string = create_alignment_items_to_string();
+	static const std::map<std::string, int> string_to_alignment_items = create_string_to_alignment_items();
+	static const std::map<int, std::string> alignment_items_to_string = create_alignment_items_to_string();
 
 	alignment_items_enum alignment() {
 		STRING_TYPE_GETTER("alignment", static_cast<alignment_items_enum>(string_to_alignment_items.at(resstr)))
@@ -77273,8 +77273,8 @@ public:
 		return {{icon_items_NONE, "NONE"}, {icon_items_QUESTION, "QUESTION"}, {icon_items_ERROR, "ERROR"}, {icon_items_CANCEL, "CANCEL"}, {icon_items_TRIA_RIGHT, "TRIA_RIGHT"}, {icon_items_TRIA_DOWN, "TRIA_DOWN"}, {icon_items_TRIA_LEFT, "TRIA_LEFT"}, {icon_items_TRIA_UP, "TRIA_UP"}, {icon_items_ARROW_LEFTRIGHT, "ARROW_LEFTRIGHT"}, {icon_items_PLUS, "PLUS"}, {icon_items_DISCLOSURE_TRI_DOWN, "DISCLOSURE_TRI_DOWN"}, {icon_items_DISCLOSURE_TRI_RIGHT, "DISCLOSURE_TRI_RIGHT"}, {icon_items_RADIOBUT_OFF, "RADIOBUT_OFF"}, {icon_items_RADIOBUT_ON, "RADIOBUT_ON"}, {icon_items_MENU_PANEL, "MENU_PANEL"}, {icon_items_BLENDER, "BLENDER"}, {icon_items_GRIP, "GRIP"}, {icon_items_DOT, "DOT"}, {icon_items_COLLAPSEMENU, "COLLAPSEMENU"}, {icon_items_X, "X"}, {icon_items_GO_LEFT, "GO_LEFT"}, {icon_items_PLUG, "PLUG"}, {icon_items_UI, "UI"}, {icon_items_NODE, "NODE"}, {icon_items_NODE_SEL, "NODE_SEL"}, {icon_items_FULLSCREEN, "FULLSCREEN"}, {icon_items_SPLITSCREEN, "SPLITSCREEN"}, {icon_items_RIGHTARROW_THIN, "RIGHTARROW_THIN"}, {icon_items_BORDERMOVE, "BORDERMOVE"}, {icon_items_VIEWZOOM, "VIEWZOOM"}, {icon_items_ZOOMIN, "ZOOMIN"}, {icon_items_ZOOMOUT, "ZOOMOUT"}, {icon_items_PANEL_CLOSE, "PANEL_CLOSE"}, {icon_items_COPY_ID, "COPY_ID"}, {icon_items_EYEDROPPER, "EYEDROPPER"}, {icon_items_LINK_AREA, "LINK_AREA"}, {icon_items_AUTO, "AUTO"}, {icon_items_CHECKBOX_DEHLT, "CHECKBOX_DEHLT"}, {icon_items_CHECKBOX_HLT, "CHECKBOX_HLT"}, {icon_items_UNLOCKED, "UNLOCKED"}, {icon_items_LOCKED, "LOCKED"}, {icon_items_UNPINNED, "UNPINNED"}, {icon_items_PINNED, "PINNED"}, {icon_items_SCREEN_BACK, "SCREEN_BACK"}, {icon_items_RIGHTARROW, "RIGHTARROW"}, {icon_items_DOWNARROW_HLT, "DOWNARROW_HLT"}, {icon_items_DOTSUP, "DOTSUP"}, {icon_items_DOTSDOWN, "DOTSDOWN"}, {icon_items_LINK, "LINK"}, {icon_items_INLINK, "INLINK"}, {icon_items_PLUGIN, "PLUGIN"}, {icon_items_HELP, "HELP"}, {icon_items_GHOST_ENABLED, "GHOST_ENABLED"}, {icon_items_COLOR, "COLOR"}, {icon_items_LINKED, "LINKED"}, {icon_items_UNLINKED, "UNLINKED"}, {icon_items_HAND, "HAND"}, {icon_items_ZOOM_ALL, "ZOOM_ALL"}, {icon_items_ZOOM_SELECTED, "ZOOM_SELECTED"}, {icon_items_ZOOM_PREVIOUS, "ZOOM_PREVIOUS"}, {icon_items_ZOOM_IN, "ZOOM_IN"}, {icon_items_ZOOM_OUT, "ZOOM_OUT"}, {icon_items_RENDER_REGION, "RENDER_REGION"}, {icon_items_BORDER_RECT, "BORDER_RECT"}, {icon_items_BORDER_LASSO, "BORDER_LASSO"}, {icon_items_FREEZE, "FREEZE"}, {icon_items_STYLUS_PRESSURE, "STYLUS_PRESSURE"}, {icon_items_GHOST_DISABLED, "GHOST_DISABLED"}, {icon_items_NEW, "NEW"}, {icon_items_FILE_TICK, "FILE_TICK"}, {icon_items_QUIT, "QUIT"}, {icon_items_URL, "URL"}, {icon_items_RECOVER_LAST, "RECOVER_LAST"}, {icon_items_FULLSCREEN_ENTER, "FULLSCREEN_ENTER"}, {icon_items_FULLSCREEN_EXIT, "FULLSCREEN_EXIT"}, {icon_items_BLANK1, "BLANK1"}, {icon_items_LAMP, "LAMP"}, {icon_items_MATERIAL, "MATERIAL"}, {icon_items_TEXTURE, "TEXTURE"}, {icon_items_ANIM, "ANIM"}, {icon_items_WORLD, "WORLD"}, {icon_items_SCENE, "SCENE"}, {icon_items_EDIT, "EDIT"}, {icon_items_GAME, "GAME"}, {icon_items_RADIO, "RADIO"}, {icon_items_SCRIPT, "SCRIPT"}, {icon_items_PARTICLES, "PARTICLES"}, {icon_items_PHYSICS, "PHYSICS"}, {icon_items_SPEAKER, "SPEAKER"}, {icon_items_TEXTURE_SHADED, "TEXTURE_SHADED"}, {icon_items_VIEW3D, "VIEW3D"}, {icon_items_IPO, "IPO"}, {icon_items_OOPS, "OOPS"}, {icon_items_BUTS, "BUTS"}, {icon_items_FILESEL, "FILESEL"}, {icon_items_IMAGE_COL, "IMAGE_COL"}, {icon_items_INFO, "INFO"}, {icon_items_SEQUENCE, "SEQUENCE"}, {icon_items_TEXT, "TEXT"}, {icon_items_IMASEL, "IMASEL"}, {icon_items_SOUND, "SOUND"}, {icon_items_ACTION, "ACTION"}, {icon_items_NLA, "NLA"}, {icon_items_SCRIPTWIN, "SCRIPTWIN"}, {icon_items_TIME, "TIME"}, {icon_items_NODETREE, "NODETREE"}, {icon_items_LOGIC, "LOGIC"}, {icon_items_CONSOLE, "CONSOLE"}, {icon_items_PREFERENCES, "PREFERENCES"}, {icon_items_CLIP, "CLIP"}, {icon_items_ASSET_MANAGER, "ASSET_MANAGER"}, {icon_items_OBJECT_DATAMODE, "OBJECT_DATAMODE"}, {icon_items_EDITMODE_HLT, "EDITMODE_HLT"}, {icon_items_FACESEL_HLT, "FACESEL_HLT"}, {icon_items_VPAINT_HLT, "VPAINT_HLT"}, {icon_items_TPAINT_HLT, "TPAINT_HLT"}, {icon_items_WPAINT_HLT, "WPAINT_HLT"}, {icon_items_SCULPTMODE_HLT, "SCULPTMODE_HLT"}, {icon_items_POSE_HLT, "POSE_HLT"}, {icon_items_PARTICLEMODE, "PARTICLEMODE"}, {icon_items_LIGHTPAINT, "LIGHTPAINT"}, {icon_items_SCENE_DATA, "SCENE_DATA"}, {icon_items_RENDERLAYERS, "RENDERLAYERS"}, {icon_items_WORLD_DATA, "WORLD_DATA"}, {icon_items_OBJECT_DATA, "OBJECT_DATA"}, {icon_items_MESH_DATA, "MESH_DATA"}, {icon_items_CURVE_DATA, "CURVE_DATA"}, {icon_items_META_DATA, "META_DATA"}, {icon_items_LATTICE_DATA, "LATTICE_DATA"}, {icon_items_LAMP_DATA, "LAMP_DATA"}, {icon_items_MATERIAL_DATA, "MATERIAL_DATA"}, {icon_items_TEXTURE_DATA, "TEXTURE_DATA"}, {icon_items_ANIM_DATA, "ANIM_DATA"}, {icon_items_CAMERA_DATA, "CAMERA_DATA"}, {icon_items_PARTICLE_DATA, "PARTICLE_DATA"}, {icon_items_LIBRARY_DATA_DIRECT, "LIBRARY_DATA_DIRECT"}, {icon_items_GROUP, "GROUP"}, {icon_items_ARMATURE_DATA, "ARMATURE_DATA"}, {icon_items_POSE_DATA, "POSE_DATA"}, {icon_items_BONE_DATA, "BONE_DATA"}, {icon_items_CONSTRAINT, "CONSTRAINT"}, {icon_items_SHAPEKEY_DATA, "SHAPEKEY_DATA"}, {icon_items_CONSTRAINT_BONE, "CONSTRAINT_BONE"}, {icon_items_CAMERA_STEREO, "CAMERA_STEREO"}, {icon_items_PACKAGE, "PACKAGE"}, {icon_items_UGLYPACKAGE, "UGLYPACKAGE"}, {icon_items_BRUSH_DATA, "BRUSH_DATA"}, {icon_items_IMAGE_DATA, "IMAGE_DATA"}, {icon_items_FILE, "FILE"}, {icon_items_FCURVE, "FCURVE"}, {icon_items_FONT_DATA, "FONT_DATA"}, {icon_items_RENDER_RESULT, "RENDER_RESULT"}, {icon_items_SURFACE_DATA, "SURFACE_DATA"}, {icon_items_EMPTY_DATA, "EMPTY_DATA"}, {icon_items_SETTINGS, "SETTINGS"}, {icon_items_RENDER_ANIMATION, "RENDER_ANIMATION"}, {icon_items_RENDER_STILL, "RENDER_STILL"}, {icon_items_LIBRARY_DATA_BROKEN, "LIBRARY_DATA_BROKEN"}, {icon_items_BOIDS, "BOIDS"}, {icon_items_STRANDS, "STRANDS"}, {icon_items_LIBRARY_DATA_INDIRECT, "LIBRARY_DATA_INDIRECT"}, {icon_items_GREASEPENCIL, "GREASEPENCIL"}, {icon_items_LINE_DATA, "LINE_DATA"}, {icon_items_GROUP_BONE, "GROUP_BONE"}, {icon_items_GROUP_VERTEX, "GROUP_VERTEX"}, {icon_items_GROUP_VCOL, "GROUP_VCOL"}, {icon_items_GROUP_UVS, "GROUP_UVS"}, {icon_items_RNA, "RNA"}, {icon_items_RNA_ADD, "RNA_ADD"}, {icon_items_OUTLINER_OB_EMPTY, "OUTLINER_OB_EMPTY"}, {icon_items_OUTLINER_OB_MESH, "OUTLINER_OB_MESH"}, {icon_items_OUTLINER_OB_CURVE, "OUTLINER_OB_CURVE"}, {icon_items_OUTLINER_OB_LATTICE, "OUTLINER_OB_LATTICE"}, {icon_items_OUTLINER_OB_META, "OUTLINER_OB_META"}, {icon_items_OUTLINER_OB_LAMP, "OUTLINER_OB_LAMP"}, {icon_items_OUTLINER_OB_CAMERA, "OUTLINER_OB_CAMERA"}, {icon_items_OUTLINER_OB_ARMATURE, "OUTLINER_OB_ARMATURE"}, {icon_items_OUTLINER_OB_FONT, "OUTLINER_OB_FONT"}, {icon_items_OUTLINER_OB_SURFACE, "OUTLINER_OB_SURFACE"}, {icon_items_OUTLINER_OB_SPEAKER, "OUTLINER_OB_SPEAKER"}, {icon_items_RESTRICT_VIEW_OFF, "RESTRICT_VIEW_OFF"}, {icon_items_RESTRICT_VIEW_ON, "RESTRICT_VIEW_ON"}, {icon_items_RESTRICT_SELECT_OFF, "RESTRICT_SELECT_OFF"}, {icon_items_RESTRICT_SELECT_ON, "RESTRICT_SELECT_ON"}, {icon_items_RESTRICT_RENDER_OFF, "RESTRICT_RENDER_OFF"}, {icon_items_RESTRICT_RENDER_ON, "RESTRICT_RENDER_ON"}, {icon_items_OUTLINER_DATA_EMPTY, "OUTLINER_DATA_EMPTY"}, {icon_items_OUTLINER_DATA_MESH, "OUTLINER_DATA_MESH"}, {icon_items_OUTLINER_DATA_CURVE, "OUTLINER_DATA_CURVE"}, {icon_items_OUTLINER_DATA_LATTICE, "OUTLINER_DATA_LATTICE"}, {icon_items_OUTLINER_DATA_META, "OUTLINER_DATA_META"}, {icon_items_OUTLINER_DATA_LAMP, "OUTLINER_DATA_LAMP"}, {icon_items_OUTLINER_DATA_CAMERA, "OUTLINER_DATA_CAMERA"}, {icon_items_OUTLINER_DATA_ARMATURE, "OUTLINER_DATA_ARMATURE"}, {icon_items_OUTLINER_DATA_FONT, "OUTLINER_DATA_FONT"}, {icon_items_OUTLINER_DATA_SURFACE, "OUTLINER_DATA_SURFACE"}, {icon_items_OUTLINER_DATA_SPEAKER, "OUTLINER_DATA_SPEAKER"}, {icon_items_OUTLINER_DATA_POSE, "OUTLINER_DATA_POSE"}, {icon_items_MESH_PLANE, "MESH_PLANE"}, {icon_items_MESH_CUBE, "MESH_CUBE"}, {icon_items_MESH_CIRCLE, "MESH_CIRCLE"}, {icon_items_MESH_UVSPHERE, "MESH_UVSPHERE"}, {icon_items_MESH_ICOSPHERE, "MESH_ICOSPHERE"}, {icon_items_MESH_GRID, "MESH_GRID"}, {icon_items_MESH_MONKEY, "MESH_MONKEY"}, {icon_items_MESH_CYLINDER, "MESH_CYLINDER"}, {icon_items_MESH_TORUS, "MESH_TORUS"}, {icon_items_MESH_CONE, "MESH_CONE"}, {icon_items_LAMP_POINT, "LAMP_POINT"}, {icon_items_LAMP_SUN, "LAMP_SUN"}, {icon_items_LAMP_SPOT, "LAMP_SPOT"}, {icon_items_LAMP_HEMI, "LAMP_HEMI"}, {icon_items_LAMP_AREA, "LAMP_AREA"}, {icon_items_META_EMPTY, "META_EMPTY"}, {icon_items_META_PLANE, "META_PLANE"}, {icon_items_META_CUBE, "META_CUBE"}, {icon_items_META_BALL, "META_BALL"}, {icon_items_META_ELLIPSOID, "META_ELLIPSOID"}, {icon_items_META_CAPSULE, "META_CAPSULE"}, {icon_items_SURFACE_NCURVE, "SURFACE_NCURVE"}, {icon_items_SURFACE_NCIRCLE, "SURFACE_NCIRCLE"}, {icon_items_SURFACE_NSURFACE, "SURFACE_NSURFACE"}, {icon_items_SURFACE_NCYLINDER, "SURFACE_NCYLINDER"}, {icon_items_SURFACE_NSPHERE, "SURFACE_NSPHERE"}, {icon_items_SURFACE_NTORUS, "SURFACE_NTORUS"}, {icon_items_CURVE_BEZCURVE, "CURVE_BEZCURVE"}, {icon_items_CURVE_BEZCIRCLE, "CURVE_BEZCIRCLE"}, {icon_items_CURVE_NCURVE, "CURVE_NCURVE"}, {icon_items_CURVE_NCIRCLE, "CURVE_NCIRCLE"}, {icon_items_CURVE_PATH, "CURVE_PATH"}, {icon_items_COLOR_RED, "COLOR_RED"}, {icon_items_COLOR_GREEN, "COLOR_GREEN"}, {icon_items_COLOR_BLUE, "COLOR_BLUE"}, {icon_items_TRIA_RIGHT_BAR, "TRIA_RIGHT_BAR"}, {icon_items_TRIA_DOWN_BAR, "TRIA_DOWN_BAR"}, {icon_items_TRIA_LEFT_BAR, "TRIA_LEFT_BAR"}, {icon_items_TRIA_UP_BAR, "TRIA_UP_BAR"}, {icon_items_FORCE_FORCE, "FORCE_FORCE"}, {icon_items_FORCE_WIND, "FORCE_WIND"}, {icon_items_FORCE_VORTEX, "FORCE_VORTEX"}, {icon_items_FORCE_MAGNETIC, "FORCE_MAGNETIC"}, {icon_items_FORCE_HARMONIC, "FORCE_HARMONIC"}, {icon_items_FORCE_CHARGE, "FORCE_CHARGE"}, {icon_items_FORCE_LENNARDJONES, "FORCE_LENNARDJONES"}, {icon_items_FORCE_TEXTURE, "FORCE_TEXTURE"}, {icon_items_FORCE_CURVE, "FORCE_CURVE"}, {icon_items_FORCE_BOID, "FORCE_BOID"}, {icon_items_FORCE_TURBULENCE, "FORCE_TURBULENCE"}, {icon_items_FORCE_DRAG, "FORCE_DRAG"}, {icon_items_FORCE_SMOKEFLOW, "FORCE_SMOKEFLOW"}, {icon_items_MODIFIER, "MODIFIER"}, {icon_items_MOD_WAVE, "MOD_WAVE"}, {icon_items_MOD_BUILD, "MOD_BUILD"}, {icon_items_MOD_DECIM, "MOD_DECIM"}, {icon_items_MOD_MIRROR, "MOD_MIRROR"}, {icon_items_MOD_SOFT, "MOD_SOFT"}, {icon_items_MOD_SUBSURF, "MOD_SUBSURF"}, {icon_items_HOOK, "HOOK"}, {icon_items_MOD_PHYSICS, "MOD_PHYSICS"}, {icon_items_MOD_PARTICLES, "MOD_PARTICLES"}, {icon_items_MOD_BOOLEAN, "MOD_BOOLEAN"}, {icon_items_MOD_EDGESPLIT, "MOD_EDGESPLIT"}, {icon_items_MOD_ARRAY, "MOD_ARRAY"}, {icon_items_MOD_UVPROJECT, "MOD_UVPROJECT"}, {icon_items_MOD_DISPLACE, "MOD_DISPLACE"}, {icon_items_MOD_CURVE, "MOD_CURVE"}, {icon_items_MOD_LATTICE, "MOD_LATTICE"}, {icon_items_CONSTRAINT_DATA, "CONSTRAINT_DATA"}, {icon_items_MOD_ARMATURE, "MOD_ARMATURE"}, {icon_items_MOD_SHRINKWRAP, "MOD_SHRINKWRAP"}, {icon_items_MOD_CAST, "MOD_CAST"}, {icon_items_MOD_MESHDEFORM, "MOD_MESHDEFORM"}, {icon_items_MOD_BEVEL, "MOD_BEVEL"}, {icon_items_MOD_SMOOTH, "MOD_SMOOTH"}, {icon_items_MOD_SIMPLEDEFORM, "MOD_SIMPLEDEFORM"}, {icon_items_MOD_MASK, "MOD_MASK"}, {icon_items_MOD_CLOTH, "MOD_CLOTH"}, {icon_items_MOD_EXPLODE, "MOD_EXPLODE"}, {icon_items_MOD_FLUIDSIM, "MOD_FLUIDSIM"}, {icon_items_MOD_MULTIRES, "MOD_MULTIRES"}, {icon_items_MOD_SMOKE, "MOD_SMOKE"}, {icon_items_MOD_SOLIDIFY, "MOD_SOLIDIFY"}, {icon_items_MOD_SCREW, "MOD_SCREW"}, {icon_items_MOD_VERTEX_WEIGHT, "MOD_VERTEX_WEIGHT"}, {icon_items_MOD_DYNAMICPAINT, "MOD_DYNAMICPAINT"}, {icon_items_MOD_REMESH, "MOD_REMESH"}, {icon_items_MOD_OCEAN, "MOD_OCEAN"}, {icon_items_MOD_WARP, "MOD_WARP"}, {icon_items_MOD_SKIN, "MOD_SKIN"}, {icon_items_MOD_TRIANGULATE, "MOD_TRIANGULATE"}, {icon_items_MOD_WIREFRAME, "MOD_WIREFRAME"}, {icon_items_MOD_DATA_TRANSFER, "MOD_DATA_TRANSFER"}, {icon_items_MOD_NORMALEDIT, "MOD_NORMALEDIT"}, {icon_items_REC, "REC"}, {icon_items_PLAY, "PLAY"}, {icon_items_FF, "FF"}, {icon_items_REW, "REW"}, {icon_items_PAUSE, "PAUSE"}, {icon_items_PREV_KEYFRAME, "PREV_KEYFRAME"}, {icon_items_NEXT_KEYFRAME, "NEXT_KEYFRAME"}, {icon_items_PLAY_AUDIO, "PLAY_AUDIO"}, {icon_items_PLAY_REVERSE, "PLAY_REVERSE"}, {icon_items_PREVIEW_RANGE, "PREVIEW_RANGE"}, {icon_items_ACTION_TWEAK, "ACTION_TWEAK"}, {icon_items_PMARKER_ACT, "PMARKER_ACT"}, {icon_items_PMARKER_SEL, "PMARKER_SEL"}, {icon_items_PMARKER, "PMARKER"}, {icon_items_MARKER_HLT, "MARKER_HLT"}, {icon_items_MARKER, "MARKER"}, {icon_items_SPACE2, "SPACE2"}, {icon_items_SPACE3, "SPACE3"}, {icon_items_KEYINGSET, "KEYINGSET"}, {icon_items_KEY_DEHLT, "KEY_DEHLT"}, {icon_items_KEY_HLT, "KEY_HLT"}, {icon_items_MUTE_IPO_OFF, "MUTE_IPO_OFF"}, {icon_items_MUTE_IPO_ON, "MUTE_IPO_ON"}, {icon_items_VISIBLE_IPO_OFF, "VISIBLE_IPO_OFF"}, {icon_items_VISIBLE_IPO_ON, "VISIBLE_IPO_ON"}, {icon_items_DRIVER, "DRIVER"}, {icon_items_SOLO_OFF, "SOLO_OFF"}, {icon_items_SOLO_ON, "SOLO_ON"}, {icon_items_FRAME_PREV, "FRAME_PREV"}, {icon_items_FRAME_NEXT, "FRAME_NEXT"}, {icon_items_NLA_PUSHDOWN, "NLA_PUSHDOWN"}, {icon_items_IPO_CONSTANT, "IPO_CONSTANT"}, {icon_items_IPO_LINEAR, "IPO_LINEAR"}, {icon_items_IPO_BEZIER, "IPO_BEZIER"}, {icon_items_IPO_SINE, "IPO_SINE"}, {icon_items_IPO_QUAD, "IPO_QUAD"}, {icon_items_IPO_CUBIC, "IPO_CUBIC"}, {icon_items_IPO_QUART, "IPO_QUART"}, {icon_items_IPO_QUINT, "IPO_QUINT"}, {icon_items_IPO_EXPO, "IPO_EXPO"}, {icon_items_IPO_CIRC, "IPO_CIRC"}, {icon_items_IPO_BOUNCE, "IPO_BOUNCE"}, {icon_items_IPO_ELASTIC, "IPO_ELASTIC"}, {icon_items_IPO_BACK, "IPO_BACK"}, {icon_items_IPO_EASE_IN, "IPO_EASE_IN"}, {icon_items_IPO_EASE_OUT, "IPO_EASE_OUT"}, {icon_items_IPO_EASE_IN_OUT, "IPO_EASE_IN_OUT"}, {icon_items_VERTEXSEL, "VERTEXSEL"}, {icon_items_EDGESEL, "EDGESEL"}, {icon_items_FACESEL, "FACESEL"}, {icon_items_LOOPSEL, "LOOPSEL"}, {icon_items_ROTATE, "ROTATE"}, {icon_items_CURSOR, "CURSOR"}, {icon_items_ROTATECOLLECTION, "ROTATECOLLECTION"}, {icon_items_ROTATECENTER, "ROTATECENTER"}, {icon_items_ROTACTIVE, "ROTACTIVE"}, {icon_items_ALIGN, "ALIGN"}, {icon_items_SMOOTHCURVE, "SMOOTHCURVE"}, {icon_items_SPHERECURVE, "SPHERECURVE"}, {icon_items_ROOTCURVE, "ROOTCURVE"}, {icon_items_SHARPCURVE, "SHARPCURVE"}, {icon_items_LINCURVE, "LINCURVE"}, {icon_items_NOCURVE, "NOCURVE"}, {icon_items_RNDCURVE, "RNDCURVE"}, {icon_items_PROP_OFF, "PROP_OFF"}, {icon_items_PROP_ON, "PROP_ON"}, {icon_items_PROP_CON, "PROP_CON"}, {icon_items_SCULPT_DYNTOPO, "SCULPT_DYNTOPO"}, {icon_items_PARTICLE_POINT, "PARTICLE_POINT"}, {icon_items_PARTICLE_TIP, "PARTICLE_TIP"}, {icon_items_PARTICLE_PATH, "PARTICLE_PATH"}, {icon_items_MAN_TRANS, "MAN_TRANS"}, {icon_items_MAN_ROT, "MAN_ROT"}, {icon_items_MAN_SCALE, "MAN_SCALE"}, {icon_items_MANIPUL, "MANIPUL"}, {icon_items_SNAP_OFF, "SNAP_OFF"}, {icon_items_SNAP_ON, "SNAP_ON"}, {icon_items_SNAP_NORMAL, "SNAP_NORMAL"}, {icon_items_SNAP_INCREMENT, "SNAP_INCREMENT"}, {icon_items_SNAP_VERTEX, "SNAP_VERTEX"}, {icon_items_SNAP_EDGE, "SNAP_EDGE"}, {icon_items_SNAP_FACE, "SNAP_FACE"}, {icon_items_SNAP_VOLUME, "SNAP_VOLUME"}, {icon_items_STICKY_UVS_LOC, "STICKY_UVS_LOC"}, {icon_items_STICKY_UVS_DISABLE, "STICKY_UVS_DISABLE"}, {icon_items_STICKY_UVS_VERT, "STICKY_UVS_VERT"}, {icon_items_CLIPUV_DEHLT, "CLIPUV_DEHLT"}, {icon_items_CLIPUV_HLT, "CLIPUV_HLT"}, {icon_items_SNAP_PEEL_OBJECT, "SNAP_PEEL_OBJECT"}, {icon_items_GRID, "GRID"}, {icon_items_PASTEDOWN, "PASTEDOWN"}, {icon_items_COPYDOWN, "COPYDOWN"}, {icon_items_PASTEFLIPUP, "PASTEFLIPUP"}, {icon_items_PASTEFLIPDOWN, "PASTEFLIPDOWN"}, {icon_items_SNAP_SURFACE, "SNAP_SURFACE"}, {icon_items_AUTOMERGE_ON, "AUTOMERGE_ON"}, {icon_items_AUTOMERGE_OFF, "AUTOMERGE_OFF"}, {icon_items_RETOPO, "RETOPO"}, {icon_items_UV_VERTEXSEL, "UV_VERTEXSEL"}, {icon_items_UV_EDGESEL, "UV_EDGESEL"}, {icon_items_UV_FACESEL, "UV_FACESEL"}, {icon_items_UV_ISLANDSEL, "UV_ISLANDSEL"}, {icon_items_UV_SYNC_SELECT, "UV_SYNC_SELECT"}, {icon_items_BBOX, "BBOX"}, {icon_items_WIRE, "WIRE"}, {icon_items_SOLID, "SOLID"}, {icon_items_SMOOTH, "SMOOTH"}, {icon_items_POTATO, "POTATO"}, {icon_items_ORTHO, "ORTHO"}, {icon_items_LOCKVIEW_OFF, "LOCKVIEW_OFF"}, {icon_items_LOCKVIEW_ON, "LOCKVIEW_ON"}, {icon_items_AXIS_SIDE, "AXIS_SIDE"}, {icon_items_AXIS_FRONT, "AXIS_FRONT"}, {icon_items_AXIS_TOP, "AXIS_TOP"}, {icon_items_NDOF_DOM, "NDOF_DOM"}, {icon_items_NDOF_TURN, "NDOF_TURN"}, {icon_items_NDOF_FLY, "NDOF_FLY"}, {icon_items_NDOF_TRANS, "NDOF_TRANS"}, {icon_items_LAYER_USED, "LAYER_USED"}, {icon_items_LAYER_ACTIVE, "LAYER_ACTIVE"}, {icon_items_SORTALPHA, "SORTALPHA"}, {icon_items_SORTBYEXT, "SORTBYEXT"}, {icon_items_SORTTIME, "SORTTIME"}, {icon_items_SORTSIZE, "SORTSIZE"}, {icon_items_LONGDISPLAY, "LONGDISPLAY"}, {icon_items_SHORTDISPLAY, "SHORTDISPLAY"}, {icon_items_GHOST, "GHOST"}, {icon_items_IMGDISPLAY, "IMGDISPLAY"}, {icon_items_SAVE_AS, "SAVE_AS"}, {icon_items_SAVE_COPY, "SAVE_COPY"}, {icon_items_BOOKMARKS, "BOOKMARKS"}, {icon_items_FONTPREVIEW, "FONTPREVIEW"}, {icon_items_FILTER, "FILTER"}, {icon_items_NEWFOLDER, "NEWFOLDER"}, {icon_items_OPEN_RECENT, "OPEN_RECENT"}, {icon_items_FILE_PARENT, "FILE_PARENT"}, {icon_items_FILE_REFRESH, "FILE_REFRESH"}, {icon_items_FILE_FOLDER, "FILE_FOLDER"}, {icon_items_FILE_BLANK, "FILE_BLANK"}, {icon_items_FILE_BLEND, "FILE_BLEND"}, {icon_items_FILE_IMAGE, "FILE_IMAGE"}, {icon_items_FILE_MOVIE, "FILE_MOVIE"}, {icon_items_FILE_SCRIPT, "FILE_SCRIPT"}, {icon_items_FILE_SOUND, "FILE_SOUND"}, {icon_items_FILE_FONT, "FILE_FONT"}, {icon_items_FILE_TEXT, "FILE_TEXT"}, {icon_items_RECOVER_AUTO, "RECOVER_AUTO"}, {icon_items_SAVE_PREFS, "SAVE_PREFS"}, {icon_items_LINK_BLEND, "LINK_BLEND"}, {icon_items_APPEND_BLEND, "APPEND_BLEND"}, {icon_items_IMPORT, "IMPORT"}, {icon_items_EXPORT, "EXPORT"}, {icon_items_EXTERNAL_DATA, "EXTERNAL_DATA"}, {icon_items_LOAD_FACTORY, "LOAD_FACTORY"}, {icon_items_LOOP_BACK, "LOOP_BACK"}, {icon_items_LOOP_FORWARDS, "LOOP_FORWARDS"}, {icon_items_BACK, "BACK"}, {icon_items_FORWARD, "FORWARD"}, {icon_items_FILE_HIDDEN, "FILE_HIDDEN"}, {icon_items_FILE_BACKUP, "FILE_BACKUP"}, {icon_items_DISK_DRIVE, "DISK_DRIVE"}, {icon_items_MATPLANE, "MATPLANE"}, {icon_items_MATSPHERE, "MATSPHERE"}, {icon_items_MATCUBE, "MATCUBE"}, {icon_items_MONKEY, "MONKEY"}, {icon_items_HAIR, "HAIR"}, {icon_items_ALIASED, "ALIASED"}, {icon_items_ANTIALIASED, "ANTIALIASED"}, {icon_items_MAT_SPHERE_SKY, "MAT_SPHERE_SKY"}, {icon_items_WORDWRAP_OFF, "WORDWRAP_OFF"}, {icon_items_WORDWRAP_ON, "WORDWRAP_ON"}, {icon_items_SYNTAX_OFF, "SYNTAX_OFF"}, {icon_items_SYNTAX_ON, "SYNTAX_ON"}, {icon_items_LINENUMBERS_OFF, "LINENUMBERS_OFF"}, {icon_items_LINENUMBERS_ON, "LINENUMBERS_ON"}, {icon_items_SCRIPTPLUGINS, "SCRIPTPLUGINS"}, {icon_items_SEQ_SEQUENCER, "SEQ_SEQUENCER"}, {icon_items_SEQ_PREVIEW, "SEQ_PREVIEW"}, {icon_items_SEQ_LUMA_WAVEFORM, "SEQ_LUMA_WAVEFORM"}, {icon_items_SEQ_CHROMA_SCOPE, "SEQ_CHROMA_SCOPE"}, {icon_items_SEQ_HISTOGRAM, "SEQ_HISTOGRAM"}, {icon_items_SEQ_SPLITVIEW, "SEQ_SPLITVIEW"}, {icon_items_IMAGE_RGB, "IMAGE_RGB"}, {icon_items_IMAGE_RGB_ALPHA, "IMAGE_RGB_ALPHA"}, {icon_items_IMAGE_ALPHA, "IMAGE_ALPHA"}, {icon_items_IMAGE_ZDEPTH, "IMAGE_ZDEPTH"}, {icon_items_IMAGEFILE, "IMAGEFILE"}, {icon_items_BRUSH_ADD, "BRUSH_ADD"}, {icon_items_BRUSH_BLOB, "BRUSH_BLOB"}, {icon_items_BRUSH_BLUR, "BRUSH_BLUR"}, {icon_items_BRUSH_CLAY, "BRUSH_CLAY"}, {icon_items_BRUSH_CLAY_STRIPS, "BRUSH_CLAY_STRIPS"}, {icon_items_BRUSH_CLONE, "BRUSH_CLONE"}, {icon_items_BRUSH_CREASE, "BRUSH_CREASE"}, {icon_items_BRUSH_DARKEN, "BRUSH_DARKEN"}, {icon_items_BRUSH_FILL, "BRUSH_FILL"}, {icon_items_BRUSH_FLATTEN, "BRUSH_FLATTEN"}, {icon_items_BRUSH_GRAB, "BRUSH_GRAB"}, {icon_items_BRUSH_INFLATE, "BRUSH_INFLATE"}, {icon_items_BRUSH_LAYER, "BRUSH_LAYER"}, {icon_items_BRUSH_LIGHTEN, "BRUSH_LIGHTEN"}, {icon_items_BRUSH_MASK, "BRUSH_MASK"}, {icon_items_BRUSH_MIX, "BRUSH_MIX"}, {icon_items_BRUSH_MULTIPLY, "BRUSH_MULTIPLY"}, {icon_items_BRUSH_NUDGE, "BRUSH_NUDGE"}, {icon_items_BRUSH_PINCH, "BRUSH_PINCH"}, {icon_items_BRUSH_SCRAPE, "BRUSH_SCRAPE"}, {icon_items_BRUSH_SCULPT_DRAW, "BRUSH_SCULPT_DRAW"}, {icon_items_BRUSH_SMEAR, "BRUSH_SMEAR"}, {icon_items_BRUSH_SMOOTH, "BRUSH_SMOOTH"}, {icon_items_BRUSH_SNAKE_HOOK, "BRUSH_SNAKE_HOOK"}, {icon_items_BRUSH_SOFTEN, "BRUSH_SOFTEN"}, {icon_items_BRUSH_SUBTRACT, "BRUSH_SUBTRACT"}, {icon_items_BRUSH_TEXDRAW, "BRUSH_TEXDRAW"}, {icon_items_BRUSH_TEXFILL, "BRUSH_TEXFILL"}, {icon_items_BRUSH_TEXMASK, "BRUSH_TEXMASK"}, {icon_items_BRUSH_THUMB, "BRUSH_THUMB"}, {icon_items_BRUSH_ROTATE, "BRUSH_ROTATE"}, {icon_items_BRUSH_VERTEXDRAW, "BRUSH_VERTEXDRAW"}, {icon_items_MATCAP_01, "MATCAP_01"}, {icon_items_MATCAP_02, "MATCAP_02"}, {icon_items_MATCAP_03, "MATCAP_03"}, {icon_items_MATCAP_04, "MATCAP_04"}, {icon_items_MATCAP_05, "MATCAP_05"}, {icon_items_MATCAP_06, "MATCAP_06"}, {icon_items_MATCAP_07, "MATCAP_07"}, {icon_items_MATCAP_08, "MATCAP_08"}, {icon_items_MATCAP_09, "MATCAP_09"}, {icon_items_MATCAP_10, "MATCAP_10"}, {icon_items_MATCAP_11, "MATCAP_11"}, {icon_items_MATCAP_12, "MATCAP_12"}, {icon_items_MATCAP_13, "MATCAP_13"}, {icon_items_MATCAP_14, "MATCAP_14"}, {icon_items_MATCAP_15, "MATCAP_15"}, {icon_items_MATCAP_16, "MATCAP_16"}, {icon_items_MATCAP_17, "MATCAP_17"}, {icon_items_MATCAP_18, "MATCAP_18"}, {icon_items_MATCAP_19, "MATCAP_19"}, {icon_items_MATCAP_20, "MATCAP_20"}, {icon_items_MATCAP_21, "MATCAP_21"}, {icon_items_MATCAP_22, "MATCAP_22"}, {icon_items_MATCAP_23, "MATCAP_23"}, {icon_items_MATCAP_24, "MATCAP_24"}, {icon_items_VIEW3D_VEC, "VIEW3D_VEC"}, {icon_items_EDIT_VEC, "EDIT_VEC"}, {icon_items_EDITMODE_VEC_DEHLT, "EDITMODE_VEC_DEHLT"}, {icon_items_EDITMODE_VEC_HLT, "EDITMODE_VEC_HLT"}, {icon_items_DISCLOSURE_TRI_RIGHT_VEC, "DISCLOSURE_TRI_RIGHT_VEC"}, {icon_items_DISCLOSURE_TRI_DOWN_VEC, "DISCLOSURE_TRI_DOWN_VEC"}, {icon_items_MOVE_UP_VEC, "MOVE_UP_VEC"}, {icon_items_MOVE_DOWN_VEC, "MOVE_DOWN_VEC"}, {icon_items_X_VEC, "X_VEC"}, {icon_items_SMALL_TRI_RIGHT_VEC, "SMALL_TRI_RIGHT_VEC"}};
 	};
 
-	const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
-	const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
+	static const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
+	static const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
 
 	void prop(AnyType data, const std::string property, const std::string text = NULL, const std::string text_ctxt = NULL, bool translate = true, icon_items_enum icon = icon_items_NONE, bool expand = false, bool slider = false, bool toggle = false, bool icon_only = false, bool event = false, bool full_event = false, bool emboss = true, int index = -1, int icon_value = 0) {
 		PYTHON_FUNCTION_ARGS_CALL("prop", "Osssisiiiiiiiii", data.get_pyobjref(), property, text, text_ctxt, translate, icon_items_to_string.at(icon), expand, slider, toggle, icon_only, event, full_event, emboss, index, icon_value)
@@ -77371,8 +77371,8 @@ public:
 		return {{curve_type_items_NONE, "NONE"}, {curve_type_items_VECTOR, "VECTOR"}, {curve_type_items_COLOR, "COLOR"}, {curve_type_items_HUE, "HUE"}};
 	};
 
-	const std::map<std::string, int> string_to_curve_type_items = create_string_to_curve_type_items();
-	const std::map<int, std::string> curve_type_items_to_string = create_curve_type_items_to_string();
+	static const std::map<std::string, int> string_to_curve_type_items = create_string_to_curve_type_items();
+	static const std::map<int, std::string> curve_type_items_to_string = create_curve_type_items_to_string();
 
 	void template_curve_mapping(AnyType data, const std::string property, curve_type_items_enum type = curve_type_items_NONE, bool levels = false, bool brush = false, bool use_negative_slope = false) {
 		PYTHON_FUNCTION_ARGS_CALL("template_curve_mapping", "Ossiii", data.get_pyobjref(), property, curve_type_items_to_string.at(type), levels, brush, use_negative_slope)
@@ -77456,8 +77456,8 @@ public:
 		return {{uilist_layout_type_items_DEFAULT, "DEFAULT"}, {uilist_layout_type_items_COMPACT, "COMPACT"}, {uilist_layout_type_items_GRID, "GRID"}};
 	};
 
-	const std::map<std::string, int> string_to_uilist_layout_type_items = create_string_to_uilist_layout_type_items();
-	const std::map<int, std::string> uilist_layout_type_items_to_string = create_uilist_layout_type_items_to_string();
+	static const std::map<std::string, int> string_to_uilist_layout_type_items = create_string_to_uilist_layout_type_items();
+	static const std::map<int, std::string> uilist_layout_type_items_to_string = create_uilist_layout_type_items_to_string();
 
 	void template_list(const std::string listtype_name, const std::string list_id, AnyType dataptr, const std::string propname, AnyType active_dataptr, const std::string active_propname, const std::string item_dyntip_propname = NULL, int rows = 5, int maxrows = 5, uilist_layout_type_items_enum type = uilist_layout_type_items_DEFAULT, int columns = 9) {
 		PYTHON_FUNCTION_ARGS_CALL("template_list", "ssOsOssiisi", listtype_name, list_id, dataptr.get_pyobjref(), propname, active_dataptr.get_pyobjref(), active_propname, item_dyntip_propname, rows, maxrows, uilist_layout_type_items_to_string.at(type), columns)
@@ -77601,8 +77601,8 @@ public:
 		return {{space_type_items_EMPTY, "EMPTY"}, {space_type_items_VIEW_3D, "VIEW_3D"}, {space_type_items_TIMELINE, "TIMELINE"}, {space_type_items_GRAPH_EDITOR, "GRAPH_EDITOR"}, {space_type_items_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {space_type_items_NLA_EDITOR, "NLA_EDITOR"}, {space_type_items_IMAGE_EDITOR, "IMAGE_EDITOR"}, {space_type_items_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {space_type_items_CLIP_EDITOR, "CLIP_EDITOR"}, {space_type_items_TEXT_EDITOR, "TEXT_EDITOR"}, {space_type_items_NODE_EDITOR, "NODE_EDITOR"}, {space_type_items_LOGIC_EDITOR, "LOGIC_EDITOR"}, {space_type_items_PROPERTIES, "PROPERTIES"}, {space_type_items_OUTLINER, "OUTLINER"}, {space_type_items_USER_PREFERENCES, "USER_PREFERENCES"}, {space_type_items_INFO, "INFO"}, {space_type_items_FILE_BROWSER, "FILE_BROWSER"}, {space_type_items_CONSOLE, "CONSOLE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
-	const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
+	static const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
+	static const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
 
 	space_type_items_enum bl_space_type() {
 		STRING_TYPE_GETTER("bl_space_type", static_cast<space_type_items_enum>(string_to_space_type_items.at(resstr)))
@@ -77631,8 +77631,8 @@ public:
 		return {{region_type_items_WINDOW, "WINDOW"}, {region_type_items_HEADER, "HEADER"}, {region_type_items_CHANNELS, "CHANNELS"}, {region_type_items_TEMPORARY, "TEMPORARY"}, {region_type_items_UI, "UI"}, {region_type_items_TOOLS, "TOOLS"}, {region_type_items_TOOL_PROPS, "TOOL_PROPS"}, {region_type_items_PREVIEW, "PREVIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
-	const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
+	static const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
+	static const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
 
 	region_type_items_enum bl_region_type() {
 		STRING_TYPE_GETTER("bl_region_type", static_cast<region_type_items_enum>(string_to_region_type_items.at(resstr)))
@@ -77663,8 +77663,8 @@ public:
 		return {{panel_flag_items_DEFAULT_CLOSED, "DEFAULT_CLOSED"}, {panel_flag_items_HIDE_HEADER, "HIDE_HEADER"}};
 	};
 
-	const std::map<std::string, int> string_to_panel_flag_items = create_string_to_panel_flag_items();
-	const std::map<int, std::string> panel_flag_items_to_string = create_panel_flag_items_to_string();
+	static const std::map<std::string, int> string_to_panel_flag_items = create_string_to_panel_flag_items();
+	static const std::map<int, std::string> panel_flag_items_to_string = create_panel_flag_items_to_string();
 
 	panel_flag_items_enum bl_options() {
 		STRING_TYPE_GETTER("bl_options", static_cast<panel_flag_items_enum>(string_to_panel_flag_items.at(resstr)))
@@ -77711,8 +77711,8 @@ public:
 		return {{uilist_layout_type_items_DEFAULT, "DEFAULT"}, {uilist_layout_type_items_COMPACT, "COMPACT"}, {uilist_layout_type_items_GRID, "GRID"}};
 	};
 
-	const std::map<std::string, int> string_to_uilist_layout_type_items = create_string_to_uilist_layout_type_items();
-	const std::map<int, std::string> uilist_layout_type_items_to_string = create_uilist_layout_type_items_to_string();
+	static const std::map<std::string, int> string_to_uilist_layout_type_items = create_string_to_uilist_layout_type_items();
+	static const std::map<int, std::string> uilist_layout_type_items_to_string = create_uilist_layout_type_items_to_string();
 
 	uilist_layout_type_items_enum layout_type() {
 		STRING_TYPE_GETTER("layout_type", static_cast<uilist_layout_type_items_enum>(string_to_uilist_layout_type_items.at(resstr)))
@@ -77818,8 +77818,8 @@ public:
 		return {{space_type_items_EMPTY, "EMPTY"}, {space_type_items_VIEW_3D, "VIEW_3D"}, {space_type_items_TIMELINE, "TIMELINE"}, {space_type_items_GRAPH_EDITOR, "GRAPH_EDITOR"}, {space_type_items_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {space_type_items_NLA_EDITOR, "NLA_EDITOR"}, {space_type_items_IMAGE_EDITOR, "IMAGE_EDITOR"}, {space_type_items_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {space_type_items_CLIP_EDITOR, "CLIP_EDITOR"}, {space_type_items_TEXT_EDITOR, "TEXT_EDITOR"}, {space_type_items_NODE_EDITOR, "NODE_EDITOR"}, {space_type_items_LOGIC_EDITOR, "LOGIC_EDITOR"}, {space_type_items_PROPERTIES, "PROPERTIES"}, {space_type_items_OUTLINER, "OUTLINER"}, {space_type_items_USER_PREFERENCES, "USER_PREFERENCES"}, {space_type_items_INFO, "INFO"}, {space_type_items_FILE_BROWSER, "FILE_BROWSER"}, {space_type_items_CONSOLE, "CONSOLE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
-	const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
+	static const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
+	static const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
 
 	space_type_items_enum bl_space_type() {
 		STRING_TYPE_GETTER("bl_space_type", static_cast<space_type_items_enum>(string_to_space_type_items.at(resstr)))
@@ -77900,8 +77900,8 @@ public:
 		return {{font_kerning_style_UNFITTED, "UNFITTED"}, {font_kerning_style_FITTED, "FITTED"}};
 	};
 
-	const std::map<std::string, int> string_to_font_kerning_style = create_string_to_font_kerning_style();
-	const std::map<int, std::string> font_kerning_style_to_string = create_font_kerning_style_to_string();
+	static const std::map<std::string, int> string_to_font_kerning_style = create_string_to_font_kerning_style();
+	static const std::map<int, std::string> font_kerning_style_to_string = create_font_kerning_style_to_string();
 
 	font_kerning_style_enum font_kerning_style() {
 		STRING_TYPE_GETTER("font_kerning_style", static_cast<font_kerning_style_enum>(string_to_font_kerning_style.at(resstr)))
@@ -81126,8 +81126,8 @@ public:
 		return {{active_theme_area_USER_INTERFACE, "USER_INTERFACE"}, {active_theme_area_STYLE, "STYLE"}, {active_theme_area_BONE_COLOR_SETS, "BONE_COLOR_SETS"}, {active_theme_area_VIEW_3D, "VIEW_3D"}, {active_theme_area_TIMELINE, "TIMELINE"}, {active_theme_area_GRAPH_EDITOR, "GRAPH_EDITOR"}, {active_theme_area_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {active_theme_area_NLA_EDITOR, "NLA_EDITOR"}, {active_theme_area_IMAGE_EDITOR, "IMAGE_EDITOR"}, {active_theme_area_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {active_theme_area_TEXT_EDITOR, "TEXT_EDITOR"}, {active_theme_area_NODE_EDITOR, "NODE_EDITOR"}, {active_theme_area_LOGIC_EDITOR, "LOGIC_EDITOR"}, {active_theme_area_PROPERTIES, "PROPERTIES"}, {active_theme_area_OUTLINER, "OUTLINER"}, {active_theme_area_USER_PREFERENCES, "USER_PREFERENCES"}, {active_theme_area_INFO, "INFO"}, {active_theme_area_FILE_BROWSER, "FILE_BROWSER"}, {active_theme_area_CONSOLE, "CONSOLE"}, {active_theme_area_CLIP_EDITOR, "CLIP_EDITOR"}};
 	};
 
-	const std::map<std::string, int> string_to_active_theme_area = create_string_to_active_theme_area();
-	const std::map<int, std::string> active_theme_area_to_string = create_active_theme_area_to_string();
+	static const std::map<std::string, int> string_to_active_theme_area = create_string_to_active_theme_area();
+	static const std::map<int, std::string> active_theme_area_to_string = create_active_theme_area_to_string();
 
 	active_theme_area_enum theme_area() {
 		STRING_TYPE_GETTER("theme_area", static_cast<active_theme_area_enum>(string_to_active_theme_area.at(resstr)))
@@ -81345,8 +81345,8 @@ public:
 		return {{user_pref_sections_INTERFACE, "INTERFACE"}, {user_pref_sections_EDITING, "EDITING"}, {user_pref_sections_INPUT, "INPUT"}, {user_pref_sections_ADDONS, "ADDONS"}, {user_pref_sections_THEMES, "THEMES"}, {user_pref_sections_FILES, "FILES"}, {user_pref_sections_SYSTEM, "SYSTEM"}};
 	};
 
-	const std::map<std::string, int> string_to_user_pref_sections = create_string_to_user_pref_sections();
-	const std::map<int, std::string> user_pref_sections_to_string = create_user_pref_sections_to_string();
+	static const std::map<std::string, int> string_to_user_pref_sections = create_string_to_user_pref_sections();
+	static const std::map<int, std::string> user_pref_sections_to_string = create_user_pref_sections_to_string();
 
 	user_pref_sections_enum active_section() {
 		STRING_TYPE_GETTER("active_section", static_cast<user_pref_sections_enum>(string_to_user_pref_sections.at(resstr)))
@@ -81720,8 +81720,8 @@ public:
 		return {{timecode_styles_MINIMAL, "MINIMAL"}, {timecode_styles_SMPTE, "SMPTE"}, {timecode_styles_SMPTE_COMPACT, "SMPTE_COMPACT"}, {timecode_styles_MILLISECONDS, "MILLISECONDS"}, {timecode_styles_SECONDS_ONLY, "SECONDS_ONLY"}};
 	};
 
-	const std::map<std::string, int> string_to_timecode_styles = create_string_to_timecode_styles();
-	const std::map<int, std::string> timecode_styles_to_string = create_timecode_styles_to_string();
+	static const std::map<std::string, int> string_to_timecode_styles = create_string_to_timecode_styles();
+	static const std::map<int, std::string> timecode_styles_to_string = create_timecode_styles_to_string();
 
 	timecode_styles_enum timecode_style() {
 		STRING_TYPE_GETTER("timecode_style", static_cast<timecode_styles_enum>(string_to_timecode_styles.at(resstr)))
@@ -81745,8 +81745,8 @@ public:
 		return {{zoom_frame_modes_KEEP_RANGE, "KEEP_RANGE"}, {zoom_frame_modes_SECONDS, "SECONDS"}, {zoom_frame_modes_KEYFRAMES, "KEYFRAMES"}};
 	};
 
-	const std::map<std::string, int> string_to_zoom_frame_modes = create_string_to_zoom_frame_modes();
-	const std::map<int, std::string> zoom_frame_modes_to_string = create_zoom_frame_modes_to_string();
+	static const std::map<std::string, int> string_to_zoom_frame_modes = create_string_to_zoom_frame_modes();
+	static const std::map<int, std::string> zoom_frame_modes_to_string = create_zoom_frame_modes_to_string();
 
 	zoom_frame_modes_enum view_frame_type() {
 		STRING_TYPE_GETTER("view_frame_type", static_cast<zoom_frame_modes_enum>(string_to_zoom_frame_modes.at(resstr)))
@@ -81791,8 +81791,8 @@ public:
 		return {{material_link_items_OBDATA, "OBDATA"}, {material_link_items_OBJECT, "OBJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_material_link_items = create_string_to_material_link_items();
-	const std::map<int, std::string> material_link_items_to_string = create_material_link_items_to_string();
+	static const std::map<std::string, int> string_to_material_link_items = create_string_to_material_link_items();
+	static const std::map<int, std::string> material_link_items_to_string = create_material_link_items_to_string();
 
 	material_link_items_enum material_link() {
 		STRING_TYPE_GETTER("material_link", static_cast<material_link_items_enum>(string_to_material_link_items.at(resstr)))
@@ -81815,8 +81815,8 @@ public:
 		return {{object_align_items_WORLD, "WORLD"}, {object_align_items_VIEW, "VIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_object_align_items = create_string_to_object_align_items();
-	const std::map<int, std::string> object_align_items_to_string = create_object_align_items_to_string();
+	static const std::map<std::string, int> string_to_object_align_items = create_string_to_object_align_items();
+	static const std::map<int, std::string> object_align_items_to_string = create_object_align_items_to_string();
 
 	object_align_items_enum object_align() {
 		STRING_TYPE_GETTER("object_align", static_cast<object_align_items_enum>(string_to_object_align_items.at(resstr)))
@@ -81887,8 +81887,8 @@ public:
 		return {{auto_key_modes_ADD_REPLACE_KEYS, "ADD_REPLACE_KEYS"}, {auto_key_modes_REPLACE_KEYS, "REPLACE_KEYS"}};
 	};
 
-	const std::map<std::string, int> string_to_auto_key_modes = create_string_to_auto_key_modes();
-	const std::map<int, std::string> auto_key_modes_to_string = create_auto_key_modes_to_string();
+	static const std::map<std::string, int> string_to_auto_key_modes = create_string_to_auto_key_modes();
+	static const std::map<int, std::string> auto_key_modes_to_string = create_auto_key_modes_to_string();
 
 	auto_key_modes_enum auto_keying_mode() {
 		STRING_TYPE_GETTER("auto_keying_mode", static_cast<auto_key_modes_enum>(string_to_auto_key_modes.at(resstr)))
@@ -81962,8 +81962,8 @@ public:
 		return {{beztriple_interpolation_mode_items_CONSTANT, "CONSTANT"}, {beztriple_interpolation_mode_items_LINEAR, "LINEAR"}, {beztriple_interpolation_mode_items_BEZIER, "BEZIER"}, {beztriple_interpolation_mode_items_SINE, "SINE"}, {beztriple_interpolation_mode_items_QUAD, "QUAD"}, {beztriple_interpolation_mode_items_CUBIC, "CUBIC"}, {beztriple_interpolation_mode_items_QUART, "QUART"}, {beztriple_interpolation_mode_items_QUINT, "QUINT"}, {beztriple_interpolation_mode_items_EXPO, "EXPO"}, {beztriple_interpolation_mode_items_CIRC, "CIRC"}, {beztriple_interpolation_mode_items_BACK, "BACK"}, {beztriple_interpolation_mode_items_BOUNCE, "BOUNCE"}, {beztriple_interpolation_mode_items_ELASTIC, "ELASTIC"}};
 	};
 
-	const std::map<std::string, int> string_to_beztriple_interpolation_mode_items = create_string_to_beztriple_interpolation_mode_items();
-	const std::map<int, std::string> beztriple_interpolation_mode_items_to_string = create_beztriple_interpolation_mode_items_to_string();
+	static const std::map<std::string, int> string_to_beztriple_interpolation_mode_items = create_string_to_beztriple_interpolation_mode_items();
+	static const std::map<int, std::string> beztriple_interpolation_mode_items_to_string = create_beztriple_interpolation_mode_items_to_string();
 
 	beztriple_interpolation_mode_items_enum keyframe_new_interpolation_type() {
 		STRING_TYPE_GETTER("keyframe_new_interpolation_type", static_cast<beztriple_interpolation_mode_items_enum>(string_to_beztriple_interpolation_mode_items.at(resstr)))
@@ -81989,8 +81989,8 @@ public:
 		return {{keyframe_handle_type_items_FREE, "FREE"}, {keyframe_handle_type_items_VECTOR, "VECTOR"}, {keyframe_handle_type_items_ALIGNED, "ALIGNED"}, {keyframe_handle_type_items_AUTO, "AUTO"}, {keyframe_handle_type_items_AUTO_CLAMPED, "AUTO_CLAMPED"}};
 	};
 
-	const std::map<std::string, int> string_to_keyframe_handle_type_items = create_string_to_keyframe_handle_type_items();
-	const std::map<int, std::string> keyframe_handle_type_items_to_string = create_keyframe_handle_type_items_to_string();
+	static const std::map<std::string, int> string_to_keyframe_handle_type_items = create_string_to_keyframe_handle_type_items();
+	static const std::map<int, std::string> keyframe_handle_type_items_to_string = create_keyframe_handle_type_items_to_string();
 
 	keyframe_handle_type_items_enum keyframe_new_handle_type() {
 		STRING_TYPE_GETTER("keyframe_new_handle_type", static_cast<keyframe_handle_type_items_enum>(string_to_keyframe_handle_type_items.at(resstr)))
@@ -82187,8 +82187,8 @@ public:
 		return {{select_mouse_items_LEFT, "LEFT"}, {select_mouse_items_RIGHT, "RIGHT"}};
 	};
 
-	const std::map<std::string, int> string_to_select_mouse_items = create_string_to_select_mouse_items();
-	const std::map<int, std::string> select_mouse_items_to_string = create_select_mouse_items_to_string();
+	static const std::map<std::string, int> string_to_select_mouse_items = create_string_to_select_mouse_items();
+	static const std::map<int, std::string> select_mouse_items_to_string = create_select_mouse_items_to_string();
 
 	select_mouse_items_enum select_mouse() {
 		STRING_TYPE_GETTER("select_mouse", static_cast<select_mouse_items_enum>(string_to_select_mouse_items.at(resstr)))
@@ -82212,8 +82212,8 @@ public:
 		return {{view_zoom_styles_CONTINUE, "CONTINUE"}, {view_zoom_styles_DOLLY, "DOLLY"}, {view_zoom_styles_SCALE, "SCALE"}};
 	};
 
-	const std::map<std::string, int> string_to_view_zoom_styles = create_string_to_view_zoom_styles();
-	const std::map<int, std::string> view_zoom_styles_to_string = create_view_zoom_styles_to_string();
+	static const std::map<std::string, int> string_to_view_zoom_styles = create_string_to_view_zoom_styles();
+	static const std::map<int, std::string> view_zoom_styles_to_string = create_view_zoom_styles_to_string();
 
 	view_zoom_styles_enum view_zoom_method() {
 		STRING_TYPE_GETTER("view_zoom_method", static_cast<view_zoom_styles_enum>(string_to_view_zoom_styles.at(resstr)))
@@ -82236,8 +82236,8 @@ public:
 		return {{view_zoom_axes_VERTICAL, "VERTICAL"}, {view_zoom_axes_HORIZONTAL, "HORIZONTAL"}};
 	};
 
-	const std::map<std::string, int> string_to_view_zoom_axes = create_string_to_view_zoom_axes();
-	const std::map<int, std::string> view_zoom_axes_to_string = create_view_zoom_axes_to_string();
+	static const std::map<std::string, int> string_to_view_zoom_axes = create_string_to_view_zoom_axes();
+	static const std::map<int, std::string> view_zoom_axes_to_string = create_view_zoom_axes_to_string();
 
 	view_zoom_axes_enum view_zoom_axis() {
 		STRING_TYPE_GETTER("view_zoom_axis", static_cast<view_zoom_axes_enum>(string_to_view_zoom_axes.at(resstr)))
@@ -82268,8 +82268,8 @@ public:
 		return {{view_rotation_items_TURNTABLE, "TURNTABLE"}, {view_rotation_items_TRACKBALL, "TRACKBALL"}};
 	};
 
-	const std::map<std::string, int> string_to_view_rotation_items = create_string_to_view_rotation_items();
-	const std::map<int, std::string> view_rotation_items_to_string = create_view_rotation_items_to_string();
+	static const std::map<std::string, int> string_to_view_rotation_items = create_string_to_view_rotation_items();
+	static const std::map<int, std::string> view_rotation_items_to_string = create_view_rotation_items_to_string();
 
 	view_rotation_items_enum view_rotate_method() {
 		STRING_TYPE_GETTER("view_rotate_method", static_cast<view_rotation_items_enum>(string_to_view_rotation_items.at(resstr)))
@@ -82300,8 +82300,8 @@ public:
 		return {{navigation_mode_items_WALK, "WALK"}, {navigation_mode_items_FLY, "FLY"}};
 	};
 
-	const std::map<std::string, int> string_to_navigation_mode_items = create_string_to_navigation_mode_items();
-	const std::map<int, std::string> navigation_mode_items_to_string = create_navigation_mode_items_to_string();
+	static const std::map<std::string, int> string_to_navigation_mode_items = create_string_to_navigation_mode_items();
+	static const std::map<int, std::string> navigation_mode_items_to_string = create_navigation_mode_items_to_string();
 
 	navigation_mode_items_enum navigation_mode() {
 		STRING_TYPE_GETTER("navigation_mode", static_cast<navigation_mode_items_enum>(string_to_navigation_mode_items.at(resstr)))
@@ -82392,8 +82392,8 @@ public:
 		return {{ndof_view_navigation_items_FREE, "FREE"}, {ndof_view_navigation_items_ORBIT, "ORBIT"}};
 	};
 
-	const std::map<std::string, int> string_to_ndof_view_navigation_items = create_string_to_ndof_view_navigation_items();
-	const std::map<int, std::string> ndof_view_navigation_items_to_string = create_ndof_view_navigation_items_to_string();
+	static const std::map<std::string, int> string_to_ndof_view_navigation_items = create_string_to_ndof_view_navigation_items();
+	static const std::map<int, std::string> ndof_view_navigation_items_to_string = create_ndof_view_navigation_items_to_string();
 
 	ndof_view_navigation_items_enum ndof_view_navigate_method() {
 		STRING_TYPE_GETTER("ndof_view_navigate_method", static_cast<ndof_view_navigation_items_enum>(string_to_ndof_view_navigation_items.at(resstr)))
@@ -82416,8 +82416,8 @@ public:
 		return {{ndof_view_rotation_items_TURNTABLE, "TURNTABLE"}, {ndof_view_rotation_items_TRACKBALL, "TRACKBALL"}};
 	};
 
-	const std::map<std::string, int> string_to_ndof_view_rotation_items = create_string_to_ndof_view_rotation_items();
-	const std::map<int, std::string> ndof_view_rotation_items_to_string = create_ndof_view_rotation_items_to_string();
+	static const std::map<std::string, int> string_to_ndof_view_rotation_items = create_string_to_ndof_view_rotation_items();
+	static const std::map<int, std::string> ndof_view_rotation_items_to_string = create_ndof_view_rotation_items_to_string();
 
 	ndof_view_rotation_items_enum ndof_view_rotate_method() {
 		STRING_TYPE_GETTER("ndof_view_rotate_method", static_cast<ndof_view_rotation_items_enum>(string_to_ndof_view_rotation_items.at(resstr)))
@@ -82722,8 +82722,8 @@ public:
 		return {{anim_player_presets_INTERNAL, "INTERNAL"}, {anim_player_presets_DJV, "DJV"}, {anim_player_presets_FRAMECYCLER, "FRAMECYCLER"}, {anim_player_presets_RV, "RV"}, {anim_player_presets_MPLAYER, "MPLAYER"}, {anim_player_presets_CUSTOM, "CUSTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_anim_player_presets = create_string_to_anim_player_presets();
-	const std::map<int, std::string> anim_player_presets_to_string = create_anim_player_presets_to_string();
+	static const std::map<std::string, int> string_to_anim_player_presets = create_string_to_anim_player_presets();
+	static const std::map<int, std::string> anim_player_presets_to_string = create_anim_player_presets_to_string();
 
 	anim_player_presets_enum animation_player_preset() {
 		STRING_TYPE_GETTER("animation_player_preset", static_cast<anim_player_presets_enum>(string_to_anim_player_presets.at(resstr)))
@@ -82816,8 +82816,8 @@ public:
 		return {{virtual_pixel_mode_items_NATIVE, "NATIVE"}, {virtual_pixel_mode_items_DOUBLE, "DOUBLE"}};
 	};
 
-	const std::map<std::string, int> string_to_virtual_pixel_mode_items = create_string_to_virtual_pixel_mode_items();
-	const std::map<int, std::string> virtual_pixel_mode_items_to_string = create_virtual_pixel_mode_items_to_string();
+	static const std::map<std::string, int> string_to_virtual_pixel_mode_items = create_string_to_virtual_pixel_mode_items();
+	static const std::map<int, std::string> virtual_pixel_mode_items_to_string = create_virtual_pixel_mode_items_to_string();
 
 	virtual_pixel_mode_items_enum virtual_pixel_mode() {
 		STRING_TYPE_GETTER("virtual_pixel_mode", static_cast<virtual_pixel_mode_items_enum>(string_to_virtual_pixel_mode_items.at(resstr)))
@@ -82871,8 +82871,8 @@ public:
 		return {{language_items_DEFAULT, "DEFAULT"}};
 	};
 
-	const std::map<std::string, int> string_to_language_items = create_string_to_language_items();
-	const std::map<int, std::string> language_items_to_string = create_language_items_to_string();
+	static const std::map<std::string, int> string_to_language_items = create_string_to_language_items();
+	static const std::map<int, std::string> language_items_to_string = create_language_items_to_string();
 
 	language_items_enum language() {
 		STRING_TYPE_GETTER("language", static_cast<language_items_enum>(string_to_language_items.at(resstr)))
@@ -82946,8 +82946,8 @@ public:
 		return {{color_picker_types_CIRCLE_HSV, "CIRCLE_HSV"}, {color_picker_types_CIRCLE_HSL, "CIRCLE_HSL"}, {color_picker_types_SQUARE_SV, "SQUARE_SV"}, {color_picker_types_SQUARE_HS, "SQUARE_HS"}, {color_picker_types_SQUARE_HV, "SQUARE_HV"}};
 	};
 
-	const std::map<std::string, int> string_to_color_picker_types = create_string_to_color_picker_types();
-	const std::map<int, std::string> color_picker_types_to_string = create_color_picker_types_to_string();
+	static const std::map<std::string, int> string_to_color_picker_types = create_string_to_color_picker_types();
+	static const std::map<int, std::string> color_picker_types_to_string = create_color_picker_types_to_string();
 
 	color_picker_types_enum color_picker_type() {
 		STRING_TYPE_GETTER("color_picker_type", static_cast<color_picker_types_enum>(string_to_color_picker_types.at(resstr)))
@@ -83051,8 +83051,8 @@ public:
 		return {{image_draw_methods_2DTEXTURE, "2DTEXTURE"}, {image_draw_methods_GLSL, "GLSL"}, {image_draw_methods_DRAWPIXELS, "DRAWPIXELS"}};
 	};
 
-	const std::map<std::string, int> string_to_image_draw_methods = create_string_to_image_draw_methods();
-	const std::map<int, std::string> image_draw_methods_to_string = create_image_draw_methods_to_string();
+	static const std::map<std::string, int> string_to_image_draw_methods = create_string_to_image_draw_methods();
+	static const std::map<int, std::string> image_draw_methods_to_string = create_image_draw_methods_to_string();
 
 	image_draw_methods_enum image_draw_method() {
 		STRING_TYPE_GETTER("image_draw_method", static_cast<image_draw_methods_enum>(string_to_image_draw_methods.at(resstr)))
@@ -83086,8 +83086,8 @@ public:
 		return {{anisotropic_items_FILTER_0, "FILTER_0"}, {anisotropic_items_FILTER_2, "FILTER_2"}, {anisotropic_items_FILTER_4, "FILTER_4"}, {anisotropic_items_FILTER_8, "FILTER_8"}, {anisotropic_items_FILTER_16, "FILTER_16"}};
 	};
 
-	const std::map<std::string, int> string_to_anisotropic_items = create_string_to_anisotropic_items();
-	const std::map<int, std::string> anisotropic_items_to_string = create_anisotropic_items_to_string();
+	static const std::map<std::string, int> string_to_anisotropic_items = create_string_to_anisotropic_items();
+	static const std::map<int, std::string> anisotropic_items_to_string = create_anisotropic_items_to_string();
 
 	anisotropic_items_enum anisotropic_filter() {
 		STRING_TYPE_GETTER("anisotropic_filter", static_cast<anisotropic_items_enum>(string_to_anisotropic_items.at(resstr)))
@@ -83116,8 +83116,8 @@ public:
 		return {{gl_texture_clamp_items_CLAMP_OFF, "CLAMP_OFF"}, {gl_texture_clamp_items_CLAMP_8192, "CLAMP_8192"}, {gl_texture_clamp_items_CLAMP_4096, "CLAMP_4096"}, {gl_texture_clamp_items_CLAMP_2048, "CLAMP_2048"}, {gl_texture_clamp_items_CLAMP_1024, "CLAMP_1024"}, {gl_texture_clamp_items_CLAMP_512, "CLAMP_512"}, {gl_texture_clamp_items_CLAMP_256, "CLAMP_256"}, {gl_texture_clamp_items_CLAMP_128, "CLAMP_128"}};
 	};
 
-	const std::map<std::string, int> string_to_gl_texture_clamp_items = create_string_to_gl_texture_clamp_items();
-	const std::map<int, std::string> gl_texture_clamp_items_to_string = create_gl_texture_clamp_items_to_string();
+	static const std::map<std::string, int> string_to_gl_texture_clamp_items = create_string_to_gl_texture_clamp_items();
+	static const std::map<int, std::string> gl_texture_clamp_items_to_string = create_gl_texture_clamp_items_to_string();
 
 	gl_texture_clamp_items_enum gl_texture_limit() {
 		STRING_TYPE_GETTER("gl_texture_limit", static_cast<gl_texture_clamp_items_enum>(string_to_gl_texture_clamp_items.at(resstr)))
@@ -83159,8 +83159,8 @@ public:
 		return {{draw_method_items_AUTOMATIC, "AUTOMATIC"}, {draw_method_items_TRIPLE_BUFFER, "TRIPLE_BUFFER"}, {draw_method_items_OVERLAP, "OVERLAP"}, {draw_method_items_OVERLAP_FLIP, "OVERLAP_FLIP"}, {draw_method_items_FULL, "FULL"}};
 	};
 
-	const std::map<std::string, int> string_to_draw_method_items = create_string_to_draw_method_items();
-	const std::map<int, std::string> draw_method_items_to_string = create_draw_method_items_to_string();
+	static const std::map<std::string, int> string_to_draw_method_items = create_string_to_draw_method_items();
+	static const std::map<int, std::string> draw_method_items_to_string = create_draw_method_items_to_string();
 
 	draw_method_items_enum window_draw_method() {
 		STRING_TYPE_GETTER("window_draw_method", static_cast<draw_method_items_enum>(string_to_draw_method_items.at(resstr)))
@@ -83189,8 +83189,8 @@ public:
 		return {{audio_mixing_samples_items_SAMPLES_256, "SAMPLES_256"}, {audio_mixing_samples_items_SAMPLES_512, "SAMPLES_512"}, {audio_mixing_samples_items_SAMPLES_1024, "SAMPLES_1024"}, {audio_mixing_samples_items_SAMPLES_2048, "SAMPLES_2048"}, {audio_mixing_samples_items_SAMPLES_4096, "SAMPLES_4096"}, {audio_mixing_samples_items_SAMPLES_8192, "SAMPLES_8192"}, {audio_mixing_samples_items_SAMPLES_16384, "SAMPLES_16384"}, {audio_mixing_samples_items_SAMPLES_32768, "SAMPLES_32768"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_mixing_samples_items = create_string_to_audio_mixing_samples_items();
-	const std::map<int, std::string> audio_mixing_samples_items_to_string = create_audio_mixing_samples_items_to_string();
+	static const std::map<std::string, int> string_to_audio_mixing_samples_items = create_string_to_audio_mixing_samples_items();
+	static const std::map<int, std::string> audio_mixing_samples_items_to_string = create_audio_mixing_samples_items_to_string();
 
 	audio_mixing_samples_items_enum audio_mixing_buffer() {
 		STRING_TYPE_GETTER("audio_mixing_buffer", static_cast<audio_mixing_samples_items_enum>(string_to_audio_mixing_samples_items.at(resstr)))
@@ -83215,8 +83215,8 @@ public:
 		return {{audio_device_items_NONE, "NONE"}, {audio_device_items_SDL, "SDL"}, {audio_device_items_OPENAL, "OPENAL"}, {audio_device_items_JACK, "JACK"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_device_items = create_string_to_audio_device_items();
-	const std::map<int, std::string> audio_device_items_to_string = create_audio_device_items_to_string();
+	static const std::map<std::string, int> string_to_audio_device_items = create_string_to_audio_device_items();
+	static const std::map<int, std::string> audio_device_items_to_string = create_audio_device_items_to_string();
 
 	audio_device_items_enum audio_device() {
 		STRING_TYPE_GETTER("audio_device", static_cast<audio_device_items_enum>(string_to_audio_device_items.at(resstr)))
@@ -83241,8 +83241,8 @@ public:
 		return {{audio_rate_items_RATE_44100, "RATE_44100"}, {audio_rate_items_RATE_48000, "RATE_48000"}, {audio_rate_items_RATE_96000, "RATE_96000"}, {audio_rate_items_RATE_192000, "RATE_192000"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_rate_items = create_string_to_audio_rate_items();
-	const std::map<int, std::string> audio_rate_items_to_string = create_audio_rate_items_to_string();
+	static const std::map<std::string, int> string_to_audio_rate_items = create_string_to_audio_rate_items();
+	static const std::map<int, std::string> audio_rate_items_to_string = create_audio_rate_items_to_string();
 
 	audio_rate_items_enum audio_sample_rate() {
 		STRING_TYPE_GETTER("audio_sample_rate", static_cast<audio_rate_items_enum>(string_to_audio_rate_items.at(resstr)))
@@ -83269,8 +83269,8 @@ public:
 		return {{audio_format_items_U8, "U8"}, {audio_format_items_S16, "S16"}, {audio_format_items_S24, "S24"}, {audio_format_items_S32, "S32"}, {audio_format_items_FLOAT, "FLOAT"}, {audio_format_items_DOUBLE, "DOUBLE"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_format_items = create_string_to_audio_format_items();
-	const std::map<int, std::string> audio_format_items_to_string = create_audio_format_items_to_string();
+	static const std::map<std::string, int> string_to_audio_format_items = create_string_to_audio_format_items();
+	static const std::map<int, std::string> audio_format_items_to_string = create_audio_format_items_to_string();
 
 	audio_format_items_enum audio_sample_format() {
 		STRING_TYPE_GETTER("audio_sample_format", static_cast<audio_format_items_enum>(string_to_audio_format_items.at(resstr)))
@@ -83296,8 +83296,8 @@ public:
 		return {{audio_channel_items_MONO, "MONO"}, {audio_channel_items_STEREO, "STEREO"}, {audio_channel_items_SURROUND4, "SURROUND4"}, {audio_channel_items_SURROUND51, "SURROUND51"}, {audio_channel_items_SURROUND71, "SURROUND71"}};
 	};
 
-	const std::map<std::string, int> string_to_audio_channel_items = create_string_to_audio_channel_items();
-	const std::map<int, std::string> audio_channel_items_to_string = create_audio_channel_items_to_string();
+	static const std::map<std::string, int> string_to_audio_channel_items = create_string_to_audio_channel_items();
+	static const std::map<int, std::string> audio_channel_items_to_string = create_audio_channel_items_to_string();
 
 	audio_channel_items_enum audio_channels() {
 		STRING_TYPE_GETTER("audio_channels", static_cast<audio_channel_items_enum>(string_to_audio_channel_items.at(resstr)))
@@ -83345,8 +83345,8 @@ public:
 		return {{gpu_select_method_items_AUTO, "AUTO"}, {gpu_select_method_items_GL_SELECT, "GL_SELECT"}, {gpu_select_method_items_GL_QUERY, "GL_QUERY"}};
 	};
 
-	const std::map<std::string, int> string_to_gpu_select_method_items = create_string_to_gpu_select_method_items();
-	const std::map<int, std::string> gpu_select_method_items_to_string = create_gpu_select_method_items_to_string();
+	static const std::map<std::string, int> string_to_gpu_select_method_items = create_string_to_gpu_select_method_items();
+	static const std::map<int, std::string> gpu_select_method_items_to_string = create_gpu_select_method_items_to_string();
 
 	gpu_select_method_items_enum select_method() {
 		STRING_TYPE_GETTER("select_method", static_cast<gpu_select_method_items_enum>(string_to_gpu_select_method_items.at(resstr)))
@@ -83372,8 +83372,8 @@ public:
 		return {{multi_sample_levels_NONE, "NONE"}, {multi_sample_levels_2, "2"}, {multi_sample_levels_4, "4"}, {multi_sample_levels_8, "8"}, {multi_sample_levels_16, "16"}};
 	};
 
-	const std::map<std::string, int> string_to_multi_sample_levels = create_string_to_multi_sample_levels();
-	const std::map<int, std::string> multi_sample_levels_to_string = create_multi_sample_levels_to_string();
+	static const std::map<std::string, int> string_to_multi_sample_levels = create_string_to_multi_sample_levels();
+	static const std::map<int, std::string> multi_sample_levels_to_string = create_multi_sample_levels_to_string();
 
 	multi_sample_levels_enum multi_sample() {
 		STRING_TYPE_GETTER("multi_sample", static_cast<multi_sample_levels_enum>(string_to_multi_sample_levels.at(resstr)))
@@ -83405,8 +83405,8 @@ public:
 		return {{compute_device_type_items_NONE, "NONE"}, {compute_device_type_items_CUDA, "CUDA"}, {compute_device_type_items_OPENCL, "OPENCL"}};
 	};
 
-	const std::map<std::string, int> string_to_compute_device_type_items = create_string_to_compute_device_type_items();
-	const std::map<int, std::string> compute_device_type_items_to_string = create_compute_device_type_items_to_string();
+	static const std::map<std::string, int> string_to_compute_device_type_items = create_string_to_compute_device_type_items();
+	static const std::map<int, std::string> compute_device_type_items_to_string = create_compute_device_type_items_to_string();
 
 	compute_device_type_items_enum compute_device_type() {
 		STRING_TYPE_GETTER("compute_device_type", static_cast<compute_device_type_items_enum>(string_to_compute_device_type_items.at(resstr)))
@@ -83428,8 +83428,8 @@ public:
 		return {{compute_device_items_CPU, "CPU"}};
 	};
 
-	const std::map<std::string, int> string_to_compute_device_items = create_string_to_compute_device_items();
-	const std::map<int, std::string> compute_device_items_to_string = create_compute_device_items_to_string();
+	static const std::map<std::string, int> string_to_compute_device_items = create_string_to_compute_device_items();
+	static const std::map<int, std::string> compute_device_items_to_string = create_compute_device_items_to_string();
 
 	compute_device_items_enum compute_device() {
 		STRING_TYPE_GETTER("compute_device", static_cast<compute_device_items_enum>(string_to_compute_device_items.at(resstr)))
@@ -83535,8 +83535,8 @@ public:
 		return {{unpack_method_items_USE_LOCAL, "USE_LOCAL"}, {unpack_method_items_WRITE_LOCAL, "WRITE_LOCAL"}, {unpack_method_items_USE_ORIGINAL, "USE_ORIGINAL"}, {unpack_method_items_WRITE_ORIGINAL, "WRITE_ORIGINAL"}};
 	};
 
-	const std::map<std::string, int> string_to_unpack_method_items = create_string_to_unpack_method_items();
-	const std::map<int, std::string> unpack_method_items_to_string = create_unpack_method_items_to_string();
+	static const std::map<std::string, int> string_to_unpack_method_items = create_string_to_unpack_method_items();
+	static const std::map<int, std::string> unpack_method_items_to_string = create_unpack_method_items_to_string();
 
 	void unpack(unpack_method_items_enum method = unpack_method_items_USE_LOCAL) {
 		PYTHON_FUNCTION_ARGS_CALL("unpack", "s", unpack_method_items_to_string.at(method))
@@ -83622,8 +83622,8 @@ public:
 		return {{operator_flag_items_REGISTER, "REGISTER"}, {operator_flag_items_UNDO, "UNDO"}, {operator_flag_items_BLOCKING, "BLOCKING"}, {operator_flag_items_MACRO, "MACRO"}, {operator_flag_items_GRAB_CURSOR, "GRAB_CURSOR"}, {operator_flag_items_PRESET, "PRESET"}, {operator_flag_items_INTERNAL, "INTERNAL"}};
 	};
 
-	const std::map<std::string, int> string_to_operator_flag_items = create_string_to_operator_flag_items();
-	const std::map<int, std::string> operator_flag_items_to_string = create_operator_flag_items_to_string();
+	static const std::map<std::string, int> string_to_operator_flag_items = create_string_to_operator_flag_items();
+	static const std::map<int, std::string> operator_flag_items_to_string = create_operator_flag_items_to_string();
 
 	operator_flag_items_enum bl_options() {
 		STRING_TYPE_GETTER("bl_options", static_cast<operator_flag_items_enum>(string_to_operator_flag_items.at(resstr)))
@@ -83655,8 +83655,8 @@ public:
 		return {{items_DEBUG, "DEBUG"}, {items_INFO, "INFO"}, {items_OPERATOR, "OPERATOR"}, {items_PROPERTY, "PROPERTY"}, {items_WARNING, "WARNING"}, {items_ERROR, "ERROR"}, {items_ERROR_INVALID_INPUT, "ERROR_INVALID_INPUT"}, {items_ERROR_INVALID_CONTEXT, "ERROR_INVALID_CONTEXT"}, {items_ERROR_OUT_OF_MEMORY, "ERROR_OUT_OF_MEMORY"}};
 	};
 
-	const std::map<std::string, int> string_to_items = create_string_to_items();
-	const std::map<int, std::string> items_to_string = create_items_to_string();
+	static const std::map<std::string, int> string_to_items = create_string_to_items();
+	static const std::map<int, std::string> items_to_string = create_items_to_string();
 
 	void report(items_enum type, const std::string message) {
 		PYTHON_FUNCTION_ARGS_CALL("report", "ss", items_to_string.at(type), message)
@@ -83804,8 +83804,8 @@ public:
 		return {{operator_flag_items_REGISTER, "REGISTER"}, {operator_flag_items_UNDO, "UNDO"}, {operator_flag_items_BLOCKING, "BLOCKING"}, {operator_flag_items_MACRO, "MACRO"}, {operator_flag_items_GRAB_CURSOR, "GRAB_CURSOR"}, {operator_flag_items_PRESET, "PRESET"}, {operator_flag_items_INTERNAL, "INTERNAL"}};
 	};
 
-	const std::map<std::string, int> string_to_operator_flag_items = create_string_to_operator_flag_items();
-	const std::map<int, std::string> operator_flag_items_to_string = create_operator_flag_items_to_string();
+	static const std::map<std::string, int> string_to_operator_flag_items = create_string_to_operator_flag_items();
+	static const std::map<int, std::string> operator_flag_items_to_string = create_operator_flag_items_to_string();
 
 	operator_flag_items_enum bl_options() {
 		STRING_TYPE_GETTER("bl_options", static_cast<operator_flag_items_enum>(string_to_operator_flag_items.at(resstr)))
@@ -83835,8 +83835,8 @@ public:
 		return {{items_DEBUG, "DEBUG"}, {items_INFO, "INFO"}, {items_OPERATOR, "OPERATOR"}, {items_PROPERTY, "PROPERTY"}, {items_WARNING, "WARNING"}, {items_ERROR, "ERROR"}, {items_ERROR_INVALID_INPUT, "ERROR_INVALID_INPUT"}, {items_ERROR_INVALID_CONTEXT, "ERROR_INVALID_CONTEXT"}, {items_ERROR_OUT_OF_MEMORY, "ERROR_OUT_OF_MEMORY"}};
 	};
 
-	const std::map<std::string, int> string_to_items = create_string_to_items();
-	const std::map<int, std::string> items_to_string = create_items_to_string();
+	static const std::map<std::string, int> string_to_items = create_string_to_items();
+	static const std::map<int, std::string> items_to_string = create_items_to_string();
 
 	void report(items_enum type, const std::string message) {
 		PYTHON_FUNCTION_ARGS_CALL("report", "ss", items_to_string.at(type), message)
@@ -83900,8 +83900,8 @@ public:
 		return {{event_value_items_ANY, "ANY"}, {event_value_items_NOTHING, "NOTHING"}, {event_value_items_PRESS, "PRESS"}, {event_value_items_RELEASE, "RELEASE"}, {event_value_items_CLICK, "CLICK"}, {event_value_items_DOUBLE_CLICK, "DOUBLE_CLICK"}, {event_value_items_NORTH, "NORTH"}, {event_value_items_NORTH_EAST, "NORTH_EAST"}, {event_value_items_EAST, "EAST"}, {event_value_items_SOUTH_EAST, "SOUTH_EAST"}, {event_value_items_SOUTH, "SOUTH"}, {event_value_items_SOUTH_WEST, "SOUTH_WEST"}, {event_value_items_WEST, "WEST"}, {event_value_items_NORTH_WEST, "NORTH_WEST"}};
 	};
 
-	const std::map<std::string, int> string_to_event_value_items = create_string_to_event_value_items();
-	const std::map<int, std::string> event_value_items_to_string = create_event_value_items_to_string();
+	static const std::map<std::string, int> string_to_event_value_items = create_string_to_event_value_items();
+	static const std::map<int, std::string> event_value_items_to_string = create_event_value_items_to_string();
 
 	event_value_items_enum value() {
 		STRING_TYPE_GETTER("value", static_cast<event_value_items_enum>(string_to_event_value_items.at(resstr)))
@@ -84106,8 +84106,8 @@ public:
 		return {{event_type_items_NONE, "NONE"}, {event_type_items_LEFTMOUSE, "LEFTMOUSE"}, {event_type_items_MIDDLEMOUSE, "MIDDLEMOUSE"}, {event_type_items_RIGHTMOUSE, "RIGHTMOUSE"}, {event_type_items_BUTTON4MOUSE, "BUTTON4MOUSE"}, {event_type_items_BUTTON5MOUSE, "BUTTON5MOUSE"}, {event_type_items_BUTTON6MOUSE, "BUTTON6MOUSE"}, {event_type_items_BUTTON7MOUSE, "BUTTON7MOUSE"}, {event_type_items_ACTIONMOUSE, "ACTIONMOUSE"}, {event_type_items_SELECTMOUSE, "SELECTMOUSE"}, {event_type_items_MOUSEMOVE, "MOUSEMOVE"}, {event_type_items_INBETWEEN_MOUSEMOVE, "INBETWEEN_MOUSEMOVE"}, {event_type_items_TRACKPADPAN, "TRACKPADPAN"}, {event_type_items_TRACKPADZOOM, "TRACKPADZOOM"}, {event_type_items_MOUSEROTATE, "MOUSEROTATE"}, {event_type_items_WHEELUPMOUSE, "WHEELUPMOUSE"}, {event_type_items_WHEELDOWNMOUSE, "WHEELDOWNMOUSE"}, {event_type_items_WHEELINMOUSE, "WHEELINMOUSE"}, {event_type_items_WHEELOUTMOUSE, "WHEELOUTMOUSE"}, {event_type_items_EVT_TWEAK_L, "EVT_TWEAK_L"}, {event_type_items_EVT_TWEAK_M, "EVT_TWEAK_M"}, {event_type_items_EVT_TWEAK_R, "EVT_TWEAK_R"}, {event_type_items_EVT_TWEAK_A, "EVT_TWEAK_A"}, {event_type_items_EVT_TWEAK_S, "EVT_TWEAK_S"}, {event_type_items_A, "A"}, {event_type_items_B, "B"}, {event_type_items_C, "C"}, {event_type_items_D, "D"}, {event_type_items_E, "E"}, {event_type_items_F, "F"}, {event_type_items_G, "G"}, {event_type_items_H, "H"}, {event_type_items_I, "I"}, {event_type_items_J, "J"}, {event_type_items_K, "K"}, {event_type_items_L, "L"}, {event_type_items_M, "M"}, {event_type_items_N, "N"}, {event_type_items_O, "O"}, {event_type_items_P, "P"}, {event_type_items_Q, "Q"}, {event_type_items_R, "R"}, {event_type_items_S, "S"}, {event_type_items_T, "T"}, {event_type_items_U, "U"}, {event_type_items_V, "V"}, {event_type_items_W, "W"}, {event_type_items_X, "X"}, {event_type_items_Y, "Y"}, {event_type_items_Z, "Z"}, {event_type_items_ZERO, "ZERO"}, {event_type_items_ONE, "ONE"}, {event_type_items_TWO, "TWO"}, {event_type_items_THREE, "THREE"}, {event_type_items_FOUR, "FOUR"}, {event_type_items_FIVE, "FIVE"}, {event_type_items_SIX, "SIX"}, {event_type_items_SEVEN, "SEVEN"}, {event_type_items_EIGHT, "EIGHT"}, {event_type_items_NINE, "NINE"}, {event_type_items_LEFT_CTRL, "LEFT_CTRL"}, {event_type_items_LEFT_ALT, "LEFT_ALT"}, {event_type_items_LEFT_SHIFT, "LEFT_SHIFT"}, {event_type_items_RIGHT_ALT, "RIGHT_ALT"}, {event_type_items_RIGHT_CTRL, "RIGHT_CTRL"}, {event_type_items_RIGHT_SHIFT, "RIGHT_SHIFT"}, {event_type_items_OSKEY, "OSKEY"}, {event_type_items_GRLESS, "GRLESS"}, {event_type_items_ESC, "ESC"}, {event_type_items_TAB, "TAB"}, {event_type_items_RET, "RET"}, {event_type_items_SPACE, "SPACE"}, {event_type_items_LINE_FEED, "LINE_FEED"}, {event_type_items_BACK_SPACE, "BACK_SPACE"}, {event_type_items_DEL, "DEL"}, {event_type_items_SEMI_COLON, "SEMI_COLON"}, {event_type_items_PERIOD, "PERIOD"}, {event_type_items_COMMA, "COMMA"}, {event_type_items_QUOTE, "QUOTE"}, {event_type_items_ACCENT_GRAVE, "ACCENT_GRAVE"}, {event_type_items_MINUS, "MINUS"}, {event_type_items_SLASH, "SLASH"}, {event_type_items_BACK_SLASH, "BACK_SLASH"}, {event_type_items_EQUAL, "EQUAL"}, {event_type_items_LEFT_BRACKET, "LEFT_BRACKET"}, {event_type_items_RIGHT_BRACKET, "RIGHT_BRACKET"}, {event_type_items_LEFT_ARROW, "LEFT_ARROW"}, {event_type_items_DOWN_ARROW, "DOWN_ARROW"}, {event_type_items_RIGHT_ARROW, "RIGHT_ARROW"}, {event_type_items_UP_ARROW, "UP_ARROW"}, {event_type_items_NUMPAD_2, "NUMPAD_2"}, {event_type_items_NUMPAD_4, "NUMPAD_4"}, {event_type_items_NUMPAD_6, "NUMPAD_6"}, {event_type_items_NUMPAD_8, "NUMPAD_8"}, {event_type_items_NUMPAD_1, "NUMPAD_1"}, {event_type_items_NUMPAD_3, "NUMPAD_3"}, {event_type_items_NUMPAD_5, "NUMPAD_5"}, {event_type_items_NUMPAD_7, "NUMPAD_7"}, {event_type_items_NUMPAD_9, "NUMPAD_9"}, {event_type_items_NUMPAD_PERIOD, "NUMPAD_PERIOD"}, {event_type_items_NUMPAD_SLASH, "NUMPAD_SLASH"}, {event_type_items_NUMPAD_ASTERIX, "NUMPAD_ASTERIX"}, {event_type_items_NUMPAD_0, "NUMPAD_0"}, {event_type_items_NUMPAD_MINUS, "NUMPAD_MINUS"}, {event_type_items_NUMPAD_ENTER, "NUMPAD_ENTER"}, {event_type_items_NUMPAD_PLUS, "NUMPAD_PLUS"}, {event_type_items_F1, "F1"}, {event_type_items_F2, "F2"}, {event_type_items_F3, "F3"}, {event_type_items_F4, "F4"}, {event_type_items_F5, "F5"}, {event_type_items_F6, "F6"}, {event_type_items_F7, "F7"}, {event_type_items_F8, "F8"}, {event_type_items_F9, "F9"}, {event_type_items_F10, "F10"}, {event_type_items_F11, "F11"}, {event_type_items_F12, "F12"}, {event_type_items_F13, "F13"}, {event_type_items_F14, "F14"}, {event_type_items_F15, "F15"}, {event_type_items_F16, "F16"}, {event_type_items_F17, "F17"}, {event_type_items_F18, "F18"}, {event_type_items_F19, "F19"}, {event_type_items_PAUSE, "PAUSE"}, {event_type_items_INSERT, "INSERT"}, {event_type_items_HOME, "HOME"}, {event_type_items_PAGE_UP, "PAGE_UP"}, {event_type_items_PAGE_DOWN, "PAGE_DOWN"}, {event_type_items_END, "END"}, {event_type_items_MEDIA_PLAY, "MEDIA_PLAY"}, {event_type_items_MEDIA_STOP, "MEDIA_STOP"}, {event_type_items_MEDIA_FIRST, "MEDIA_FIRST"}, {event_type_items_MEDIA_LAST, "MEDIA_LAST"}, {event_type_items_TEXTINPUT, "TEXTINPUT"}, {event_type_items_WINDOW_DEACTIVATE, "WINDOW_DEACTIVATE"}, {event_type_items_TIMER, "TIMER"}, {event_type_items_TIMER0, "TIMER0"}, {event_type_items_TIMER1, "TIMER1"}, {event_type_items_TIMER2, "TIMER2"}, {event_type_items_TIMER_JOBS, "TIMER_JOBS"}, {event_type_items_TIMER_AUTOSAVE, "TIMER_AUTOSAVE"}, {event_type_items_TIMER_REPORT, "TIMER_REPORT"}, {event_type_items_TIMERREGION, "TIMERREGION"}, {event_type_items_NDOF_MOTION, "NDOF_MOTION"}, {event_type_items_NDOF_BUTTON_MENU, "NDOF_BUTTON_MENU"}, {event_type_items_NDOF_BUTTON_FIT, "NDOF_BUTTON_FIT"}, {event_type_items_NDOF_BUTTON_TOP, "NDOF_BUTTON_TOP"}, {event_type_items_NDOF_BUTTON_BOTTOM, "NDOF_BUTTON_BOTTOM"}, {event_type_items_NDOF_BUTTON_LEFT, "NDOF_BUTTON_LEFT"}, {event_type_items_NDOF_BUTTON_RIGHT, "NDOF_BUTTON_RIGHT"}, {event_type_items_NDOF_BUTTON_FRONT, "NDOF_BUTTON_FRONT"}, {event_type_items_NDOF_BUTTON_BACK, "NDOF_BUTTON_BACK"}, {event_type_items_NDOF_BUTTON_ISO1, "NDOF_BUTTON_ISO1"}, {event_type_items_NDOF_BUTTON_ISO2, "NDOF_BUTTON_ISO2"}, {event_type_items_NDOF_BUTTON_ROLL_CW, "NDOF_BUTTON_ROLL_CW"}, {event_type_items_NDOF_BUTTON_ROLL_CCW, "NDOF_BUTTON_ROLL_CCW"}, {event_type_items_NDOF_BUTTON_SPIN_CW, "NDOF_BUTTON_SPIN_CW"}, {event_type_items_NDOF_BUTTON_SPIN_CCW, "NDOF_BUTTON_SPIN_CCW"}, {event_type_items_NDOF_BUTTON_TILT_CW, "NDOF_BUTTON_TILT_CW"}, {event_type_items_NDOF_BUTTON_TILT_CCW, "NDOF_BUTTON_TILT_CCW"}, {event_type_items_NDOF_BUTTON_ROTATE, "NDOF_BUTTON_ROTATE"}, {event_type_items_NDOF_BUTTON_PANZOOM, "NDOF_BUTTON_PANZOOM"}, {event_type_items_NDOF_BUTTON_DOMINANT, "NDOF_BUTTON_DOMINANT"}, {event_type_items_NDOF_BUTTON_PLUS, "NDOF_BUTTON_PLUS"}, {event_type_items_NDOF_BUTTON_MINUS, "NDOF_BUTTON_MINUS"}, {event_type_items_NDOF_BUTTON_ESC, "NDOF_BUTTON_ESC"}, {event_type_items_NDOF_BUTTON_ALT, "NDOF_BUTTON_ALT"}, {event_type_items_NDOF_BUTTON_SHIFT, "NDOF_BUTTON_SHIFT"}, {event_type_items_NDOF_BUTTON_CTRL, "NDOF_BUTTON_CTRL"}, {event_type_items_NDOF_BUTTON_1, "NDOF_BUTTON_1"}, {event_type_items_NDOF_BUTTON_2, "NDOF_BUTTON_2"}, {event_type_items_NDOF_BUTTON_3, "NDOF_BUTTON_3"}, {event_type_items_NDOF_BUTTON_4, "NDOF_BUTTON_4"}, {event_type_items_NDOF_BUTTON_5, "NDOF_BUTTON_5"}, {event_type_items_NDOF_BUTTON_6, "NDOF_BUTTON_6"}, {event_type_items_NDOF_BUTTON_7, "NDOF_BUTTON_7"}, {event_type_items_NDOF_BUTTON_8, "NDOF_BUTTON_8"}, {event_type_items_NDOF_BUTTON_9, "NDOF_BUTTON_9"}, {event_type_items_NDOF_BUTTON_10, "NDOF_BUTTON_10"}, {event_type_items_NDOF_BUTTON_A, "NDOF_BUTTON_A"}, {event_type_items_NDOF_BUTTON_B, "NDOF_BUTTON_B"}, {event_type_items_NDOF_BUTTON_C, "NDOF_BUTTON_C"}};
 	};
 
-	const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
-	const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
+	static const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
+	static const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
 
 	event_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<event_type_items_enum>(string_to_event_type_items.at(resstr)))
@@ -84344,8 +84344,8 @@ public:
 		return {{window_cursor_items_DEFAULT, "DEFAULT"}, {window_cursor_items_NONE, "NONE"}, {window_cursor_items_WAIT, "WAIT"}, {window_cursor_items_CROSSHAIR, "CROSSHAIR"}, {window_cursor_items_MOVE_X, "MOVE_X"}, {window_cursor_items_MOVE_Y, "MOVE_Y"}, {window_cursor_items_KNIFE, "KNIFE"}, {window_cursor_items_TEXT, "TEXT"}, {window_cursor_items_PAINT_BRUSH, "PAINT_BRUSH"}, {window_cursor_items_HAND, "HAND"}, {window_cursor_items_SCROLL_X, "SCROLL_X"}, {window_cursor_items_SCROLL_Y, "SCROLL_Y"}, {window_cursor_items_SCROLL_XY, "SCROLL_XY"}, {window_cursor_items_EYEDROPPER, "EYEDROPPER"}};
 	};
 
-	const std::map<std::string, int> string_to_window_cursor_items = create_string_to_window_cursor_items();
-	const std::map<int, std::string> window_cursor_items_to_string = create_window_cursor_items_to_string();
+	static const std::map<std::string, int> string_to_window_cursor_items = create_string_to_window_cursor_items();
+	static const std::map<int, std::string> window_cursor_items_to_string = create_window_cursor_items_to_string();
 
 	void cursor_set(window_cursor_items_enum cursor) {
 		PYTHON_FUNCTION_ARGS_CALL("cursor_set", "s", window_cursor_items_to_string.at(cursor))
@@ -84381,8 +84381,8 @@ public:
 		return {{stereo3d_display_items_ANAGLYPH, "ANAGLYPH"}, {stereo3d_display_items_INTERLACE, "INTERLACE"}, {stereo3d_display_items_TIMESEQUENTIAL, "TIMESEQUENTIAL"}, {stereo3d_display_items_SIDEBYSIDE, "SIDEBYSIDE"}, {stereo3d_display_items_TOPBOTTOM, "TOPBOTTOM"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_display_items = create_string_to_stereo3d_display_items();
-	const std::map<int, std::string> stereo3d_display_items_to_string = create_stereo3d_display_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_display_items = create_string_to_stereo3d_display_items();
+	static const std::map<int, std::string> stereo3d_display_items_to_string = create_stereo3d_display_items_to_string();
 
 	stereo3d_display_items_enum display_mode() {
 		STRING_TYPE_GETTER("display_mode", static_cast<stereo3d_display_items_enum>(string_to_stereo3d_display_items.at(resstr)))
@@ -84406,8 +84406,8 @@ public:
 		return {{stereo3d_anaglyph_type_items_RED_CYAN, "RED_CYAN"}, {stereo3d_anaglyph_type_items_GREEN_MAGENTA, "GREEN_MAGENTA"}, {stereo3d_anaglyph_type_items_YELLOW_BLUE, "YELLOW_BLUE"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_anaglyph_type_items = create_string_to_stereo3d_anaglyph_type_items();
-	const std::map<int, std::string> stereo3d_anaglyph_type_items_to_string = create_stereo3d_anaglyph_type_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_anaglyph_type_items = create_string_to_stereo3d_anaglyph_type_items();
+	static const std::map<int, std::string> stereo3d_anaglyph_type_items_to_string = create_stereo3d_anaglyph_type_items_to_string();
 
 	stereo3d_anaglyph_type_items_enum anaglyph_type() {
 		STRING_TYPE_GETTER("anaglyph_type", static_cast<stereo3d_anaglyph_type_items_enum>(string_to_stereo3d_anaglyph_type_items.at(resstr)))
@@ -84431,8 +84431,8 @@ public:
 		return {{stereo3d_interlace_type_items_ROW_INTERLEAVED, "ROW_INTERLEAVED"}, {stereo3d_interlace_type_items_COLUMN_INTERLEAVED, "COLUMN_INTERLEAVED"}, {stereo3d_interlace_type_items_CHECKERBOARD_INTERLEAVED, "CHECKERBOARD_INTERLEAVED"}};
 	};
 
-	const std::map<std::string, int> string_to_stereo3d_interlace_type_items = create_string_to_stereo3d_interlace_type_items();
-	const std::map<int, std::string> stereo3d_interlace_type_items_to_string = create_stereo3d_interlace_type_items_to_string();
+	static const std::map<std::string, int> string_to_stereo3d_interlace_type_items = create_string_to_stereo3d_interlace_type_items();
+	static const std::map<int, std::string> stereo3d_interlace_type_items_to_string = create_stereo3d_interlace_type_items_to_string();
 
 	stereo3d_interlace_type_items_enum interlace_type() {
 		STRING_TYPE_GETTER("interlace_type", static_cast<stereo3d_interlace_type_items_enum>(string_to_stereo3d_interlace_type_items.at(resstr)))
@@ -84530,8 +84530,8 @@ public:
 		return {{items_RUNNING_MODAL, "RUNNING_MODAL"}, {items_CANCELLED, "CANCELLED"}, {items_FINISHED, "FINISHED"}, {items_PASS_THROUGH, "PASS_THROUGH"}, {items_INTERFACE, "INTERFACE"}};
 	};
 
-	const std::map<std::string, int> string_to_items = create_string_to_items();
-	const std::map<int, std::string> items_to_string = create_items_to_string();
+	static const std::map<std::string, int> string_to_items = create_string_to_items();
+	static const std::map<int, std::string> items_to_string = create_items_to_string();
 
 	items_enum invoke_props_popup(Operator operator_value, Event event) {
 		PYTHON_FUNCTION_ARGS_CALL("invoke_props_popup", "OO", operator_value.get_pyobjref(), event.get_pyobjref())
@@ -85122,8 +85122,8 @@ public:
 		return {{icon_items_NONE, "NONE"}, {icon_items_QUESTION, "QUESTION"}, {icon_items_ERROR, "ERROR"}, {icon_items_CANCEL, "CANCEL"}, {icon_items_TRIA_RIGHT, "TRIA_RIGHT"}, {icon_items_TRIA_DOWN, "TRIA_DOWN"}, {icon_items_TRIA_LEFT, "TRIA_LEFT"}, {icon_items_TRIA_UP, "TRIA_UP"}, {icon_items_ARROW_LEFTRIGHT, "ARROW_LEFTRIGHT"}, {icon_items_PLUS, "PLUS"}, {icon_items_DISCLOSURE_TRI_DOWN, "DISCLOSURE_TRI_DOWN"}, {icon_items_DISCLOSURE_TRI_RIGHT, "DISCLOSURE_TRI_RIGHT"}, {icon_items_RADIOBUT_OFF, "RADIOBUT_OFF"}, {icon_items_RADIOBUT_ON, "RADIOBUT_ON"}, {icon_items_MENU_PANEL, "MENU_PANEL"}, {icon_items_BLENDER, "BLENDER"}, {icon_items_GRIP, "GRIP"}, {icon_items_DOT, "DOT"}, {icon_items_COLLAPSEMENU, "COLLAPSEMENU"}, {icon_items_X, "X"}, {icon_items_GO_LEFT, "GO_LEFT"}, {icon_items_PLUG, "PLUG"}, {icon_items_UI, "UI"}, {icon_items_NODE, "NODE"}, {icon_items_NODE_SEL, "NODE_SEL"}, {icon_items_FULLSCREEN, "FULLSCREEN"}, {icon_items_SPLITSCREEN, "SPLITSCREEN"}, {icon_items_RIGHTARROW_THIN, "RIGHTARROW_THIN"}, {icon_items_BORDERMOVE, "BORDERMOVE"}, {icon_items_VIEWZOOM, "VIEWZOOM"}, {icon_items_ZOOMIN, "ZOOMIN"}, {icon_items_ZOOMOUT, "ZOOMOUT"}, {icon_items_PANEL_CLOSE, "PANEL_CLOSE"}, {icon_items_COPY_ID, "COPY_ID"}, {icon_items_EYEDROPPER, "EYEDROPPER"}, {icon_items_LINK_AREA, "LINK_AREA"}, {icon_items_AUTO, "AUTO"}, {icon_items_CHECKBOX_DEHLT, "CHECKBOX_DEHLT"}, {icon_items_CHECKBOX_HLT, "CHECKBOX_HLT"}, {icon_items_UNLOCKED, "UNLOCKED"}, {icon_items_LOCKED, "LOCKED"}, {icon_items_UNPINNED, "UNPINNED"}, {icon_items_PINNED, "PINNED"}, {icon_items_SCREEN_BACK, "SCREEN_BACK"}, {icon_items_RIGHTARROW, "RIGHTARROW"}, {icon_items_DOWNARROW_HLT, "DOWNARROW_HLT"}, {icon_items_DOTSUP, "DOTSUP"}, {icon_items_DOTSDOWN, "DOTSDOWN"}, {icon_items_LINK, "LINK"}, {icon_items_INLINK, "INLINK"}, {icon_items_PLUGIN, "PLUGIN"}, {icon_items_HELP, "HELP"}, {icon_items_GHOST_ENABLED, "GHOST_ENABLED"}, {icon_items_COLOR, "COLOR"}, {icon_items_LINKED, "LINKED"}, {icon_items_UNLINKED, "UNLINKED"}, {icon_items_HAND, "HAND"}, {icon_items_ZOOM_ALL, "ZOOM_ALL"}, {icon_items_ZOOM_SELECTED, "ZOOM_SELECTED"}, {icon_items_ZOOM_PREVIOUS, "ZOOM_PREVIOUS"}, {icon_items_ZOOM_IN, "ZOOM_IN"}, {icon_items_ZOOM_OUT, "ZOOM_OUT"}, {icon_items_RENDER_REGION, "RENDER_REGION"}, {icon_items_BORDER_RECT, "BORDER_RECT"}, {icon_items_BORDER_LASSO, "BORDER_LASSO"}, {icon_items_FREEZE, "FREEZE"}, {icon_items_STYLUS_PRESSURE, "STYLUS_PRESSURE"}, {icon_items_GHOST_DISABLED, "GHOST_DISABLED"}, {icon_items_NEW, "NEW"}, {icon_items_FILE_TICK, "FILE_TICK"}, {icon_items_QUIT, "QUIT"}, {icon_items_URL, "URL"}, {icon_items_RECOVER_LAST, "RECOVER_LAST"}, {icon_items_FULLSCREEN_ENTER, "FULLSCREEN_ENTER"}, {icon_items_FULLSCREEN_EXIT, "FULLSCREEN_EXIT"}, {icon_items_BLANK1, "BLANK1"}, {icon_items_LAMP, "LAMP"}, {icon_items_MATERIAL, "MATERIAL"}, {icon_items_TEXTURE, "TEXTURE"}, {icon_items_ANIM, "ANIM"}, {icon_items_WORLD, "WORLD"}, {icon_items_SCENE, "SCENE"}, {icon_items_EDIT, "EDIT"}, {icon_items_GAME, "GAME"}, {icon_items_RADIO, "RADIO"}, {icon_items_SCRIPT, "SCRIPT"}, {icon_items_PARTICLES, "PARTICLES"}, {icon_items_PHYSICS, "PHYSICS"}, {icon_items_SPEAKER, "SPEAKER"}, {icon_items_TEXTURE_SHADED, "TEXTURE_SHADED"}, {icon_items_VIEW3D, "VIEW3D"}, {icon_items_IPO, "IPO"}, {icon_items_OOPS, "OOPS"}, {icon_items_BUTS, "BUTS"}, {icon_items_FILESEL, "FILESEL"}, {icon_items_IMAGE_COL, "IMAGE_COL"}, {icon_items_INFO, "INFO"}, {icon_items_SEQUENCE, "SEQUENCE"}, {icon_items_TEXT, "TEXT"}, {icon_items_IMASEL, "IMASEL"}, {icon_items_SOUND, "SOUND"}, {icon_items_ACTION, "ACTION"}, {icon_items_NLA, "NLA"}, {icon_items_SCRIPTWIN, "SCRIPTWIN"}, {icon_items_TIME, "TIME"}, {icon_items_NODETREE, "NODETREE"}, {icon_items_LOGIC, "LOGIC"}, {icon_items_CONSOLE, "CONSOLE"}, {icon_items_PREFERENCES, "PREFERENCES"}, {icon_items_CLIP, "CLIP"}, {icon_items_ASSET_MANAGER, "ASSET_MANAGER"}, {icon_items_OBJECT_DATAMODE, "OBJECT_DATAMODE"}, {icon_items_EDITMODE_HLT, "EDITMODE_HLT"}, {icon_items_FACESEL_HLT, "FACESEL_HLT"}, {icon_items_VPAINT_HLT, "VPAINT_HLT"}, {icon_items_TPAINT_HLT, "TPAINT_HLT"}, {icon_items_WPAINT_HLT, "WPAINT_HLT"}, {icon_items_SCULPTMODE_HLT, "SCULPTMODE_HLT"}, {icon_items_POSE_HLT, "POSE_HLT"}, {icon_items_PARTICLEMODE, "PARTICLEMODE"}, {icon_items_LIGHTPAINT, "LIGHTPAINT"}, {icon_items_SCENE_DATA, "SCENE_DATA"}, {icon_items_RENDERLAYERS, "RENDERLAYERS"}, {icon_items_WORLD_DATA, "WORLD_DATA"}, {icon_items_OBJECT_DATA, "OBJECT_DATA"}, {icon_items_MESH_DATA, "MESH_DATA"}, {icon_items_CURVE_DATA, "CURVE_DATA"}, {icon_items_META_DATA, "META_DATA"}, {icon_items_LATTICE_DATA, "LATTICE_DATA"}, {icon_items_LAMP_DATA, "LAMP_DATA"}, {icon_items_MATERIAL_DATA, "MATERIAL_DATA"}, {icon_items_TEXTURE_DATA, "TEXTURE_DATA"}, {icon_items_ANIM_DATA, "ANIM_DATA"}, {icon_items_CAMERA_DATA, "CAMERA_DATA"}, {icon_items_PARTICLE_DATA, "PARTICLE_DATA"}, {icon_items_LIBRARY_DATA_DIRECT, "LIBRARY_DATA_DIRECT"}, {icon_items_GROUP, "GROUP"}, {icon_items_ARMATURE_DATA, "ARMATURE_DATA"}, {icon_items_POSE_DATA, "POSE_DATA"}, {icon_items_BONE_DATA, "BONE_DATA"}, {icon_items_CONSTRAINT, "CONSTRAINT"}, {icon_items_SHAPEKEY_DATA, "SHAPEKEY_DATA"}, {icon_items_CONSTRAINT_BONE, "CONSTRAINT_BONE"}, {icon_items_CAMERA_STEREO, "CAMERA_STEREO"}, {icon_items_PACKAGE, "PACKAGE"}, {icon_items_UGLYPACKAGE, "UGLYPACKAGE"}, {icon_items_BRUSH_DATA, "BRUSH_DATA"}, {icon_items_IMAGE_DATA, "IMAGE_DATA"}, {icon_items_FILE, "FILE"}, {icon_items_FCURVE, "FCURVE"}, {icon_items_FONT_DATA, "FONT_DATA"}, {icon_items_RENDER_RESULT, "RENDER_RESULT"}, {icon_items_SURFACE_DATA, "SURFACE_DATA"}, {icon_items_EMPTY_DATA, "EMPTY_DATA"}, {icon_items_SETTINGS, "SETTINGS"}, {icon_items_RENDER_ANIMATION, "RENDER_ANIMATION"}, {icon_items_RENDER_STILL, "RENDER_STILL"}, {icon_items_LIBRARY_DATA_BROKEN, "LIBRARY_DATA_BROKEN"}, {icon_items_BOIDS, "BOIDS"}, {icon_items_STRANDS, "STRANDS"}, {icon_items_LIBRARY_DATA_INDIRECT, "LIBRARY_DATA_INDIRECT"}, {icon_items_GREASEPENCIL, "GREASEPENCIL"}, {icon_items_LINE_DATA, "LINE_DATA"}, {icon_items_GROUP_BONE, "GROUP_BONE"}, {icon_items_GROUP_VERTEX, "GROUP_VERTEX"}, {icon_items_GROUP_VCOL, "GROUP_VCOL"}, {icon_items_GROUP_UVS, "GROUP_UVS"}, {icon_items_RNA, "RNA"}, {icon_items_RNA_ADD, "RNA_ADD"}, {icon_items_OUTLINER_OB_EMPTY, "OUTLINER_OB_EMPTY"}, {icon_items_OUTLINER_OB_MESH, "OUTLINER_OB_MESH"}, {icon_items_OUTLINER_OB_CURVE, "OUTLINER_OB_CURVE"}, {icon_items_OUTLINER_OB_LATTICE, "OUTLINER_OB_LATTICE"}, {icon_items_OUTLINER_OB_META, "OUTLINER_OB_META"}, {icon_items_OUTLINER_OB_LAMP, "OUTLINER_OB_LAMP"}, {icon_items_OUTLINER_OB_CAMERA, "OUTLINER_OB_CAMERA"}, {icon_items_OUTLINER_OB_ARMATURE, "OUTLINER_OB_ARMATURE"}, {icon_items_OUTLINER_OB_FONT, "OUTLINER_OB_FONT"}, {icon_items_OUTLINER_OB_SURFACE, "OUTLINER_OB_SURFACE"}, {icon_items_OUTLINER_OB_SPEAKER, "OUTLINER_OB_SPEAKER"}, {icon_items_RESTRICT_VIEW_OFF, "RESTRICT_VIEW_OFF"}, {icon_items_RESTRICT_VIEW_ON, "RESTRICT_VIEW_ON"}, {icon_items_RESTRICT_SELECT_OFF, "RESTRICT_SELECT_OFF"}, {icon_items_RESTRICT_SELECT_ON, "RESTRICT_SELECT_ON"}, {icon_items_RESTRICT_RENDER_OFF, "RESTRICT_RENDER_OFF"}, {icon_items_RESTRICT_RENDER_ON, "RESTRICT_RENDER_ON"}, {icon_items_OUTLINER_DATA_EMPTY, "OUTLINER_DATA_EMPTY"}, {icon_items_OUTLINER_DATA_MESH, "OUTLINER_DATA_MESH"}, {icon_items_OUTLINER_DATA_CURVE, "OUTLINER_DATA_CURVE"}, {icon_items_OUTLINER_DATA_LATTICE, "OUTLINER_DATA_LATTICE"}, {icon_items_OUTLINER_DATA_META, "OUTLINER_DATA_META"}, {icon_items_OUTLINER_DATA_LAMP, "OUTLINER_DATA_LAMP"}, {icon_items_OUTLINER_DATA_CAMERA, "OUTLINER_DATA_CAMERA"}, {icon_items_OUTLINER_DATA_ARMATURE, "OUTLINER_DATA_ARMATURE"}, {icon_items_OUTLINER_DATA_FONT, "OUTLINER_DATA_FONT"}, {icon_items_OUTLINER_DATA_SURFACE, "OUTLINER_DATA_SURFACE"}, {icon_items_OUTLINER_DATA_SPEAKER, "OUTLINER_DATA_SPEAKER"}, {icon_items_OUTLINER_DATA_POSE, "OUTLINER_DATA_POSE"}, {icon_items_MESH_PLANE, "MESH_PLANE"}, {icon_items_MESH_CUBE, "MESH_CUBE"}, {icon_items_MESH_CIRCLE, "MESH_CIRCLE"}, {icon_items_MESH_UVSPHERE, "MESH_UVSPHERE"}, {icon_items_MESH_ICOSPHERE, "MESH_ICOSPHERE"}, {icon_items_MESH_GRID, "MESH_GRID"}, {icon_items_MESH_MONKEY, "MESH_MONKEY"}, {icon_items_MESH_CYLINDER, "MESH_CYLINDER"}, {icon_items_MESH_TORUS, "MESH_TORUS"}, {icon_items_MESH_CONE, "MESH_CONE"}, {icon_items_LAMP_POINT, "LAMP_POINT"}, {icon_items_LAMP_SUN, "LAMP_SUN"}, {icon_items_LAMP_SPOT, "LAMP_SPOT"}, {icon_items_LAMP_HEMI, "LAMP_HEMI"}, {icon_items_LAMP_AREA, "LAMP_AREA"}, {icon_items_META_EMPTY, "META_EMPTY"}, {icon_items_META_PLANE, "META_PLANE"}, {icon_items_META_CUBE, "META_CUBE"}, {icon_items_META_BALL, "META_BALL"}, {icon_items_META_ELLIPSOID, "META_ELLIPSOID"}, {icon_items_META_CAPSULE, "META_CAPSULE"}, {icon_items_SURFACE_NCURVE, "SURFACE_NCURVE"}, {icon_items_SURFACE_NCIRCLE, "SURFACE_NCIRCLE"}, {icon_items_SURFACE_NSURFACE, "SURFACE_NSURFACE"}, {icon_items_SURFACE_NCYLINDER, "SURFACE_NCYLINDER"}, {icon_items_SURFACE_NSPHERE, "SURFACE_NSPHERE"}, {icon_items_SURFACE_NTORUS, "SURFACE_NTORUS"}, {icon_items_CURVE_BEZCURVE, "CURVE_BEZCURVE"}, {icon_items_CURVE_BEZCIRCLE, "CURVE_BEZCIRCLE"}, {icon_items_CURVE_NCURVE, "CURVE_NCURVE"}, {icon_items_CURVE_NCIRCLE, "CURVE_NCIRCLE"}, {icon_items_CURVE_PATH, "CURVE_PATH"}, {icon_items_COLOR_RED, "COLOR_RED"}, {icon_items_COLOR_GREEN, "COLOR_GREEN"}, {icon_items_COLOR_BLUE, "COLOR_BLUE"}, {icon_items_TRIA_RIGHT_BAR, "TRIA_RIGHT_BAR"}, {icon_items_TRIA_DOWN_BAR, "TRIA_DOWN_BAR"}, {icon_items_TRIA_LEFT_BAR, "TRIA_LEFT_BAR"}, {icon_items_TRIA_UP_BAR, "TRIA_UP_BAR"}, {icon_items_FORCE_FORCE, "FORCE_FORCE"}, {icon_items_FORCE_WIND, "FORCE_WIND"}, {icon_items_FORCE_VORTEX, "FORCE_VORTEX"}, {icon_items_FORCE_MAGNETIC, "FORCE_MAGNETIC"}, {icon_items_FORCE_HARMONIC, "FORCE_HARMONIC"}, {icon_items_FORCE_CHARGE, "FORCE_CHARGE"}, {icon_items_FORCE_LENNARDJONES, "FORCE_LENNARDJONES"}, {icon_items_FORCE_TEXTURE, "FORCE_TEXTURE"}, {icon_items_FORCE_CURVE, "FORCE_CURVE"}, {icon_items_FORCE_BOID, "FORCE_BOID"}, {icon_items_FORCE_TURBULENCE, "FORCE_TURBULENCE"}, {icon_items_FORCE_DRAG, "FORCE_DRAG"}, {icon_items_FORCE_SMOKEFLOW, "FORCE_SMOKEFLOW"}, {icon_items_MODIFIER, "MODIFIER"}, {icon_items_MOD_WAVE, "MOD_WAVE"}, {icon_items_MOD_BUILD, "MOD_BUILD"}, {icon_items_MOD_DECIM, "MOD_DECIM"}, {icon_items_MOD_MIRROR, "MOD_MIRROR"}, {icon_items_MOD_SOFT, "MOD_SOFT"}, {icon_items_MOD_SUBSURF, "MOD_SUBSURF"}, {icon_items_HOOK, "HOOK"}, {icon_items_MOD_PHYSICS, "MOD_PHYSICS"}, {icon_items_MOD_PARTICLES, "MOD_PARTICLES"}, {icon_items_MOD_BOOLEAN, "MOD_BOOLEAN"}, {icon_items_MOD_EDGESPLIT, "MOD_EDGESPLIT"}, {icon_items_MOD_ARRAY, "MOD_ARRAY"}, {icon_items_MOD_UVPROJECT, "MOD_UVPROJECT"}, {icon_items_MOD_DISPLACE, "MOD_DISPLACE"}, {icon_items_MOD_CURVE, "MOD_CURVE"}, {icon_items_MOD_LATTICE, "MOD_LATTICE"}, {icon_items_CONSTRAINT_DATA, "CONSTRAINT_DATA"}, {icon_items_MOD_ARMATURE, "MOD_ARMATURE"}, {icon_items_MOD_SHRINKWRAP, "MOD_SHRINKWRAP"}, {icon_items_MOD_CAST, "MOD_CAST"}, {icon_items_MOD_MESHDEFORM, "MOD_MESHDEFORM"}, {icon_items_MOD_BEVEL, "MOD_BEVEL"}, {icon_items_MOD_SMOOTH, "MOD_SMOOTH"}, {icon_items_MOD_SIMPLEDEFORM, "MOD_SIMPLEDEFORM"}, {icon_items_MOD_MASK, "MOD_MASK"}, {icon_items_MOD_CLOTH, "MOD_CLOTH"}, {icon_items_MOD_EXPLODE, "MOD_EXPLODE"}, {icon_items_MOD_FLUIDSIM, "MOD_FLUIDSIM"}, {icon_items_MOD_MULTIRES, "MOD_MULTIRES"}, {icon_items_MOD_SMOKE, "MOD_SMOKE"}, {icon_items_MOD_SOLIDIFY, "MOD_SOLIDIFY"}, {icon_items_MOD_SCREW, "MOD_SCREW"}, {icon_items_MOD_VERTEX_WEIGHT, "MOD_VERTEX_WEIGHT"}, {icon_items_MOD_DYNAMICPAINT, "MOD_DYNAMICPAINT"}, {icon_items_MOD_REMESH, "MOD_REMESH"}, {icon_items_MOD_OCEAN, "MOD_OCEAN"}, {icon_items_MOD_WARP, "MOD_WARP"}, {icon_items_MOD_SKIN, "MOD_SKIN"}, {icon_items_MOD_TRIANGULATE, "MOD_TRIANGULATE"}, {icon_items_MOD_WIREFRAME, "MOD_WIREFRAME"}, {icon_items_MOD_DATA_TRANSFER, "MOD_DATA_TRANSFER"}, {icon_items_MOD_NORMALEDIT, "MOD_NORMALEDIT"}, {icon_items_REC, "REC"}, {icon_items_PLAY, "PLAY"}, {icon_items_FF, "FF"}, {icon_items_REW, "REW"}, {icon_items_PAUSE, "PAUSE"}, {icon_items_PREV_KEYFRAME, "PREV_KEYFRAME"}, {icon_items_NEXT_KEYFRAME, "NEXT_KEYFRAME"}, {icon_items_PLAY_AUDIO, "PLAY_AUDIO"}, {icon_items_PLAY_REVERSE, "PLAY_REVERSE"}, {icon_items_PREVIEW_RANGE, "PREVIEW_RANGE"}, {icon_items_ACTION_TWEAK, "ACTION_TWEAK"}, {icon_items_PMARKER_ACT, "PMARKER_ACT"}, {icon_items_PMARKER_SEL, "PMARKER_SEL"}, {icon_items_PMARKER, "PMARKER"}, {icon_items_MARKER_HLT, "MARKER_HLT"}, {icon_items_MARKER, "MARKER"}, {icon_items_SPACE2, "SPACE2"}, {icon_items_SPACE3, "SPACE3"}, {icon_items_KEYINGSET, "KEYINGSET"}, {icon_items_KEY_DEHLT, "KEY_DEHLT"}, {icon_items_KEY_HLT, "KEY_HLT"}, {icon_items_MUTE_IPO_OFF, "MUTE_IPO_OFF"}, {icon_items_MUTE_IPO_ON, "MUTE_IPO_ON"}, {icon_items_VISIBLE_IPO_OFF, "VISIBLE_IPO_OFF"}, {icon_items_VISIBLE_IPO_ON, "VISIBLE_IPO_ON"}, {icon_items_DRIVER, "DRIVER"}, {icon_items_SOLO_OFF, "SOLO_OFF"}, {icon_items_SOLO_ON, "SOLO_ON"}, {icon_items_FRAME_PREV, "FRAME_PREV"}, {icon_items_FRAME_NEXT, "FRAME_NEXT"}, {icon_items_NLA_PUSHDOWN, "NLA_PUSHDOWN"}, {icon_items_IPO_CONSTANT, "IPO_CONSTANT"}, {icon_items_IPO_LINEAR, "IPO_LINEAR"}, {icon_items_IPO_BEZIER, "IPO_BEZIER"}, {icon_items_IPO_SINE, "IPO_SINE"}, {icon_items_IPO_QUAD, "IPO_QUAD"}, {icon_items_IPO_CUBIC, "IPO_CUBIC"}, {icon_items_IPO_QUART, "IPO_QUART"}, {icon_items_IPO_QUINT, "IPO_QUINT"}, {icon_items_IPO_EXPO, "IPO_EXPO"}, {icon_items_IPO_CIRC, "IPO_CIRC"}, {icon_items_IPO_BOUNCE, "IPO_BOUNCE"}, {icon_items_IPO_ELASTIC, "IPO_ELASTIC"}, {icon_items_IPO_BACK, "IPO_BACK"}, {icon_items_IPO_EASE_IN, "IPO_EASE_IN"}, {icon_items_IPO_EASE_OUT, "IPO_EASE_OUT"}, {icon_items_IPO_EASE_IN_OUT, "IPO_EASE_IN_OUT"}, {icon_items_VERTEXSEL, "VERTEXSEL"}, {icon_items_EDGESEL, "EDGESEL"}, {icon_items_FACESEL, "FACESEL"}, {icon_items_LOOPSEL, "LOOPSEL"}, {icon_items_ROTATE, "ROTATE"}, {icon_items_CURSOR, "CURSOR"}, {icon_items_ROTATECOLLECTION, "ROTATECOLLECTION"}, {icon_items_ROTATECENTER, "ROTATECENTER"}, {icon_items_ROTACTIVE, "ROTACTIVE"}, {icon_items_ALIGN, "ALIGN"}, {icon_items_SMOOTHCURVE, "SMOOTHCURVE"}, {icon_items_SPHERECURVE, "SPHERECURVE"}, {icon_items_ROOTCURVE, "ROOTCURVE"}, {icon_items_SHARPCURVE, "SHARPCURVE"}, {icon_items_LINCURVE, "LINCURVE"}, {icon_items_NOCURVE, "NOCURVE"}, {icon_items_RNDCURVE, "RNDCURVE"}, {icon_items_PROP_OFF, "PROP_OFF"}, {icon_items_PROP_ON, "PROP_ON"}, {icon_items_PROP_CON, "PROP_CON"}, {icon_items_SCULPT_DYNTOPO, "SCULPT_DYNTOPO"}, {icon_items_PARTICLE_POINT, "PARTICLE_POINT"}, {icon_items_PARTICLE_TIP, "PARTICLE_TIP"}, {icon_items_PARTICLE_PATH, "PARTICLE_PATH"}, {icon_items_MAN_TRANS, "MAN_TRANS"}, {icon_items_MAN_ROT, "MAN_ROT"}, {icon_items_MAN_SCALE, "MAN_SCALE"}, {icon_items_MANIPUL, "MANIPUL"}, {icon_items_SNAP_OFF, "SNAP_OFF"}, {icon_items_SNAP_ON, "SNAP_ON"}, {icon_items_SNAP_NORMAL, "SNAP_NORMAL"}, {icon_items_SNAP_INCREMENT, "SNAP_INCREMENT"}, {icon_items_SNAP_VERTEX, "SNAP_VERTEX"}, {icon_items_SNAP_EDGE, "SNAP_EDGE"}, {icon_items_SNAP_FACE, "SNAP_FACE"}, {icon_items_SNAP_VOLUME, "SNAP_VOLUME"}, {icon_items_STICKY_UVS_LOC, "STICKY_UVS_LOC"}, {icon_items_STICKY_UVS_DISABLE, "STICKY_UVS_DISABLE"}, {icon_items_STICKY_UVS_VERT, "STICKY_UVS_VERT"}, {icon_items_CLIPUV_DEHLT, "CLIPUV_DEHLT"}, {icon_items_CLIPUV_HLT, "CLIPUV_HLT"}, {icon_items_SNAP_PEEL_OBJECT, "SNAP_PEEL_OBJECT"}, {icon_items_GRID, "GRID"}, {icon_items_PASTEDOWN, "PASTEDOWN"}, {icon_items_COPYDOWN, "COPYDOWN"}, {icon_items_PASTEFLIPUP, "PASTEFLIPUP"}, {icon_items_PASTEFLIPDOWN, "PASTEFLIPDOWN"}, {icon_items_SNAP_SURFACE, "SNAP_SURFACE"}, {icon_items_AUTOMERGE_ON, "AUTOMERGE_ON"}, {icon_items_AUTOMERGE_OFF, "AUTOMERGE_OFF"}, {icon_items_RETOPO, "RETOPO"}, {icon_items_UV_VERTEXSEL, "UV_VERTEXSEL"}, {icon_items_UV_EDGESEL, "UV_EDGESEL"}, {icon_items_UV_FACESEL, "UV_FACESEL"}, {icon_items_UV_ISLANDSEL, "UV_ISLANDSEL"}, {icon_items_UV_SYNC_SELECT, "UV_SYNC_SELECT"}, {icon_items_BBOX, "BBOX"}, {icon_items_WIRE, "WIRE"}, {icon_items_SOLID, "SOLID"}, {icon_items_SMOOTH, "SMOOTH"}, {icon_items_POTATO, "POTATO"}, {icon_items_ORTHO, "ORTHO"}, {icon_items_LOCKVIEW_OFF, "LOCKVIEW_OFF"}, {icon_items_LOCKVIEW_ON, "LOCKVIEW_ON"}, {icon_items_AXIS_SIDE, "AXIS_SIDE"}, {icon_items_AXIS_FRONT, "AXIS_FRONT"}, {icon_items_AXIS_TOP, "AXIS_TOP"}, {icon_items_NDOF_DOM, "NDOF_DOM"}, {icon_items_NDOF_TURN, "NDOF_TURN"}, {icon_items_NDOF_FLY, "NDOF_FLY"}, {icon_items_NDOF_TRANS, "NDOF_TRANS"}, {icon_items_LAYER_USED, "LAYER_USED"}, {icon_items_LAYER_ACTIVE, "LAYER_ACTIVE"}, {icon_items_SORTALPHA, "SORTALPHA"}, {icon_items_SORTBYEXT, "SORTBYEXT"}, {icon_items_SORTTIME, "SORTTIME"}, {icon_items_SORTSIZE, "SORTSIZE"}, {icon_items_LONGDISPLAY, "LONGDISPLAY"}, {icon_items_SHORTDISPLAY, "SHORTDISPLAY"}, {icon_items_GHOST, "GHOST"}, {icon_items_IMGDISPLAY, "IMGDISPLAY"}, {icon_items_SAVE_AS, "SAVE_AS"}, {icon_items_SAVE_COPY, "SAVE_COPY"}, {icon_items_BOOKMARKS, "BOOKMARKS"}, {icon_items_FONTPREVIEW, "FONTPREVIEW"}, {icon_items_FILTER, "FILTER"}, {icon_items_NEWFOLDER, "NEWFOLDER"}, {icon_items_OPEN_RECENT, "OPEN_RECENT"}, {icon_items_FILE_PARENT, "FILE_PARENT"}, {icon_items_FILE_REFRESH, "FILE_REFRESH"}, {icon_items_FILE_FOLDER, "FILE_FOLDER"}, {icon_items_FILE_BLANK, "FILE_BLANK"}, {icon_items_FILE_BLEND, "FILE_BLEND"}, {icon_items_FILE_IMAGE, "FILE_IMAGE"}, {icon_items_FILE_MOVIE, "FILE_MOVIE"}, {icon_items_FILE_SCRIPT, "FILE_SCRIPT"}, {icon_items_FILE_SOUND, "FILE_SOUND"}, {icon_items_FILE_FONT, "FILE_FONT"}, {icon_items_FILE_TEXT, "FILE_TEXT"}, {icon_items_RECOVER_AUTO, "RECOVER_AUTO"}, {icon_items_SAVE_PREFS, "SAVE_PREFS"}, {icon_items_LINK_BLEND, "LINK_BLEND"}, {icon_items_APPEND_BLEND, "APPEND_BLEND"}, {icon_items_IMPORT, "IMPORT"}, {icon_items_EXPORT, "EXPORT"}, {icon_items_EXTERNAL_DATA, "EXTERNAL_DATA"}, {icon_items_LOAD_FACTORY, "LOAD_FACTORY"}, {icon_items_LOOP_BACK, "LOOP_BACK"}, {icon_items_LOOP_FORWARDS, "LOOP_FORWARDS"}, {icon_items_BACK, "BACK"}, {icon_items_FORWARD, "FORWARD"}, {icon_items_FILE_HIDDEN, "FILE_HIDDEN"}, {icon_items_FILE_BACKUP, "FILE_BACKUP"}, {icon_items_DISK_DRIVE, "DISK_DRIVE"}, {icon_items_MATPLANE, "MATPLANE"}, {icon_items_MATSPHERE, "MATSPHERE"}, {icon_items_MATCUBE, "MATCUBE"}, {icon_items_MONKEY, "MONKEY"}, {icon_items_HAIR, "HAIR"}, {icon_items_ALIASED, "ALIASED"}, {icon_items_ANTIALIASED, "ANTIALIASED"}, {icon_items_MAT_SPHERE_SKY, "MAT_SPHERE_SKY"}, {icon_items_WORDWRAP_OFF, "WORDWRAP_OFF"}, {icon_items_WORDWRAP_ON, "WORDWRAP_ON"}, {icon_items_SYNTAX_OFF, "SYNTAX_OFF"}, {icon_items_SYNTAX_ON, "SYNTAX_ON"}, {icon_items_LINENUMBERS_OFF, "LINENUMBERS_OFF"}, {icon_items_LINENUMBERS_ON, "LINENUMBERS_ON"}, {icon_items_SCRIPTPLUGINS, "SCRIPTPLUGINS"}, {icon_items_SEQ_SEQUENCER, "SEQ_SEQUENCER"}, {icon_items_SEQ_PREVIEW, "SEQ_PREVIEW"}, {icon_items_SEQ_LUMA_WAVEFORM, "SEQ_LUMA_WAVEFORM"}, {icon_items_SEQ_CHROMA_SCOPE, "SEQ_CHROMA_SCOPE"}, {icon_items_SEQ_HISTOGRAM, "SEQ_HISTOGRAM"}, {icon_items_SEQ_SPLITVIEW, "SEQ_SPLITVIEW"}, {icon_items_IMAGE_RGB, "IMAGE_RGB"}, {icon_items_IMAGE_RGB_ALPHA, "IMAGE_RGB_ALPHA"}, {icon_items_IMAGE_ALPHA, "IMAGE_ALPHA"}, {icon_items_IMAGE_ZDEPTH, "IMAGE_ZDEPTH"}, {icon_items_IMAGEFILE, "IMAGEFILE"}, {icon_items_BRUSH_ADD, "BRUSH_ADD"}, {icon_items_BRUSH_BLOB, "BRUSH_BLOB"}, {icon_items_BRUSH_BLUR, "BRUSH_BLUR"}, {icon_items_BRUSH_CLAY, "BRUSH_CLAY"}, {icon_items_BRUSH_CLAY_STRIPS, "BRUSH_CLAY_STRIPS"}, {icon_items_BRUSH_CLONE, "BRUSH_CLONE"}, {icon_items_BRUSH_CREASE, "BRUSH_CREASE"}, {icon_items_BRUSH_DARKEN, "BRUSH_DARKEN"}, {icon_items_BRUSH_FILL, "BRUSH_FILL"}, {icon_items_BRUSH_FLATTEN, "BRUSH_FLATTEN"}, {icon_items_BRUSH_GRAB, "BRUSH_GRAB"}, {icon_items_BRUSH_INFLATE, "BRUSH_INFLATE"}, {icon_items_BRUSH_LAYER, "BRUSH_LAYER"}, {icon_items_BRUSH_LIGHTEN, "BRUSH_LIGHTEN"}, {icon_items_BRUSH_MASK, "BRUSH_MASK"}, {icon_items_BRUSH_MIX, "BRUSH_MIX"}, {icon_items_BRUSH_MULTIPLY, "BRUSH_MULTIPLY"}, {icon_items_BRUSH_NUDGE, "BRUSH_NUDGE"}, {icon_items_BRUSH_PINCH, "BRUSH_PINCH"}, {icon_items_BRUSH_SCRAPE, "BRUSH_SCRAPE"}, {icon_items_BRUSH_SCULPT_DRAW, "BRUSH_SCULPT_DRAW"}, {icon_items_BRUSH_SMEAR, "BRUSH_SMEAR"}, {icon_items_BRUSH_SMOOTH, "BRUSH_SMOOTH"}, {icon_items_BRUSH_SNAKE_HOOK, "BRUSH_SNAKE_HOOK"}, {icon_items_BRUSH_SOFTEN, "BRUSH_SOFTEN"}, {icon_items_BRUSH_SUBTRACT, "BRUSH_SUBTRACT"}, {icon_items_BRUSH_TEXDRAW, "BRUSH_TEXDRAW"}, {icon_items_BRUSH_TEXFILL, "BRUSH_TEXFILL"}, {icon_items_BRUSH_TEXMASK, "BRUSH_TEXMASK"}, {icon_items_BRUSH_THUMB, "BRUSH_THUMB"}, {icon_items_BRUSH_ROTATE, "BRUSH_ROTATE"}, {icon_items_BRUSH_VERTEXDRAW, "BRUSH_VERTEXDRAW"}, {icon_items_MATCAP_01, "MATCAP_01"}, {icon_items_MATCAP_02, "MATCAP_02"}, {icon_items_MATCAP_03, "MATCAP_03"}, {icon_items_MATCAP_04, "MATCAP_04"}, {icon_items_MATCAP_05, "MATCAP_05"}, {icon_items_MATCAP_06, "MATCAP_06"}, {icon_items_MATCAP_07, "MATCAP_07"}, {icon_items_MATCAP_08, "MATCAP_08"}, {icon_items_MATCAP_09, "MATCAP_09"}, {icon_items_MATCAP_10, "MATCAP_10"}, {icon_items_MATCAP_11, "MATCAP_11"}, {icon_items_MATCAP_12, "MATCAP_12"}, {icon_items_MATCAP_13, "MATCAP_13"}, {icon_items_MATCAP_14, "MATCAP_14"}, {icon_items_MATCAP_15, "MATCAP_15"}, {icon_items_MATCAP_16, "MATCAP_16"}, {icon_items_MATCAP_17, "MATCAP_17"}, {icon_items_MATCAP_18, "MATCAP_18"}, {icon_items_MATCAP_19, "MATCAP_19"}, {icon_items_MATCAP_20, "MATCAP_20"}, {icon_items_MATCAP_21, "MATCAP_21"}, {icon_items_MATCAP_22, "MATCAP_22"}, {icon_items_MATCAP_23, "MATCAP_23"}, {icon_items_MATCAP_24, "MATCAP_24"}, {icon_items_VIEW3D_VEC, "VIEW3D_VEC"}, {icon_items_EDIT_VEC, "EDIT_VEC"}, {icon_items_EDITMODE_VEC_DEHLT, "EDITMODE_VEC_DEHLT"}, {icon_items_EDITMODE_VEC_HLT, "EDITMODE_VEC_HLT"}, {icon_items_DISCLOSURE_TRI_RIGHT_VEC, "DISCLOSURE_TRI_RIGHT_VEC"}, {icon_items_DISCLOSURE_TRI_DOWN_VEC, "DISCLOSURE_TRI_DOWN_VEC"}, {icon_items_MOVE_UP_VEC, "MOVE_UP_VEC"}, {icon_items_MOVE_DOWN_VEC, "MOVE_DOWN_VEC"}, {icon_items_X_VEC, "X_VEC"}, {icon_items_SMALL_TRI_RIGHT_VEC, "SMALL_TRI_RIGHT_VEC"}};
 	};
 
-	const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
-	const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
+	static const std::map<std::string, int> string_to_icon_items = create_string_to_icon_items();
+	static const std::map<int, std::string> icon_items_to_string = create_icon_items_to_string();
 
 	UIPopupMenu pupmenu_begin__internal(const std::string title, icon_items_enum icon = icon_items_NONE) {
 		PYTHON_FUNCTION_ARGS_CALL("pupmenu_begin__internal", "ss", title, icon_items_to_string.at(icon))
@@ -85210,8 +85210,8 @@ public:
 		return {{space_type_items_EMPTY, "EMPTY"}, {space_type_items_VIEW_3D, "VIEW_3D"}, {space_type_items_TIMELINE, "TIMELINE"}, {space_type_items_GRAPH_EDITOR, "GRAPH_EDITOR"}, {space_type_items_DOPESHEET_EDITOR, "DOPESHEET_EDITOR"}, {space_type_items_NLA_EDITOR, "NLA_EDITOR"}, {space_type_items_IMAGE_EDITOR, "IMAGE_EDITOR"}, {space_type_items_SEQUENCE_EDITOR, "SEQUENCE_EDITOR"}, {space_type_items_CLIP_EDITOR, "CLIP_EDITOR"}, {space_type_items_TEXT_EDITOR, "TEXT_EDITOR"}, {space_type_items_NODE_EDITOR, "NODE_EDITOR"}, {space_type_items_LOGIC_EDITOR, "LOGIC_EDITOR"}, {space_type_items_PROPERTIES, "PROPERTIES"}, {space_type_items_OUTLINER, "OUTLINER"}, {space_type_items_USER_PREFERENCES, "USER_PREFERENCES"}, {space_type_items_INFO, "INFO"}, {space_type_items_FILE_BROWSER, "FILE_BROWSER"}, {space_type_items_CONSOLE, "CONSOLE"}};
 	};
 
-	const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
-	const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
+	static const std::map<std::string, int> string_to_space_type_items = create_string_to_space_type_items();
+	static const std::map<int, std::string> space_type_items_to_string = create_space_type_items_to_string();
 
 	space_type_items_enum space_type() {
 		STRING_TYPE_GETTER("space_type", static_cast<space_type_items_enum>(string_to_space_type_items.at(resstr)))
@@ -85240,8 +85240,8 @@ public:
 		return {{region_type_items_WINDOW, "WINDOW"}, {region_type_items_HEADER, "HEADER"}, {region_type_items_CHANNELS, "CHANNELS"}, {region_type_items_TEMPORARY, "TEMPORARY"}, {region_type_items_UI, "UI"}, {region_type_items_TOOLS, "TOOLS"}, {region_type_items_TOOL_PROPS, "TOOL_PROPS"}, {region_type_items_PREVIEW, "PREVIEW"}};
 	};
 
-	const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
-	const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
+	static const std::map<std::string, int> string_to_region_type_items = create_string_to_region_type_items();
+	static const std::map<int, std::string> region_type_items_to_string = create_region_type_items_to_string();
 
 	region_type_items_enum region_type() {
 		STRING_TYPE_GETTER("region_type", static_cast<region_type_items_enum>(string_to_region_type_items.at(resstr)))
@@ -85339,8 +85339,8 @@ public:
 		return {{map_type_items_KEYBOARD, "KEYBOARD"}, {map_type_items_TWEAK, "TWEAK"}, {map_type_items_MOUSE, "MOUSE"}, {map_type_items_NDOF, "NDOF"}, {map_type_items_TEXTINPUT, "TEXTINPUT"}, {map_type_items_TIMER, "TIMER"}};
 	};
 
-	const std::map<std::string, int> string_to_map_type_items = create_string_to_map_type_items();
-	const std::map<int, std::string> map_type_items_to_string = create_map_type_items_to_string();
+	static const std::map<std::string, int> string_to_map_type_items = create_string_to_map_type_items();
+	static const std::map<int, std::string> map_type_items_to_string = create_map_type_items_to_string();
 
 	map_type_items_enum map_type() {
 		STRING_TYPE_GETTER("map_type", static_cast<map_type_items_enum>(string_to_map_type_items.at(resstr)))
@@ -85545,8 +85545,8 @@ public:
 		return {{event_type_items_NONE, "NONE"}, {event_type_items_LEFTMOUSE, "LEFTMOUSE"}, {event_type_items_MIDDLEMOUSE, "MIDDLEMOUSE"}, {event_type_items_RIGHTMOUSE, "RIGHTMOUSE"}, {event_type_items_BUTTON4MOUSE, "BUTTON4MOUSE"}, {event_type_items_BUTTON5MOUSE, "BUTTON5MOUSE"}, {event_type_items_BUTTON6MOUSE, "BUTTON6MOUSE"}, {event_type_items_BUTTON7MOUSE, "BUTTON7MOUSE"}, {event_type_items_ACTIONMOUSE, "ACTIONMOUSE"}, {event_type_items_SELECTMOUSE, "SELECTMOUSE"}, {event_type_items_MOUSEMOVE, "MOUSEMOVE"}, {event_type_items_INBETWEEN_MOUSEMOVE, "INBETWEEN_MOUSEMOVE"}, {event_type_items_TRACKPADPAN, "TRACKPADPAN"}, {event_type_items_TRACKPADZOOM, "TRACKPADZOOM"}, {event_type_items_MOUSEROTATE, "MOUSEROTATE"}, {event_type_items_WHEELUPMOUSE, "WHEELUPMOUSE"}, {event_type_items_WHEELDOWNMOUSE, "WHEELDOWNMOUSE"}, {event_type_items_WHEELINMOUSE, "WHEELINMOUSE"}, {event_type_items_WHEELOUTMOUSE, "WHEELOUTMOUSE"}, {event_type_items_EVT_TWEAK_L, "EVT_TWEAK_L"}, {event_type_items_EVT_TWEAK_M, "EVT_TWEAK_M"}, {event_type_items_EVT_TWEAK_R, "EVT_TWEAK_R"}, {event_type_items_EVT_TWEAK_A, "EVT_TWEAK_A"}, {event_type_items_EVT_TWEAK_S, "EVT_TWEAK_S"}, {event_type_items_A, "A"}, {event_type_items_B, "B"}, {event_type_items_C, "C"}, {event_type_items_D, "D"}, {event_type_items_E, "E"}, {event_type_items_F, "F"}, {event_type_items_G, "G"}, {event_type_items_H, "H"}, {event_type_items_I, "I"}, {event_type_items_J, "J"}, {event_type_items_K, "K"}, {event_type_items_L, "L"}, {event_type_items_M, "M"}, {event_type_items_N, "N"}, {event_type_items_O, "O"}, {event_type_items_P, "P"}, {event_type_items_Q, "Q"}, {event_type_items_R, "R"}, {event_type_items_S, "S"}, {event_type_items_T, "T"}, {event_type_items_U, "U"}, {event_type_items_V, "V"}, {event_type_items_W, "W"}, {event_type_items_X, "X"}, {event_type_items_Y, "Y"}, {event_type_items_Z, "Z"}, {event_type_items_ZERO, "ZERO"}, {event_type_items_ONE, "ONE"}, {event_type_items_TWO, "TWO"}, {event_type_items_THREE, "THREE"}, {event_type_items_FOUR, "FOUR"}, {event_type_items_FIVE, "FIVE"}, {event_type_items_SIX, "SIX"}, {event_type_items_SEVEN, "SEVEN"}, {event_type_items_EIGHT, "EIGHT"}, {event_type_items_NINE, "NINE"}, {event_type_items_LEFT_CTRL, "LEFT_CTRL"}, {event_type_items_LEFT_ALT, "LEFT_ALT"}, {event_type_items_LEFT_SHIFT, "LEFT_SHIFT"}, {event_type_items_RIGHT_ALT, "RIGHT_ALT"}, {event_type_items_RIGHT_CTRL, "RIGHT_CTRL"}, {event_type_items_RIGHT_SHIFT, "RIGHT_SHIFT"}, {event_type_items_OSKEY, "OSKEY"}, {event_type_items_GRLESS, "GRLESS"}, {event_type_items_ESC, "ESC"}, {event_type_items_TAB, "TAB"}, {event_type_items_RET, "RET"}, {event_type_items_SPACE, "SPACE"}, {event_type_items_LINE_FEED, "LINE_FEED"}, {event_type_items_BACK_SPACE, "BACK_SPACE"}, {event_type_items_DEL, "DEL"}, {event_type_items_SEMI_COLON, "SEMI_COLON"}, {event_type_items_PERIOD, "PERIOD"}, {event_type_items_COMMA, "COMMA"}, {event_type_items_QUOTE, "QUOTE"}, {event_type_items_ACCENT_GRAVE, "ACCENT_GRAVE"}, {event_type_items_MINUS, "MINUS"}, {event_type_items_SLASH, "SLASH"}, {event_type_items_BACK_SLASH, "BACK_SLASH"}, {event_type_items_EQUAL, "EQUAL"}, {event_type_items_LEFT_BRACKET, "LEFT_BRACKET"}, {event_type_items_RIGHT_BRACKET, "RIGHT_BRACKET"}, {event_type_items_LEFT_ARROW, "LEFT_ARROW"}, {event_type_items_DOWN_ARROW, "DOWN_ARROW"}, {event_type_items_RIGHT_ARROW, "RIGHT_ARROW"}, {event_type_items_UP_ARROW, "UP_ARROW"}, {event_type_items_NUMPAD_2, "NUMPAD_2"}, {event_type_items_NUMPAD_4, "NUMPAD_4"}, {event_type_items_NUMPAD_6, "NUMPAD_6"}, {event_type_items_NUMPAD_8, "NUMPAD_8"}, {event_type_items_NUMPAD_1, "NUMPAD_1"}, {event_type_items_NUMPAD_3, "NUMPAD_3"}, {event_type_items_NUMPAD_5, "NUMPAD_5"}, {event_type_items_NUMPAD_7, "NUMPAD_7"}, {event_type_items_NUMPAD_9, "NUMPAD_9"}, {event_type_items_NUMPAD_PERIOD, "NUMPAD_PERIOD"}, {event_type_items_NUMPAD_SLASH, "NUMPAD_SLASH"}, {event_type_items_NUMPAD_ASTERIX, "NUMPAD_ASTERIX"}, {event_type_items_NUMPAD_0, "NUMPAD_0"}, {event_type_items_NUMPAD_MINUS, "NUMPAD_MINUS"}, {event_type_items_NUMPAD_ENTER, "NUMPAD_ENTER"}, {event_type_items_NUMPAD_PLUS, "NUMPAD_PLUS"}, {event_type_items_F1, "F1"}, {event_type_items_F2, "F2"}, {event_type_items_F3, "F3"}, {event_type_items_F4, "F4"}, {event_type_items_F5, "F5"}, {event_type_items_F6, "F6"}, {event_type_items_F7, "F7"}, {event_type_items_F8, "F8"}, {event_type_items_F9, "F9"}, {event_type_items_F10, "F10"}, {event_type_items_F11, "F11"}, {event_type_items_F12, "F12"}, {event_type_items_F13, "F13"}, {event_type_items_F14, "F14"}, {event_type_items_F15, "F15"}, {event_type_items_F16, "F16"}, {event_type_items_F17, "F17"}, {event_type_items_F18, "F18"}, {event_type_items_F19, "F19"}, {event_type_items_PAUSE, "PAUSE"}, {event_type_items_INSERT, "INSERT"}, {event_type_items_HOME, "HOME"}, {event_type_items_PAGE_UP, "PAGE_UP"}, {event_type_items_PAGE_DOWN, "PAGE_DOWN"}, {event_type_items_END, "END"}, {event_type_items_MEDIA_PLAY, "MEDIA_PLAY"}, {event_type_items_MEDIA_STOP, "MEDIA_STOP"}, {event_type_items_MEDIA_FIRST, "MEDIA_FIRST"}, {event_type_items_MEDIA_LAST, "MEDIA_LAST"}, {event_type_items_TEXTINPUT, "TEXTINPUT"}, {event_type_items_WINDOW_DEACTIVATE, "WINDOW_DEACTIVATE"}, {event_type_items_TIMER, "TIMER"}, {event_type_items_TIMER0, "TIMER0"}, {event_type_items_TIMER1, "TIMER1"}, {event_type_items_TIMER2, "TIMER2"}, {event_type_items_TIMER_JOBS, "TIMER_JOBS"}, {event_type_items_TIMER_AUTOSAVE, "TIMER_AUTOSAVE"}, {event_type_items_TIMER_REPORT, "TIMER_REPORT"}, {event_type_items_TIMERREGION, "TIMERREGION"}, {event_type_items_NDOF_MOTION, "NDOF_MOTION"}, {event_type_items_NDOF_BUTTON_MENU, "NDOF_BUTTON_MENU"}, {event_type_items_NDOF_BUTTON_FIT, "NDOF_BUTTON_FIT"}, {event_type_items_NDOF_BUTTON_TOP, "NDOF_BUTTON_TOP"}, {event_type_items_NDOF_BUTTON_BOTTOM, "NDOF_BUTTON_BOTTOM"}, {event_type_items_NDOF_BUTTON_LEFT, "NDOF_BUTTON_LEFT"}, {event_type_items_NDOF_BUTTON_RIGHT, "NDOF_BUTTON_RIGHT"}, {event_type_items_NDOF_BUTTON_FRONT, "NDOF_BUTTON_FRONT"}, {event_type_items_NDOF_BUTTON_BACK, "NDOF_BUTTON_BACK"}, {event_type_items_NDOF_BUTTON_ISO1, "NDOF_BUTTON_ISO1"}, {event_type_items_NDOF_BUTTON_ISO2, "NDOF_BUTTON_ISO2"}, {event_type_items_NDOF_BUTTON_ROLL_CW, "NDOF_BUTTON_ROLL_CW"}, {event_type_items_NDOF_BUTTON_ROLL_CCW, "NDOF_BUTTON_ROLL_CCW"}, {event_type_items_NDOF_BUTTON_SPIN_CW, "NDOF_BUTTON_SPIN_CW"}, {event_type_items_NDOF_BUTTON_SPIN_CCW, "NDOF_BUTTON_SPIN_CCW"}, {event_type_items_NDOF_BUTTON_TILT_CW, "NDOF_BUTTON_TILT_CW"}, {event_type_items_NDOF_BUTTON_TILT_CCW, "NDOF_BUTTON_TILT_CCW"}, {event_type_items_NDOF_BUTTON_ROTATE, "NDOF_BUTTON_ROTATE"}, {event_type_items_NDOF_BUTTON_PANZOOM, "NDOF_BUTTON_PANZOOM"}, {event_type_items_NDOF_BUTTON_DOMINANT, "NDOF_BUTTON_DOMINANT"}, {event_type_items_NDOF_BUTTON_PLUS, "NDOF_BUTTON_PLUS"}, {event_type_items_NDOF_BUTTON_MINUS, "NDOF_BUTTON_MINUS"}, {event_type_items_NDOF_BUTTON_ESC, "NDOF_BUTTON_ESC"}, {event_type_items_NDOF_BUTTON_ALT, "NDOF_BUTTON_ALT"}, {event_type_items_NDOF_BUTTON_SHIFT, "NDOF_BUTTON_SHIFT"}, {event_type_items_NDOF_BUTTON_CTRL, "NDOF_BUTTON_CTRL"}, {event_type_items_NDOF_BUTTON_1, "NDOF_BUTTON_1"}, {event_type_items_NDOF_BUTTON_2, "NDOF_BUTTON_2"}, {event_type_items_NDOF_BUTTON_3, "NDOF_BUTTON_3"}, {event_type_items_NDOF_BUTTON_4, "NDOF_BUTTON_4"}, {event_type_items_NDOF_BUTTON_5, "NDOF_BUTTON_5"}, {event_type_items_NDOF_BUTTON_6, "NDOF_BUTTON_6"}, {event_type_items_NDOF_BUTTON_7, "NDOF_BUTTON_7"}, {event_type_items_NDOF_BUTTON_8, "NDOF_BUTTON_8"}, {event_type_items_NDOF_BUTTON_9, "NDOF_BUTTON_9"}, {event_type_items_NDOF_BUTTON_10, "NDOF_BUTTON_10"}, {event_type_items_NDOF_BUTTON_A, "NDOF_BUTTON_A"}, {event_type_items_NDOF_BUTTON_B, "NDOF_BUTTON_B"}, {event_type_items_NDOF_BUTTON_C, "NDOF_BUTTON_C"}};
 	};
 
-	const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
-	const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
+	static const std::map<std::string, int> string_to_event_type_items = create_string_to_event_type_items();
+	static const std::map<int, std::string> event_type_items_to_string = create_event_type_items_to_string();
 
 	event_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<event_type_items_enum>(string_to_event_type_items.at(resstr)))
@@ -85581,8 +85581,8 @@ public:
 		return {{event_value_items_ANY, "ANY"}, {event_value_items_NOTHING, "NOTHING"}, {event_value_items_PRESS, "PRESS"}, {event_value_items_RELEASE, "RELEASE"}, {event_value_items_CLICK, "CLICK"}, {event_value_items_DOUBLE_CLICK, "DOUBLE_CLICK"}, {event_value_items_NORTH, "NORTH"}, {event_value_items_NORTH_EAST, "NORTH_EAST"}, {event_value_items_EAST, "EAST"}, {event_value_items_SOUTH_EAST, "SOUTH_EAST"}, {event_value_items_SOUTH, "SOUTH"}, {event_value_items_SOUTH_WEST, "SOUTH_WEST"}, {event_value_items_WEST, "WEST"}, {event_value_items_NORTH_WEST, "NORTH_WEST"}};
 	};
 
-	const std::map<std::string, int> string_to_event_value_items = create_string_to_event_value_items();
-	const std::map<int, std::string> event_value_items_to_string = create_event_value_items_to_string();
+	static const std::map<std::string, int> string_to_event_value_items = create_string_to_event_value_items();
+	static const std::map<int, std::string> event_value_items_to_string = create_event_value_items_to_string();
 
 	event_value_items_enum value() {
 		STRING_TYPE_GETTER("value", static_cast<event_value_items_enum>(string_to_event_value_items.at(resstr)))
@@ -85668,8 +85668,8 @@ public:
 		return {{keymap_propvalue_items_NONE, "NONE"}};
 	};
 
-	const std::map<std::string, int> string_to_keymap_propvalue_items = create_string_to_keymap_propvalue_items();
-	const std::map<int, std::string> keymap_propvalue_items_to_string = create_keymap_propvalue_items_to_string();
+	static const std::map<std::string, int> string_to_keymap_propvalue_items = create_string_to_keymap_propvalue_items();
+	static const std::map<int, std::string> keymap_propvalue_items_to_string = create_keymap_propvalue_items_to_string();
 
 	keymap_propvalue_items_enum propvalue() {
 		STRING_TYPE_GETTER("propvalue", static_cast<keymap_propvalue_items_enum>(string_to_keymap_propvalue_items.at(resstr)))
@@ -85849,8 +85849,8 @@ public:
 		return {{blend_mode_items_MULTIPLY, "MULTIPLY"}, {blend_mode_items_ADD, "ADD"}};
 	};
 
-	const std::map<std::string, int> string_to_blend_mode_items = create_string_to_blend_mode_items();
-	const std::map<int, std::string> blend_mode_items_to_string = create_blend_mode_items_to_string();
+	static const std::map<std::string, int> string_to_blend_mode_items = create_string_to_blend_mode_items();
+	static const std::map<int, std::string> blend_mode_items_to_string = create_blend_mode_items_to_string();
 
 	blend_mode_items_enum ao_blend_type() {
 		STRING_TYPE_GETTER("ao_blend_type", static_cast<blend_mode_items_enum>(string_to_blend_mode_items.at(resstr)))
@@ -85890,8 +85890,8 @@ public:
 		return {{prop_color_items_PLAIN, "PLAIN"}, {prop_color_items_SKY_COLOR, "SKY_COLOR"}, {prop_color_items_SKY_TEXTURE, "SKY_TEXTURE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_color_items = create_string_to_prop_color_items();
-	const std::map<int, std::string> prop_color_items_to_string = create_prop_color_items_to_string();
+	static const std::map<std::string, int> string_to_prop_color_items = create_string_to_prop_color_items();
+	static const std::map<int, std::string> prop_color_items_to_string = create_prop_color_items_to_string();
 
 	prop_color_items_enum environment_color() {
 		STRING_TYPE_GETTER("environment_color", static_cast<prop_color_items_enum>(string_to_prop_color_items.at(resstr)))
@@ -85938,8 +85938,8 @@ public:
 		return {{prop_gather_method_items_RAYTRACE, "RAYTRACE"}, {prop_gather_method_items_APPROXIMATE, "APPROXIMATE"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_gather_method_items = create_string_to_prop_gather_method_items();
-	const std::map<int, std::string> prop_gather_method_items_to_string = create_prop_gather_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_gather_method_items = create_string_to_prop_gather_method_items();
+	static const std::map<int, std::string> prop_gather_method_items_to_string = create_prop_gather_method_items_to_string();
 
 	prop_gather_method_items_enum gather_method() {
 		STRING_TYPE_GETTER("gather_method", static_cast<prop_gather_method_items_enum>(string_to_prop_gather_method_items.at(resstr)))
@@ -86051,8 +86051,8 @@ public:
 		return {{prop_sample_method_items_CONSTANT_JITTERED, "CONSTANT_JITTERED"}, {prop_sample_method_items_ADAPTIVE_QMC, "ADAPTIVE_QMC"}, {prop_sample_method_items_CONSTANT_QMC, "CONSTANT_QMC"}};
 	};
 
-	const std::map<std::string, int> string_to_prop_sample_method_items = create_string_to_prop_sample_method_items();
-	const std::map<int, std::string> prop_sample_method_items_to_string = create_prop_sample_method_items_to_string();
+	static const std::map<std::string, int> string_to_prop_sample_method_items = create_string_to_prop_sample_method_items();
+	static const std::map<int, std::string> prop_sample_method_items_to_string = create_prop_sample_method_items_to_string();
 
 	prop_sample_method_items_enum sample_method() {
 		STRING_TYPE_GETTER("sample_method", static_cast<prop_sample_method_items_enum>(string_to_prop_sample_method_items.at(resstr)))
@@ -86122,8 +86122,8 @@ public:
 		return {{falloff_items_QUADRATIC, "QUADRATIC"}, {falloff_items_LINEAR, "LINEAR"}, {falloff_items_INVERSE_QUADRATIC, "INVERSE_QUADRATIC"}};
 	};
 
-	const std::map<std::string, int> string_to_falloff_items = create_string_to_falloff_items();
-	const std::map<int, std::string> falloff_items_to_string = create_falloff_items_to_string();
+	static const std::map<std::string, int> string_to_falloff_items = create_string_to_falloff_items();
+	static const std::map<int, std::string> falloff_items_to_string = create_falloff_items_to_string();
 
 	falloff_items_enum falloff() {
 		STRING_TYPE_GETTER("falloff", static_cast<falloff_items_enum>(string_to_falloff_items.at(resstr)))
@@ -86189,8 +86189,8 @@ public:
 		return {{texco_items_VIEW, "VIEW"}, {texco_items_GLOBAL, "GLOBAL"}, {texco_items_ANGMAP, "ANGMAP"}, {texco_items_SPHERE, "SPHERE"}, {texco_items_EQUIRECT, "EQUIRECT"}, {texco_items_TUBE, "TUBE"}, {texco_items_OBJECT, "OBJECT"}};
 	};
 
-	const std::map<std::string, int> string_to_texco_items = create_string_to_texco_items();
-	const std::map<int, std::string> texco_items_to_string = create_texco_items_to_string();
+	static const std::map<std::string, int> string_to_texco_items = create_string_to_texco_items();
+	static const std::map<int, std::string> texco_items_to_string = create_texco_items_to_string();
 
 	texco_items_enum texture_coords() {
 		STRING_TYPE_GETTER("texture_coords", static_cast<texco_items_enum>(string_to_texco_items.at(resstr)))
@@ -86291,8 +86291,8 @@ public:
 		return {{clip_source_items_SEQUENCE, "SEQUENCE"}, {clip_source_items_MOVIE, "MOVIE"}};
 	};
 
-	const std::map<std::string, int> string_to_clip_source_items = create_string_to_clip_source_items();
-	const std::map<int, std::string> clip_source_items_to_string = create_clip_source_items_to_string();
+	static const std::map<std::string, int> string_to_clip_source_items = create_string_to_clip_source_items();
+	static const std::map<int, std::string> clip_source_items_to_string = create_clip_source_items_to_string();
 
 	clip_source_items_enum source() {
 		STRING_TYPE_GETTER("source", static_cast<clip_source_items_enum>(string_to_clip_source_items.at(resstr)))
@@ -86460,8 +86460,8 @@ public:
 		return {{clip_tc_items_NONE, "NONE"}, {clip_tc_items_RECORD_RUN, "RECORD_RUN"}, {clip_tc_items_FREE_RUN, "FREE_RUN"}, {clip_tc_items_FREE_RUN_REC_DATE, "FREE_RUN_REC_DATE"}, {clip_tc_items_FREE_RUN_NO_GAPS, "FREE_RUN_NO_GAPS"}};
 	};
 
-	const std::map<std::string, int> string_to_clip_tc_items = create_string_to_clip_tc_items();
-	const std::map<int, std::string> clip_tc_items_to_string = create_clip_tc_items_to_string();
+	static const std::map<std::string, int> string_to_clip_tc_items = create_string_to_clip_tc_items();
+	static const std::map<int, std::string> clip_tc_items_to_string = create_clip_tc_items_to_string();
 
 	clip_tc_items_enum timecode() {
 		STRING_TYPE_GETTER("timecode", static_cast<clip_tc_items_enum>(string_to_clip_tc_items.at(resstr)))
@@ -86509,8 +86509,8 @@ public:
 		return {{clip_render_size_items_PROXY_25, "PROXY_25"}, {clip_render_size_items_PROXY_50, "PROXY_50"}, {clip_render_size_items_PROXY_75, "PROXY_75"}, {clip_render_size_items_PROXY_100, "PROXY_100"}, {clip_render_size_items_FULL, "FULL"}};
 	};
 
-	const std::map<std::string, int> string_to_clip_render_size_items = create_string_to_clip_render_size_items();
-	const std::map<int, std::string> clip_render_size_items_to_string = create_clip_render_size_items_to_string();
+	static const std::map<std::string, int> string_to_clip_render_size_items = create_string_to_clip_render_size_items();
+	static const std::map<int, std::string> clip_render_size_items_to_string = create_clip_render_size_items_to_string();
 
 	clip_render_size_items_enum proxy_render_size() {
 		STRING_TYPE_GETTER("proxy_render_size", static_cast<clip_render_size_items_enum>(string_to_clip_render_size_items.at(resstr)))
@@ -86557,8 +86557,8 @@ public:
 		return {{speed_items_FASTEST, "FASTEST"}, {speed_items_DOUBLE, "DOUBLE"}, {speed_items_REALTIME, "REALTIME"}, {speed_items_HALF, "HALF"}, {speed_items_QUARTER, "QUARTER"}};
 	};
 
-	const std::map<std::string, int> string_to_speed_items = create_string_to_speed_items();
-	const std::map<int, std::string> speed_items_to_string = create_speed_items_to_string();
+	static const std::map<std::string, int> string_to_speed_items = create_string_to_speed_items();
+	static const std::map<int, std::string> speed_items_to_string = create_speed_items_to_string();
 
 	speed_items_enum speed() {
 		STRING_TYPE_GETTER("speed", static_cast<speed_items_enum>(string_to_speed_items.at(resstr)))
@@ -86594,8 +86594,8 @@ public:
 		return {{refine_items_NONE, "NONE"}, {refine_items_FOCAL_LENGTH, "FOCAL_LENGTH"}, {refine_items_FOCAL_LENGTH_RADIAL_K1, "FOCAL_LENGTH_RADIAL_K1"}, {refine_items_FOCAL_LENGTH_RADIAL_K1_K2, "FOCAL_LENGTH_RADIAL_K1_K2"}, {refine_items_FOCAL_LENGTH_PRINCIPAL_POINT_RADIAL_K1_K2, "FOCAL_LENGTH_PRINCIPAL_POINT_RADIAL_K1_K2"}, {refine_items_FOCAL_LENGTH_PRINCIPAL_POINT, "FOCAL_LENGTH_PRINCIPAL_POINT"}, {refine_items_RADIAL_K1_K2, "RADIAL_K1_K2"}};
 	};
 
-	const std::map<std::string, int> string_to_refine_items = create_string_to_refine_items();
-	const std::map<int, std::string> refine_items_to_string = create_refine_items_to_string();
+	static const std::map<std::string, int> string_to_refine_items = create_string_to_refine_items();
+	static const std::map<int, std::string> refine_items_to_string = create_refine_items_to_string();
 
 	refine_items_enum refine_intrinsics() {
 		STRING_TYPE_GETTER("refine_intrinsics", static_cast<refine_items_enum>(string_to_refine_items.at(resstr)))
@@ -86643,8 +86643,8 @@ public:
 		return {{cleanup_items_SELECT, "SELECT"}, {cleanup_items_DELETE_TRACK, "DELETE_TRACK"}, {cleanup_items_DELETE_SEGMENTS, "DELETE_SEGMENTS"}};
 	};
 
-	const std::map<std::string, int> string_to_cleanup_items = create_string_to_cleanup_items();
-	const std::map<int, std::string> cleanup_items_to_string = create_cleanup_items_to_string();
+	static const std::map<std::string, int> string_to_cleanup_items = create_string_to_cleanup_items();
+	static const std::map<int, std::string> cleanup_items_to_string = create_cleanup_items_to_string();
 
 	cleanup_items_enum clean_action() {
 		STRING_TYPE_GETTER("clean_action", static_cast<cleanup_items_enum>(string_to_cleanup_items.at(resstr)))
@@ -86699,8 +86699,8 @@ public:
 		return {{pattern_match_items_KEYFRAME, "KEYFRAME"}, {pattern_match_items_PREV_FRAME, "PREV_FRAME"}};
 	};
 
-	const std::map<std::string, int> string_to_pattern_match_items = create_string_to_pattern_match_items();
-	const std::map<int, std::string> pattern_match_items_to_string = create_pattern_match_items_to_string();
+	static const std::map<std::string, int> string_to_pattern_match_items = create_string_to_pattern_match_items();
+	static const std::map<int, std::string> pattern_match_items_to_string = create_pattern_match_items_to_string();
 
 	pattern_match_items_enum default_pattern_match() {
 		STRING_TYPE_GETTER("default_pattern_match", static_cast<pattern_match_items_enum>(string_to_pattern_match_items.at(resstr)))
@@ -86735,8 +86735,8 @@ public:
 		return {{tracker_motion_model_Perspective, "Perspective"}, {tracker_motion_model_Affine, "Affine"}, {tracker_motion_model_LocRotScale, "LocRotScale"}, {tracker_motion_model_LocScale, "LocScale"}, {tracker_motion_model_LocRot, "LocRot"}, {tracker_motion_model_Loc, "Loc"}};
 	};
 
-	const std::map<std::string, int> string_to_tracker_motion_model = create_string_to_tracker_motion_model();
-	const std::map<int, std::string> tracker_motion_model_to_string = create_tracker_motion_model_to_string();
+	static const std::map<std::string, int> string_to_tracker_motion_model = create_string_to_tracker_motion_model();
+	static const std::map<int, std::string> tracker_motion_model_to_string = create_tracker_motion_model_to_string();
 
 	tracker_motion_model_enum default_motion_model() {
 		STRING_TYPE_GETTER("default_motion_model", static_cast<tracker_motion_model_enum>(string_to_tracker_motion_model.at(resstr)))
@@ -86853,8 +86853,8 @@ public:
 		return {{distortion_model_items_POLYNOMIAL, "POLYNOMIAL"}, {distortion_model_items_DIVISION, "DIVISION"}};
 	};
 
-	const std::map<std::string, int> string_to_distortion_model_items = create_string_to_distortion_model_items();
-	const std::map<int, std::string> distortion_model_items_to_string = create_distortion_model_items_to_string();
+	static const std::map<std::string, int> string_to_distortion_model_items = create_string_to_distortion_model_items();
+	static const std::map<int, std::string> distortion_model_items_to_string = create_distortion_model_items_to_string();
 
 	distortion_model_items_enum distortion_model() {
 		STRING_TYPE_GETTER("distortion_model", static_cast<distortion_model_items_enum>(string_to_distortion_model_items.at(resstr)))
@@ -86901,8 +86901,8 @@ public:
 		return {{camera_units_items_PIXELS, "PIXELS"}, {camera_units_items_MILLIMETERS, "MILLIMETERS"}};
 	};
 
-	const std::map<std::string, int> string_to_camera_units_items = create_string_to_camera_units_items();
-	const std::map<int, std::string> camera_units_items_to_string = create_camera_units_items_to_string();
+	static const std::map<std::string, int> string_to_camera_units_items = create_string_to_camera_units_items();
+	static const std::map<int, std::string> camera_units_items_to_string = create_camera_units_items_to_string();
 
 	camera_units_items_enum units() {
 		STRING_TYPE_GETTER("units", static_cast<camera_units_items_enum>(string_to_camera_units_items.at(resstr)))
@@ -87073,8 +87073,8 @@ public:
 		return {{pattern_match_items_KEYFRAME, "KEYFRAME"}, {pattern_match_items_PREV_FRAME, "PREV_FRAME"}};
 	};
 
-	const std::map<std::string, int> string_to_pattern_match_items = create_string_to_pattern_match_items();
-	const std::map<int, std::string> pattern_match_items_to_string = create_pattern_match_items_to_string();
+	static const std::map<std::string, int> string_to_pattern_match_items = create_string_to_pattern_match_items();
+	static const std::map<int, std::string> pattern_match_items_to_string = create_pattern_match_items_to_string();
 
 	pattern_match_items_enum pattern_match() {
 		STRING_TYPE_GETTER("pattern_match", static_cast<pattern_match_items_enum>(string_to_pattern_match_items.at(resstr)))
@@ -87109,8 +87109,8 @@ public:
 		return {{tracker_motion_model_Perspective, "Perspective"}, {tracker_motion_model_Affine, "Affine"}, {tracker_motion_model_LocRotScale, "LocRotScale"}, {tracker_motion_model_LocScale, "LocScale"}, {tracker_motion_model_LocRot, "LocRot"}, {tracker_motion_model_Loc, "Loc"}};
 	};
 
-	const std::map<std::string, int> string_to_tracker_motion_model = create_string_to_tracker_motion_model();
-	const std::map<int, std::string> tracker_motion_model_to_string = create_tracker_motion_model_to_string();
+	static const std::map<std::string, int> string_to_tracker_motion_model = create_string_to_tracker_motion_model();
+	static const std::map<int, std::string> tracker_motion_model_to_string = create_tracker_motion_model_to_string();
 
 	tracker_motion_model_enum motion_model() {
 		STRING_TYPE_GETTER("motion_model", static_cast<tracker_motion_model_enum>(string_to_tracker_motion_model.at(resstr)))
@@ -87472,8 +87472,8 @@ public:
 		return {{filter_items_NEAREST, "NEAREST"}, {filter_items_BILINEAR, "BILINEAR"}, {filter_items_BICUBIC, "BICUBIC"}};
 	};
 
-	const std::map<std::string, int> string_to_filter_items = create_string_to_filter_items();
-	const std::map<int, std::string> filter_items_to_string = create_filter_items_to_string();
+	static const std::map<std::string, int> string_to_filter_items = create_string_to_filter_items();
+	static const std::map<int, std::string> filter_items_to_string = create_filter_items_to_string();
 
 	filter_items_enum filter_type() {
 		STRING_TYPE_GETTER("filter_type", static_cast<filter_items_enum>(string_to_filter_items.at(resstr)))
@@ -87618,8 +87618,8 @@ public:
 		return {{sort_items_NAME, "NAME"}, {sort_items_LONGEST, "LONGEST"}, {sort_items_TOTAL, "TOTAL"}, {sort_items_AVERAGE_ERROR, "AVERAGE_ERROR"}};
 	};
 
-	const std::map<std::string, int> string_to_sort_items = create_string_to_sort_items();
-	const std::map<int, std::string> sort_items_to_string = create_sort_items_to_string();
+	static const std::map<std::string, int> string_to_sort_items = create_string_to_sort_items();
+	static const std::map<int, std::string> sort_items_to_string = create_sort_items_to_string();
 
 	sort_items_enum sort_method() {
 		STRING_TYPE_GETTER("sort_method", static_cast<sort_items_enum>(string_to_sort_items.at(resstr)))
@@ -87721,8 +87721,8 @@ public:
 		return {{mask_id_type_items_MOVIECLIP, "MOVIECLIP"}};
 	};
 
-	const std::map<std::string, int> string_to_mask_id_type_items = create_string_to_mask_id_type_items();
-	const std::map<int, std::string> mask_id_type_items_to_string = create_mask_id_type_items_to_string();
+	static const std::map<std::string, int> string_to_mask_id_type_items = create_string_to_mask_id_type_items();
+	static const std::map<int, std::string> mask_id_type_items_to_string = create_mask_id_type_items_to_string();
 
 	mask_id_type_items_enum id_type() {
 		STRING_TYPE_GETTER("id_type", static_cast<mask_id_type_items_enum>(string_to_mask_id_type_items.at(resstr)))
@@ -87745,8 +87745,8 @@ public:
 		return {{parent_type_items_POINT_TRACK, "POINT_TRACK"}, {parent_type_items_PLANE_TRACK, "PLANE_TRACK"}};
 	};
 
-	const std::map<std::string, int> string_to_parent_type_items = create_string_to_parent_type_items();
-	const std::map<int, std::string> parent_type_items_to_string = create_parent_type_items_to_string();
+	static const std::map<std::string, int> string_to_parent_type_items = create_string_to_parent_type_items();
+	static const std::map<int, std::string> parent_type_items_to_string = create_parent_type_items_to_string();
 
 	parent_type_items_enum type() {
 		STRING_TYPE_GETTER("type", static_cast<parent_type_items_enum>(string_to_parent_type_items.at(resstr)))
@@ -87848,8 +87848,8 @@ public:
 		return {{handle_type_items_AUTO, "AUTO"}, {handle_type_items_VECTOR, "VECTOR"}, {handle_type_items_ALIGNED, "ALIGNED"}, {handle_type_items_ALIGNED_DOUBLESIDE, "ALIGNED_DOUBLESIDE"}, {handle_type_items_FREE, "FREE"}};
 	};
 
-	const std::map<std::string, int> string_to_handle_type_items = create_string_to_handle_type_items();
-	const std::map<int, std::string> handle_type_items_to_string = create_handle_type_items_to_string();
+	static const std::map<std::string, int> string_to_handle_type_items = create_string_to_handle_type_items();
+	static const std::map<int, std::string> handle_type_items_to_string = create_handle_type_items_to_string();
 
 	handle_type_items_enum handle_type() {
 		STRING_TYPE_GETTER("handle_type", static_cast<handle_type_items_enum>(string_to_handle_type_items.at(resstr)))
@@ -87918,8 +87918,8 @@ public:
 		return {{spline_offset_mode_items_EVEN, "EVEN"}, {spline_offset_mode_items_SMOOTH, "SMOOTH"}};
 	};
 
-	const std::map<std::string, int> string_to_spline_offset_mode_items = create_string_to_spline_offset_mode_items();
-	const std::map<int, std::string> spline_offset_mode_items_to_string = create_spline_offset_mode_items_to_string();
+	static const std::map<std::string, int> string_to_spline_offset_mode_items = create_string_to_spline_offset_mode_items();
+	static const std::map<int, std::string> spline_offset_mode_items_to_string = create_spline_offset_mode_items_to_string();
 
 	spline_offset_mode_items_enum offset_mode() {
 		STRING_TYPE_GETTER("offset_mode", static_cast<spline_offset_mode_items_enum>(string_to_spline_offset_mode_items.at(resstr)))
@@ -87942,8 +87942,8 @@ public:
 		return {{spline_interpolation_items_LINEAR, "LINEAR"}, {spline_interpolation_items_EASE, "EASE"}};
 	};
 
-	const std::map<std::string, int> string_to_spline_interpolation_items = create_string_to_spline_interpolation_items();
-	const std::map<int, std::string> spline_interpolation_items_to_string = create_spline_interpolation_items_to_string();
+	static const std::map<std::string, int> string_to_spline_interpolation_items = create_string_to_spline_interpolation_items();
+	static const std::map<int, std::string> spline_interpolation_items_to_string = create_spline_interpolation_items_to_string();
 
 	spline_interpolation_items_enum weight_interpolation() {
 		STRING_TYPE_GETTER("weight_interpolation", static_cast<spline_interpolation_items_enum>(string_to_spline_interpolation_items.at(resstr)))
@@ -88059,8 +88059,8 @@ public:
 		return {{masklay_blend_mode_items_MERGE_ADD, "MERGE_ADD"}, {masklay_blend_mode_items_MERGE_SUBTRACT, "MERGE_SUBTRACT"}, {masklay_blend_mode_items_ADD, "ADD"}, {masklay_blend_mode_items_SUBTRACT, "SUBTRACT"}, {masklay_blend_mode_items_LIGHTEN, "LIGHTEN"}, {masklay_blend_mode_items_DARKEN, "DARKEN"}, {masklay_blend_mode_items_MUL, "MUL"}, {masklay_blend_mode_items_REPLACE, "REPLACE"}, {masklay_blend_mode_items_DIFFERENCE, "DIFFERENCE"}};
 	};
 
-	const std::map<std::string, int> string_to_masklay_blend_mode_items = create_string_to_masklay_blend_mode_items();
-	const std::map<int, std::string> masklay_blend_mode_items_to_string = create_masklay_blend_mode_items_to_string();
+	static const std::map<std::string, int> string_to_masklay_blend_mode_items = create_string_to_masklay_blend_mode_items();
+	static const std::map<int, std::string> masklay_blend_mode_items_to_string = create_masklay_blend_mode_items_to_string();
 
 	masklay_blend_mode_items_enum blend() {
 		STRING_TYPE_GETTER("blend", static_cast<masklay_blend_mode_items_enum>(string_to_masklay_blend_mode_items.at(resstr)))
@@ -88095,8 +88095,8 @@ public:
 		return {{proportional_falloff_curve_only_items_SMOOTH, "SMOOTH"}, {proportional_falloff_curve_only_items_SPHERE, "SPHERE"}, {proportional_falloff_curve_only_items_ROOT, "ROOT"}, {proportional_falloff_curve_only_items_INVERSE_SQUARE, "INVERSE_SQUARE"}, {proportional_falloff_curve_only_items_SHARP, "SHARP"}, {proportional_falloff_curve_only_items_LINEAR, "LINEAR"}};
 	};
 
-	const std::map<std::string, int> string_to_proportional_falloff_curve_only_items = create_string_to_proportional_falloff_curve_only_items();
-	const std::map<int, std::string> proportional_falloff_curve_only_items_to_string = create_proportional_falloff_curve_only_items_to_string();
+	static const std::map<std::string, int> string_to_proportional_falloff_curve_only_items = create_string_to_proportional_falloff_curve_only_items();
+	static const std::map<int, std::string> proportional_falloff_curve_only_items_to_string = create_proportional_falloff_curve_only_items_to_string();
 
 	proportional_falloff_curve_only_items_enum falloff() {
 		STRING_TYPE_GETTER("falloff", static_cast<proportional_falloff_curve_only_items_enum>(string_to_proportional_falloff_curve_only_items.at(resstr)))
