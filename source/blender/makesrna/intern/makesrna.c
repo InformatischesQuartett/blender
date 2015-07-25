@@ -1877,9 +1877,9 @@ static void rna_generate_header_enum_cpp(StructDefRNA *srna, PropertyDefRNA *dp,
 	fprintf(f, "};\n");
 	fprintf(f, "\t};\n\n");
 
-	fprintf(f, "\tstatic const std::map<std::string, int> string_to_%s = create_string_to_%s();\n",
+	fprintf(f, "\tstd::map<std::string, int> string_to_%s = create_string_to_%s();\n",
 		rna_safe_id(eprop->name), rna_safe_id(eprop->name));
-	fprintf(f, "\tstatic const std::map<int, std::string> %s_to_string = create_%s_to_string();\n\n",
+	fprintf(f, "\tstd::map<int, std::string> %s_to_string = create_%s_to_string();\n\n",
 		rna_safe_id(eprop->name), rna_safe_id(eprop->name));
 }
 
