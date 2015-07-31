@@ -4416,7 +4416,6 @@ static const char *cpp_classes_uniplug = ""
 "#define CLASS_TYPES_GETTER(stype, sidentifier)\\\n"
 "	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
 "	stype restype(val);\\\n"
-"	Py_DECREF(val);\\\n"
 "	return restype;\n"
 "\n"
 "#define MAP_TYPE_GETTER(sidentifier, stype)\\\n"
@@ -4508,6 +4507,32 @@ static const char *cpp_classes_uniplug = ""
 "		sidentifier##_res[i] = sconv;\\\n"
 "		Py_DECREF(item);\\\n"
 "	}\n"
+"\n";
+
+static const char *cpp_classes_uniplug_main = ""
+"class pyUniplug {\n"
+"protected:\n"
+"	PyObject *pyobjref;\n"
+"public:\n"
+"	pyUniplug(PyObject* pyobj) {\n"
+"		pyobjref = pyobj;\n"
+"	}\n"
+"\n"
+"	pyUniplug() {\n"
+"		pyobjref = PyImport_ImportModule(\"bpy\");\n"
+"	}\n"
+"\n"
+"	PyObject* get_pyobjref() {\n"
+"		return pyobjref;\n"
+"	}\n"
+"\n"
+"	void print(std::string msg) {\n"
+"		std::string prmsg = \"print('\" + msg + \"')\";\n"
+"		PyRun_SimpleString(prmsg.c_str());\n"
+"	}\n"
+"\n"
+"	Context context();\n"
+"};\n"
 "\n";
 
 static const char *cpp_classes_bl = ""
@@ -4856,6 +4881,7 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
 		fprintf(f, "\t%s() : %s(0) { }\n", srna->identifier,
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyUniplug");
+		fprintf(f, "\t~%s() { Py_DECREF(pyobjref); }\n", srna->identifier);
 
 		if (ds->cont.properties.first != NULL || ds->functions.first != NULL)
 			fprintf(f, "\n");
@@ -4948,21 +4974,7 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 		if (!no_comments)
 			fprintf(f, "/**************** pyUniplug Definition ****************/\n\n");
 
-		fprintf(f, "class pyUniplug {\n");
-		fprintf(f, "protected:\n");
-		fprintf(f, "\tPyObject *pyobjref;\n");
-		fprintf(f, "public:\n");
-		fprintf(f, "\tpyUniplug(PyObject* pyobj) {\n");
-		fprintf(f, "\t\tpyobjref = pyobj;\n");
-		fprintf(f, "\t}\n\n");
-		fprintf(f, "\tpyUniplug() {\n");
-		fprintf(f, "\t\tpyobjref = PyImport_ImportModule(\"bpy\");\n");
-		fprintf(f, "\t}\n\n");
-		fprintf(f, "\tPyObject* get_pyobjref() {\n");
-		fprintf(f, "\t\treturn pyobjref;");
-		fprintf(f, "\t}\n\n");
-		fprintf(f, "\tContext context();\n");
-		fprintf(f, "};\n\n");
+		fprintf(f, "%s", cpp_classes_uniplug_main);
 	}
 
 	/* declare all structures in such order:
@@ -5163,8 +5175,12 @@ static int rna_preprocess(const char *outfile)
 	/* create RNA_blender_cpp.h */
 	strcpy(deffile, outfile);
 
-	if (fusee_build)
-		strcat(deffile, "uniplug_blender_api.h" TMP_EXT); 
+	if (fusee_build) {
+		if (no_comments)
+			strcat(deffile, "uniplug_blender_api.h" TMP_EXT);
+		else
+			strcat(deffile, "uniplug_blender_api_docu.h" TMP_EXT);
+	}
 	else
 		strcat(deffile, "RNA_blender_cpp.h" TMP_EXT);
 
