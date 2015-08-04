@@ -27,13 +27,13 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 #define PRIMITIVE_TYPES_GETTER(stype, sconv, sidentifier)\
 	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\
 	stype resval = sconv;\
-	Py_DECREF(val);\
+	Py_CLEAR(val);\
 	return resval;
 
 #define PRIMITIVE_TYPES_SETTER(sconv, sidentifier, value)\
 	PyObject *val = Py_BuildValue(sconv, value);\
 	PyObject_SetAttrString(pyobjref, sidentifier, val);\
-	Py_DECREF(val);
+	Py_CLEAR(val);
 
 #define POD_VECTOR_TYPES_GETTER(stype, sconv, sidentifier, slength)\
 	PyObject *seqval = PyObject_GetAttrString(pyobjref, sidentifier);\
@@ -41,9 +41,9 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 	for (int i = 0; i < slength; i++) {\
 		PyObject* item = PySequence_GetItem(seqval, i);\
 		resarr[i] = sconv;\
-		Py_DECREF(item);\
+		Py_CLEAR(item);\
 	}\
-	Py_DECREF(seqval);\
+	Py_CLEAR(seqval);\
 	return resarr;
 
 #define PRIMITIVE_TYPES_ARRAY_GETTER(stype, sconv, sidentifier, slength)\
@@ -52,9 +52,9 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 	for (int i = 0; i < slength; i++) {\
 		PyObject* item = PySequence_GetItem(seqval, i);\
 		resarr[i] = sconv;\
-		Py_DECREF(item);\
+		Py_CLEAR(item);\
 	}\
-	Py_DECREF(seqval);\
+	Py_CLEAR(seqval);\
 	return resarr;
 
 #define PRIMITIVE_TYPES_ARRAY_SETTER(sconv, sidentifier, slength)\
@@ -66,8 +66,8 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 	}\
 	PyObject_SetAttrString(pyobjref, sidentifier, tupleval);\
 	for (int i = 0; i < slength; i++)\
-		Py_DECREF(items[i]);\
-	Py_DECREF(tupleval);
+		Py_CLEAR(items[i]);\
+	Py_CLEAR(tupleval);
 
 #define PRIMITIVE_TYPES_VECTOR_GETTER(stype, sconv, sidentifier)\
 	PyObject *seqval = PyObject_GetAttrString(pyobjref, sidentifier);\
@@ -75,22 +75,23 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 	for (int i = 0; i < PySequence_Length(seqval); i++) {\
 		PyObject *item = PySequence_GetItem(seqval, i);\
 		resvec.push_back(sconv);\
-		Py_DECREF(item);\
+		Py_CLEAR(item);\
 	}\
-	Py_DECREF(seqval);\
+	Py_CLEAR(seqval);\
 	return resvec;
 
 #define STRING_TYPE_GETTER(sidentifier, sconv)\
 	PyObject *attr = PyObject_GetAttrString(pyobjref, sidentifier);\
 	PyObject *str = PyUnicode_AsUTF8String(attr);\
 	std::string resstr(PyBytes_AsString(str));\
-	Py_DECREF(attr);\
-	Py_DECREF(str);\
+	Py_CLEAR(attr);\
+	Py_CLEAR(str);\
 	return sconv;
 
 #define CLASS_TYPES_GETTER(stype, sidentifier)\
 	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\
 	stype restype(val);\
+	Py_CLEAR(val);\
 	return restype;
 
 #define MAP_TYPE_GETTER(sidentifier, stype)\
@@ -104,12 +105,12 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 		PyObject *item = PySequence_GetItem(seqval, i);\
 		stype value = stype(item);\
 		resmap.insert(std::pair<std::string, stype>(key, value));\
-		Py_DECREF(item);\
-		Py_DECREF(str);\
-		Py_DECREF(keyobj);\
+		Py_CLEAR(item);\
+		Py_CLEAR(str);\
+		Py_CLEAR(keyobj);\
 	}\
-	Py_DECREF(seqval);\
-	Py_DECREF(seqkeys);\
+	Py_CLEAR(seqval);\
+	Py_CLEAR(seqkeys);\
 	return resmap;
 
 
@@ -124,8 +125,8 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 
 #define DECREF_ARRAY_ITEMS(svalues, slength)\
 	for (int i = 0; i < slength; i++)\
-		Py_DECREF(svalues##_items[i]);\
-	Py_DECREF(svalues##_tupleval);
+		Py_CLEAR(svalues##_items[i]);\
+	Py_CLEAR(svalues##_tupleval);
 
 #define PYTHON_FUNCTION_CALL(sidentifier)\
 	PyObject *pyobj = PyObject_CallMethod(pyobjref, sidentifier, NULL);
@@ -135,11 +136,11 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 
 #define CLASS_TYPES_RETURN(stype)\
 	stype restype(pyobj);\
-	Py_DECREF(pyobj);\
+	Py_CLEAR(pyobj);\
 	return restype;
 
 #define NONCLASS_TYPES_RETURN(...)\
-	Py_DECREF(pyobj);\
+	Py_CLEAR(pyobj);\
 	return { __VA_ARGS__ };
 
 #define CREATE_SINGLE_PYOBJ(sidentifier)\
@@ -160,19 +161,19 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 #define STRING_TYPE_CONV(sidentifier)\
 	PyObject *sidentifier##_str_obj = PyUnicode_AsUTF8String(sidentifier##_obj);\
 	std::string sidentifier##_res(PyBytes_AsString(sidentifier##_str_obj));\
-	Py_DECREF(sidentifier##_str_obj);\
+	Py_CLEAR(sidentifier##_str_obj);\
 
 #define ENUM_TYPES_CONV(sidentifier, senum)	PyObject *sidentifier##_str_obj = PyUnicode_AsUTF8String(sidentifier##_obj);\
 	std::string sidentifier##_str(PyBytes_AsString(sidentifier##_str_obj));\
 	senum##_enum sidentifier##_res = static_cast<senum##_enum>(string_to_##senum.at(sidentifier##_str));\
-	Py_DECREF(sidentifier##_str_obj);\
+	Py_CLEAR(sidentifier##_str_obj);\
 
 #define PRIMITIVE_TYPES_ARRAY_CONV(sidentifier, stype, sconv, slength)\
 	std::array<stype, slength> sidentifier##_res;\
 	for (int i = 0; i < slength; i++) {\
 		PyObject* item = PySequence_GetItem(sidentifier##_obj, i);\
 		sidentifier##_res[i] = sconv;\
-		Py_DECREF(item);\
+		Py_CLEAR(item);\
 	}
 
 #define POD_VECTOR_TYPES_CONV(sidentifier, stype, sconv, slength)\
@@ -180,7 +181,7 @@ DEFINE_VECTOR_POD(FLOAT, float, 16)
 	for (int i = 0; i < slength; i++) {\
 		PyObject* item = PySequence_GetItem(sidentifier##_obj, i);\
 		sidentifier##_res[i] = sconv;\
-		Py_DECREF(item);\
+		Py_CLEAR(item);\
 	}
 
 class Struct;
@@ -1198,21 +1199,32 @@ class MaskLayer;
 class Mask;
 class MaskLayers;
 
-class pyUniplug {
+class pyObjRef {
 protected:
 	PyObject *pyobjref;
+
+	pyObjRef() {};
+	pyObjRef(PyObject* pyobj) : pyobjref(pyobj) { Py_XINCREF(pyobj); }
+	pyObjRef(const pyObjRef &obj) : pyobjref(obj.pyobjref) { Py_XINCREF(obj.pyobjref); }
+	pyObjRef& operator = (const pyObjRef& obj) {
+		Py_XINCREF(obj.pyobjref);
+		pyobjref = obj.pyobjref;
+		return *this;
+	}
+
+	~pyObjRef() {
+		if (Py_IsInitialized())
+			Py_CLEAR(pyobjref);
+	}
 public:
-	pyUniplug(PyObject* pyobj) {
-		pyobjref = pyobj;
-	}
-
-	pyUniplug() {
-		pyobjref = PyImport_ImportModule("bpy");
-	}
-
 	PyObject* get_pyobjref() {
 		return pyobjref;
 	}
+};
+
+class pyUniplug : public pyObjRef {
+public:
+	pyUniplug() { pyobjref = PyImport_ImportModule("bpy"); }
 
 	void print(std::string msg) {
 		std::string prmsg = "print('" + msg + "')";
@@ -1222,11 +1234,10 @@ public:
 	Context context();
 };
 
-class Struct : public pyUniplug {
+class Struct : public pyObjRef {
 public:
-	Struct(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Struct() : pyUniplug(0) { }
-	~Struct() { Py_DECREF(pyobjref); }
+	Struct(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Struct() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -1275,11 +1286,10 @@ public:
 	std::map<std::string, Function> functions();
 };
 
-class Property : public pyUniplug {
+class Property : public pyObjRef {
 public:
-	Property(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Property() : pyUniplug(0) { }
-	~Property() { Py_DECREF(pyobjref); }
+	Property(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Property() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -2097,7 +2107,6 @@ class BoolProperty : public Property {
 public:
 	BoolProperty(PyObject* pyobj) : Property(pyobj) {}
 	BoolProperty() : Property(0) { }
-	~BoolProperty() { Py_DECREF(pyobjref); }
 
 	bool default_value() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "default")
@@ -2128,7 +2137,6 @@ class IntProperty : public Property {
 public:
 	IntProperty(PyObject* pyobj) : Property(pyobj) {}
 	IntProperty() : Property(0) { }
-	~IntProperty() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default")
@@ -2199,7 +2207,6 @@ class FloatProperty : public Property {
 public:
 	FloatProperty(PyObject* pyobj) : Property(pyobj) {}
 	FloatProperty() : Property(0) { }
-	~FloatProperty() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default")
@@ -2278,7 +2285,6 @@ class StringProperty : public Property {
 public:
 	StringProperty(PyObject* pyobj) : Property(pyobj) {}
 	StringProperty() : Property(0) { }
-	~StringProperty() { Py_DECREF(pyobjref); }
 
 	std::string default_value() {
 		STRING_TYPE_GETTER("default", resstr)
@@ -2301,7 +2307,6 @@ class EnumProperty : public Property {
 public:
 	EnumProperty(PyObject* pyobj) : Property(pyobj) {}
 	EnumProperty() : Property(0) { }
-	~EnumProperty() { Py_DECREF(pyobjref); }
 
 	enum default_dummy_items_enum {
 		default_dummy_items_DUMMY = 0	
@@ -2337,11 +2342,10 @@ public:
 	std::map<std::string, EnumPropertyItem> enum_items();
 };
 
-class EnumPropertyItem : public pyUniplug {
+class EnumPropertyItem : public pyObjRef {
 public:
-	EnumPropertyItem(PyObject* pyobj) : pyUniplug(pyobj) {}
-	EnumPropertyItem() : pyUniplug(0) { }
-	~EnumPropertyItem() { Py_DECREF(pyobjref); }
+	EnumPropertyItem(PyObject* pyobj) : pyObjRef(pyobj) {}
+	EnumPropertyItem() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -2948,7 +2952,6 @@ class PointerProperty : public Property {
 public:
 	PointerProperty(PyObject* pyobj) : Property(pyobj) {}
 	PointerProperty() : Property(0) { }
-	~PointerProperty() { Py_DECREF(pyobjref); }
 
 	Struct fixed_type() {
 		CLASS_TYPES_GETTER(Struct, "fixed_type")
@@ -2959,18 +2962,16 @@ class CollectionProperty : public Property {
 public:
 	CollectionProperty(PyObject* pyobj) : Property(pyobj) {}
 	CollectionProperty() : Property(0) { }
-	~CollectionProperty() { Py_DECREF(pyobjref); }
 
 	Struct fixed_type() {
 		CLASS_TYPES_GETTER(Struct, "fixed_type")
 	}
 };
 
-class Function : public pyUniplug {
+class Function : public pyObjRef {
 public:
-	Function(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Function() : pyUniplug(0) { }
-	~Function() { Py_DECREF(pyobjref); }
+	Function(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Function() : pyObjRef(0) { }
 
 	std::string identifier() {
 		STRING_TYPE_GETTER("identifier", resstr)
@@ -3025,38 +3026,34 @@ public:
 	}
 };
 
-class BlenderRNA : public pyUniplug {
+class BlenderRNA : public pyObjRef {
 public:
-	BlenderRNA(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlenderRNA() : pyUniplug(0) { }
-	~BlenderRNA() { Py_DECREF(pyobjref); }
+	BlenderRNA(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlenderRNA() : pyObjRef(0) { }
 
 	std::map<std::string, Struct> structs() {
 		MAP_TYPE_GETTER("structs", Struct)
 	}
 };
 
-class UnknownType : public pyUniplug {
+class UnknownType : public pyObjRef {
 public:
-	UnknownType(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UnknownType() : pyUniplug(0) { }
-	~UnknownType() { Py_DECREF(pyobjref); }
+	UnknownType(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UnknownType() : pyObjRef(0) { }
 
 };
 
-class AnyType : public pyUniplug {
+class AnyType : public pyObjRef {
 public:
-	AnyType(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AnyType() : pyUniplug(0) { }
-	~AnyType() { Py_DECREF(pyobjref); }
+	AnyType(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AnyType() : pyObjRef(0) { }
 
 };
 
-class ID : public pyUniplug {
+class ID : public pyObjRef {
 public:
-	ID(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ID() : pyUniplug(0) { }
-	~ID() { Py_DECREF(pyobjref); }
+	ID(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ID() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -3153,11 +3150,10 @@ public:
 	}
 };
 
-class ImagePreview : public pyUniplug {
+class ImagePreview : public pyObjRef {
 public:
-	ImagePreview(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ImagePreview() : pyUniplug(0) { }
-	~ImagePreview() { Py_DECREF(pyobjref); }
+	ImagePreview(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ImagePreview() : pyObjRef(0) { }
 
 	bool is_image_custom() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_image_custom")
@@ -3220,11 +3216,10 @@ public:
 	}
 };
 
-class PropertyGroupItem : public pyUniplug {
+class PropertyGroupItem : public pyObjRef {
 public:
-	PropertyGroupItem(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PropertyGroupItem() : pyUniplug(0) { }
-	~PropertyGroupItem() { Py_DECREF(pyobjref); }
+	PropertyGroupItem(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PropertyGroupItem() : pyObjRef(0) { }
 
 	std::string string_value() {
 		STRING_TYPE_GETTER("string", resstr)
@@ -3289,11 +3284,10 @@ public:
 	std::map<std::string, PropertyGroup> idp_array();
 };
 
-class PropertyGroup : public pyUniplug {
+class PropertyGroup : public pyObjRef {
 public:
-	PropertyGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PropertyGroup() : pyUniplug(0) { }
-	~PropertyGroup() { Py_DECREF(pyobjref); }
+	PropertyGroup(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PropertyGroup() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -3308,7 +3302,6 @@ class Library : public ID {
 public:
 	Library(PyObject* pyobj) : ID(pyobj) {}
 	Library() : ID(0) { }
-	~Library() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -3329,7 +3322,6 @@ class Texture : public ID {
 public:
 	Texture(PyObject* pyobj) : ID(pyobj) {}
 	Texture() : ID(0) { }
-	~Texture() { Py_DECREF(pyobjref); }
 
 	enum texture_type_items_enum {
 		texture_type_items_NONE = 0,	
@@ -3469,7 +3461,6 @@ class CloudsTexture : public Texture {
 public:
 	CloudsTexture(PyObject* pyobj) : Texture(pyobj) {}
 	CloudsTexture() : Texture(0) { }
-	~CloudsTexture() { Py_DECREF(pyobjref); }
 
 	float noise_scale() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "noise_scale")
@@ -3580,7 +3571,6 @@ class WoodTexture : public Texture {
 public:
 	WoodTexture(PyObject* pyobj) : Texture(pyobj) {}
 	WoodTexture() : Texture(0) { }
-	~WoodTexture() { Py_DECREF(pyobjref); }
 
 	float noise_scale() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "noise_scale")
@@ -3718,7 +3708,6 @@ class MarbleTexture : public Texture {
 public:
 	MarbleTexture(PyObject* pyobj) : Texture(pyobj) {}
 	MarbleTexture() : Texture(0) { }
-	~MarbleTexture() { Py_DECREF(pyobjref); }
 
 	float noise_scale() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "noise_scale")
@@ -3863,7 +3852,6 @@ class MagicTexture : public Texture {
 public:
 	MagicTexture(PyObject* pyobj) : Texture(pyobj) {}
 	MagicTexture() : Texture(0) { }
-	~MagicTexture() { Py_DECREF(pyobjref); }
 
 	float turbulence() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "turbulence")
@@ -3886,7 +3874,6 @@ class BlendTexture : public Texture {
 public:
 	BlendTexture(PyObject* pyobj) : Texture(pyobj) {}
 	BlendTexture() : Texture(0) { }
-	~BlendTexture() { Py_DECREF(pyobjref); }
 
 	enum prop_blend_progression_enum {
 		prop_blend_progression_LINEAR = 0,	
@@ -3946,7 +3933,6 @@ class StucciTexture : public Texture {
 public:
 	StucciTexture(PyObject* pyobj) : Texture(pyobj) {}
 	StucciTexture() : Texture(0) { }
-	~StucciTexture() { Py_DECREF(pyobjref); }
 
 	float turbulence() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "turbulence")
@@ -4050,14 +4036,12 @@ class NoiseTexture : public Texture {
 public:
 	NoiseTexture(PyObject* pyobj) : Texture(pyobj) {}
 	NoiseTexture() : Texture(0) { }
-	~NoiseTexture() { Py_DECREF(pyobjref); }
 };
 
 class ImageTexture : public Texture {
 public:
 	ImageTexture(PyObject* pyobj) : Texture(pyobj) {}
 	ImageTexture() : Texture(0) { }
-	~ImageTexture() { Py_DECREF(pyobjref); }
 
 	bool use_interpolation() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_interpolation")
@@ -4313,7 +4297,6 @@ class EnvironmentMapTexture : public Texture {
 public:
 	EnvironmentMapTexture(PyObject* pyobj) : Texture(pyobj) {}
 	EnvironmentMapTexture() : Texture(0) { }
-	~EnvironmentMapTexture() { Py_DECREF(pyobjref); }
 
 	Image image();
 
@@ -4400,7 +4383,6 @@ class MusgraveTexture : public Texture {
 public:
 	MusgraveTexture(PyObject* pyobj) : Texture(pyobj) {}
 	MusgraveTexture() : Texture(0) { }
-	~MusgraveTexture() { Py_DECREF(pyobjref); }
 
 	enum prop_musgrave_type_enum {
 		prop_musgrave_type_MULTIFRACTAL = 0,	
@@ -4530,7 +4512,6 @@ class VoronoiTexture : public Texture {
 public:
 	VoronoiTexture(PyObject* pyobj) : Texture(pyobj) {}
 	VoronoiTexture() : Texture(0) { }
-	~VoronoiTexture() { Py_DECREF(pyobjref); }
 
 	float weight_1() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "weight_1")
@@ -4656,7 +4637,6 @@ class DistortedNoiseTexture : public Texture {
 public:
 	DistortedNoiseTexture(PyObject* pyobj) : Texture(pyobj) {}
 	DistortedNoiseTexture() : Texture(0) { }
-	~DistortedNoiseTexture() { Py_DECREF(pyobjref); }
 
 	float distortion() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "distortion")
@@ -4723,11 +4703,10 @@ public:
 	}
 };
 
-class PointDensity : public pyUniplug {
+class PointDensity : public pyObjRef {
 public:
-	PointDensity(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PointDensity() : pyUniplug(0) { }
-	~PointDensity() { Py_DECREF(pyobjref); }
+	PointDensity(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PointDensity() : pyObjRef(0) { }
 
 	enum point_source_items_enum {
 		point_source_items_PARTICLE_SYSTEM = 0,	
@@ -5001,18 +4980,16 @@ class PointDensityTexture : public Texture {
 public:
 	PointDensityTexture(PyObject* pyobj) : Texture(pyobj) {}
 	PointDensityTexture() : Texture(0) { }
-	~PointDensityTexture() { Py_DECREF(pyobjref); }
 
 	PointDensity point_density() {
 		CLASS_TYPES_GETTER(PointDensity, "point_density")
 	}
 };
 
-class VoxelData : public pyUniplug {
+class VoxelData : public pyObjRef {
 public:
-	VoxelData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VoxelData() : pyUniplug(0) { }
-	~VoxelData() { Py_DECREF(pyobjref); }
+	VoxelData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VoxelData() : pyObjRef(0) { }
 
 	enum interpolation_type_items_enum {
 		interpolation_type_items_NEREASTNEIGHBOR = 0,	
@@ -5192,7 +5169,6 @@ class VoxelDataTexture : public Texture {
 public:
 	VoxelDataTexture(PyObject* pyobj) : Texture(pyobj) {}
 	VoxelDataTexture() : Texture(0) { }
-	~VoxelDataTexture() { Py_DECREF(pyobjref); }
 
 	VoxelData voxel_data() {
 		CLASS_TYPES_GETTER(VoxelData, "voxel_data")
@@ -5203,11 +5179,10 @@ public:
 	ImageUser image_user();
 };
 
-class OceanTexData : public pyUniplug {
+class OceanTexData : public pyObjRef {
 public:
-	OceanTexData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	OceanTexData() : pyUniplug(0) { }
-	~OceanTexData() { Py_DECREF(pyobjref); }
+	OceanTexData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	OceanTexData() : pyObjRef(0) { }
 
 	enum ocean_output_items_enum {
 		ocean_output_items_DISPLACEMENT = 1,	
@@ -5243,18 +5218,16 @@ class OceanTexture : public Texture {
 public:
 	OceanTexture(PyObject* pyobj) : Texture(pyobj) {}
 	OceanTexture() : Texture(0) { }
-	~OceanTexture() { Py_DECREF(pyobjref); }
 
 	OceanTexData ocean() {
 		CLASS_TYPES_GETTER(OceanTexData, "ocean")
 	}
 };
 
-class TextureSlot : public pyUniplug {
+class TextureSlot : public pyObjRef {
 public:
-	TextureSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TextureSlot() : pyUniplug(0) { }
-	~TextureSlot() { Py_DECREF(pyobjref); }
+	TextureSlot(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TextureSlot() : pyObjRef(0) { }
 
 	Texture texture() {
 		CLASS_TYPES_GETTER(Texture, "texture")
@@ -5386,11 +5359,10 @@ public:
 	}
 };
 
-class EnvironmentMap : public pyUniplug {
+class EnvironmentMap : public pyObjRef {
 public:
-	EnvironmentMap(PyObject* pyobj) : pyUniplug(pyobj) {}
-	EnvironmentMap() : pyUniplug(0) { }
-	~EnvironmentMap() { Py_DECREF(pyobjref); }
+	EnvironmentMap(PyObject* pyobj) : pyObjRef(pyobj) {}
+	EnvironmentMap() : pyObjRef(0) { }
 
 	enum prop_source_items_enum {
 		prop_source_items_STATIC = 0,	
@@ -5506,11 +5478,10 @@ public:
 	void save(const std::string filepath, Scene scene, float layout[12]);
 };
 
-class TexMapping : public pyUniplug {
+class TexMapping : public pyObjRef {
 public:
-	TexMapping(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TexMapping() : pyUniplug(0) { }
-	~TexMapping() { Py_DECREF(pyobjref); }
+	TexMapping(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TexMapping() : pyObjRef(0) { }
 
 	enum prop_vect_type_items_enum {
 		prop_vect_type_items_TEXTURE = 1,	
@@ -5663,11 +5634,10 @@ public:
 	}
 };
 
-class ColorMapping : public pyUniplug {
+class ColorMapping : public pyObjRef {
 public:
-	ColorMapping(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorMapping() : pyUniplug(0) { }
-	~ColorMapping() { Py_DECREF(pyobjref); }
+	ColorMapping(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorMapping() : pyObjRef(0) { }
 
 	bool use_color_ramp() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_color_ramp")
@@ -5758,11 +5728,10 @@ public:
 	}
 };
 
-class IDMaterials : public pyUniplug {
+class IDMaterials : public pyObjRef {
 public:
-	IDMaterials(PyObject* pyobj) : pyUniplug(pyobj) {}
-	IDMaterials() : pyUniplug(0) { }
-	~IDMaterials() { Py_DECREF(pyobjref); }
+	IDMaterials(PyObject* pyobj) : pyObjRef(pyobj) {}
+	IDMaterials() : pyObjRef(0) { }
 
 	void append(Material material);
 
@@ -5773,33 +5742,30 @@ public:
 	}
 };
 
-class ActionFCurves : public pyUniplug {
+class ActionFCurves : public pyObjRef {
 public:
-	ActionFCurves(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ActionFCurves() : pyUniplug(0) { }
-	~ActionFCurves() { Py_DECREF(pyobjref); }
+	ActionFCurves(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ActionFCurves() : pyObjRef(0) { }
 
 	FCurve create(const std::string data_path, int index = 0, const std::string action_group = NULL);
 
 	void remove(FCurve fcurve);
 };
 
-class ActionGroups : public pyUniplug {
+class ActionGroups : public pyObjRef {
 public:
-	ActionGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ActionGroups() : pyUniplug(0) { }
-	~ActionGroups() { Py_DECREF(pyobjref); }
+	ActionGroups(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ActionGroups() : pyObjRef(0) { }
 
 	ActionGroup create(const std::string name);
 
 	void remove(ActionGroup action_group);
 };
 
-class ActionPoseMarkers : public pyUniplug {
+class ActionPoseMarkers : public pyObjRef {
 public:
-	ActionPoseMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ActionPoseMarkers() : pyUniplug(0) { }
-	~ActionPoseMarkers() { Py_DECREF(pyobjref); }
+	ActionPoseMarkers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ActionPoseMarkers() : pyObjRef(0) { }
 
 	TimelineMarker active();
 
@@ -5816,11 +5782,10 @@ public:
 	void remove(TimelineMarker marker);
 };
 
-class NlaTracks : public pyUniplug {
+class NlaTracks : public pyObjRef {
 public:
-	NlaTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NlaTracks() : pyUniplug(0) { }
-	~NlaTracks() { Py_DECREF(pyobjref); }
+	NlaTracks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NlaTracks() : pyObjRef(0) { }
 
 	NlaTrack active();
 
@@ -5829,20 +5794,18 @@ public:
 	void remove(NlaTrack track);
 };
 
-class AnimDataDrivers : public pyUniplug {
+class AnimDataDrivers : public pyObjRef {
 public:
-	AnimDataDrivers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AnimDataDrivers() : pyUniplug(0) { }
-	~AnimDataDrivers() { Py_DECREF(pyobjref); }
+	AnimDataDrivers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AnimDataDrivers() : pyObjRef(0) { }
 
 	FCurve from_existing(FCurve src_driver);
 };
 
-class KeyingSetPaths : public pyUniplug {
+class KeyingSetPaths : public pyObjRef {
 public:
-	KeyingSetPaths(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyingSetPaths() : pyUniplug(0) { }
-	~KeyingSetPaths() { Py_DECREF(pyobjref); }
+	KeyingSetPaths(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyingSetPaths() : pyObjRef(0) { }
 
 	KeyingSetPath active();
 
@@ -5880,20 +5843,18 @@ public:
 	}
 };
 
-class ArmatureBones : public pyUniplug {
+class ArmatureBones : public pyObjRef {
 public:
-	ArmatureBones(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ArmatureBones() : pyUniplug(0) { }
-	~ArmatureBones() { Py_DECREF(pyobjref); }
+	ArmatureBones(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ArmatureBones() : pyObjRef(0) { }
 
 	Bone active();
 };
 
-class ArmatureEditBones : public pyUniplug {
+class ArmatureEditBones : public pyObjRef {
 public:
-	ArmatureEditBones(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ArmatureEditBones() : pyUniplug(0) { }
-	~ArmatureEditBones() { Py_DECREF(pyobjref); }
+	ArmatureEditBones(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ArmatureEditBones() : pyObjRef(0) { }
 
 	EditBone active();
 
@@ -5902,33 +5863,30 @@ public:
 	void remove(EditBone bone);
 };
 
-class CurveMapPoints : public pyUniplug {
+class CurveMapPoints : public pyObjRef {
 public:
-	CurveMapPoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CurveMapPoints() : pyUniplug(0) { }
-	~CurveMapPoints() { Py_DECREF(pyobjref); }
+	CurveMapPoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CurveMapPoints() : pyObjRef(0) { }
 
 	CurveMapPoint create(float position, float value);
 
 	void remove(CurveMapPoint point);
 };
 
-class ColorRampElements : public pyUniplug {
+class ColorRampElements : public pyObjRef {
 public:
-	ColorRampElements(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorRampElements() : pyUniplug(0) { }
-	~ColorRampElements() { Py_DECREF(pyobjref); }
+	ColorRampElements(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorRampElements() : pyObjRef(0) { }
 
 	ColorRampElement create(float position);
 
 	void remove(ColorRampElement element);
 };
 
-class CurveSplines : public pyUniplug {
+class CurveSplines : public pyObjRef {
 public:
-	CurveSplines(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CurveSplines() : pyUniplug(0) { }
-	~CurveSplines() { Py_DECREF(pyobjref); }
+	CurveSplines(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CurveSplines() : pyObjRef(0) { }
 
 	Spline active();
 
@@ -5960,33 +5918,30 @@ public:
 	}
 };
 
-class SplinePoints : public pyUniplug {
+class SplinePoints : public pyObjRef {
 public:
-	SplinePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SplinePoints() : pyUniplug(0) { }
-	~SplinePoints() { Py_DECREF(pyobjref); }
+	SplinePoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SplinePoints() : pyObjRef(0) { }
 
 	void add(int count = 1) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
 	}
 };
 
-class SplineBezierPoints : public pyUniplug {
+class SplineBezierPoints : public pyObjRef {
 public:
-	SplineBezierPoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SplineBezierPoints() : pyUniplug(0) { }
-	~SplineBezierPoints() { Py_DECREF(pyobjref); }
+	SplineBezierPoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SplineBezierPoints() : pyObjRef(0) { }
 
 	void add(int count = 1) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
 	}
 };
 
-class DynamicPaintSurfaces : public pyUniplug {
+class DynamicPaintSurfaces : public pyObjRef {
 public:
-	DynamicPaintSurfaces(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DynamicPaintSurfaces() : pyUniplug(0) { }
-	~DynamicPaintSurfaces() { Py_DECREF(pyobjref); }
+	DynamicPaintSurfaces(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DynamicPaintSurfaces() : pyObjRef(0) { }
 
 	int active_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "active_index")
@@ -5999,11 +5954,10 @@ public:
 	DynamicPaintSurface active();
 };
 
-class FCurveKeyframePoints : public pyUniplug {
+class FCurveKeyframePoints : public pyObjRef {
 public:
-	FCurveKeyframePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FCurveKeyframePoints() : pyUniplug(0) { }
-	~FCurveKeyframePoints() { Py_DECREF(pyobjref); }
+	FCurveKeyframePoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FCurveKeyframePoints() : pyObjRef(0) { }
 
 	enum items_enum {
 		items_REPLACE = 16,	
@@ -6031,11 +5985,10 @@ public:
 	void remove(Keyframe keyframe, bool fast = false);
 };
 
-class FCurveModifiers : public pyUniplug {
+class FCurveModifiers : public pyObjRef {
 public:
-	FCurveModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FCurveModifiers() : pyUniplug(0) { }
-	~FCurveModifiers() { Py_DECREF(pyobjref); }
+	FCurveModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FCurveModifiers() : pyObjRef(0) { }
 
 	FModifier active();
 
@@ -6067,33 +6020,30 @@ public:
 	void remove(FModifier modifier);
 };
 
-class ChannelDriverVariables : public pyUniplug {
+class ChannelDriverVariables : public pyObjRef {
 public:
-	ChannelDriverVariables(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ChannelDriverVariables() : pyUniplug(0) { }
-	~ChannelDriverVariables() { Py_DECREF(pyobjref); }
+	ChannelDriverVariables(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ChannelDriverVariables() : pyObjRef(0) { }
 
 	DriverVariable create();
 
 	void remove(DriverVariable variable);
 };
 
-class FModifierEnvelopeControlPoints : public pyUniplug {
+class FModifierEnvelopeControlPoints : public pyObjRef {
 public:
-	FModifierEnvelopeControlPoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FModifierEnvelopeControlPoints() : pyUniplug(0) { }
-	~FModifierEnvelopeControlPoints() { Py_DECREF(pyobjref); }
+	FModifierEnvelopeControlPoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FModifierEnvelopeControlPoints() : pyObjRef(0) { }
 
 	FModifierEnvelopeControlPoint add(float frame);
 
 	void remove(FModifierEnvelopeControlPoint point);
 };
 
-class GreasePencilLayers : public pyUniplug {
+class GreasePencilLayers : public pyObjRef {
 public:
-	GreasePencilLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GreasePencilLayers() : pyUniplug(0) { }
-	~GreasePencilLayers() { Py_DECREF(pyobjref); }
+	GreasePencilLayers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GreasePencilLayers() : pyObjRef(0) { }
 
 	GPencilLayer active();
 
@@ -6110,11 +6060,10 @@ public:
 	void remove(GPencilLayer layer);
 };
 
-class GPencilFrames : public pyUniplug {
+class GPencilFrames : public pyObjRef {
 public:
-	GPencilFrames(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilFrames() : pyUniplug(0) { }
-	~GPencilFrames() { Py_DECREF(pyobjref); }
+	GPencilFrames(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilFrames() : pyObjRef(0) { }
 
 	GPencilFrame create(int frame_number);
 
@@ -6123,22 +6072,20 @@ public:
 	GPencilFrame copy(GPencilFrame source);
 };
 
-class GPencilStrokes : public pyUniplug {
+class GPencilStrokes : public pyObjRef {
 public:
-	GPencilStrokes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilStrokes() : pyUniplug(0) { }
-	~GPencilStrokes() { Py_DECREF(pyobjref); }
+	GPencilStrokes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilStrokes() : pyObjRef(0) { }
 
 	GPencilStroke create();
 
 	void remove(GPencilStroke stroke);
 };
 
-class GPencilStrokePoints : public pyUniplug {
+class GPencilStrokePoints : public pyObjRef {
 public:
-	GPencilStrokePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilStrokePoints() : pyUniplug(0) { }
-	~GPencilStrokePoints() { Py_DECREF(pyobjref); }
+	GPencilStrokePoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilStrokePoints() : pyObjRef(0) { }
 
 	void add(int count = 1) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
@@ -6149,22 +6096,20 @@ public:
 	}
 };
 
-class GroupObjects : public pyUniplug {
+class GroupObjects : public pyObjRef {
 public:
-	GroupObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GroupObjects() : pyUniplug(0) { }
-	~GroupObjects() { Py_DECREF(pyobjref); }
+	GroupObjects(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GroupObjects() : pyObjRef(0) { }
 
 	void link(Object object_value);
 
 	void unlink(Object object_value);
 };
 
-class RenderSlots : public pyUniplug {
+class RenderSlots : public pyObjRef {
 public:
-	RenderSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderSlots() : pyUniplug(0) { }
-	~RenderSlots() { Py_DECREF(pyobjref); }
+	RenderSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderSlots() : pyObjRef(0) { }
 
 	RenderSlot active();
 
@@ -6177,11 +6122,10 @@ public:
 	}
 };
 
-class LampTextureSlots : public pyUniplug {
+class LampTextureSlots : public pyObjRef {
 public:
-	LampTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LampTextureSlots() : pyUniplug(0) { }
-	~LampTextureSlots() { Py_DECREF(pyobjref); }
+	LampTextureSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LampTextureSlots() : pyObjRef(0) { }
 
 	LampTextureSlot add();
 
@@ -6192,11 +6136,10 @@ public:
 	}
 };
 
-class LineStyleTextureSlots : public pyUniplug {
+class LineStyleTextureSlots : public pyObjRef {
 public:
-	LineStyleTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LineStyleTextureSlots() : pyUniplug(0) { }
-	~LineStyleTextureSlots() { Py_DECREF(pyobjref); }
+	LineStyleTextureSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LineStyleTextureSlots() : pyObjRef(0) { }
 
 	LineStyleTextureSlot add();
 
@@ -6207,11 +6150,10 @@ public:
 	}
 };
 
-class LineStyleColorModifiers : public pyUniplug {
+class LineStyleColorModifiers : public pyObjRef {
 public:
-	LineStyleColorModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LineStyleColorModifiers() : pyUniplug(0) { }
-	~LineStyleColorModifiers() { Py_DECREF(pyobjref); }
+	LineStyleColorModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LineStyleColorModifiers() : pyObjRef(0) { }
 
 	enum linestyle_color_modifier_type_items_enum {
 		linestyle_color_modifier_type_items_ALONG_STROKE = 1,	
@@ -6240,11 +6182,10 @@ public:
 	void remove(LineStyleColorModifier modifier);
 };
 
-class LineStyleAlphaModifiers : public pyUniplug {
+class LineStyleAlphaModifiers : public pyObjRef {
 public:
-	LineStyleAlphaModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LineStyleAlphaModifiers() : pyUniplug(0) { }
-	~LineStyleAlphaModifiers() { Py_DECREF(pyobjref); }
+	LineStyleAlphaModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LineStyleAlphaModifiers() : pyObjRef(0) { }
 
 	enum linestyle_alpha_modifier_type_items_enum {
 		linestyle_alpha_modifier_type_items_ALONG_STROKE = 1,	
@@ -6273,11 +6214,10 @@ public:
 	void remove(LineStyleAlphaModifier modifier);
 };
 
-class LineStyleThicknessModifiers : public pyUniplug {
+class LineStyleThicknessModifiers : public pyObjRef {
 public:
-	LineStyleThicknessModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LineStyleThicknessModifiers() : pyUniplug(0) { }
-	~LineStyleThicknessModifiers() { Py_DECREF(pyobjref); }
+	LineStyleThicknessModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LineStyleThicknessModifiers() : pyObjRef(0) { }
 
 	enum linestyle_thickness_modifier_type_items_enum {
 		linestyle_thickness_modifier_type_items_ALONG_STROKE = 1,	
@@ -6307,11 +6247,10 @@ public:
 	void remove(LineStyleThicknessModifier modifier);
 };
 
-class LineStyleGeometryModifiers : public pyUniplug {
+class LineStyleGeometryModifiers : public pyObjRef {
 public:
-	LineStyleGeometryModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LineStyleGeometryModifiers() : pyUniplug(0) { }
-	~LineStyleGeometryModifiers() { Py_DECREF(pyobjref); }
+	LineStyleGeometryModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LineStyleGeometryModifiers() : pyObjRef(0) { }
 
 	enum linestyle_geometry_modifier_type_items_enum {
 		linestyle_geometry_modifier_type_items_2D_OFFSET = 17,	
@@ -6346,11 +6285,10 @@ public:
 	void remove(LineStyleGeometryModifier modifier);
 };
 
-class BlendDataCameras : public pyUniplug {
+class BlendDataCameras : public pyObjRef {
 public:
-	BlendDataCameras(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataCameras() : pyUniplug(0) { }
-	~BlendDataCameras() { Py_DECREF(pyobjref); }
+	BlendDataCameras(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataCameras() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6369,11 +6307,10 @@ public:
 	}
 };
 
-class BlendDataScenes : public pyUniplug {
+class BlendDataScenes : public pyObjRef {
 public:
-	BlendDataScenes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataScenes() : pyUniplug(0) { }
-	~BlendDataScenes() { Py_DECREF(pyobjref); }
+	BlendDataScenes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataScenes() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6392,11 +6329,10 @@ public:
 	}
 };
 
-class BlendDataObjects : public pyUniplug {
+class BlendDataObjects : public pyObjRef {
 public:
-	BlendDataObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataObjects() : pyUniplug(0) { }
-	~BlendDataObjects() { Py_DECREF(pyobjref); }
+	BlendDataObjects(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataObjects() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6415,11 +6351,10 @@ public:
 	}
 };
 
-class BlendDataMaterials : public pyUniplug {
+class BlendDataMaterials : public pyObjRef {
 public:
-	BlendDataMaterials(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataMaterials() : pyUniplug(0) { }
-	~BlendDataMaterials() { Py_DECREF(pyobjref); }
+	BlendDataMaterials(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataMaterials() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6438,11 +6373,10 @@ public:
 	}
 };
 
-class BlendDataNodeTrees : public pyUniplug {
+class BlendDataNodeTrees : public pyObjRef {
 public:
-	BlendDataNodeTrees(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataNodeTrees() : pyUniplug(0) { }
-	~BlendDataNodeTrees() { Py_DECREF(pyobjref); }
+	BlendDataNodeTrees(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataNodeTrees() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6476,11 +6410,10 @@ public:
 	}
 };
 
-class BlendDataMeshes : public pyUniplug {
+class BlendDataMeshes : public pyObjRef {
 public:
-	BlendDataMeshes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataMeshes() : pyUniplug(0) { }
-	~BlendDataMeshes() { Py_DECREF(pyobjref); }
+	BlendDataMeshes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataMeshes() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6517,11 +6450,10 @@ public:
 	}
 };
 
-class BlendDataLamps : public pyUniplug {
+class BlendDataLamps : public pyObjRef {
 public:
-	BlendDataLamps(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataLamps() : pyUniplug(0) { }
-	~BlendDataLamps() { Py_DECREF(pyobjref); }
+	BlendDataLamps(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataLamps() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6559,11 +6491,10 @@ public:
 	}
 };
 
-class BlendDataLibraries : public pyUniplug {
+class BlendDataLibraries : public pyObjRef {
 public:
-	BlendDataLibraries(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataLibraries() : pyUniplug(0) { }
-	~BlendDataLibraries() { Py_DECREF(pyobjref); }
+	BlendDataLibraries(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataLibraries() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6578,11 +6509,10 @@ public:
 	}
 };
 
-class BlendDataScreens : public pyUniplug {
+class BlendDataScreens : public pyObjRef {
 public:
-	BlendDataScreens(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataScreens() : pyUniplug(0) { }
-	~BlendDataScreens() { Py_DECREF(pyobjref); }
+	BlendDataScreens(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataScreens() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6597,11 +6527,10 @@ public:
 	}
 };
 
-class BlendDataWindowManagers : public pyUniplug {
+class BlendDataWindowManagers : public pyObjRef {
 public:
-	BlendDataWindowManagers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataWindowManagers() : pyUniplug(0) { }
-	~BlendDataWindowManagers() { Py_DECREF(pyobjref); }
+	BlendDataWindowManagers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataWindowManagers() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6616,11 +6545,10 @@ public:
 	}
 };
 
-class BlendDataImages : public pyUniplug {
+class BlendDataImages : public pyObjRef {
 public:
-	BlendDataImages(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataImages() : pyUniplug(0) { }
-	~BlendDataImages() { Py_DECREF(pyobjref); }
+	BlendDataImages(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataImages() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6641,11 +6569,10 @@ public:
 	}
 };
 
-class BlendDataLattices : public pyUniplug {
+class BlendDataLattices : public pyObjRef {
 public:
-	BlendDataLattices(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataLattices() : pyUniplug(0) { }
-	~BlendDataLattices() { Py_DECREF(pyobjref); }
+	BlendDataLattices(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataLattices() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6664,11 +6591,10 @@ public:
 	}
 };
 
-class BlendDataCurves : public pyUniplug {
+class BlendDataCurves : public pyObjRef {
 public:
-	BlendDataCurves(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataCurves() : pyUniplug(0) { }
-	~BlendDataCurves() { Py_DECREF(pyobjref); }
+	BlendDataCurves(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataCurves() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6704,11 +6630,10 @@ public:
 	}
 };
 
-class BlendDataMetaBalls : public pyUniplug {
+class BlendDataMetaBalls : public pyObjRef {
 public:
-	BlendDataMetaBalls(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataMetaBalls() : pyUniplug(0) { }
-	~BlendDataMetaBalls() { Py_DECREF(pyobjref); }
+	BlendDataMetaBalls(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataMetaBalls() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6727,11 +6652,10 @@ public:
 	}
 };
 
-class BlendDataFonts : public pyUniplug {
+class BlendDataFonts : public pyObjRef {
 public:
-	BlendDataFonts(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataFonts() : pyUniplug(0) { }
-	~BlendDataFonts() { Py_DECREF(pyobjref); }
+	BlendDataFonts(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataFonts() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6750,11 +6674,10 @@ public:
 	}
 };
 
-class BlendDataTextures : public pyUniplug {
+class BlendDataTextures : public pyObjRef {
 public:
-	BlendDataTextures(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataTextures() : pyUniplug(0) { }
-	~BlendDataTextures() { Py_DECREF(pyobjref); }
+	BlendDataTextures(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataTextures() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6808,11 +6731,10 @@ public:
 	}
 };
 
-class BlendDataBrushes : public pyUniplug {
+class BlendDataBrushes : public pyObjRef {
 public:
-	BlendDataBrushes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataBrushes() : pyUniplug(0) { }
-	~BlendDataBrushes() { Py_DECREF(pyobjref); }
+	BlendDataBrushes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataBrushes() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6831,11 +6753,10 @@ public:
 	}
 };
 
-class BlendDataWorlds : public pyUniplug {
+class BlendDataWorlds : public pyObjRef {
 public:
-	BlendDataWorlds(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataWorlds() : pyUniplug(0) { }
-	~BlendDataWorlds() { Py_DECREF(pyobjref); }
+	BlendDataWorlds(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataWorlds() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6854,11 +6775,10 @@ public:
 	}
 };
 
-class BlendDataGroups : public pyUniplug {
+class BlendDataGroups : public pyObjRef {
 public:
-	BlendDataGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataGroups() : pyUniplug(0) { }
-	~BlendDataGroups() { Py_DECREF(pyobjref); }
+	BlendDataGroups(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataGroups() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6877,11 +6797,10 @@ public:
 	}
 };
 
-class BlendDataTexts : public pyUniplug {
+class BlendDataTexts : public pyObjRef {
 public:
-	BlendDataTexts(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataTexts() : pyUniplug(0) { }
-	~BlendDataTexts() { Py_DECREF(pyobjref); }
+	BlendDataTexts(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataTexts() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6902,11 +6821,10 @@ public:
 	}
 };
 
-class BlendDataSpeakers : public pyUniplug {
+class BlendDataSpeakers : public pyObjRef {
 public:
-	BlendDataSpeakers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataSpeakers() : pyUniplug(0) { }
-	~BlendDataSpeakers() { Py_DECREF(pyobjref); }
+	BlendDataSpeakers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataSpeakers() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6925,11 +6843,10 @@ public:
 	}
 };
 
-class BlendDataSounds : public pyUniplug {
+class BlendDataSounds : public pyObjRef {
 public:
-	BlendDataSounds(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataSounds() : pyUniplug(0) { }
-	~BlendDataSounds() { Py_DECREF(pyobjref); }
+	BlendDataSounds(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataSounds() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6948,11 +6865,10 @@ public:
 	}
 };
 
-class BlendDataArmatures : public pyUniplug {
+class BlendDataArmatures : public pyObjRef {
 public:
-	BlendDataArmatures(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataArmatures() : pyUniplug(0) { }
-	~BlendDataArmatures() { Py_DECREF(pyobjref); }
+	BlendDataArmatures(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataArmatures() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6971,11 +6887,10 @@ public:
 	}
 };
 
-class BlendDataActions : public pyUniplug {
+class BlendDataActions : public pyObjRef {
 public:
-	BlendDataActions(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataActions() : pyUniplug(0) { }
-	~BlendDataActions() { Py_DECREF(pyobjref); }
+	BlendDataActions(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataActions() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -6994,11 +6909,10 @@ public:
 	}
 };
 
-class BlendDataParticles : public pyUniplug {
+class BlendDataParticles : public pyObjRef {
 public:
-	BlendDataParticles(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataParticles() : pyUniplug(0) { }
-	~BlendDataParticles() { Py_DECREF(pyobjref); }
+	BlendDataParticles(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataParticles() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -7017,11 +6931,10 @@ public:
 	}
 };
 
-class BlendDataPalettes : public pyUniplug {
+class BlendDataPalettes : public pyObjRef {
 public:
-	BlendDataPalettes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataPalettes() : pyUniplug(0) { }
-	~BlendDataPalettes() { Py_DECREF(pyobjref); }
+	BlendDataPalettes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataPalettes() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -7040,11 +6953,10 @@ public:
 	}
 };
 
-class BlendDataGreasePencils : public pyUniplug {
+class BlendDataGreasePencils : public pyObjRef {
 public:
-	BlendDataGreasePencils(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataGreasePencils() : pyUniplug(0) { }
-	~BlendDataGreasePencils() { Py_DECREF(pyobjref); }
+	BlendDataGreasePencils(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataGreasePencils() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -7063,11 +6975,10 @@ public:
 	void remove(GreasePencil grease_pencil);
 };
 
-class BlendDataMovieClips : public pyUniplug {
+class BlendDataMovieClips : public pyObjRef {
 public:
-	BlendDataMovieClips(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataMovieClips() : pyUniplug(0) { }
-	~BlendDataMovieClips() { Py_DECREF(pyobjref); }
+	BlendDataMovieClips(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataMovieClips() : pyObjRef(0) { }
 
 	void tag(bool value) {
 		PYTHON_FUNCTION_ARGS_CALL("tag", "i", value)
@@ -7078,11 +6989,10 @@ public:
 	MovieClip load(const std::string filepath);
 };
 
-class BlendDataMasks : public pyUniplug {
+class BlendDataMasks : public pyObjRef {
 public:
-	BlendDataMasks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataMasks() : pyUniplug(0) { }
-	~BlendDataMasks() { Py_DECREF(pyobjref); }
+	BlendDataMasks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataMasks() : pyObjRef(0) { }
 
 	void tag(bool value) {
 		PYTHON_FUNCTION_ARGS_CALL("tag", "i", value)
@@ -7093,11 +7003,10 @@ public:
 	void remove(Mask mask);
 };
 
-class BlendDataLineStyles : public pyUniplug {
+class BlendDataLineStyles : public pyObjRef {
 public:
-	BlendDataLineStyles(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendDataLineStyles() : pyUniplug(0) { }
-	~BlendDataLineStyles() { Py_DECREF(pyobjref); }
+	BlendDataLineStyles(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendDataLineStyles() : pyObjRef(0) { }
 
 	bool is_updated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_updated")
@@ -7116,11 +7025,10 @@ public:
 	void remove(FreestyleLineStyle linestyle);
 };
 
-class MaterialTextureSlots : public pyUniplug {
+class MaterialTextureSlots : public pyObjRef {
 public:
-	MaterialTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialTextureSlots() : pyUniplug(0) { }
-	~MaterialTextureSlots() { Py_DECREF(pyobjref); }
+	MaterialTextureSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialTextureSlots() : pyObjRef(0) { }
 
 	MaterialTextureSlot add();
 
@@ -7131,33 +7039,30 @@ public:
 	}
 };
 
-class MeshVertices : public pyUniplug {
+class MeshVertices : public pyObjRef {
 public:
-	MeshVertices(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertices() : pyUniplug(0) { }
-	~MeshVertices() { Py_DECREF(pyobjref); }
+	MeshVertices(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertices() : pyObjRef(0) { }
 
 	void add(int count = 0) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
 	}
 };
 
-class MeshEdges : public pyUniplug {
+class MeshEdges : public pyObjRef {
 public:
-	MeshEdges(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshEdges() : pyUniplug(0) { }
-	~MeshEdges() { Py_DECREF(pyobjref); }
+	MeshEdges(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshEdges() : pyObjRef(0) { }
 
 	void add(int count = 0) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
 	}
 };
 
-class MeshTessFaces : public pyUniplug {
+class MeshTessFaces : public pyObjRef {
 public:
-	MeshTessFaces(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshTessFaces() : pyUniplug(0) { }
-	~MeshTessFaces() { Py_DECREF(pyobjref); }
+	MeshTessFaces(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshTessFaces() : pyObjRef(0) { }
 
 	int active() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "active")
@@ -7172,22 +7077,20 @@ public:
 	}
 };
 
-class MeshLoops : public pyUniplug {
+class MeshLoops : public pyObjRef {
 public:
-	MeshLoops(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshLoops() : pyUniplug(0) { }
-	~MeshLoops() { Py_DECREF(pyobjref); }
+	MeshLoops(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshLoops() : pyObjRef(0) { }
 
 	void add(int count = 0) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
 	}
 };
 
-class MeshPolygons : public pyUniplug {
+class MeshPolygons : public pyObjRef {
 public:
-	MeshPolygons(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygons() : pyUniplug(0) { }
-	~MeshPolygons() { Py_DECREF(pyobjref); }
+	MeshPolygons(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygons() : pyObjRef(0) { }
 
 	int active() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "active")
@@ -7202,11 +7105,10 @@ public:
 	}
 };
 
-class UVLoopLayers : public pyUniplug {
+class UVLoopLayers : public pyObjRef {
 public:
-	UVLoopLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UVLoopLayers() : pyUniplug(0) { }
-	~UVLoopLayers() { Py_DECREF(pyobjref); }
+	UVLoopLayers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UVLoopLayers() : pyObjRef(0) { }
 
 	MeshUVLoopLayer active();
 
@@ -7219,11 +7121,10 @@ public:
 	}
 };
 
-class TessfaceUVTextures : public pyUniplug {
+class TessfaceUVTextures : public pyObjRef {
 public:
-	TessfaceUVTextures(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TessfaceUVTextures() : pyUniplug(0) { }
-	~TessfaceUVTextures() { Py_DECREF(pyobjref); }
+	TessfaceUVTextures(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TessfaceUVTextures() : pyObjRef(0) { }
 
 	MeshTextureFaceLayer active();
 
@@ -7238,11 +7139,10 @@ public:
 	MeshTextureFaceLayer create(const std::string name = "UVMap");
 };
 
-class UVTextures : public pyUniplug {
+class UVTextures : public pyObjRef {
 public:
-	UVTextures(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UVTextures() : pyUniplug(0) { }
-	~UVTextures() { Py_DECREF(pyobjref); }
+	UVTextures(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UVTextures() : pyObjRef(0) { }
 
 	MeshTexturePolyLayer active();
 
@@ -7259,11 +7159,10 @@ public:
 	void remove(MeshTexturePolyLayer layer);
 };
 
-class VertexColors : public pyUniplug {
+class VertexColors : public pyObjRef {
 public:
-	VertexColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexColors() : pyUniplug(0) { }
-	~VertexColors() { Py_DECREF(pyobjref); }
+	VertexColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexColors() : pyObjRef(0) { }
 
 	MeshColorLayer active();
 
@@ -7278,11 +7177,10 @@ public:
 	MeshColorLayer create(const std::string name = "Col");
 };
 
-class LoopColors : public pyUniplug {
+class LoopColors : public pyObjRef {
 public:
-	LoopColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LoopColors() : pyUniplug(0) { }
-	~LoopColors() { Py_DECREF(pyobjref); }
+	LoopColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LoopColors() : pyObjRef(0) { }
 
 	MeshLoopColorLayer active();
 
@@ -7299,65 +7197,58 @@ public:
 	void remove(MeshLoopColorLayer layer);
 };
 
-class VertexFloatProperties : public pyUniplug {
+class VertexFloatProperties : public pyObjRef {
 public:
-	VertexFloatProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexFloatProperties() : pyUniplug(0) { }
-	~VertexFloatProperties() { Py_DECREF(pyobjref); }
+	VertexFloatProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexFloatProperties() : pyObjRef(0) { }
 
 	MeshVertexFloatPropertyLayer create(const std::string name = "Float Prop");
 };
 
-class VertexIntProperties : public pyUniplug {
+class VertexIntProperties : public pyObjRef {
 public:
-	VertexIntProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexIntProperties() : pyUniplug(0) { }
-	~VertexIntProperties() { Py_DECREF(pyobjref); }
+	VertexIntProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexIntProperties() : pyObjRef(0) { }
 
 	MeshVertexIntPropertyLayer create(const std::string name = "Int Prop");
 };
 
-class VertexStringProperties : public pyUniplug {
+class VertexStringProperties : public pyObjRef {
 public:
-	VertexStringProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexStringProperties() : pyUniplug(0) { }
-	~VertexStringProperties() { Py_DECREF(pyobjref); }
+	VertexStringProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexStringProperties() : pyObjRef(0) { }
 
 	MeshVertexStringPropertyLayer create(const std::string name = "String Prop");
 };
 
-class PolygonFloatProperties : public pyUniplug {
+class PolygonFloatProperties : public pyObjRef {
 public:
-	PolygonFloatProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PolygonFloatProperties() : pyUniplug(0) { }
-	~PolygonFloatProperties() { Py_DECREF(pyobjref); }
+	PolygonFloatProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PolygonFloatProperties() : pyObjRef(0) { }
 
 	MeshPolygonFloatPropertyLayer create(const std::string name = "Float Prop");
 };
 
-class PolygonIntProperties : public pyUniplug {
+class PolygonIntProperties : public pyObjRef {
 public:
-	PolygonIntProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PolygonIntProperties() : pyUniplug(0) { }
-	~PolygonIntProperties() { Py_DECREF(pyobjref); }
+	PolygonIntProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PolygonIntProperties() : pyObjRef(0) { }
 
 	MeshPolygonIntPropertyLayer create(const std::string name = "Int Prop");
 };
 
-class PolygonStringProperties : public pyUniplug {
+class PolygonStringProperties : public pyObjRef {
 public:
-	PolygonStringProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PolygonStringProperties() : pyUniplug(0) { }
-	~PolygonStringProperties() { Py_DECREF(pyobjref); }
+	PolygonStringProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PolygonStringProperties() : pyObjRef(0) { }
 
 	MeshPolygonStringPropertyLayer create(const std::string name = "String Prop");
 };
 
-class MetaBallElements : public pyUniplug {
+class MetaBallElements : public pyObjRef {
 public:
-	MetaBallElements(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MetaBallElements() : pyUniplug(0) { }
-	~MetaBallElements() { Py_DECREF(pyobjref); }
+	MetaBallElements(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MetaBallElements() : pyObjRef(0) { }
 
 	MetaElement active();
 
@@ -7389,22 +7280,20 @@ public:
 	}
 };
 
-class NlaStrips : public pyUniplug {
+class NlaStrips : public pyObjRef {
 public:
-	NlaStrips(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NlaStrips() : pyUniplug(0) { }
-	~NlaStrips() { Py_DECREF(pyobjref); }
+	NlaStrips(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NlaStrips() : pyObjRef(0) { }
 
 	NlaStrip create(const std::string name, int start, Action action);
 
 	void remove(NlaStrip strip);
 };
 
-class NodeInputs : public pyUniplug {
+class NodeInputs : public pyObjRef {
 public:
-	NodeInputs(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeInputs() : pyUniplug(0) { }
-	~NodeInputs() { Py_DECREF(pyobjref); }
+	NodeInputs(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeInputs() : pyObjRef(0) { }
 
 	NodeSocket create(const std::string type, const std::string name, const std::string identifier = NULL);
 
@@ -7419,11 +7308,10 @@ public:
 	}
 };
 
-class NodeOutputs : public pyUniplug {
+class NodeOutputs : public pyObjRef {
 public:
-	NodeOutputs(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeOutputs() : pyUniplug(0) { }
-	~NodeOutputs() { Py_DECREF(pyobjref); }
+	NodeOutputs(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeOutputs() : pyObjRef(0) { }
 
 	NodeSocket create(const std::string type, const std::string name, const std::string identifier = NULL);
 
@@ -7438,11 +7326,10 @@ public:
 	}
 };
 
-class Nodes : public pyUniplug {
+class Nodes : public pyObjRef {
 public:
-	Nodes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Nodes() : pyUniplug(0) { }
-	~Nodes() { Py_DECREF(pyobjref); }
+	Nodes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Nodes() : pyObjRef(0) { }
 
 	Node active();
 
@@ -7455,11 +7342,10 @@ public:
 	}
 };
 
-class NodeLinks : public pyUniplug {
+class NodeLinks : public pyObjRef {
 public:
-	NodeLinks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeLinks() : pyUniplug(0) { }
-	~NodeLinks() { Py_DECREF(pyobjref); }
+	NodeLinks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeLinks() : pyObjRef(0) { }
 
 	NodeLink create(NodeSocket input, NodeSocket output, bool verify_limits = true);
 
@@ -7470,11 +7356,10 @@ public:
 	}
 };
 
-class NodeTreeInputs : public pyUniplug {
+class NodeTreeInputs : public pyObjRef {
 public:
-	NodeTreeInputs(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeTreeInputs() : pyUniplug(0) { }
-	~NodeTreeInputs() { Py_DECREF(pyobjref); }
+	NodeTreeInputs(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeTreeInputs() : pyObjRef(0) { }
 
 	NodeSocketInterface create(const std::string type, const std::string name);
 
@@ -7489,11 +7374,10 @@ public:
 	}
 };
 
-class NodeTreeOutputs : public pyUniplug {
+class NodeTreeOutputs : public pyObjRef {
 public:
-	NodeTreeOutputs(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeTreeOutputs() : pyUniplug(0) { }
-	~NodeTreeOutputs() { Py_DECREF(pyobjref); }
+	NodeTreeOutputs(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeTreeOutputs() : pyObjRef(0) { }
 
 	NodeSocketInterface create(const std::string type, const std::string name);
 
@@ -7508,11 +7392,10 @@ public:
 	}
 };
 
-class CompositorNodeOutputFileFileSlots : public pyUniplug {
+class CompositorNodeOutputFileFileSlots : public pyObjRef {
 public:
-	CompositorNodeOutputFileFileSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CompositorNodeOutputFileFileSlots() : pyUniplug(0) { }
-	~CompositorNodeOutputFileFileSlots() { Py_DECREF(pyobjref); }
+	CompositorNodeOutputFileFileSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CompositorNodeOutputFileFileSlots() : pyObjRef(0) { }
 
 	NodeSocket create(const std::string name);
 
@@ -7527,11 +7410,10 @@ public:
 	}
 };
 
-class CompositorNodeOutputFileLayerSlots : public pyUniplug {
+class CompositorNodeOutputFileLayerSlots : public pyObjRef {
 public:
-	CompositorNodeOutputFileLayerSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CompositorNodeOutputFileLayerSlots() : pyUniplug(0) { }
-	~CompositorNodeOutputFileLayerSlots() { Py_DECREF(pyobjref); }
+	CompositorNodeOutputFileLayerSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CompositorNodeOutputFileLayerSlots() : pyObjRef(0) { }
 
 	NodeSocket create(const std::string name);
 
@@ -7546,11 +7428,10 @@ public:
 	}
 };
 
-class ObjectModifiers : public pyUniplug {
+class ObjectModifiers : public pyObjRef {
 public:
-	ObjectModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ObjectModifiers() : pyUniplug(0) { }
-	~ObjectModifiers() { Py_DECREF(pyobjref); }
+	ObjectModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ObjectModifiers() : pyObjRef(0) { }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_DATA_TRANSFER = 49,	
@@ -7625,11 +7506,10 @@ public:
 	}
 };
 
-class ObjectConstraints : public pyUniplug {
+class ObjectConstraints : public pyObjRef {
 public:
-	ObjectConstraints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ObjectConstraints() : pyUniplug(0) { }
-	~ObjectConstraints() { Py_DECREF(pyobjref); }
+	ObjectConstraints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ObjectConstraints() : pyObjRef(0) { }
 
 	Constraint active();
 
@@ -7683,11 +7563,10 @@ public:
 	}
 };
 
-class VertexGroups : public pyUniplug {
+class VertexGroups : public pyObjRef {
 public:
-	VertexGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexGroups() : pyUniplug(0) { }
-	~VertexGroups() { Py_DECREF(pyobjref); }
+	VertexGroups(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexGroups() : pyObjRef(0) { }
 
 	VertexGroup active();
 
@@ -7708,11 +7587,10 @@ public:
 	}
 };
 
-class ParticleSystems : public pyUniplug {
+class ParticleSystems : public pyObjRef {
 public:
-	ParticleSystems(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleSystems() : pyUniplug(0) { }
-	~ParticleSystems() { Py_DECREF(pyobjref); }
+	ParticleSystems(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleSystems() : pyObjRef(0) { }
 
 	ParticleSystem active();
 
@@ -7725,11 +7603,10 @@ public:
 	}
 };
 
-class PointCaches : public pyUniplug {
+class PointCaches : public pyObjRef {
 public:
-	PointCaches(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PointCaches() : pyUniplug(0) { }
-	~PointCaches() { Py_DECREF(pyobjref); }
+	PointCaches(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PointCaches() : pyObjRef(0) { }
 
 	int active_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "active_index")
@@ -7740,11 +7617,10 @@ public:
 	}
 };
 
-class PaletteColors : public pyUniplug {
+class PaletteColors : public pyObjRef {
 public:
-	PaletteColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PaletteColors() : pyUniplug(0) { }
-	~PaletteColors() { Py_DECREF(pyobjref); }
+	PaletteColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PaletteColors() : pyObjRef(0) { }
 
 	PaletteColor active();
 
@@ -7757,11 +7633,10 @@ public:
 	}
 };
 
-class ParticleSettingsTextureSlots : public pyUniplug {
+class ParticleSettingsTextureSlots : public pyObjRef {
 public:
-	ParticleSettingsTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleSettingsTextureSlots() : pyUniplug(0) { }
-	~ParticleSettingsTextureSlots() { Py_DECREF(pyobjref); }
+	ParticleSettingsTextureSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleSettingsTextureSlots() : pyObjRef(0) { }
 
 	ParticleSettingsTextureSlot add();
 
@@ -7772,11 +7647,10 @@ public:
 	}
 };
 
-class BoneGroups : public pyUniplug {
+class BoneGroups : public pyObjRef {
 public:
-	BoneGroups(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BoneGroups() : pyUniplug(0) { }
-	~BoneGroups() { Py_DECREF(pyobjref); }
+	BoneGroups(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BoneGroups() : pyObjRef(0) { }
 
 	BoneGroup active();
 
@@ -7793,11 +7667,10 @@ public:
 	void remove(BoneGroup group);
 };
 
-class PoseBoneConstraints : public pyUniplug {
+class PoseBoneConstraints : public pyObjRef {
 public:
-	PoseBoneConstraints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PoseBoneConstraints() : pyUniplug(0) { }
-	~PoseBoneConstraints() { Py_DECREF(pyobjref); }
+	PoseBoneConstraints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PoseBoneConstraints() : pyObjRef(0) { }
 
 	Constraint active();
 
@@ -7847,11 +7720,10 @@ public:
 	void remove(Constraint constraint);
 };
 
-class RenderPasses : public pyUniplug {
+class RenderPasses : public pyObjRef {
 public:
-	RenderPasses(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderPasses() : pyUniplug(0) { }
-	~RenderPasses() { Py_DECREF(pyobjref); }
+	RenderPasses(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderPasses() : pyObjRef(0) { }
 
 	enum render_pass_type_items_enum {
 		render_pass_type_items_COMBINED = 1,	
@@ -7899,20 +7771,18 @@ public:
 	RenderPass find_by_type(render_pass_type_items_enum pass_type, const std::string view);
 };
 
-class SceneBases : public pyUniplug {
+class SceneBases : public pyObjRef {
 public:
-	SceneBases(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SceneBases() : pyUniplug(0) { }
-	~SceneBases() { Py_DECREF(pyobjref); }
+	SceneBases(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SceneBases() : pyObjRef(0) { }
 
 	ObjectBase active();
 };
 
-class SceneObjects : public pyUniplug {
+class SceneObjects : public pyObjRef {
 public:
-	SceneObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SceneObjects() : pyUniplug(0) { }
-	~SceneObjects() { Py_DECREF(pyobjref); }
+	SceneObjects(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SceneObjects() : pyObjRef(0) { }
 
 	Object active();
 
@@ -7921,11 +7791,10 @@ public:
 	void unlink(Object object_value);
 };
 
-class KeyingSets : public pyUniplug {
+class KeyingSets : public pyObjRef {
 public:
-	KeyingSets(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyingSets() : pyUniplug(0) { }
-	~KeyingSets() { Py_DECREF(pyobjref); }
+	KeyingSets(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyingSets() : pyObjRef(0) { }
 
 	KeyingSet active();
 
@@ -7940,11 +7809,10 @@ public:
 	KeyingSet create(const std::string idname = "KeyingSet", const std::string name = "KeyingSet");
 };
 
-class KeyingSetsAll : public pyUniplug {
+class KeyingSetsAll : public pyObjRef {
 public:
-	KeyingSetsAll(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyingSetsAll() : pyUniplug(0) { }
-	~KeyingSetsAll() { Py_DECREF(pyobjref); }
+	KeyingSetsAll(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyingSetsAll() : pyObjRef(0) { }
 
 	KeyingSet active();
 
@@ -7957,11 +7825,10 @@ public:
 	}
 };
 
-class TimelineMarkers : public pyUniplug {
+class TimelineMarkers : public pyObjRef {
 public:
-	TimelineMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TimelineMarkers() : pyUniplug(0) { }
-	~TimelineMarkers() { Py_DECREF(pyobjref); }
+	TimelineMarkers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TimelineMarkers() : pyObjRef(0) { }
 
 	TimelineMarker create(const std::string name, int frame = 1);
 
@@ -7972,11 +7839,10 @@ public:
 	}
 };
 
-class RenderLayers : public pyUniplug {
+class RenderLayers : public pyObjRef {
 public:
-	RenderLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderLayers() : pyUniplug(0) { }
-	~RenderLayers() { Py_DECREF(pyobjref); }
+	RenderLayers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderLayers() : pyObjRef(0) { }
 
 	int active_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "active_index")
@@ -7993,11 +7859,10 @@ public:
 	void remove(SceneRenderLayer layer);
 };
 
-class RenderViews : public pyUniplug {
+class RenderViews : public pyObjRef {
 public:
-	RenderViews(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderViews() : pyUniplug(0) { }
-	~RenderViews() { Py_DECREF(pyobjref); }
+	RenderViews(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderViews() : pyObjRef(0) { }
 
 	int active_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "active_index")
@@ -8014,22 +7879,20 @@ public:
 	void remove(SceneRenderView view);
 };
 
-class FreestyleModules : public pyUniplug {
+class FreestyleModules : public pyObjRef {
 public:
-	FreestyleModules(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FreestyleModules() : pyUniplug(0) { }
-	~FreestyleModules() { Py_DECREF(pyobjref); }
+	FreestyleModules(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FreestyleModules() : pyObjRef(0) { }
 
 	FreestyleModuleSettings create();
 
 	void remove(FreestyleModuleSettings module);
 };
 
-class Linesets : public pyUniplug {
+class Linesets : public pyObjRef {
 public:
-	Linesets(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Linesets() : pyUniplug(0) { }
-	~Linesets() { Py_DECREF(pyobjref); }
+	Linesets(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Linesets() : pyObjRef(0) { }
 
 	FreestyleLineSet active();
 
@@ -8046,20 +7909,18 @@ public:
 	void remove(FreestyleLineSet lineset);
 };
 
-class AreaSpaces : public pyUniplug {
+class AreaSpaces : public pyObjRef {
 public:
-	AreaSpaces(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AreaSpaces() : pyUniplug(0) { }
-	~AreaSpaces() { Py_DECREF(pyobjref); }
+	AreaSpaces(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AreaSpaces() : pyObjRef(0) { }
 
 	Space active();
 };
 
-class SequenceModifiers : public pyUniplug {
+class SequenceModifiers : public pyObjRef {
 public:
-	SequenceModifiers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceModifiers() : pyUniplug(0) { }
-	~SequenceModifiers() { Py_DECREF(pyobjref); }
+	SequenceModifiers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceModifiers() : pyObjRef(0) { }
 
 	enum sequence_modifier_type_items_enum {
 		sequence_modifier_type_items_COLOR_BALANCE = 1,	
@@ -8089,11 +7950,10 @@ public:
 	}
 };
 
-class Sequences : public pyUniplug {
+class Sequences : public pyObjRef {
 public:
-	Sequences(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Sequences() : pyUniplug(0) { }
-	~Sequences() { Py_DECREF(pyobjref); }
+	Sequences(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Sequences() : pyObjRef(0) { }
 
 	Sequence new_clip(const std::string name, MovieClip clip, int channel, int frame_start);
 
@@ -8143,11 +8003,10 @@ public:
 	void remove(Sequence sequence);
 };
 
-class SequenceElements : public pyUniplug {
+class SequenceElements : public pyObjRef {
 public:
-	SequenceElements(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceElements() : pyUniplug(0) { }
-	~SequenceElements() { Py_DECREF(pyobjref); }
+	SequenceElements(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceElements() : pyObjRef(0) { }
 
 	SequenceElement append(const std::string filename);
 
@@ -8156,11 +8015,10 @@ public:
 	}
 };
 
-class BackgroundImages : public pyUniplug {
+class BackgroundImages : public pyObjRef {
 public:
-	BackgroundImages(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BackgroundImages() : pyUniplug(0) { }
-	~BackgroundImages() { Py_DECREF(pyobjref); }
+	BackgroundImages(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BackgroundImages() : pyObjRef(0) { }
 
 	BackgroundImage create();
 
@@ -8171,11 +8029,10 @@ public:
 	}
 };
 
-class SpaceNodeEditorPath : public pyUniplug {
+class SpaceNodeEditorPath : public pyObjRef {
 public:
-	SpaceNodeEditorPath(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SpaceNodeEditorPath() : pyUniplug(0) { }
-	~SpaceNodeEditorPath() { Py_DECREF(pyobjref); }
+	SpaceNodeEditorPath(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SpaceNodeEditorPath() : pyObjRef(0) { }
 
 	std::string to_string() {
 		STRING_TYPE_GETTER("to_string", resstr)
@@ -8198,33 +8055,30 @@ public:
 	}
 };
 
-class Addons : public pyUniplug {
+class Addons : public pyObjRef {
 public:
-	Addons(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Addons() : pyUniplug(0) { }
-	~Addons() { Py_DECREF(pyobjref); }
+	Addons(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Addons() : pyObjRef(0) { }
 
 	Addon create();
 
 	void remove(Addon addon);
 };
 
-class PathCompareCollection : public pyUniplug {
+class PathCompareCollection : public pyObjRef {
 public:
-	PathCompareCollection(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PathCompareCollection() : pyUniplug(0) { }
-	~PathCompareCollection() { Py_DECREF(pyobjref); }
+	PathCompareCollection(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PathCompareCollection() : pyObjRef(0) { }
 
 	PathCompare create();
 
 	void remove(PathCompare pathcmp);
 };
 
-class KeyConfigurations : public pyUniplug {
+class KeyConfigurations : public pyObjRef {
 public:
-	KeyConfigurations(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyConfigurations() : pyUniplug(0) { }
-	~KeyConfigurations() { Py_DECREF(pyobjref); }
+	KeyConfigurations(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyConfigurations() : pyObjRef(0) { }
 
 	KeyConfig active();
 
@@ -8239,11 +8093,10 @@ public:
 	void remove(KeyConfig keyconfig);
 };
 
-class KeyMaps : public pyUniplug {
+class KeyMaps : public pyObjRef {
 public:
-	KeyMaps(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyMaps() : pyUniplug(0) { }
-	~KeyMaps() { Py_DECREF(pyobjref); }
+	KeyMaps(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyMaps() : pyObjRef(0) { }
 
 	enum space_type_items_enum {
 		space_type_items_EMPTY = 0,	
@@ -8308,11 +8161,10 @@ public:
 	KeyMap find_modal(const std::string name);
 };
 
-class KeyMapItems : public pyUniplug {
+class KeyMapItems : public pyObjRef {
 public:
-	KeyMapItems(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyMapItems() : pyUniplug(0) { }
-	~KeyMapItems() { Py_DECREF(pyobjref); }
+	KeyMapItems(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyMapItems() : pyObjRef(0) { }
 
 	enum event_type_items_enum {
 		event_type_items_NONE = 0,	
@@ -8549,11 +8401,10 @@ public:
 	KeyMapItem from_id(int id);
 };
 
-class WorldTextureSlots : public pyUniplug {
+class WorldTextureSlots : public pyObjRef {
 public:
-	WorldTextureSlots(PyObject* pyobj) : pyUniplug(pyobj) {}
-	WorldTextureSlots() : pyUniplug(0) { }
-	~WorldTextureSlots() { Py_DECREF(pyobjref); }
+	WorldTextureSlots(PyObject* pyobj) : pyObjRef(pyobj) {}
+	WorldTextureSlots() : pyObjRef(0) { }
 
 	WorldTextureSlot add();
 
@@ -8564,11 +8415,10 @@ public:
 	}
 };
 
-class MovieTrackingMarkers : public pyUniplug {
+class MovieTrackingMarkers : public pyObjRef {
 public:
-	MovieTrackingMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingMarkers() : pyUniplug(0) { }
-	~MovieTrackingMarkers() { Py_DECREF(pyobjref); }
+	MovieTrackingMarkers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingMarkers() : pyObjRef(0) { }
 
 	MovieTrackingMarker find_frame(int frame, bool exact = true);
 
@@ -8579,11 +8429,10 @@ public:
 	}
 };
 
-class MovieTrackingPlaneMarkers : public pyUniplug {
+class MovieTrackingPlaneMarkers : public pyObjRef {
 public:
-	MovieTrackingPlaneMarkers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingPlaneMarkers() : pyUniplug(0) { }
-	~MovieTrackingPlaneMarkers() { Py_DECREF(pyobjref); }
+	MovieTrackingPlaneMarkers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingPlaneMarkers() : pyObjRef(0) { }
 
 	MovieTrackingPlaneMarker find_frame(int frame, bool exact = true);
 
@@ -8594,51 +8443,46 @@ public:
 	}
 };
 
-class MovieTrackingTracks : public pyUniplug {
+class MovieTrackingTracks : public pyObjRef {
 public:
-	MovieTrackingTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingTracks() : pyUniplug(0) { }
-	~MovieTrackingTracks() { Py_DECREF(pyobjref); }
+	MovieTrackingTracks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingTracks() : pyObjRef(0) { }
 
 	MovieTrackingTrack active();
 
 	MovieTrackingTrack create(const std::string name = NULL, int frame = 1);
 };
 
-class MovieTrackingPlaneTracks : public pyUniplug {
+class MovieTrackingPlaneTracks : public pyObjRef {
 public:
-	MovieTrackingPlaneTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingPlaneTracks() : pyUniplug(0) { }
-	~MovieTrackingPlaneTracks() { Py_DECREF(pyobjref); }
+	MovieTrackingPlaneTracks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingPlaneTracks() : pyObjRef(0) { }
 
 	MovieTrackingPlaneTrack active();
 };
 
-class MovieTrackingObjectTracks : public pyUniplug {
+class MovieTrackingObjectTracks : public pyObjRef {
 public:
-	MovieTrackingObjectTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingObjectTracks() : pyUniplug(0) { }
-	~MovieTrackingObjectTracks() { Py_DECREF(pyobjref); }
+	MovieTrackingObjectTracks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingObjectTracks() : pyObjRef(0) { }
 
 	MovieTrackingTrack active();
 
 	MovieTrackingTrack create(const std::string name = NULL, int frame = 1);
 };
 
-class MovieTrackingObjectPlaneTracks : public pyUniplug {
+class MovieTrackingObjectPlaneTracks : public pyObjRef {
 public:
-	MovieTrackingObjectPlaneTracks(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingObjectPlaneTracks() : pyUniplug(0) { }
-	~MovieTrackingObjectPlaneTracks() { Py_DECREF(pyobjref); }
+	MovieTrackingObjectPlaneTracks(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingObjectPlaneTracks() : pyObjRef(0) { }
 
 	MovieTrackingTrack active();
 };
 
-class MovieTrackingReconstructedCameras : public pyUniplug {
+class MovieTrackingReconstructedCameras : public pyObjRef {
 public:
-	MovieTrackingReconstructedCameras(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingReconstructedCameras() : pyUniplug(0) { }
-	~MovieTrackingReconstructedCameras() { Py_DECREF(pyobjref); }
+	MovieTrackingReconstructedCameras(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingReconstructedCameras() : pyObjRef(0) { }
 
 	MovieReconstructedCamera find_frame(int frame = 1);
 
@@ -8650,11 +8494,10 @@ public:
 	}
 };
 
-class MovieTrackingObjects : public pyUniplug {
+class MovieTrackingObjects : public pyObjRef {
 public:
-	MovieTrackingObjects(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingObjects() : pyUniplug(0) { }
-	~MovieTrackingObjects() { Py_DECREF(pyobjref); }
+	MovieTrackingObjects(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingObjects() : pyObjRef(0) { }
 
 	MovieTrackingObject active();
 
@@ -8663,11 +8506,10 @@ public:
 	void remove(MovieTrackingObject object_value);
 };
 
-class MaskSplines : public pyUniplug {
+class MaskSplines : public pyObjRef {
 public:
-	MaskSplines(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskSplines() : pyUniplug(0) { }
-	~MaskSplines() { Py_DECREF(pyobjref); }
+	MaskSplines(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskSplines() : pyObjRef(0) { }
 
 	MaskSpline active();
 
@@ -8678,11 +8520,10 @@ public:
 	void remove(MaskSpline spline);
 };
 
-class MaskSplinePoints : public pyUniplug {
+class MaskSplinePoints : public pyObjRef {
 public:
-	MaskSplinePoints(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskSplinePoints() : pyUniplug(0) { }
-	~MaskSplinePoints() { Py_DECREF(pyobjref); }
+	MaskSplinePoints(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskSplinePoints() : pyObjRef(0) { }
 
 	void add(int count = 1) {
 		PYTHON_FUNCTION_ARGS_CALL("add", "i", count)
@@ -8691,11 +8532,10 @@ public:
 	void remove(MaskSplinePoint point);
 };
 
-class MaskLayers : public pyUniplug {
+class MaskLayers : public pyObjRef {
 public:
-	MaskLayers(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskLayers() : pyUniplug(0) { }
-	~MaskLayers() { Py_DECREF(pyobjref); }
+	MaskLayers(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskLayers() : pyObjRef(0) { }
 
 	MaskLayer active();
 
@@ -8712,7 +8552,6 @@ class Action : public ID {
 public:
 	Action(PyObject* pyobj) : ID(pyobj) {}
 	Action() : ID(0) { }
-	~Action() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, FCurve> fcurves();
 
@@ -8783,11 +8622,10 @@ public:
 	}
 };
 
-class ActionGroup : public pyUniplug {
+class ActionGroup : public pyObjRef {
 public:
-	ActionGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ActionGroup() : pyUniplug(0) { }
-	~ActionGroup() { Py_DECREF(pyobjref); }
+	ActionGroup(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ActionGroup() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -8878,11 +8716,10 @@ public:
 	ThemeBoneColorSet colors();
 };
 
-class DopeSheet : public pyUniplug {
+class DopeSheet : public pyObjRef {
 public:
-	DopeSheet(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DopeSheet() : pyUniplug(0) { }
-	~DopeSheet() { Py_DECREF(pyobjref); }
+	DopeSheet(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DopeSheet() : pyObjRef(0) { }
 
 	ID source() {
 		CLASS_TYPES_GETTER(ID, "source")
@@ -9139,11 +8976,10 @@ public:
 	}
 };
 
-class AnimData : public pyUniplug {
+class AnimData : public pyObjRef {
 public:
-	AnimData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AnimData() : pyUniplug(0) { }
-	~AnimData() { Py_DECREF(pyobjref); }
+	AnimData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AnimData() : pyObjRef(0) { }
 
 	std::map<std::string, NlaTrack> nla_tracks();
 
@@ -9221,11 +9057,10 @@ public:
 	}
 };
 
-class KeyingSet : public pyUniplug {
+class KeyingSet : public pyObjRef {
 public:
-	KeyingSet(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyingSet() : pyUniplug(0) { }
-	~KeyingSet() { Py_DECREF(pyobjref); }
+	KeyingSet(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyingSet() : pyObjRef(0) { }
 
 	std::string bl_idname() {
 		STRING_TYPE_GETTER("bl_idname", resstr)
@@ -9316,11 +9151,10 @@ public:
 	}
 };
 
-class KeyingSetPath : public pyUniplug {
+class KeyingSetPath : public pyObjRef {
 public:
-	KeyingSetPath(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyingSetPath() : pyUniplug(0) { }
-	~KeyingSetPath() { Py_DECREF(pyobjref); }
+	KeyingSetPath(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyingSetPath() : pyObjRef(0) { }
 
 	ID id() {
 		CLASS_TYPES_GETTER(ID, "id")
@@ -9486,11 +9320,10 @@ public:
 	}
 };
 
-class KeyingSetInfo : public pyUniplug {
+class KeyingSetInfo : public pyObjRef {
 public:
-	KeyingSetInfo(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyingSetInfo() : pyUniplug(0) { }
-	~KeyingSetInfo() { Py_DECREF(pyobjref); }
+	KeyingSetInfo(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyingSetInfo() : pyObjRef(0) { }
 
 	std::string bl_idname() {
 		STRING_TYPE_GETTER("bl_idname", resstr)
@@ -9543,22 +9376,20 @@ public:
 
 };
 
-class AnimViz : public pyUniplug {
+class AnimViz : public pyObjRef {
 public:
-	AnimViz(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AnimViz() : pyUniplug(0) { }
-	~AnimViz() { Py_DECREF(pyobjref); }
+	AnimViz(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AnimViz() : pyObjRef(0) { }
 
 	AnimVizOnionSkinning onion_skin_frames();
 
 	AnimVizMotionPaths motion_path();
 };
 
-class AnimVizOnionSkinning : public pyUniplug {
+class AnimVizOnionSkinning : public pyObjRef {
 public:
-	AnimVizOnionSkinning(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AnimVizOnionSkinning() : pyUniplug(0) { }
-	~AnimVizOnionSkinning() { Py_DECREF(pyobjref); }
+	AnimVizOnionSkinning(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AnimVizOnionSkinning() : pyObjRef(0) { }
 
 	enum prop_type_items_enum {
 		prop_type_items_NONE = 0,	
@@ -9635,11 +9466,10 @@ public:
 	}
 };
 
-class AnimVizMotionPaths : public pyUniplug {
+class AnimVizMotionPaths : public pyObjRef {
 public:
-	AnimVizMotionPaths(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AnimVizMotionPaths() : pyUniplug(0) { }
-	~AnimVizMotionPaths() { Py_DECREF(pyobjref); }
+	AnimVizMotionPaths(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AnimVizMotionPaths() : pyObjRef(0) { }
 
 	enum prop_type_items_enum {
 		prop_type_items_CURRENT_FRAME = 1,	
@@ -9762,11 +9592,10 @@ public:
 	}
 };
 
-class MotionPath : public pyUniplug {
+class MotionPath : public pyObjRef {
 public:
-	MotionPath(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MotionPath() : pyUniplug(0) { }
-	~MotionPath() { Py_DECREF(pyobjref); }
+	MotionPath(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MotionPath() : pyObjRef(0) { }
 
 	std::map<std::string, MotionPathVert> points();
 
@@ -9811,11 +9640,10 @@ public:
 	}
 };
 
-class MotionPathVert : public pyUniplug {
+class MotionPathVert : public pyObjRef {
 public:
-	MotionPathVert(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MotionPathVert() : pyUniplug(0) { }
-	~MotionPathVert() { Py_DECREF(pyobjref); }
+	MotionPathVert(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MotionPathVert() : pyObjRef(0) { }
 
 	VFLOAT3 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 3)
@@ -9834,11 +9662,10 @@ public:
 	}
 };
 
-class Actuator : public pyUniplug {
+class Actuator : public pyObjRef {
 public:
-	Actuator(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Actuator() : pyUniplug(0) { }
-	~Actuator() { Py_DECREF(pyobjref); }
+	Actuator(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Actuator() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -9921,7 +9748,6 @@ class ActionActuator : public Actuator {
 public:
 	ActionActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	ActionActuator() : Actuator(0) { }
-	~ActionActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_PLAY = 0,	
@@ -10088,7 +9914,6 @@ class ObjectActuator : public Actuator {
 public:
 	ObjectActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	ObjectActuator() : Actuator(0) { }
-	~ObjectActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_OBJECT_NORMAL = 0,	
@@ -10346,7 +10171,6 @@ class CameraActuator : public Actuator {
 public:
 	CameraActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	CameraActuator() : Actuator(0) { }
-	~CameraActuator() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -10413,7 +10237,6 @@ class SoundActuator : public Actuator {
 public:
 	SoundActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	SoundActuator() : Actuator(0) { }
-	~SoundActuator() { Py_DECREF(pyobjref); }
 
 	Sound sound();
 
@@ -10538,7 +10361,6 @@ class PropertyActuator : public Actuator {
 public:
 	PropertyActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	PropertyActuator() : Actuator(0) { }
-	~PropertyActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_ASSIGN = 0,	
@@ -10598,7 +10420,6 @@ class ConstraintActuator : public Actuator {
 public:
 	ConstraintActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	ConstraintActuator() : Actuator(0) { }
-	~ConstraintActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_LOC = 0,	
@@ -10896,7 +10717,6 @@ class EditObjectActuator : public Actuator {
 public:
 	EditObjectActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	EditObjectActuator() : Actuator(0) { }
-	~EditObjectActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_ADDOBJECT = 0,	
@@ -11088,7 +10908,6 @@ class SceneActuator : public Actuator {
 public:
 	SceneActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	SceneActuator() : Actuator(0) { }
-	~SceneActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_RESTART = 0,	
@@ -11129,7 +10948,6 @@ class RandomActuator : public Actuator {
 public:
 	RandomActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	RandomActuator() : Actuator(0) { }
-	~RandomActuator() { Py_DECREF(pyobjref); }
 
 	int seed() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "seed")
@@ -11280,7 +11098,6 @@ class MessageActuator : public Actuator {
 public:
 	MessageActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	MessageActuator() : Actuator(0) { }
-	~MessageActuator() { Py_DECREF(pyobjref); }
 
 	std::string to_property() {
 		STRING_TYPE_GETTER("to_property", resstr)
@@ -11343,7 +11160,6 @@ class GameActuator : public Actuator {
 public:
 	GameActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	GameActuator() : Actuator(0) { }
-	~GameActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_START = 0,	
@@ -11385,7 +11201,6 @@ class VisibilityActuator : public Actuator {
 public:
 	VisibilityActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	VisibilityActuator() : Actuator(0) { }
-	~VisibilityActuator() { Py_DECREF(pyobjref); }
 
 	bool use_visible() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_visible")
@@ -11416,7 +11231,6 @@ class Filter2DActuator : public Actuator {
 public:
 	Filter2DActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	Filter2DActuator() : Actuator(0) { }
-	~Filter2DActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_ENABLE = -2,	
@@ -11486,7 +11300,6 @@ class ParentActuator : public Actuator {
 public:
 	ParentActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	ParentActuator() : Actuator(0) { }
-	~ParentActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_SETPARENT = 0,	
@@ -11535,7 +11348,6 @@ class StateActuator : public Actuator {
 public:
 	StateActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	StateActuator() : Actuator(0) { }
-	~StateActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_SET = 0,	
@@ -11576,7 +11388,6 @@ class ArmatureActuator : public Actuator {
 public:
 	ArmatureActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	ArmatureActuator() : Actuator(0) { }
-	~ArmatureActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_RUN = 0,	
@@ -11647,7 +11458,6 @@ class SteeringActuator : public Actuator {
 public:
 	SteeringActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	SteeringActuator() : Actuator(0) { }
-	~SteeringActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_SEEK = 0,	
@@ -11791,7 +11601,6 @@ class MouseActuator : public Actuator {
 public:
 	MouseActuator(PyObject* pyobj) : Actuator(pyobj) {}
 	MouseActuator() : Actuator(0) { }
-	~MouseActuator() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_VISIBILITY = 0,	
@@ -11975,7 +11784,6 @@ class Armature : public ID {
 public:
 	Armature(PyObject* pyobj) : ID(pyobj) {}
 	Armature() : ID(0) { }
-	~Armature() { Py_DECREF(pyobjref); }
 
 	AnimData animation_data() {
 		CLASS_TYPES_GETTER(AnimData, "animation_data")
@@ -12212,11 +12020,10 @@ public:
 	}
 };
 
-class Bone : public pyUniplug {
+class Bone : public pyObjRef {
 public:
-	Bone(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Bone() : pyUniplug(0) { }
-	~Bone() { Py_DECREF(pyobjref); }
+	Bone(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Bone() : pyObjRef(0) { }
 
 	Bone parent() {
 		CLASS_TYPES_GETTER(Bone, "parent")
@@ -12484,11 +12291,10 @@ public:
 	}
 };
 
-class EditBone : public pyUniplug {
+class EditBone : public pyObjRef {
 public:
-	EditBone(PyObject* pyobj) : pyUniplug(pyobj) {}
-	EditBone() : pyUniplug(0) { }
-	~EditBone() { Py_DECREF(pyobjref); }
+	EditBone(PyObject* pyobj) : pyObjRef(pyobj) {}
+	EditBone() : pyObjRef(0) { }
 
 	EditBone parent() {
 		CLASS_TYPES_GETTER(EditBone, "parent")
@@ -12741,11 +12547,10 @@ public:
 	}
 };
 
-class BoidRule : public pyUniplug {
+class BoidRule : public pyObjRef {
 public:
-	BoidRule(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BoidRule() : pyUniplug(0) { }
-	~BoidRule() { Py_DECREF(pyobjref); }
+	BoidRule(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BoidRule() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -12806,7 +12611,6 @@ class BoidRuleGoal : public BoidRule {
 public:
 	BoidRuleGoal(PyObject* pyobj) : BoidRule(pyobj) {}
 	BoidRuleGoal() : BoidRule(0) { }
-	~BoidRuleGoal() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -12823,7 +12627,6 @@ class BoidRuleAvoid : public BoidRule {
 public:
 	BoidRuleAvoid(PyObject* pyobj) : BoidRule(pyobj) {}
 	BoidRuleAvoid() : BoidRule(0) { }
-	~BoidRuleAvoid() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -12848,7 +12651,6 @@ class BoidRuleAvoidCollision : public BoidRule {
 public:
 	BoidRuleAvoidCollision(PyObject* pyobj) : BoidRule(pyobj) {}
 	BoidRuleAvoidCollision() : BoidRule(0) { }
-	~BoidRuleAvoidCollision() { Py_DECREF(pyobjref); }
 
 	bool use_avoid() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_avoid")
@@ -12879,7 +12681,6 @@ class BoidRuleFollowLeader : public BoidRule {
 public:
 	BoidRuleFollowLeader(PyObject* pyobj) : BoidRule(pyobj) {}
 	BoidRuleFollowLeader() : BoidRule(0) { }
-	~BoidRuleFollowLeader() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -12912,7 +12713,6 @@ class BoidRuleAverageSpeed : public BoidRule {
 public:
 	BoidRuleAverageSpeed(PyObject* pyobj) : BoidRule(pyobj) {}
 	BoidRuleAverageSpeed() : BoidRule(0) { }
-	~BoidRuleAverageSpeed() { Py_DECREF(pyobjref); }
 
 	float wander() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "wander")
@@ -12943,7 +12743,6 @@ class BoidRuleFight : public BoidRule {
 public:
 	BoidRuleFight(PyObject* pyobj) : BoidRule(pyobj) {}
 	BoidRuleFight() : BoidRule(0) { }
-	~BoidRuleFight() { Py_DECREF(pyobjref); }
 
 	float distance() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "distance")
@@ -12962,11 +12761,10 @@ public:
 	}
 };
 
-class BoidState : public pyUniplug {
+class BoidState : public pyObjRef {
 public:
-	BoidState(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BoidState() : pyUniplug(0) { }
-	~BoidState() { Py_DECREF(pyobjref); }
+	BoidState(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BoidState() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -13042,11 +12840,10 @@ public:
 	}
 };
 
-class BoidSettings : public pyUniplug {
+class BoidSettings : public pyObjRef {
 public:
-	BoidSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BoidSettings() : pyUniplug(0) { }
-	~BoidSettings() { Py_DECREF(pyobjref); }
+	BoidSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BoidSettings() : pyObjRef(0) { }
 
 	float land_smooth() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "land_smooth")
@@ -13253,7 +13050,6 @@ class Brush : public ID {
 public:
 	Brush(PyObject* pyobj) : ID(pyobj) {}
 	Brush() : ID(0) { }
-	~Brush() { Py_DECREF(pyobjref); }
 
 	enum prop_blend_items_enum {
 		prop_blend_items_MIX = 0,	
@@ -14204,11 +14000,10 @@ public:
 	ImapaintToolCapabilities image_paint_capabilities();
 };
 
-class BrushCapabilities : public pyUniplug {
+class BrushCapabilities : public pyObjRef {
 public:
-	BrushCapabilities(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BrushCapabilities() : pyUniplug(0) { }
-	~BrushCapabilities() { Py_DECREF(pyobjref); }
+	BrushCapabilities(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BrushCapabilities() : pyObjRef(0) { }
 
 	bool has_overlay() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "has_overlay")
@@ -14243,11 +14038,10 @@ public:
 	}
 };
 
-class SculptToolCapabilities : public pyUniplug {
+class SculptToolCapabilities : public pyObjRef {
 public:
-	SculptToolCapabilities(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SculptToolCapabilities() : pyUniplug(0) { }
-	~SculptToolCapabilities() { Py_DECREF(pyobjref); }
+	SculptToolCapabilities(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SculptToolCapabilities() : pyObjRef(0) { }
 
 	bool has_accumulate() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "has_accumulate")
@@ -14370,11 +14164,10 @@ public:
 	}
 };
 
-class ImapaintToolCapabilities : public pyUniplug {
+class ImapaintToolCapabilities : public pyObjRef {
 public:
-	ImapaintToolCapabilities(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ImapaintToolCapabilities() : pyUniplug(0) { }
-	~ImapaintToolCapabilities() { Py_DECREF(pyobjref); }
+	ImapaintToolCapabilities(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ImapaintToolCapabilities() : pyObjRef(0) { }
 
 	bool has_accumulate() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "has_accumulate")
@@ -14405,7 +14198,6 @@ class BrushTextureSlot : public TextureSlot {
 public:
 	BrushTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
 	BrushTextureSlot() : TextureSlot(0) { }
-	~BrushTextureSlot() { Py_DECREF(pyobjref); }
 
 	float angle() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "angle")
@@ -14549,7 +14341,6 @@ class OperatorStrokeElement : public PropertyGroup {
 public:
 	OperatorStrokeElement(PyObject* pyobj) : PropertyGroup(pyobj) {}
 	OperatorStrokeElement() : PropertyGroup(0) { }
-	~OperatorStrokeElement() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 location() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "location", 3)
@@ -14612,7 +14403,6 @@ class Camera : public ID {
 public:
 	Camera(PyObject* pyobj) : ID(pyobj) {}
 	Camera() : ID(0) { }
-	~Camera() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_PERSP = 0,	
@@ -14906,11 +14696,10 @@ public:
 	view_frame_result view_frame(Scene scene);
 };
 
-class CameraStereoData : public pyUniplug {
+class CameraStereoData : public pyObjRef {
 public:
-	CameraStereoData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CameraStereoData() : pyUniplug(0) { }
-	~CameraStereoData() { Py_DECREF(pyobjref); }
+	CameraStereoData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CameraStereoData() : pyObjRef(0) { }
 
 	enum convergence_mode_items_enum {
 		convergence_mode_items_OFFAXIS = 0,	
@@ -14979,11 +14768,10 @@ public:
 	}
 };
 
-class ClothSolverResult : public pyUniplug {
+class ClothSolverResult : public pyObjRef {
 public:
-	ClothSolverResult(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ClothSolverResult() : pyUniplug(0) { }
-	~ClothSolverResult() { Py_DECREF(pyobjref); }
+	ClothSolverResult(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ClothSolverResult() : pyObjRef(0) { }
 
 	enum status_items_enum {
 		status_items_SUCCESS = 1,	
@@ -15060,11 +14848,10 @@ public:
 	}
 };
 
-class ClothSettings : public pyUniplug {
+class ClothSettings : public pyObjRef {
 public:
-	ClothSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ClothSettings() : pyUniplug(0) { }
-	~ClothSettings() { Py_DECREF(pyobjref); }
+	ClothSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ClothSettings() : pyObjRef(0) { }
 
 	float goal_min() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "goal_min")
@@ -15327,11 +15114,10 @@ public:
 	ShapeKey rest_shape_key();
 };
 
-class ClothCollisionSettings : public pyUniplug {
+class ClothCollisionSettings : public pyObjRef {
 public:
-	ClothCollisionSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ClothCollisionSettings() : pyUniplug(0) { }
-	~ClothCollisionSettings() { Py_DECREF(pyobjref); }
+	ClothCollisionSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ClothCollisionSettings() : pyObjRef(0) { }
 
 	bool use_collision() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_collision")
@@ -15432,11 +15218,10 @@ public:
 	}
 };
 
-class CurveMapPoint : public pyUniplug {
+class CurveMapPoint : public pyObjRef {
 public:
-	CurveMapPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CurveMapPoint() : pyUniplug(0) { }
-	~CurveMapPoint() { Py_DECREF(pyobjref); }
+	CurveMapPoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CurveMapPoint() : pyObjRef(0) { }
 
 	VFLOAT2 location() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "location", 2)
@@ -15479,11 +15264,10 @@ public:
 	}
 };
 
-class CurveMap : public pyUniplug {
+class CurveMap : public pyObjRef {
 public:
-	CurveMap(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CurveMap() : pyUniplug(0) { }
-	~CurveMap() { Py_DECREF(pyobjref); }
+	CurveMap(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CurveMap() : pyObjRef(0) { }
 
 	enum prop_extend_items_enum {
 		prop_extend_items_HORIZONTAL = 0,	
@@ -15521,11 +15305,10 @@ public:
 	}
 };
 
-class CurveMapping : public pyUniplug {
+class CurveMapping : public pyObjRef {
 public:
-	CurveMapping(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CurveMapping() : pyUniplug(0) { }
-	~CurveMapping() { Py_DECREF(pyobjref); }
+	CurveMapping(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CurveMapping() : pyObjRef(0) { }
 
 	bool use_clip() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_clip")
@@ -15596,11 +15379,10 @@ public:
 	}
 };
 
-class ColorRampElement : public pyUniplug {
+class ColorRampElement : public pyObjRef {
 public:
-	ColorRampElement(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorRampElement() : pyUniplug(0) { }
-	~ColorRampElement() { Py_DECREF(pyobjref); }
+	ColorRampElement(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorRampElement() : pyObjRef(0) { }
 
 	VFLOAT4 color() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "color", 4)
@@ -15627,11 +15409,10 @@ public:
 	}
 };
 
-class ColorRamp : public pyUniplug {
+class ColorRamp : public pyObjRef {
 public:
-	ColorRamp(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorRamp() : pyUniplug(0) { }
-	~ColorRamp() { Py_DECREF(pyobjref); }
+	ColorRamp(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorRamp() : pyObjRef(0) { }
 
 	std::map<std::string, ColorRampElement> elements() {
 		MAP_TYPE_GETTER("elements", ColorRampElement)
@@ -15723,11 +15504,10 @@ public:
 	}
 };
 
-class Histogram : public pyUniplug {
+class Histogram : public pyObjRef {
 public:
-	Histogram(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Histogram() : pyUniplug(0) { }
-	~Histogram() { Py_DECREF(pyobjref); }
+	Histogram(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Histogram() : pyObjRef(0) { }
 
 	enum prop_mode_items_enum {
 		prop_mode_items_LUMA = 0,	
@@ -15766,11 +15546,10 @@ public:
 	}
 };
 
-class Scopes : public pyUniplug {
+class Scopes : public pyObjRef {
 public:
-	Scopes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Scopes() : pyUniplug(0) { }
-	~Scopes() { Py_DECREF(pyobjref); }
+	Scopes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Scopes() : pyObjRef(0) { }
 
 	bool use_full_resolution() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_full_resolution")
@@ -15836,11 +15615,10 @@ public:
 	}
 };
 
-class ColorManagedDisplaySettings : public pyUniplug {
+class ColorManagedDisplaySettings : public pyObjRef {
 public:
-	ColorManagedDisplaySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorManagedDisplaySettings() : pyUniplug(0) { }
-	~ColorManagedDisplaySettings() { Py_DECREF(pyobjref); }
+	ColorManagedDisplaySettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorManagedDisplaySettings() : pyObjRef(0) { }
 
 	enum display_device_items_enum {
 		display_device_items_DEFAULT = 0	
@@ -15866,11 +15644,10 @@ public:
 	}
 };
 
-class ColorManagedViewSettings : public pyUniplug {
+class ColorManagedViewSettings : public pyObjRef {
 public:
-	ColorManagedViewSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorManagedViewSettings() : pyUniplug(0) { }
-	~ColorManagedViewSettings() { Py_DECREF(pyobjref); }
+	ColorManagedViewSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorManagedViewSettings() : pyObjRef(0) { }
 
 	enum look_items_enum {
 		look_items_NONE = 0	
@@ -15947,11 +15724,10 @@ public:
 	}
 };
 
-class ColorManagedInputColorspaceSettings : public pyUniplug {
+class ColorManagedInputColorspaceSettings : public pyObjRef {
 public:
-	ColorManagedInputColorspaceSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorManagedInputColorspaceSettings() : pyUniplug(0) { }
-	~ColorManagedInputColorspaceSettings() { Py_DECREF(pyobjref); }
+	ColorManagedInputColorspaceSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorManagedInputColorspaceSettings() : pyObjRef(0) { }
 
 	enum color_space_items_enum {
 		color_space_items_NONE = 0	
@@ -15977,11 +15753,10 @@ public:
 	}
 };
 
-class ColorManagedSequencerColorspaceSettings : public pyUniplug {
+class ColorManagedSequencerColorspaceSettings : public pyObjRef {
 public:
-	ColorManagedSequencerColorspaceSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ColorManagedSequencerColorspaceSettings() : pyUniplug(0) { }
-	~ColorManagedSequencerColorspaceSettings() { Py_DECREF(pyobjref); }
+	ColorManagedSequencerColorspaceSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ColorManagedSequencerColorspaceSettings() : pyObjRef(0) { }
 
 	enum color_space_items_enum {
 		color_space_items_NONE = 0	
@@ -16007,11 +15782,10 @@ public:
 	}
 };
 
-class Constraint : public pyUniplug {
+class Constraint : public pyObjRef {
 public:
-	Constraint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Constraint() : pyUniplug(0) { }
-	~Constraint() { Py_DECREF(pyobjref); }
+	Constraint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Constraint() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -16187,11 +15961,10 @@ public:
 	}
 };
 
-class ConstraintTarget : public pyUniplug {
+class ConstraintTarget : public pyObjRef {
 public:
-	ConstraintTarget(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ConstraintTarget() : pyUniplug(0) { }
-	~ConstraintTarget() { Py_DECREF(pyobjref); }
+	ConstraintTarget(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ConstraintTarget() : pyObjRef(0) { }
 
 	Object target();
 
@@ -16208,7 +15981,6 @@ class ChildOfConstraint : public Constraint {
 public:
 	ChildOfConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	ChildOfConstraint() : Constraint(0) { }
-	~ChildOfConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -16305,7 +16077,6 @@ class PythonConstraint : public Constraint {
 public:
 	PythonConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	PythonConstraint() : Constraint(0) { }
-	~PythonConstraint() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, ConstraintTarget> targets() {
 		MAP_TYPE_GETTER("targets", ConstraintTarget)
@@ -16342,7 +16113,6 @@ class StretchToConstraint : public Constraint {
 public:
 	StretchToConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	StretchToConstraint() : Constraint(0) { }
-	~StretchToConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -16473,7 +16243,6 @@ class FollowPathConstraint : public Constraint {
 public:
 	FollowPathConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	FollowPathConstraint() : Constraint(0) { }
-	~FollowPathConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -16575,7 +16344,6 @@ class LockedTrackConstraint : public Constraint {
 public:
 	LockedTrackConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	LockedTrackConstraint() : Constraint(0) { }
-	~LockedTrackConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -16653,7 +16421,6 @@ class ActionConstraint : public Constraint {
 public:
 	ActionConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	ActionConstraint() : Constraint(0) { }
-	~ActionConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -16745,7 +16512,6 @@ class CopyScaleConstraint : public Constraint {
 public:
 	CopyScaleConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	CopyScaleConstraint() : Constraint(0) { }
-	~CopyScaleConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -16794,7 +16560,6 @@ class MaintainVolumeConstraint : public Constraint {
 public:
 	MaintainVolumeConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	MaintainVolumeConstraint() : Constraint(0) { }
-	~MaintainVolumeConstraint() { Py_DECREF(pyobjref); }
 
 	enum volume_items_enum {
 		volume_items_SAMEVOL_X = 0,	
@@ -16834,7 +16599,6 @@ class CopyLocationConstraint : public Constraint {
 public:
 	CopyLocationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	CopyLocationConstraint() : Constraint(0) { }
-	~CopyLocationConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -16915,7 +16679,6 @@ class CopyRotationConstraint : public Constraint {
 public:
 	CopyRotationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	CopyRotationConstraint() : Constraint(0) { }
-	~CopyRotationConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -16988,7 +16751,6 @@ class CopyTransformsConstraint : public Constraint {
 public:
 	CopyTransformsConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	CopyTransformsConstraint() : Constraint(0) { }
-	~CopyTransformsConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -17013,7 +16775,6 @@ class FloorConstraint : public Constraint {
 public:
 	FloorConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	FloorConstraint() : Constraint(0) { }
-	~FloorConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -17082,7 +16843,6 @@ class TrackToConstraint : public Constraint {
 public:
 	TrackToConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	TrackToConstraint() : Constraint(0) { }
-	~TrackToConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -17168,7 +16928,6 @@ class KinematicConstraint : public Constraint {
 public:
 	KinematicConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	KinematicConstraint() : Constraint(0) { }
-	~KinematicConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -17396,7 +17155,6 @@ class RigidBodyJointConstraint : public Constraint {
 public:
 	RigidBodyJointConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	RigidBodyJointConstraint() : Constraint(0) { }
-	~RigidBodyJointConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -17641,7 +17399,6 @@ class ClampToConstraint : public Constraint {
 public:
 	ClampToConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	ClampToConstraint() : Constraint(0) { }
-	~ClampToConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -17684,7 +17441,6 @@ class LimitDistanceConstraint : public Constraint {
 public:
 	LimitDistanceConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	LimitDistanceConstraint() : Constraint(0) { }
-	~LimitDistanceConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -17750,7 +17506,6 @@ class LimitScaleConstraint : public Constraint {
 public:
 	LimitScaleConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	LimitScaleConstraint() : Constraint(0) { }
-	~LimitScaleConstraint() { Py_DECREF(pyobjref); }
 
 	bool use_min_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_min_x")
@@ -17861,7 +17616,6 @@ class LimitRotationConstraint : public Constraint {
 public:
 	LimitRotationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	LimitRotationConstraint() : Constraint(0) { }
-	~LimitRotationConstraint() { Py_DECREF(pyobjref); }
 
 	bool use_limit_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_limit_x")
@@ -17948,7 +17702,6 @@ class LimitLocationConstraint : public Constraint {
 public:
 	LimitLocationConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	LimitLocationConstraint() : Constraint(0) { }
-	~LimitLocationConstraint() { Py_DECREF(pyobjref); }
 
 	bool use_min_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_min_x")
@@ -18059,7 +17812,6 @@ class TransformConstraint : public Constraint {
 public:
 	TransformConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	TransformConstraint() : Constraint(0) { }
-	~TransformConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -18446,7 +18198,6 @@ class ShrinkwrapConstraint : public Constraint {
 public:
 	ShrinkwrapConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	ShrinkwrapConstraint() : Constraint(0) { }
-	~ShrinkwrapConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -18550,7 +18301,6 @@ class DampedTrackConstraint : public Constraint {
 public:
 	DampedTrackConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	DampedTrackConstraint() : Constraint(0) { }
-	~DampedTrackConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -18603,7 +18353,6 @@ class SplineIKConstraint : public Constraint {
 public:
 	SplineIKConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	SplineIKConstraint() : Constraint(0) { }
-	~SplineIKConstraint() { Py_DECREF(pyobjref); }
 
 	Object target();
 
@@ -18734,7 +18483,6 @@ class PivotConstraint : public Constraint {
 public:
 	PivotConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	PivotConstraint() : Constraint(0) { }
-	~PivotConstraint() { Py_DECREF(pyobjref); }
 
 	float head_tail() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "head_tail")
@@ -18804,7 +18552,6 @@ class FollowTrackConstraint : public Constraint {
 public:
 	FollowTrackConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	FollowTrackConstraint() : Constraint(0) { }
-	~FollowTrackConstraint() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -18882,7 +18629,6 @@ class CameraSolverConstraint : public Constraint {
 public:
 	CameraSolverConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	CameraSolverConstraint() : Constraint(0) { }
-	~CameraSolverConstraint() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -18899,7 +18645,6 @@ class ObjectSolverConstraint : public Constraint {
 public:
 	ObjectSolverConstraint(PyObject* pyobj) : Constraint(pyobj) {}
 	ObjectSolverConstraint() : Constraint(0) { }
-	~ObjectSolverConstraint() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -18922,11 +18667,10 @@ public:
 	Object camera();
 };
 
-class Context : public pyUniplug {
+class Context : public pyObjRef {
 public:
-	Context(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Context() : pyUniplug(0) { }
-	~Context() { Py_DECREF(pyobjref); }
+	Context(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Context() : pyObjRef(0) { }
 
 	WindowManager window_manager();
 
@@ -18987,11 +18731,10 @@ public:
 	}
 };
 
-class Controller : public pyUniplug {
+class Controller : public pyObjRef {
 public:
-	Controller(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Controller() : pyUniplug(0) { }
-	~Controller() { Py_DECREF(pyobjref); }
+	Controller(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Controller() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -19076,7 +18819,6 @@ class ExpressionController : public Controller {
 public:
 	ExpressionController(PyObject* pyobj) : Controller(pyobj) {}
 	ExpressionController() : Controller(0) { }
-	~ExpressionController() { Py_DECREF(pyobjref); }
 
 	std::string expression() {
 		STRING_TYPE_GETTER("expression", resstr)
@@ -19091,7 +18833,6 @@ class PythonController : public Controller {
 public:
 	PythonController(PyObject* pyobj) : Controller(pyobj) {}
 	PythonController() : Controller(0) { }
-	~PythonController() { Py_DECREF(pyobjref); }
 
 	enum python_controller_modes_enum {
 		python_controller_modes_SCRIPT = 0,	
@@ -19140,49 +18881,42 @@ class AndController : public Controller {
 public:
 	AndController(PyObject* pyobj) : Controller(pyobj) {}
 	AndController() : Controller(0) { }
-	~AndController() { Py_DECREF(pyobjref); }
 };
 
 class OrController : public Controller {
 public:
 	OrController(PyObject* pyobj) : Controller(pyobj) {}
 	OrController() : Controller(0) { }
-	~OrController() { Py_DECREF(pyobjref); }
 };
 
 class NorController : public Controller {
 public:
 	NorController(PyObject* pyobj) : Controller(pyobj) {}
 	NorController() : Controller(0) { }
-	~NorController() { Py_DECREF(pyobjref); }
 };
 
 class NandController : public Controller {
 public:
 	NandController(PyObject* pyobj) : Controller(pyobj) {}
 	NandController() : Controller(0) { }
-	~NandController() { Py_DECREF(pyobjref); }
 };
 
 class XorController : public Controller {
 public:
 	XorController(PyObject* pyobj) : Controller(pyobj) {}
 	XorController() : Controller(0) { }
-	~XorController() { Py_DECREF(pyobjref); }
 };
 
 class XnorController : public Controller {
 public:
 	XnorController(PyObject* pyobj) : Controller(pyobj) {}
 	XnorController() : Controller(0) { }
-	~XnorController() { Py_DECREF(pyobjref); }
 };
 
 class Curve : public ID {
 public:
 	Curve(PyObject* pyobj) : ID(pyobj) {}
 	Curve() : ID(0) { }
-	~Curve() { Py_DECREF(pyobjref); }
 
 	Key shape_keys();
 
@@ -19548,7 +19282,6 @@ class SurfaceCurve : public Curve {
 public:
 	SurfaceCurve(PyObject* pyobj) : Curve(pyobj) {}
 	SurfaceCurve() : Curve(0) { }
-	~SurfaceCurve() { Py_DECREF(pyobjref); }
 
 	bool use_uv_as_generated() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_uv_as_generated")
@@ -19563,7 +19296,6 @@ class TextCurve : public Curve {
 public:
 	TextCurve(PyObject* pyobj) : Curve(pyobj) {}
 	TextCurve() : Curve(0) { }
-	~TextCurve() { Py_DECREF(pyobjref); }
 
 	enum prop_align_items_enum {
 		prop_align_items_LEFT = 0,	
@@ -19729,11 +19461,10 @@ public:
 	}
 };
 
-class TextBox : public pyUniplug {
+class TextBox : public pyObjRef {
 public:
-	TextBox(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TextBox() : pyUniplug(0) { }
-	~TextBox() { Py_DECREF(pyobjref); }
+	TextBox(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TextBox() : pyObjRef(0) { }
 
 	float x() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "x")
@@ -19768,11 +19499,10 @@ public:
 	}
 };
 
-class TextCharacterFormat : public pyUniplug {
+class TextCharacterFormat : public pyObjRef {
 public:
-	TextCharacterFormat(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TextCharacterFormat() : pyUniplug(0) { }
-	~TextCharacterFormat() { Py_DECREF(pyobjref); }
+	TextCharacterFormat(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TextCharacterFormat() : pyObjRef(0) { }
 
 	bool use_bold() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_bold")
@@ -19815,11 +19545,10 @@ public:
 	}
 };
 
-class SplinePoint : public pyUniplug {
+class SplinePoint : public pyObjRef {
 public:
-	SplinePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SplinePoint() : pyUniplug(0) { }
-	~SplinePoint() { Py_DECREF(pyobjref); }
+	SplinePoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SplinePoint() : pyObjRef(0) { }
 
 	bool select() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "select")
@@ -19878,11 +19607,10 @@ public:
 	}
 };
 
-class BezierSplinePoint : public pyUniplug {
+class BezierSplinePoint : public pyObjRef {
 public:
-	BezierSplinePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BezierSplinePoint() : pyUniplug(0) { }
-	~BezierSplinePoint() { Py_DECREF(pyobjref); }
+	BezierSplinePoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BezierSplinePoint() : pyObjRef(0) { }
 
 	bool select_left_handle() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "select_left_handle")
@@ -19999,11 +19727,10 @@ public:
 	}
 };
 
-class Spline : public pyUniplug {
+class Spline : public pyObjRef {
 public:
-	Spline(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Spline() : pyUniplug(0) { }
-	~Spline() { Py_DECREF(pyobjref); }
+	Spline(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Spline() : pyObjRef(0) { }
 
 	std::map<std::string, SplinePoint> points() {
 		MAP_TYPE_GETTER("points", SplinePoint)
@@ -20203,11 +19930,10 @@ public:
 	}
 };
 
-class Depsgraph : public pyUniplug {
+class Depsgraph : public pyObjRef {
 public:
-	Depsgraph(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Depsgraph() : pyUniplug(0) { }
-	~Depsgraph() { Py_DECREF(pyobjref); }
+	Depsgraph(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Depsgraph() : pyObjRef(0) { }
 
 	void debug_graphviz(const std::string filename) {
 		PYTHON_FUNCTION_ARGS_CALL("debug_graphviz", "s", filename)
@@ -20222,20 +19948,18 @@ public:
 	}
 };
 
-class DynamicPaintCanvasSettings : public pyUniplug {
+class DynamicPaintCanvasSettings : public pyObjRef {
 public:
-	DynamicPaintCanvasSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DynamicPaintCanvasSettings() : pyUniplug(0) { }
-	~DynamicPaintCanvasSettings() { Py_DECREF(pyobjref); }
+	DynamicPaintCanvasSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DynamicPaintCanvasSettings() : pyObjRef(0) { }
 
 	std::map<std::string, DynamicPaintSurface> canvas_surfaces();
 };
 
-class DynamicPaintBrushSettings : public pyUniplug {
+class DynamicPaintBrushSettings : public pyObjRef {
 public:
-	DynamicPaintBrushSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DynamicPaintBrushSettings() : pyUniplug(0) { }
-	~DynamicPaintBrushSettings() { Py_DECREF(pyobjref); }
+	DynamicPaintBrushSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DynamicPaintBrushSettings() : pyObjRef(0) { }
 
 	VFLOAT3 paint_color() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "paint_color", 3)
@@ -20529,11 +20253,10 @@ public:
 	}
 };
 
-class DynamicPaintSurface : public pyUniplug {
+class DynamicPaintSurface : public pyObjRef {
 public:
-	DynamicPaintSurface(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DynamicPaintSurface() : pyUniplug(0) { }
-	~DynamicPaintSurface() { Py_DECREF(pyobjref); }
+	DynamicPaintSurface(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DynamicPaintSurface() : pyObjRef(0) { }
 
 	enum prop_dynamicpaint_surface_format_enum {
 		prop_dynamicpaint_surface_format_VERTEX = 1,	
@@ -21078,11 +20801,10 @@ public:
 	bool output_exists(Object object_value, int index);
 };
 
-class FCurve : public pyUniplug {
+class FCurve : public pyObjRef {
 public:
-	FCurve(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FCurve() : pyUniplug(0) { }
-	~FCurve() { Py_DECREF(pyobjref); }
+	FCurve(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FCurve() : pyObjRef(0) { }
 
 	enum prop_mode_extend_items_enum {
 		prop_mode_extend_items_CONSTANT = 0,	
@@ -21240,11 +20962,10 @@ public:
 	}
 };
 
-class Keyframe : public pyUniplug {
+class Keyframe : public pyObjRef {
 public:
-	Keyframe(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Keyframe() : pyUniplug(0) { }
-	~Keyframe() { Py_DECREF(pyobjref); }
+	Keyframe(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Keyframe() : pyObjRef(0) { }
 
 	bool select_left_handle() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "select_left_handle")
@@ -21441,11 +21162,10 @@ public:
 	}
 };
 
-class FCurveSample : public pyUniplug {
+class FCurveSample : public pyObjRef {
 public:
-	FCurveSample(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FCurveSample() : pyUniplug(0) { }
-	~FCurveSample() { Py_DECREF(pyobjref); }
+	FCurveSample(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FCurveSample() : pyObjRef(0) { }
 
 	bool select() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "select")
@@ -21464,11 +21184,10 @@ public:
 	}
 };
 
-class DriverTarget : public pyUniplug {
+class DriverTarget : public pyObjRef {
 public:
-	DriverTarget(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DriverTarget() : pyUniplug(0) { }
-	~DriverTarget() { Py_DECREF(pyobjref); }
+	DriverTarget(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DriverTarget() : pyObjRef(0) { }
 
 	ID id() {
 		CLASS_TYPES_GETTER(ID, "id")
@@ -21601,11 +21320,10 @@ public:
 	}
 };
 
-class DriverVariable : public pyUniplug {
+class DriverVariable : public pyObjRef {
 public:
-	DriverVariable(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DriverVariable() : pyUniplug(0) { }
-	~DriverVariable() { Py_DECREF(pyobjref); }
+	DriverVariable(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DriverVariable() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -21646,11 +21364,10 @@ public:
 	}
 };
 
-class Driver : public pyUniplug {
+class Driver : public pyObjRef {
 public:
-	Driver(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Driver() : pyUniplug(0) { }
-	~Driver() { Py_DECREF(pyobjref); }
+	Driver(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Driver() : pyObjRef(0) { }
 
 	enum prop_type_items_enum {
 		prop_type_items_AVERAGE = 0,	
@@ -21708,11 +21425,10 @@ public:
 	}
 };
 
-class FModifier : public pyUniplug {
+class FModifier : public pyObjRef {
 public:
-	FModifier(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FModifier() : pyUniplug(0) { }
-	~FModifier() { Py_DECREF(pyobjref); }
+	FModifier(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FModifier() : pyObjRef(0) { }
 
 	enum fmodifier_type_items_enum {
 		fmodifier_type_items_NULL = 0,	
@@ -21838,7 +21554,6 @@ class FModifierGenerator : public FModifier {
 public:
 	FModifierGenerator(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierGenerator() : FModifier(0) { }
-	~FModifierGenerator() { Py_DECREF(pyobjref); }
 
 	bool use_additive() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_additive")
@@ -21893,7 +21608,6 @@ class FModifierFunctionGenerator : public FModifier {
 public:
 	FModifierFunctionGenerator(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierFunctionGenerator() : FModifier(0) { }
-	~FModifierFunctionGenerator() { Py_DECREF(pyobjref); }
 
 	float amplitude() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "amplitude")
@@ -21968,7 +21682,6 @@ class FModifierEnvelope : public FModifier {
 public:
 	FModifierEnvelope(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierEnvelope() : FModifier(0) { }
-	~FModifierEnvelope() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, FModifierEnvelopeControlPoint> control_points();
 
@@ -21997,11 +21710,10 @@ public:
 	}
 };
 
-class FModifierEnvelopeControlPoint : public pyUniplug {
+class FModifierEnvelopeControlPoint : public pyObjRef {
 public:
-	FModifierEnvelopeControlPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FModifierEnvelopeControlPoint() : pyUniplug(0) { }
-	~FModifierEnvelopeControlPoint() { Py_DECREF(pyobjref); }
+	FModifierEnvelopeControlPoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FModifierEnvelopeControlPoint() : pyObjRef(0) { }
 
 	float min() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "min")
@@ -22032,7 +21744,6 @@ class FModifierCycles : public FModifier {
 public:
 	FModifierCycles(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierCycles() : FModifier(0) { }
-	~FModifierCycles() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_NONE = 0,	
@@ -22089,14 +21800,12 @@ class FModifierPython : public FModifier {
 public:
 	FModifierPython(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierPython() : FModifier(0) { }
-	~FModifierPython() { Py_DECREF(pyobjref); }
 };
 
 class FModifierLimits : public FModifier {
 public:
 	FModifierLimits(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierLimits() : FModifier(0) { }
-	~FModifierLimits() { Py_DECREF(pyobjref); }
 
 	bool use_min_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_min_x")
@@ -22167,7 +21876,6 @@ class FModifierNoise : public FModifier {
 public:
 	FModifierNoise(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierNoise() : FModifier(0) { }
-	~FModifierNoise() { Py_DECREF(pyobjref); }
 
 	enum prop_modification_items_enum {
 		prop_modification_items_REPLACE = 0,	
@@ -22240,7 +21948,6 @@ class FModifierStepped : public FModifier {
 public:
 	FModifierStepped(PyObject* pyobj) : FModifier(pyobj) {}
 	FModifierStepped() : FModifier(0) { }
-	~FModifierStepped() { Py_DECREF(pyobjref); }
 
 	float frame_step() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "frame_step")
@@ -22291,11 +21998,10 @@ public:
 	}
 };
 
-class FluidSettings : public pyUniplug {
+class FluidSettings : public pyObjRef {
 public:
-	FluidSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FluidSettings() : pyUniplug(0) { }
-	~FluidSettings() { Py_DECREF(pyobjref); }
+	FluidSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FluidSettings() : pyObjRef(0) { }
 
 	enum prop_fluid_type_items_enum {
 		prop_fluid_type_items_NONE = 1,	
@@ -22332,7 +22038,6 @@ class DomainFluidSettings : public FluidSettings {
 public:
 	DomainFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	DomainFluidSettings() : FluidSettings(0) { }
-	~DomainFluidSettings() { Py_DECREF(pyobjref); }
 
 	int threads() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "threads")
@@ -22587,11 +22292,10 @@ public:
 	std::map<std::string, FluidMeshVertex> fluid_mesh_vertices();
 };
 
-class FluidMeshVertex : public pyUniplug {
+class FluidMeshVertex : public pyObjRef {
 public:
-	FluidMeshVertex(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FluidMeshVertex() : pyUniplug(0) { }
-	~FluidMeshVertex() { Py_DECREF(pyobjref); }
+	FluidMeshVertex(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FluidMeshVertex() : pyObjRef(0) { }
 
 	VFLOAT3 velocity() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "velocity", 3)
@@ -22606,7 +22310,6 @@ class FluidFluidSettings : public FluidSettings {
 public:
 	FluidFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	FluidFluidSettings() : FluidSettings(0) { }
-	~FluidFluidSettings() { Py_DECREF(pyobjref); }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -22662,7 +22365,6 @@ class ObstacleFluidSettings : public FluidSettings {
 public:
 	ObstacleFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	ObstacleFluidSettings() : FluidSettings(0) { }
-	~ObstacleFluidSettings() { Py_DECREF(pyobjref); }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -22751,7 +22453,6 @@ class InflowFluidSettings : public FluidSettings {
 public:
 	InflowFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	InflowFluidSettings() : FluidSettings(0) { }
-	~InflowFluidSettings() { Py_DECREF(pyobjref); }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -22815,7 +22516,6 @@ class OutflowFluidSettings : public FluidSettings {
 public:
 	OutflowFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	OutflowFluidSettings() : FluidSettings(0) { }
-	~OutflowFluidSettings() { Py_DECREF(pyobjref); }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -22863,7 +22563,6 @@ class ParticleFluidSettings : public FluidSettings {
 public:
 	ParticleFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	ParticleFluidSettings() : FluidSettings(0) { }
-	~ParticleFluidSettings() { Py_DECREF(pyobjref); }
 
 	bool use_drops() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_drops")
@@ -22918,7 +22617,6 @@ class ControlFluidSettings : public FluidSettings {
 public:
 	ControlFluidSettings(PyObject* pyobj) : FluidSettings(pyobj) {}
 	ControlFluidSettings() : FluidSettings(0) { }
-	~ControlFluidSettings() { Py_DECREF(pyobjref); }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -22997,7 +22695,6 @@ class GreasePencil : public ID {
 public:
 	GreasePencil(PyObject* pyobj) : ID(pyobj) {}
 	GreasePencil() : ID(0) { }
-	~GreasePencil() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, GPencilLayer> layers();
 
@@ -23052,11 +22749,10 @@ public:
 	}
 };
 
-class GPencilLayer : public pyUniplug {
+class GPencilLayer : public pyObjRef {
 public:
-	GPencilLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilLayer() : pyUniplug(0) { }
-	~GPencilLayer() { Py_DECREF(pyobjref); }
+	GPencilLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilLayer() : pyObjRef(0) { }
 
 	std::string info() {
 		STRING_TYPE_GETTER("info", resstr)
@@ -23235,11 +22931,10 @@ public:
 	}
 };
 
-class GPencilFrame : public pyUniplug {
+class GPencilFrame : public pyObjRef {
 public:
-	GPencilFrame(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilFrame() : pyUniplug(0) { }
-	~GPencilFrame() { Py_DECREF(pyobjref); }
+	GPencilFrame(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilFrame() : pyObjRef(0) { }
 
 	std::map<std::string, GPencilStroke> strokes();
 
@@ -23272,11 +22967,10 @@ public:
 	}
 };
 
-class GPencilStroke : public pyUniplug {
+class GPencilStroke : public pyObjRef {
 public:
-	GPencilStroke(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilStroke() : pyUniplug(0) { }
-	~GPencilStroke() { Py_DECREF(pyobjref); }
+	GPencilStroke(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilStroke() : pyObjRef(0) { }
 
 	std::map<std::string, GPencilStrokePoint> points();
 
@@ -23315,11 +23009,10 @@ public:
 	}
 };
 
-class GPencilStrokePoint : public pyUniplug {
+class GPencilStrokePoint : public pyObjRef {
 public:
-	GPencilStrokePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPencilStrokePoint() : pyUniplug(0) { }
-	~GPencilStrokePoint() { Py_DECREF(pyobjref); }
+	GPencilStrokePoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPencilStrokePoint() : pyObjRef(0) { }
 
 	VFLOAT3 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 3)
@@ -23350,7 +23043,6 @@ class Group : public ID {
 public:
 	Group(PyObject* pyobj) : ID(pyobj) {}
 	Group() : ID(0) { }
-	~Group() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 dupli_offset() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "dupli_offset", 3)
@@ -23371,11 +23063,10 @@ public:
 	std::map<std::string, Object> objects();
 };
 
-class RenderSlot : public pyUniplug {
+class RenderSlot : public pyObjRef {
 public:
-	RenderSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderSlot() : pyUniplug(0) { }
-	~RenderSlot() { Py_DECREF(pyobjref); }
+	RenderSlot(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderSlot() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -23390,7 +23081,6 @@ class Image : public ID {
 public:
 	Image(PyObject* pyobj) : ID(pyobj) {}
 	Image() : ID(0) { }
-	~Image() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -23956,11 +23646,10 @@ public:
 	}
 };
 
-class ImageUser : public pyUniplug {
+class ImageUser : public pyObjRef {
 public:
-	ImageUser(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ImageUser() : pyUniplug(0) { }
-	~ImageUser() { Py_DECREF(pyobjref); }
+	ImageUser(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ImageUser() : pyObjRef(0) { }
 
 	bool use_auto_refresh() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_auto_refresh")
@@ -24035,11 +23724,10 @@ public:
 	}
 };
 
-class ImagePackedFile : public pyUniplug {
+class ImagePackedFile : public pyObjRef {
 public:
-	ImagePackedFile(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ImagePackedFile() : pyUniplug(0) { }
-	~ImagePackedFile() { Py_DECREF(pyobjref); }
+	ImagePackedFile(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ImagePackedFile() : pyObjRef(0) { }
 
 	PackedFile packed_file();
 
@@ -24056,7 +23744,6 @@ class Key : public ID {
 public:
 	Key(PyObject* pyobj) : ID(pyobj) {}
 	Key() : ID(0) { }
-	~Key() { Py_DECREF(pyobjref); }
 
 	ShapeKey reference_key();
 
@@ -24087,11 +23774,10 @@ public:
 	}
 };
 
-class ShapeKey : public pyUniplug {
+class ShapeKey : public pyObjRef {
 public:
-	ShapeKey(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ShapeKey() : pyUniplug(0) { }
-	~ShapeKey() { Py_DECREF(pyobjref); }
+	ShapeKey(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ShapeKey() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -24184,11 +23870,10 @@ public:
 	}
 };
 
-class ShapeKeyPoint : public pyUniplug {
+class ShapeKeyPoint : public pyObjRef {
 public:
-	ShapeKeyPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ShapeKeyPoint() : pyUniplug(0) { }
-	~ShapeKeyPoint() { Py_DECREF(pyobjref); }
+	ShapeKeyPoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ShapeKeyPoint() : pyObjRef(0) { }
 
 	VFLOAT3 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 3)
@@ -24199,11 +23884,10 @@ public:
 	}
 };
 
-class ShapeKeyCurvePoint : public pyUniplug {
+class ShapeKeyCurvePoint : public pyObjRef {
 public:
-	ShapeKeyCurvePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ShapeKeyCurvePoint() : pyUniplug(0) { }
-	~ShapeKeyCurvePoint() { Py_DECREF(pyobjref); }
+	ShapeKeyCurvePoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ShapeKeyCurvePoint() : pyObjRef(0) { }
 
 	VFLOAT3 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 3)
@@ -24222,11 +23906,10 @@ public:
 	}
 };
 
-class ShapeKeyBezierPoint : public pyUniplug {
+class ShapeKeyBezierPoint : public pyObjRef {
 public:
-	ShapeKeyBezierPoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ShapeKeyBezierPoint() : pyUniplug(0) { }
-	~ShapeKeyBezierPoint() { Py_DECREF(pyobjref); }
+	ShapeKeyBezierPoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ShapeKeyBezierPoint() : pyObjRef(0) { }
 
 	VFLOAT3 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 3)
@@ -24257,7 +23940,6 @@ class Lamp : public ID {
 public:
 	Lamp(PyObject* pyobj) : ID(pyobj) {}
 	Lamp() : ID(0) { }
-	~Lamp() { Py_DECREF(pyobjref); }
 
 	enum lamp_type_items_enum {
 		lamp_type_items_POINT = 0,	
@@ -24375,7 +24057,6 @@ class PointLamp : public Lamp {
 public:
 	PointLamp(PyObject* pyobj) : Lamp(pyobj) {}
 	PointLamp() : Lamp(0) { }
-	~PointLamp() { Py_DECREF(pyobjref); }
 
 	enum prop_fallofftype_items_enum {
 		prop_fallofftype_items_CONSTANT = 0,	
@@ -24721,7 +24402,6 @@ class AreaLamp : public Lamp {
 public:
 	AreaLamp(PyObject* pyobj) : Lamp(pyobj) {}
 	AreaLamp() : Lamp(0) { }
-	~AreaLamp() { Py_DECREF(pyobjref); }
 
 	bool use_shadow() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_shadow")
@@ -25093,7 +24773,6 @@ class SpotLamp : public Lamp {
 public:
 	SpotLamp(PyObject* pyobj) : Lamp(pyobj) {}
 	SpotLamp() : Lamp(0) { }
-	~SpotLamp() { Py_DECREF(pyobjref); }
 
 	enum prop_fallofftype_items_enum {
 		prop_fallofftype_items_CONSTANT = 0,	
@@ -25496,7 +25175,6 @@ class SunLamp : public Lamp {
 public:
 	SunLamp(PyObject* pyobj) : Lamp(pyobj) {}
 	SunLamp() : Lamp(0) { }
-	~SunLamp() { Py_DECREF(pyobjref); }
 
 	bool use_shadow() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_shadow")
@@ -25801,11 +25479,10 @@ public:
 	}
 };
 
-class LampSkySettings : public pyUniplug {
+class LampSkySettings : public pyObjRef {
 public:
-	LampSkySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LampSkySettings() : pyUniplug(0) { }
-	~LampSkySettings() { Py_DECREF(pyobjref); }
+	LampSkySettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LampSkySettings() : pyObjRef(0) { }
 
 	enum prop_skycolorspace_items_enum {
 		prop_skycolorspace_items_SMPTE = 0,	
@@ -25989,14 +25666,12 @@ class HemiLamp : public Lamp {
 public:
 	HemiLamp(PyObject* pyobj) : Lamp(pyobj) {}
 	HemiLamp() : Lamp(0) { }
-	~HemiLamp() { Py_DECREF(pyobjref); }
 };
 
 class LampTextureSlot : public TextureSlot {
 public:
 	LampTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
 	LampTextureSlot() : TextureSlot(0) { }
-	~LampTextureSlot() { Py_DECREF(pyobjref); }
 
 	enum prop_texture_coordinates_items_enum {
 		prop_texture_coordinates_items_GLOBAL = 8,	
@@ -26062,7 +25737,6 @@ class Lattice : public ID {
 public:
 	Lattice(PyObject* pyobj) : ID(pyobj) {}
 	Lattice() : ID(0) { }
-	~Lattice() { Py_DECREF(pyobjref); }
 
 	int points_u() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "points_u")
@@ -26171,11 +25845,10 @@ public:
 	}
 };
 
-class LatticePoint : public pyUniplug {
+class LatticePoint : public pyObjRef {
 public:
-	LatticePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LatticePoint() : pyUniplug(0) { }
-	~LatticePoint() { Py_DECREF(pyobjref); }
+	LatticePoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LatticePoint() : pyObjRef(0) { }
 
 	bool select() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "select")
@@ -26212,11 +25885,10 @@ public:
 	std::map<std::string, VertexGroupElement> groups();
 };
 
-class LineStyleModifier : public pyUniplug {
+class LineStyleModifier : public pyObjRef {
 public:
-	LineStyleModifier(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LineStyleModifier() : pyUniplug(0) { }
-	~LineStyleModifier() { Py_DECREF(pyobjref); }
+	LineStyleModifier(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LineStyleModifier() : pyObjRef(0) { }
 
 };
 
@@ -26224,14 +25896,12 @@ class LineStyleColorModifier : public LineStyleModifier {
 public:
 	LineStyleColorModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
 	LineStyleColorModifier() : LineStyleModifier(0) { }
-	~LineStyleColorModifier() { Py_DECREF(pyobjref); }
 };
 
 class LineStyleColorModifier_AlongStroke : public LineStyleColorModifier {
 public:
 	LineStyleColorModifier_AlongStroke(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_AlongStroke() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_AlongStroke() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -26344,7 +26014,6 @@ class LineStyleColorModifier_DistanceFromCamera : public LineStyleColorModifier 
 public:
 	LineStyleColorModifier_DistanceFromCamera(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_DistanceFromCamera() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_DistanceFromCamera() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -26473,7 +26142,6 @@ class LineStyleColorModifier_DistanceFromObject : public LineStyleColorModifier 
 public:
 	LineStyleColorModifier_DistanceFromObject(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_DistanceFromObject() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_DistanceFromObject() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -26604,7 +26272,6 @@ class LineStyleColorModifier_Material : public LineStyleColorModifier {
 public:
 	LineStyleColorModifier_Material(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_Material() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_Material() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -26762,7 +26429,6 @@ class LineStyleColorModifier_Tangent : public LineStyleColorModifier {
 public:
 	LineStyleColorModifier_Tangent(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_Tangent() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_Tangent() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -26875,7 +26541,6 @@ class LineStyleColorModifier_Noise : public LineStyleColorModifier {
 public:
 	LineStyleColorModifier_Noise(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_Noise() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_Noise() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27012,7 +26677,6 @@ class LineStyleColorModifier_CreaseAngle : public LineStyleColorModifier {
 public:
 	LineStyleColorModifier_CreaseAngle(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_CreaseAngle() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_CreaseAngle() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27141,7 +26805,6 @@ class LineStyleColorModifier_Curvature_3D : public LineStyleColorModifier {
 public:
 	LineStyleColorModifier_Curvature_3D(PyObject* pyobj) : LineStyleColorModifier(pyobj) {}
 	LineStyleColorModifier_Curvature_3D() : LineStyleColorModifier(0) { }
-	~LineStyleColorModifier_Curvature_3D() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27270,14 +26933,12 @@ class LineStyleAlphaModifier : public LineStyleModifier {
 public:
 	LineStyleAlphaModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
 	LineStyleAlphaModifier() : LineStyleModifier(0) { }
-	~LineStyleAlphaModifier() { Py_DECREF(pyobjref); }
 };
 
 class LineStyleAlphaModifier_AlongStroke : public LineStyleAlphaModifier {
 public:
 	LineStyleAlphaModifier_AlongStroke(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_AlongStroke() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_AlongStroke() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27412,7 +27073,6 @@ class LineStyleAlphaModifier_DistanceFromCamera : public LineStyleAlphaModifier 
 public:
 	LineStyleAlphaModifier_DistanceFromCamera(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_DistanceFromCamera() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_DistanceFromCamera() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27563,7 +27223,6 @@ class LineStyleAlphaModifier_DistanceFromObject : public LineStyleAlphaModifier 
 public:
 	LineStyleAlphaModifier_DistanceFromObject(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_DistanceFromObject() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_DistanceFromObject() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27716,7 +27375,6 @@ class LineStyleAlphaModifier_Material : public LineStyleAlphaModifier {
 public:
 	LineStyleAlphaModifier_Material(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_Material() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_Material() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -27888,7 +27546,6 @@ class LineStyleAlphaModifier_Tangent : public LineStyleAlphaModifier {
 public:
 	LineStyleAlphaModifier_Tangent(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_Tangent() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_Tangent() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28023,7 +27680,6 @@ class LineStyleAlphaModifier_Noise : public LineStyleAlphaModifier {
 public:
 	LineStyleAlphaModifier_Noise(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_Noise() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_Noise() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28182,7 +27838,6 @@ class LineStyleAlphaModifier_CreaseAngle : public LineStyleAlphaModifier {
 public:
 	LineStyleAlphaModifier_CreaseAngle(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_CreaseAngle() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_CreaseAngle() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28333,7 +27988,6 @@ class LineStyleAlphaModifier_Curvature_3D : public LineStyleAlphaModifier {
 public:
 	LineStyleAlphaModifier_Curvature_3D(PyObject* pyobj) : LineStyleAlphaModifier(pyobj) {}
 	LineStyleAlphaModifier_Curvature_3D() : LineStyleAlphaModifier(0) { }
-	~LineStyleAlphaModifier_Curvature_3D() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28484,14 +28138,12 @@ class LineStyleThicknessModifier : public LineStyleModifier {
 public:
 	LineStyleThicknessModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
 	LineStyleThicknessModifier() : LineStyleModifier(0) { }
-	~LineStyleThicknessModifier() { Py_DECREF(pyobjref); }
 };
 
 class LineStyleThicknessModifier_Tangent : public LineStyleThicknessModifier {
 public:
 	LineStyleThicknessModifier_Tangent(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_Tangent() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_Tangent() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28643,7 +28295,6 @@ class LineStyleThicknessModifier_AlongStroke : public LineStyleThicknessModifier
 public:
 	LineStyleThicknessModifier_AlongStroke(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_AlongStroke() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_AlongStroke() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28795,7 +28446,6 @@ class LineStyleThicknessModifier_DistanceFromCamera : public LineStyleThicknessM
 public:
 	LineStyleThicknessModifier_DistanceFromCamera(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_DistanceFromCamera() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_DistanceFromCamera() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -28963,7 +28613,6 @@ class LineStyleThicknessModifier_DistanceFromObject : public LineStyleThicknessM
 public:
 	LineStyleThicknessModifier_DistanceFromObject(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_DistanceFromObject() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_DistanceFromObject() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -29133,7 +28782,6 @@ class LineStyleThicknessModifier_Material : public LineStyleThicknessModifier {
 public:
 	LineStyleThicknessModifier_Material(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_Material() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_Material() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -29322,7 +28970,6 @@ class LineStyleThicknessModifier_Calligraphy : public LineStyleThicknessModifier
 public:
 	LineStyleThicknessModifier_Calligraphy(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_Calligraphy() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_Calligraphy() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -29446,7 +29093,6 @@ class LineStyleThicknessModifier_Noise : public LineStyleThicknessModifier {
 public:
 	LineStyleThicknessModifier_Noise(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_Noise() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_Noise() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -29578,7 +29224,6 @@ class LineStyleThicknessModifier_Curvature_3D : public LineStyleThicknessModifie
 public:
 	LineStyleThicknessModifier_Curvature_3D(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_Curvature_3D() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_Curvature_3D() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -29746,7 +29391,6 @@ class LineStyleThicknessModifier_CreaseAngle : public LineStyleThicknessModifier
 public:
 	LineStyleThicknessModifier_CreaseAngle(PyObject* pyobj) : LineStyleThicknessModifier(pyobj) {}
 	LineStyleThicknessModifier_CreaseAngle() : LineStyleThicknessModifier(0) { }
-	~LineStyleThicknessModifier_CreaseAngle() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_ALONG_STROKE = 1,	
@@ -29914,14 +29558,12 @@ class LineStyleGeometryModifier : public LineStyleModifier {
 public:
 	LineStyleGeometryModifier(PyObject* pyobj) : LineStyleModifier(pyobj) {}
 	LineStyleGeometryModifier() : LineStyleModifier(0) { }
-	~LineStyleGeometryModifier() { Py_DECREF(pyobjref); }
 };
 
 class LineStyleGeometryModifier_Sampling : public LineStyleGeometryModifier {
 public:
 	LineStyleGeometryModifier_Sampling(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_Sampling() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_Sampling() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -29996,7 +29638,6 @@ class LineStyleGeometryModifier_BezierCurve : public LineStyleGeometryModifier {
 public:
 	LineStyleGeometryModifier_BezierCurve(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_BezierCurve() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_BezierCurve() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30071,7 +29712,6 @@ class LineStyleGeometryModifier_SinusDisplacement : public LineStyleGeometryModi
 public:
 	LineStyleGeometryModifier_SinusDisplacement(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_SinusDisplacement() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_SinusDisplacement() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30162,7 +29802,6 @@ class LineStyleGeometryModifier_SpatialNoise : public LineStyleGeometryModifier 
 public:
 	LineStyleGeometryModifier_SpatialNoise(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_SpatialNoise() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_SpatialNoise() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30269,7 +29908,6 @@ class LineStyleGeometryModifier_PerlinNoise1D : public LineStyleGeometryModifier
 public:
 	LineStyleGeometryModifier_PerlinNoise1D(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_PerlinNoise1D() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_PerlinNoise1D() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30376,7 +30014,6 @@ class LineStyleGeometryModifier_PerlinNoise2D : public LineStyleGeometryModifier
 public:
 	LineStyleGeometryModifier_PerlinNoise2D(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_PerlinNoise2D() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_PerlinNoise2D() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30483,7 +30120,6 @@ class LineStyleGeometryModifier_BackboneStretcher : public LineStyleGeometryModi
 public:
 	LineStyleGeometryModifier_BackboneStretcher(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_BackboneStretcher() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_BackboneStretcher() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30558,7 +30194,6 @@ class LineStyleGeometryModifier_TipRemover : public LineStyleGeometryModifier {
 public:
 	LineStyleGeometryModifier_TipRemover(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_TipRemover() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_TipRemover() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30633,7 +30268,6 @@ class LineStyleGeometryModifier_Polygonalization : public LineStyleGeometryModif
 public:
 	LineStyleGeometryModifier_Polygonalization(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_Polygonalization() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_Polygonalization() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30708,7 +30342,6 @@ class LineStyleGeometryModifier_GuidingLines : public LineStyleGeometryModifier 
 public:
 	LineStyleGeometryModifier_GuidingLines(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_GuidingLines() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_GuidingLines() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30783,7 +30416,6 @@ class LineStyleGeometryModifier_Blueprint : public LineStyleGeometryModifier {
 public:
 	LineStyleGeometryModifier_Blueprint(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_Blueprint() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_Blueprint() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -30915,7 +30547,6 @@ class LineStyleGeometryModifier_2DOffset : public LineStyleGeometryModifier {
 public:
 	LineStyleGeometryModifier_2DOffset(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_2DOffset() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_2DOffset() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -31014,7 +30645,6 @@ class LineStyleGeometryModifier_2DTransform : public LineStyleGeometryModifier {
 public:
 	LineStyleGeometryModifier_2DTransform(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_2DTransform() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_2DTransform() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -31156,7 +30786,6 @@ class LineStyleGeometryModifier_Simplification : public LineStyleGeometryModifie
 public:
 	LineStyleGeometryModifier_Simplification(PyObject* pyobj) : LineStyleGeometryModifier(pyobj) {}
 	LineStyleGeometryModifier_Simplification() : LineStyleGeometryModifier(0) { }
-	~LineStyleGeometryModifier_Simplification() { Py_DECREF(pyobjref); }
 
 	enum modifier_type_items_enum {
 		modifier_type_items_2D_OFFSET = 17,	
@@ -31231,7 +30860,6 @@ class FreestyleLineStyle : public ID {
 public:
 	FreestyleLineStyle(PyObject* pyobj) : ID(pyobj) {}
 	FreestyleLineStyle() : ID(0) { }
-	~FreestyleLineStyle() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, LineStyleTextureSlot> texture_slots();
 
@@ -31754,7 +31382,6 @@ class LineStyleTextureSlot : public TextureSlot {
 public:
 	LineStyleTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
 	LineStyleTextureSlot() : TextureSlot(0) { }
-	~LineStyleTextureSlot() { Py_DECREF(pyobjref); }
 
 	enum prop_x_mapping_items_enum {
 		prop_x_mapping_items_NONE = 0,	
@@ -31927,11 +31554,10 @@ public:
 	}
 };
 
-class BlendData : public pyUniplug {
+class BlendData : public pyObjRef {
 public:
-	BlendData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BlendData() : pyUniplug(0) { }
-	~BlendData() { Py_DECREF(pyobjref); }
+	BlendData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BlendData() : pyObjRef(0) { }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -32072,7 +31698,6 @@ class Material : public ID {
 public:
 	Material(PyObject* pyobj) : ID(pyobj) {}
 	Material() : ID(0) { }
-	~Material() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_SURFACE = 0,	
@@ -32861,11 +32486,10 @@ public:
 	}
 };
 
-class TexPaintSlot : public pyUniplug {
+class TexPaintSlot : public pyObjRef {
 public:
-	TexPaintSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TexPaintSlot() : pyUniplug(0) { }
-	~TexPaintSlot() { Py_DECREF(pyobjref); }
+	TexPaintSlot(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TexPaintSlot() : pyObjRef(0) { }
 
 	std::string uv_layer() {
 		STRING_TYPE_GETTER("uv_layer", resstr)
@@ -32884,11 +32508,10 @@ public:
 	}
 };
 
-class MaterialRaytraceMirror : public pyUniplug {
+class MaterialRaytraceMirror : public pyObjRef {
 public:
-	MaterialRaytraceMirror(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialRaytraceMirror() : pyUniplug(0) { }
-	~MaterialRaytraceMirror() { Py_DECREF(pyobjref); }
+	MaterialRaytraceMirror(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialRaytraceMirror() : pyObjRef(0) { }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -32995,11 +32618,10 @@ public:
 	}
 };
 
-class MaterialRaytraceTransparency : public pyUniplug {
+class MaterialRaytraceTransparency : public pyObjRef {
 public:
-	MaterialRaytraceTransparency(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialRaytraceTransparency() : pyUniplug(0) { }
-	~MaterialRaytraceTransparency() { Py_DECREF(pyobjref); }
+	MaterialRaytraceTransparency(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialRaytraceTransparency() : pyObjRef(0) { }
 
 	float ior() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "ior")
@@ -33082,11 +32704,10 @@ public:
 	}
 };
 
-class MaterialVolume : public pyUniplug {
+class MaterialVolume : public pyObjRef {
 public:
-	MaterialVolume(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialVolume() : pyUniplug(0) { }
-	~MaterialVolume() { Py_DECREF(pyobjref); }
+	MaterialVolume(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialVolume() : pyObjRef(0) { }
 
 	enum prop_stepsize_items_enum {
 		prop_stepsize_items_RANDOMIZED = 0,	
@@ -33276,11 +32897,10 @@ public:
 	}
 };
 
-class MaterialHalo : public pyUniplug {
+class MaterialHalo : public pyObjRef {
 public:
-	MaterialHalo(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialHalo() : pyUniplug(0) { }
-	~MaterialHalo() { Py_DECREF(pyobjref); }
+	MaterialHalo(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialHalo() : pyObjRef(0) { }
 
 	float size() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "size")
@@ -33451,11 +33071,10 @@ public:
 	}
 };
 
-class MaterialSubsurfaceScattering : public pyUniplug {
+class MaterialSubsurfaceScattering : public pyObjRef {
 public:
-	MaterialSubsurfaceScattering(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialSubsurfaceScattering() : pyUniplug(0) { }
-	~MaterialSubsurfaceScattering() { Py_DECREF(pyobjref); }
+	MaterialSubsurfaceScattering(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialSubsurfaceScattering() : pyObjRef(0) { }
 
 	VFLOAT3 radius() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "radius", 3)
@@ -33542,7 +33161,6 @@ class MaterialTextureSlot : public TextureSlot {
 public:
 	MaterialTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
 	MaterialTextureSlot() : TextureSlot(0) { }
-	~MaterialTextureSlot() { Py_DECREF(pyobjref); }
 
 	enum prop_texture_coordinates_items_enum {
 		prop_texture_coordinates_items_GLOBAL = 8,	
@@ -34137,11 +33755,10 @@ public:
 	}
 };
 
-class MaterialStrand : public pyUniplug {
+class MaterialStrand : public pyObjRef {
 public:
-	MaterialStrand(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialStrand() : pyUniplug(0) { }
-	~MaterialStrand() { Py_DECREF(pyobjref); }
+	MaterialStrand(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialStrand() : pyObjRef(0) { }
 
 	bool use_tangent_shading() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_tangent_shading")
@@ -34224,11 +33841,10 @@ public:
 	}
 };
 
-class MaterialPhysics : public pyUniplug {
+class MaterialPhysics : public pyObjRef {
 public:
-	MaterialPhysics(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialPhysics() : pyUniplug(0) { }
-	~MaterialPhysics() { Py_DECREF(pyobjref); }
+	MaterialPhysics(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialPhysics() : pyObjRef(0) { }
 
 	float friction() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "friction")
@@ -34279,11 +33895,10 @@ public:
 	}
 };
 
-class MaterialGameSettings : public pyUniplug {
+class MaterialGameSettings : public pyObjRef {
 public:
-	MaterialGameSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialGameSettings() : pyUniplug(0) { }
-	~MaterialGameSettings() { Py_DECREF(pyobjref); }
+	MaterialGameSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialGameSettings() : pyObjRef(0) { }
 
 	bool use_backface_culling() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_backface_culling")
@@ -34376,7 +33991,6 @@ class Mesh : public ID {
 public:
 	Mesh(PyObject* pyobj) : ID(pyobj) {}
 	Mesh() : ID(0) { }
-	~Mesh() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, MeshVertex> vertices();
 
@@ -34856,11 +34470,10 @@ public:
 	}
 };
 
-class MeshSkinVertexLayer : public pyUniplug {
+class MeshSkinVertexLayer : public pyObjRef {
 public:
-	MeshSkinVertexLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshSkinVertexLayer() : pyUniplug(0) { }
-	~MeshSkinVertexLayer() { Py_DECREF(pyobjref); }
+	MeshSkinVertexLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshSkinVertexLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -34873,11 +34486,10 @@ public:
 	std::map<std::string, MeshSkinVertex> data();
 };
 
-class MeshSkinVertex : public pyUniplug {
+class MeshSkinVertex : public pyObjRef {
 public:
-	MeshSkinVertex(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshSkinVertex() : pyUniplug(0) { }
-	~MeshSkinVertex() { Py_DECREF(pyobjref); }
+	MeshSkinVertex(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshSkinVertex() : pyObjRef(0) { }
 
 	VFLOAT2 radius() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "radius", 2)
@@ -34904,20 +34516,18 @@ public:
 	}
 };
 
-class MeshPaintMaskLayer : public pyUniplug {
+class MeshPaintMaskLayer : public pyObjRef {
 public:
-	MeshPaintMaskLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPaintMaskLayer() : pyUniplug(0) { }
-	~MeshPaintMaskLayer() { Py_DECREF(pyobjref); }
+	MeshPaintMaskLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPaintMaskLayer() : pyObjRef(0) { }
 
 	std::map<std::string, MeshPaintMaskProperty> data();
 };
 
-class MeshPaintMaskProperty : public pyUniplug {
+class MeshPaintMaskProperty : public pyObjRef {
 public:
-	MeshPaintMaskProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPaintMaskProperty() : pyUniplug(0) { }
-	~MeshPaintMaskProperty() { Py_DECREF(pyobjref); }
+	MeshPaintMaskProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPaintMaskProperty() : pyObjRef(0) { }
 
 	float value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "value")
@@ -34928,11 +34538,10 @@ public:
 	}
 };
 
-class MeshVertex : public pyUniplug {
+class MeshVertex : public pyObjRef {
 public:
-	MeshVertex(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertex() : pyUniplug(0) { }
-	~MeshVertex() { Py_DECREF(pyobjref); }
+	MeshVertex(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertex() : pyObjRef(0) { }
 
 	VFLOAT3 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 3)
@@ -34993,11 +34602,10 @@ public:
 	}
 };
 
-class VertexGroupElement : public pyUniplug {
+class VertexGroupElement : public pyObjRef {
 public:
-	VertexGroupElement(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexGroupElement() : pyUniplug(0) { }
-	~VertexGroupElement() { Py_DECREF(pyobjref); }
+	VertexGroupElement(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexGroupElement() : pyObjRef(0) { }
 
 	int group() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "group")
@@ -35016,11 +34624,10 @@ public:
 	}
 };
 
-class MeshEdge : public pyUniplug {
+class MeshEdge : public pyObjRef {
 public:
-	MeshEdge(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshEdge() : pyUniplug(0) { }
-	~MeshEdge() { Py_DECREF(pyobjref); }
+	MeshEdge(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshEdge() : pyObjRef(0) { }
 
 	std::array<int, 2> vertices() {
 		PRIMITIVE_TYPES_ARRAY_GETTER(int, PyLong_AsLong(item), "vertices", 2)
@@ -35103,11 +34710,10 @@ public:
 	}
 };
 
-class MeshTessFace : public pyUniplug {
+class MeshTessFace : public pyObjRef {
 public:
-	MeshTessFace(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshTessFace() : pyUniplug(0) { }
-	~MeshTessFace() { Py_DECREF(pyobjref); }
+	MeshTessFace(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshTessFace() : pyObjRef(0) { }
 
 	std::array<int, 4> vertices() {
 		PRIMITIVE_TYPES_ARRAY_GETTER(int, PyLong_AsLong(item), "vertices", 4)
@@ -35190,11 +34796,10 @@ public:
 	}
 };
 
-class MeshLoop : public pyUniplug {
+class MeshLoop : public pyObjRef {
 public:
-	MeshLoop(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshLoop() : pyUniplug(0) { }
-	~MeshLoop() { Py_DECREF(pyobjref); }
+	MeshLoop(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshLoop() : pyObjRef(0) { }
 
 	int vertex_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "vertex_index")
@@ -35253,11 +34858,10 @@ public:
 	}
 };
 
-class MeshPolygon : public pyUniplug {
+class MeshPolygon : public pyObjRef {
 public:
-	MeshPolygon(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygon() : pyUniplug(0) { }
-	~MeshPolygon() { Py_DECREF(pyobjref); }
+	MeshPolygon(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygon() : pyObjRef(0) { }
 
 	std::array<int, 3> vertices() {
 		PRIMITIVE_TYPES_ARRAY_GETTER(int, PyLong_AsLong(item), "vertices", 3)
@@ -35356,11 +34960,10 @@ public:
 	}
 };
 
-class MeshUVLoopLayer : public pyUniplug {
+class MeshUVLoopLayer : public pyObjRef {
 public:
-	MeshUVLoopLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshUVLoopLayer() : pyUniplug(0) { }
-	~MeshUVLoopLayer() { Py_DECREF(pyobjref); }
+	MeshUVLoopLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshUVLoopLayer() : pyObjRef(0) { }
 
 	std::map<std::string, MeshUVLoop> data();
 
@@ -35373,11 +34976,10 @@ public:
 	}
 };
 
-class MeshUVLoop : public pyUniplug {
+class MeshUVLoop : public pyObjRef {
 public:
-	MeshUVLoop(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshUVLoop() : pyUniplug(0) { }
-	~MeshUVLoop() { Py_DECREF(pyobjref); }
+	MeshUVLoop(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshUVLoop() : pyObjRef(0) { }
 
 	VFLOAT2 uv() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "uv", 2)
@@ -35412,11 +35014,10 @@ public:
 	}
 };
 
-class MeshTextureFaceLayer : public pyUniplug {
+class MeshTextureFaceLayer : public pyObjRef {
 public:
-	MeshTextureFaceLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshTextureFaceLayer() : pyUniplug(0) { }
-	~MeshTextureFaceLayer() { Py_DECREF(pyobjref); }
+	MeshTextureFaceLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshTextureFaceLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35453,11 +35054,10 @@ public:
 	std::map<std::string, MeshTextureFace> data();
 };
 
-class MeshTextureFace : public pyUniplug {
+class MeshTextureFace : public pyObjRef {
 public:
-	MeshTextureFace(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshTextureFace() : pyUniplug(0) { }
-	~MeshTextureFace() { Py_DECREF(pyobjref); }
+	MeshTextureFace(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshTextureFace() : pyObjRef(0) { }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
@@ -35512,11 +35112,10 @@ public:
 	}
 };
 
-class MeshTexturePolyLayer : public pyUniplug {
+class MeshTexturePolyLayer : public pyObjRef {
 public:
-	MeshTexturePolyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshTexturePolyLayer() : pyUniplug(0) { }
-	~MeshTexturePolyLayer() { Py_DECREF(pyobjref); }
+	MeshTexturePolyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshTexturePolyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35553,22 +35152,20 @@ public:
 	std::map<std::string, MeshTexturePoly> data();
 };
 
-class MeshTexturePoly : public pyUniplug {
+class MeshTexturePoly : public pyObjRef {
 public:
-	MeshTexturePoly(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshTexturePoly() : pyUniplug(0) { }
-	~MeshTexturePoly() { Py_DECREF(pyobjref); }
+	MeshTexturePoly(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshTexturePoly() : pyObjRef(0) { }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
 	}
 };
 
-class MeshColorLayer : public pyUniplug {
+class MeshColorLayer : public pyObjRef {
 public:
-	MeshColorLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshColorLayer() : pyUniplug(0) { }
-	~MeshColorLayer() { Py_DECREF(pyobjref); }
+	MeshColorLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshColorLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35597,11 +35194,10 @@ public:
 	std::map<std::string, MeshColor> data();
 };
 
-class MeshColor : public pyUniplug {
+class MeshColor : public pyObjRef {
 public:
-	MeshColor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshColor() : pyUniplug(0) { }
-	~MeshColor() { Py_DECREF(pyobjref); }
+	MeshColor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshColor() : pyObjRef(0) { }
 
 	VFLOAT3 color1() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "color1", 3)
@@ -35636,11 +35232,10 @@ public:
 	}
 };
 
-class MeshLoopColorLayer : public pyUniplug {
+class MeshLoopColorLayer : public pyObjRef {
 public:
-	MeshLoopColorLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshLoopColorLayer() : pyUniplug(0) { }
-	~MeshLoopColorLayer() { Py_DECREF(pyobjref); }
+	MeshLoopColorLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshLoopColorLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35669,11 +35264,10 @@ public:
 	std::map<std::string, MeshLoopColor> data();
 };
 
-class MeshLoopColor : public pyUniplug {
+class MeshLoopColor : public pyObjRef {
 public:
-	MeshLoopColor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshLoopColor() : pyUniplug(0) { }
-	~MeshLoopColor() { Py_DECREF(pyobjref); }
+	MeshLoopColor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshLoopColor() : pyObjRef(0) { }
 
 	VFLOAT3 color() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "color", 3)
@@ -35684,11 +35278,10 @@ public:
 	}
 };
 
-class MeshVertexFloatPropertyLayer : public pyUniplug {
+class MeshVertexFloatPropertyLayer : public pyObjRef {
 public:
-	MeshVertexFloatPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertexFloatPropertyLayer() : pyUniplug(0) { }
-	~MeshVertexFloatPropertyLayer() { Py_DECREF(pyobjref); }
+	MeshVertexFloatPropertyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertexFloatPropertyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35701,11 +35294,10 @@ public:
 	std::map<std::string, MeshVertexFloatProperty> data();
 };
 
-class MeshVertexFloatProperty : public pyUniplug {
+class MeshVertexFloatProperty : public pyObjRef {
 public:
-	MeshVertexFloatProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertexFloatProperty() : pyUniplug(0) { }
-	~MeshVertexFloatProperty() { Py_DECREF(pyobjref); }
+	MeshVertexFloatProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertexFloatProperty() : pyObjRef(0) { }
 
 	float value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "value")
@@ -35716,11 +35308,10 @@ public:
 	}
 };
 
-class MeshPolygonFloatPropertyLayer : public pyUniplug {
+class MeshPolygonFloatPropertyLayer : public pyObjRef {
 public:
-	MeshPolygonFloatPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygonFloatPropertyLayer() : pyUniplug(0) { }
-	~MeshPolygonFloatPropertyLayer() { Py_DECREF(pyobjref); }
+	MeshPolygonFloatPropertyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygonFloatPropertyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35733,11 +35324,10 @@ public:
 	std::map<std::string, MeshPolygonFloatProperty> data();
 };
 
-class MeshPolygonFloatProperty : public pyUniplug {
+class MeshPolygonFloatProperty : public pyObjRef {
 public:
-	MeshPolygonFloatProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygonFloatProperty() : pyUniplug(0) { }
-	~MeshPolygonFloatProperty() { Py_DECREF(pyobjref); }
+	MeshPolygonFloatProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygonFloatProperty() : pyObjRef(0) { }
 
 	float value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "value")
@@ -35748,11 +35338,10 @@ public:
 	}
 };
 
-class MeshVertexIntPropertyLayer : public pyUniplug {
+class MeshVertexIntPropertyLayer : public pyObjRef {
 public:
-	MeshVertexIntPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertexIntPropertyLayer() : pyUniplug(0) { }
-	~MeshVertexIntPropertyLayer() { Py_DECREF(pyobjref); }
+	MeshVertexIntPropertyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertexIntPropertyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35765,11 +35354,10 @@ public:
 	std::map<std::string, MeshVertexIntProperty> data();
 };
 
-class MeshVertexIntProperty : public pyUniplug {
+class MeshVertexIntProperty : public pyObjRef {
 public:
-	MeshVertexIntProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertexIntProperty() : pyUniplug(0) { }
-	~MeshVertexIntProperty() { Py_DECREF(pyobjref); }
+	MeshVertexIntProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertexIntProperty() : pyObjRef(0) { }
 
 	int value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "value")
@@ -35780,11 +35368,10 @@ public:
 	}
 };
 
-class MeshPolygonIntPropertyLayer : public pyUniplug {
+class MeshPolygonIntPropertyLayer : public pyObjRef {
 public:
-	MeshPolygonIntPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygonIntPropertyLayer() : pyUniplug(0) { }
-	~MeshPolygonIntPropertyLayer() { Py_DECREF(pyobjref); }
+	MeshPolygonIntPropertyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygonIntPropertyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35797,11 +35384,10 @@ public:
 	std::map<std::string, MeshPolygonIntProperty> data();
 };
 
-class MeshPolygonIntProperty : public pyUniplug {
+class MeshPolygonIntProperty : public pyObjRef {
 public:
-	MeshPolygonIntProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygonIntProperty() : pyUniplug(0) { }
-	~MeshPolygonIntProperty() { Py_DECREF(pyobjref); }
+	MeshPolygonIntProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygonIntProperty() : pyObjRef(0) { }
 
 	int value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "value")
@@ -35812,11 +35398,10 @@ public:
 	}
 };
 
-class MeshVertexStringPropertyLayer : public pyUniplug {
+class MeshVertexStringPropertyLayer : public pyObjRef {
 public:
-	MeshVertexStringPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertexStringPropertyLayer() : pyUniplug(0) { }
-	~MeshVertexStringPropertyLayer() { Py_DECREF(pyobjref); }
+	MeshVertexStringPropertyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertexStringPropertyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35829,11 +35414,10 @@ public:
 	std::map<std::string, MeshVertexStringProperty> data();
 };
 
-class MeshVertexStringProperty : public pyUniplug {
+class MeshVertexStringProperty : public pyObjRef {
 public:
-	MeshVertexStringProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshVertexStringProperty() : pyUniplug(0) { }
-	~MeshVertexStringProperty() { Py_DECREF(pyobjref); }
+	MeshVertexStringProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshVertexStringProperty() : pyObjRef(0) { }
 
 	std::string value() {
 		STRING_TYPE_GETTER("value", resstr)
@@ -35844,11 +35428,10 @@ public:
 	}
 };
 
-class MeshPolygonStringPropertyLayer : public pyUniplug {
+class MeshPolygonStringPropertyLayer : public pyObjRef {
 public:
-	MeshPolygonStringPropertyLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygonStringPropertyLayer() : pyUniplug(0) { }
-	~MeshPolygonStringPropertyLayer() { Py_DECREF(pyobjref); }
+	MeshPolygonStringPropertyLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygonStringPropertyLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -35861,11 +35444,10 @@ public:
 	std::map<std::string, MeshPolygonStringProperty> data();
 };
 
-class MeshPolygonStringProperty : public pyUniplug {
+class MeshPolygonStringProperty : public pyObjRef {
 public:
-	MeshPolygonStringProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshPolygonStringProperty() : pyUniplug(0) { }
-	~MeshPolygonStringProperty() { Py_DECREF(pyobjref); }
+	MeshPolygonStringProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshPolygonStringProperty() : pyObjRef(0) { }
 
 	std::string value() {
 		STRING_TYPE_GETTER("value", resstr)
@@ -35876,11 +35458,10 @@ public:
 	}
 };
 
-class MetaElement : public pyUniplug {
+class MetaElement : public pyObjRef {
 public:
-	MetaElement(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MetaElement() : pyUniplug(0) { }
-	~MetaElement() { Py_DECREF(pyobjref); }
+	MetaElement(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MetaElement() : pyObjRef(0) { }
 
 	enum metaelem_type_items_enum {
 		metaelem_type_items_BALL = 0,	
@@ -35986,7 +35567,6 @@ class MetaBall : public ID {
 public:
 	MetaBall(PyObject* pyobj) : ID(pyobj) {}
 	MetaBall() : ID(0) { }
-	~MetaBall() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, MetaElement> elements() {
 		MAP_TYPE_GETTER("elements", MetaElement)
@@ -36089,11 +35669,10 @@ public:
 	}
 };
 
-class Modifier : public pyUniplug {
+class Modifier : public pyObjRef {
 public:
-	Modifier(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Modifier() : pyUniplug(0) { }
-	~Modifier() { Py_DECREF(pyobjref); }
+	Modifier(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Modifier() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -36228,7 +35807,6 @@ class SubsurfModifier : public Modifier {
 public:
 	SubsurfModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SubsurfModifier() : Modifier(0) { }
-	~SubsurfModifier() { Py_DECREF(pyobjref); }
 
 	enum prop_subdivision_type_items_enum {
 		prop_subdivision_type_items_CATMULL_CLARK = 0,	
@@ -36291,7 +35869,6 @@ class LatticeModifier : public Modifier {
 public:
 	LatticeModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	LatticeModifier() : Modifier(0) { }
-	~LatticeModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -36316,7 +35893,6 @@ class CurveModifier : public Modifier {
 public:
 	CurveModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	CurveModifier() : Modifier(0) { }
-	~CurveModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -36361,7 +35937,6 @@ class BuildModifier : public Modifier {
 public:
 	BuildModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	BuildModifier() : Modifier(0) { }
-	~BuildModifier() { Py_DECREF(pyobjref); }
 
 	float frame_start() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "frame_start")
@@ -36408,7 +35983,6 @@ class MirrorModifier : public Modifier {
 public:
 	MirrorModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	MirrorModifier() : Modifier(0) { }
-	~MirrorModifier() { Py_DECREF(pyobjref); }
 
 	bool use_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_x")
@@ -36489,7 +36063,6 @@ class DecimateModifier : public Modifier {
 public:
 	DecimateModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	DecimateModifier() : Modifier(0) { }
-	~DecimateModifier() { Py_DECREF(pyobjref); }
 
 	enum modifier_decim_mode_items_enum {
 		modifier_decim_mode_items_COLLAPSE = 0,	
@@ -36620,7 +36193,6 @@ class WaveModifier : public Modifier {
 public:
 	WaveModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	WaveModifier() : Modifier(0) { }
-	~WaveModifier() { Py_DECREF(pyobjref); }
 
 	bool use_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_x")
@@ -36813,7 +36385,6 @@ class ArmatureModifier : public Modifier {
 public:
 	ArmatureModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ArmatureModifier() : Modifier(0) { }
-	~ArmatureModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -36870,7 +36441,6 @@ class HookModifier : public Modifier {
 public:
 	HookModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	HookModifier() : Modifier(0) { }
-	~HookModifier() { Py_DECREF(pyobjref); }
 
 	float strength() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "strength")
@@ -36962,7 +36532,6 @@ class SoftBodyModifier : public Modifier {
 public:
 	SoftBodyModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SoftBodyModifier() : Modifier(0) { }
-	~SoftBodyModifier() { Py_DECREF(pyobjref); }
 
 	SoftBodySettings settings();
 
@@ -36973,7 +36542,6 @@ class BooleanModifier : public Modifier {
 public:
 	BooleanModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	BooleanModifier() : Modifier(0) { }
-	~BooleanModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -37007,7 +36575,6 @@ class ArrayModifier : public Modifier {
 public:
 	ArrayModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ArrayModifier() : Modifier(0) { }
-	~ArrayModifier() { Py_DECREF(pyobjref); }
 
 	enum prop_fit_type_items_enum {
 		prop_fit_type_items_FIXED_COUNT = 0,	
@@ -37127,7 +36694,6 @@ class EdgeSplitModifier : public Modifier {
 public:
 	EdgeSplitModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	EdgeSplitModifier() : Modifier(0) { }
-	~EdgeSplitModifier() { Py_DECREF(pyobjref); }
 
 	float split_angle() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "split_angle")
@@ -37158,7 +36724,6 @@ class DisplaceModifier : public Modifier {
 public:
 	DisplaceModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	DisplaceModifier() : Modifier(0) { }
-	~DisplaceModifier() { Py_DECREF(pyobjref); }
 
 	std::string vertex_group() {
 		STRING_TYPE_GETTER("vertex_group", resstr)
@@ -37256,7 +36821,6 @@ class UVProjectModifier : public Modifier {
 public:
 	UVProjectModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	UVProjectModifier() : Modifier(0) { }
-	~UVProjectModifier() { Py_DECREF(pyobjref); }
 
 	std::string uv_layer() {
 		STRING_TYPE_GETTER("uv_layer", resstr)
@@ -37321,11 +36885,10 @@ public:
 	}
 };
 
-class UVProjector : public pyUniplug {
+class UVProjector : public pyObjRef {
 public:
-	UVProjector(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UVProjector() : pyUniplug(0) { }
-	~UVProjector() { Py_DECREF(pyobjref); }
+	UVProjector(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UVProjector() : pyObjRef(0) { }
 
 	Object object_value();
 };
@@ -37334,7 +36897,6 @@ class SmoothModifier : public Modifier {
 public:
 	SmoothModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SmoothModifier() : Modifier(0) { }
-	~SmoothModifier() { Py_DECREF(pyobjref); }
 
 	bool use_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_x")
@@ -37389,7 +36951,6 @@ class CorrectiveSmoothModifier : public Modifier {
 public:
 	CorrectiveSmoothModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	CorrectiveSmoothModifier() : Modifier(0) { }
-	~CorrectiveSmoothModifier() { Py_DECREF(pyobjref); }
 
 	float factor() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "factor")
@@ -37500,7 +37061,6 @@ class CastModifier : public Modifier {
 public:
 	CastModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	CastModifier() : Modifier(0) { }
-	~CastModifier() { Py_DECREF(pyobjref); }
 
 	enum prop_cast_type_items_enum {
 		prop_cast_type_items_SPHERE = 0,	
@@ -37606,7 +37166,6 @@ class MeshDeformModifier : public Modifier {
 public:
 	MeshDeformModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	MeshDeformModifier() : Modifier(0) { }
-	~MeshDeformModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -37655,7 +37214,6 @@ class ParticleSystemModifier : public Modifier {
 public:
 	ParticleSystemModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ParticleSystemModifier() : Modifier(0) { }
-	~ParticleSystemModifier() { Py_DECREF(pyobjref); }
 
 	ParticleSystem particle_system();
 };
@@ -37664,7 +37222,6 @@ class ParticleInstanceModifier : public Modifier {
 public:
 	ParticleInstanceModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ParticleInstanceModifier() : Modifier(0) { }
-	~ParticleInstanceModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -37786,7 +37343,6 @@ class ExplodeModifier : public Modifier {
 public:
 	ExplodeModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ExplodeModifier() : Modifier(0) { }
-	~ExplodeModifier() { Py_DECREF(pyobjref); }
 
 	std::string vertex_group() {
 		STRING_TYPE_GETTER("vertex_group", resstr)
@@ -37857,7 +37413,6 @@ class ClothModifier : public Modifier {
 public:
 	ClothModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ClothModifier() : Modifier(0) { }
-	~ClothModifier() { Py_DECREF(pyobjref); }
 
 	ClothSettings settings() {
 		CLASS_TYPES_GETTER(ClothSettings, "settings")
@@ -37902,7 +37457,6 @@ class CollisionModifier : public Modifier {
 public:
 	CollisionModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	CollisionModifier() : Modifier(0) { }
-	~CollisionModifier() { Py_DECREF(pyobjref); }
 
 	CollisionSettings settings();
 };
@@ -37911,7 +37465,6 @@ class BevelModifier : public Modifier {
 public:
 	BevelModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	BevelModifier() : Modifier(0) { }
-	~BevelModifier() { Py_DECREF(pyobjref); }
 
 	float width() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "width")
@@ -38067,7 +37620,6 @@ class ShrinkwrapModifier : public Modifier {
 public:
 	ShrinkwrapModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ShrinkwrapModifier() : Modifier(0) { }
-	~ShrinkwrapModifier() { Py_DECREF(pyobjref); }
 
 	enum shrink_type_items_enum {
 		shrink_type_items_NEAREST_SURFACEPOINT = 0,	
@@ -38208,7 +37760,6 @@ class FluidSimulationModifier : public Modifier {
 public:
 	FluidSimulationModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	FluidSimulationModifier() : Modifier(0) { }
-	~FluidSimulationModifier() { Py_DECREF(pyobjref); }
 
 	FluidSettings settings() {
 		CLASS_TYPES_GETTER(FluidSettings, "settings")
@@ -38219,7 +37770,6 @@ class MaskModifier : public Modifier {
 public:
 	MaskModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	MaskModifier() : Modifier(0) { }
-	~MaskModifier() { Py_DECREF(pyobjref); }
 
 	enum modifier_mask_mode_items_enum {
 		modifier_mask_mode_items_VERTEX_GROUP = 0,	
@@ -38268,7 +37818,6 @@ class SimpleDeformModifier : public Modifier {
 public:
 	SimpleDeformModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SimpleDeformModifier() : Modifier(0) { }
-	~SimpleDeformModifier() { Py_DECREF(pyobjref); }
 
 	enum simple_deform_mode_items_enum {
 		simple_deform_mode_items_TWIST = 1,	
@@ -38351,7 +37900,6 @@ class WarpModifier : public Modifier {
 public:
 	WarpModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	WarpModifier() : Modifier(0) { }
-	~WarpModifier() { Py_DECREF(pyobjref); }
 
 	Object object_from();
 
@@ -38469,7 +38017,6 @@ class MultiresModifier : public Modifier {
 public:
 	MultiresModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	MultiresModifier() : Modifier(0) { }
-	~MultiresModifier() { Py_DECREF(pyobjref); }
 
 	enum prop_subdivision_type_items_enum {
 		prop_subdivision_type_items_CATMULL_CLARK = 0,	
@@ -38564,14 +38111,12 @@ class SurfaceModifier : public Modifier {
 public:
 	SurfaceModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SurfaceModifier() : Modifier(0) { }
-	~SurfaceModifier() { Py_DECREF(pyobjref); }
 };
 
 class SmokeModifier : public Modifier {
 public:
 	SmokeModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SmokeModifier() : Modifier(0) { }
-	~SmokeModifier() { Py_DECREF(pyobjref); }
 
 	SmokeDomainSettings domain_settings();
 
@@ -38610,7 +38155,6 @@ class SolidifyModifier : public Modifier {
 public:
 	SolidifyModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SolidifyModifier() : Modifier(0) { }
-	~SolidifyModifier() { Py_DECREF(pyobjref); }
 
 	float thickness() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "thickness")
@@ -38745,7 +38289,6 @@ class ScrewModifier : public Modifier {
 public:
 	ScrewModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	ScrewModifier() : Modifier(0) { }
-	~ScrewModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -38867,7 +38410,6 @@ class UVWarpModifier : public Modifier {
 public:
 	UVWarpModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	UVWarpModifier() : Modifier(0) { }
-	~UVWarpModifier() { Py_DECREF(pyobjref); }
 
 	enum uvwarp_axis_enum {
 		uvwarp_axis_X = 0,	
@@ -38951,7 +38493,6 @@ class VertexWeightEditModifier : public Modifier {
 public:
 	VertexWeightEditModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	VertexWeightEditModifier() : Modifier(0) { }
-	~VertexWeightEditModifier() { Py_DECREF(pyobjref); }
 
 	std::string vertex_group() {
 		STRING_TYPE_GETTER("vertex_group", resstr)
@@ -39126,7 +38667,6 @@ class VertexWeightMixModifier : public Modifier {
 public:
 	VertexWeightMixModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	VertexWeightMixModifier() : Modifier(0) { }
-	~VertexWeightMixModifier() { Py_DECREF(pyobjref); }
 
 	std::string vertex_group_a() {
 		STRING_TYPE_GETTER("vertex_group_a", resstr)
@@ -39307,7 +38847,6 @@ class VertexWeightProximityModifier : public Modifier {
 public:
 	VertexWeightProximityModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	VertexWeightProximityModifier() : Modifier(0) { }
-	~VertexWeightProximityModifier() { Py_DECREF(pyobjref); }
 
 	std::string vertex_group() {
 		STRING_TYPE_GETTER("vertex_group", resstr)
@@ -39504,7 +39043,6 @@ class DynamicPaintModifier : public Modifier {
 public:
 	DynamicPaintModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	DynamicPaintModifier() : Modifier(0) { }
-	~DynamicPaintModifier() { Py_DECREF(pyobjref); }
 
 	DynamicPaintCanvasSettings canvas_settings() {
 		CLASS_TYPES_GETTER(DynamicPaintCanvasSettings, "canvas_settings")
@@ -39543,7 +39081,6 @@ class OceanModifier : public Modifier {
 public:
 	OceanModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	OceanModifier() : Modifier(0) { }
-	~OceanModifier() { Py_DECREF(pyobjref); }
 
 	enum geometry_items_enum {
 		geometry_items_GENERATE = 0,	
@@ -39766,7 +39303,6 @@ class RemeshModifier : public Modifier {
 public:
 	RemeshModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	RemeshModifier() : Modifier(0) { }
-	~RemeshModifier() { Py_DECREF(pyobjref); }
 
 	enum mode_items_enum {
 		mode_items_BLOCKS = 0,	
@@ -39846,7 +39382,6 @@ class SkinModifier : public Modifier {
 public:
 	SkinModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	SkinModifier() : Modifier(0) { }
-	~SkinModifier() { Py_DECREF(pyobjref); }
 
 	float branch_smoothing() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "branch_smoothing")
@@ -39893,7 +39428,6 @@ class LaplacianSmoothModifier : public Modifier {
 public:
 	LaplacianSmoothModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	LaplacianSmoothModifier() : Modifier(0) { }
-	~LaplacianSmoothModifier() { Py_DECREF(pyobjref); }
 
 	bool use_x() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_x")
@@ -39972,7 +39506,6 @@ class TriangulateModifier : public Modifier {
 public:
 	TriangulateModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	TriangulateModifier() : Modifier(0) { }
-	~TriangulateModifier() { Py_DECREF(pyobjref); }
 
 	enum modifier_triangulate_quad_method_items_enum {
 		modifier_triangulate_quad_method_items_BEAUTY = 0,	
@@ -40029,7 +39562,6 @@ class MeshCacheModifier : public Modifier {
 public:
 	MeshCacheModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	MeshCacheModifier() : Modifier(0) { }
-	~MeshCacheModifier() { Py_DECREF(pyobjref); }
 
 	enum prop_format_type_items_enum {
 		prop_format_type_items_MDD = 1,	
@@ -40274,7 +39806,6 @@ class LaplacianDeformModifier : public Modifier {
 public:
 	LaplacianDeformModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	LaplacianDeformModifier() : Modifier(0) { }
-	~LaplacianDeformModifier() { Py_DECREF(pyobjref); }
 
 	std::string vertex_group() {
 		STRING_TYPE_GETTER("vertex_group", resstr)
@@ -40305,7 +39836,6 @@ class WireframeModifier : public Modifier {
 public:
 	WireframeModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	WireframeModifier() : Modifier(0) { }
-	~WireframeModifier() { Py_DECREF(pyobjref); }
 
 	float thickness() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "thickness")
@@ -40408,7 +39938,6 @@ class DataTransferModifier : public Modifier {
 public:
 	DataTransferModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	DataTransferModifier() : Modifier(0) { }
-	~DataTransferModifier() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -40901,7 +40430,6 @@ class NormalEditModifier : public Modifier {
 public:
 	NormalEditModifier(PyObject* pyobj) : Modifier(pyobj) {}
 	NormalEditModifier() : Modifier(0) { }
-	~NormalEditModifier() { Py_DECREF(pyobjref); }
 
 	enum prop_mode_items_enum {
 		prop_mode_items_RADIAL = 0,	
@@ -40996,11 +40524,10 @@ public:
 	}
 };
 
-class NlaTrack : public pyUniplug {
+class NlaTrack : public pyObjRef {
 public:
-	NlaTrack(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NlaTrack() : pyUniplug(0) { }
-	~NlaTrack() { Py_DECREF(pyobjref); }
+	NlaTrack(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NlaTrack() : pyObjRef(0) { }
 
 	std::map<std::string, NlaStrip> strips();
 
@@ -41053,11 +40580,10 @@ public:
 	}
 };
 
-class NlaStrip : public pyUniplug {
+class NlaStrip : public pyObjRef {
 public:
-	NlaStrip(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NlaStrip() : pyUniplug(0) { }
-	~NlaStrip() { Py_DECREF(pyobjref); }
+	NlaStrip(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NlaStrip() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -41313,11 +40839,10 @@ public:
 	}
 };
 
-class NodeSocket : public pyUniplug {
+class NodeSocket : public pyObjRef {
 public:
-	NodeSocket(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeSocket() : pyUniplug(0) { }
-	~NodeSocket() { Py_DECREF(pyobjref); }
+	NodeSocket(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeSocket() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -41433,11 +40958,10 @@ public:
 
 };
 
-class NodeSocketInterface : public pyUniplug {
+class NodeSocketInterface : public pyObjRef {
 public:
-	NodeSocketInterface(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeSocketInterface() : pyUniplug(0) { }
-	~NodeSocketInterface() { Py_DECREF(pyobjref); }
+	NodeSocketInterface(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeSocketInterface() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -41473,11 +40997,10 @@ public:
 
 };
 
-class Node : public pyUniplug {
+class Node : public pyObjRef {
 public:
-	Node(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Node() : pyUniplug(0) { }
-	~Node() { Py_DECREF(pyobjref); }
+	Node(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Node() : pyObjRef(0) { }
 
 	enum dummy_static_type_items_enum {
 		dummy_static_type_items_CUSTOM = -1	
@@ -42311,11 +41834,10 @@ public:
 
 };
 
-class NodeLink : public pyUniplug {
+class NodeLink : public pyObjRef {
 public:
-	NodeLink(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeLink() : pyUniplug(0) { }
-	~NodeLink() { Py_DECREF(pyobjref); }
+	NodeLink(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeLink() : pyObjRef(0) { }
 
 	bool is_valid() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_valid")
@@ -42350,11 +41872,10 @@ public:
 	}
 };
 
-class NodeInternalSocketTemplate : public pyUniplug {
+class NodeInternalSocketTemplate : public pyObjRef {
 public:
-	NodeInternalSocketTemplate(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeInternalSocketTemplate() : pyUniplug(0) { }
-	~NodeInternalSocketTemplate() { Py_DECREF(pyobjref); }
+	NodeInternalSocketTemplate(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeInternalSocketTemplate() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -42407,7 +41928,6 @@ class NodeInternal : public Node {
 public:
 	NodeInternal(PyObject* pyobj) : Node(pyobj) {}
 	NodeInternal() : Node(0) { }
-	~NodeInternal() { Py_DECREF(pyobjref); }
 
 	bool poll(NodeTree node_tree);
 
@@ -42426,14 +41946,12 @@ class ShaderNode : public NodeInternal {
 public:
 	ShaderNode(PyObject* pyobj) : NodeInternal(pyobj) {}
 	ShaderNode() : NodeInternal(0) { }
-	~ShaderNode() { Py_DECREF(pyobjref); }
 };
 
 class CompositorNode : public NodeInternal {
 public:
 	CompositorNode(PyObject* pyobj) : NodeInternal(pyobj) {}
 	CompositorNode() : NodeInternal(0) { }
-	~CompositorNode() { Py_DECREF(pyobjref); }
 
 	void tag_need_exec() {
 		PYTHON_FUNCTION_CALL("tag_need_exec")
@@ -42444,14 +41962,12 @@ class TextureNode : public NodeInternal {
 public:
 	TextureNode(PyObject* pyobj) : NodeInternal(pyobj) {}
 	TextureNode() : NodeInternal(0) { }
-	~TextureNode() { Py_DECREF(pyobjref); }
 };
 
 class NodeTree : public ID {
 public:
 	NodeTree(PyObject* pyobj) : ID(pyobj) {}
 	NodeTree() : ID(0) { }
-	~NodeTree() { Py_DECREF(pyobjref); }
 
 	VFLOAT2 view_center() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "view_center", 2)
@@ -43118,7 +42634,6 @@ class NodeSocketStandard : public NodeSocket {
 public:
 	NodeSocketStandard(PyObject* pyobj) : NodeSocket(pyobj) {}
 	NodeSocketStandard() : NodeSocket(0) { }
-	~NodeSocketStandard() { Py_DECREF(pyobjref); }
 
 	void draw(Context context, UILayout layout, Node node, const std::string text);
 
@@ -43134,7 +42649,6 @@ class NodeSocketInterfaceStandard : public NodeSocketInterface {
 public:
 	NodeSocketInterfaceStandard(PyObject* pyobj) : NodeSocketInterface(pyobj) {}
 	NodeSocketInterfaceStandard() : NodeSocketInterface(0) { }
-	~NodeSocketInterfaceStandard() { Py_DECREF(pyobjref); }
 
 	enum node_socket_type_items_enum {
 		node_socket_type_items_CUSTOM = -1,	
@@ -43180,7 +42694,6 @@ class NodeSocketFloat : public NodeSocketStandard {
 public:
 	NodeSocketFloat(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketFloat() : NodeSocketStandard(0) { }
-	~NodeSocketFloat() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43195,7 +42708,6 @@ class NodeSocketInterfaceFloat : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceFloat(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceFloat() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceFloat() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43226,7 +42738,6 @@ class NodeSocketFloatUnsigned : public NodeSocketStandard {
 public:
 	NodeSocketFloatUnsigned(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketFloatUnsigned() : NodeSocketStandard(0) { }
-	~NodeSocketFloatUnsigned() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43241,7 +42752,6 @@ class NodeSocketInterfaceFloatUnsigned : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceFloatUnsigned(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceFloatUnsigned() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceFloatUnsigned() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43272,7 +42782,6 @@ class NodeSocketFloatPercentage : public NodeSocketStandard {
 public:
 	NodeSocketFloatPercentage(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketFloatPercentage() : NodeSocketStandard(0) { }
-	~NodeSocketFloatPercentage() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43287,7 +42796,6 @@ class NodeSocketInterfaceFloatPercentage : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceFloatPercentage(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceFloatPercentage() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceFloatPercentage() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43318,7 +42826,6 @@ class NodeSocketFloatFactor : public NodeSocketStandard {
 public:
 	NodeSocketFloatFactor(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketFloatFactor() : NodeSocketStandard(0) { }
-	~NodeSocketFloatFactor() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43333,7 +42840,6 @@ class NodeSocketInterfaceFloatFactor : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceFloatFactor(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceFloatFactor() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceFloatFactor() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43364,7 +42870,6 @@ class NodeSocketFloatAngle : public NodeSocketStandard {
 public:
 	NodeSocketFloatAngle(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketFloatAngle() : NodeSocketStandard(0) { }
-	~NodeSocketFloatAngle() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43379,7 +42884,6 @@ class NodeSocketInterfaceFloatAngle : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceFloatAngle(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceFloatAngle() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceFloatAngle() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43410,7 +42914,6 @@ class NodeSocketFloatTime : public NodeSocketStandard {
 public:
 	NodeSocketFloatTime(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketFloatTime() : NodeSocketStandard(0) { }
-	~NodeSocketFloatTime() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43425,7 +42928,6 @@ class NodeSocketInterfaceFloatTime : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceFloatTime(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceFloatTime() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceFloatTime() { Py_DECREF(pyobjref); }
 
 	float default_value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "default_value")
@@ -43456,7 +42958,6 @@ class NodeSocketInt : public NodeSocketStandard {
 public:
 	NodeSocketInt(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketInt() : NodeSocketStandard(0) { }
-	~NodeSocketInt() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43471,7 +42972,6 @@ class NodeSocketInterfaceInt : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceInt(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceInt() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceInt() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43502,7 +43002,6 @@ class NodeSocketIntUnsigned : public NodeSocketStandard {
 public:
 	NodeSocketIntUnsigned(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketIntUnsigned() : NodeSocketStandard(0) { }
-	~NodeSocketIntUnsigned() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43517,7 +43016,6 @@ class NodeSocketInterfaceIntUnsigned : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceIntUnsigned(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceIntUnsigned() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceIntUnsigned() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43548,7 +43046,6 @@ class NodeSocketIntPercentage : public NodeSocketStandard {
 public:
 	NodeSocketIntPercentage(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketIntPercentage() : NodeSocketStandard(0) { }
-	~NodeSocketIntPercentage() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43563,7 +43060,6 @@ class NodeSocketInterfaceIntPercentage : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceIntPercentage(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceIntPercentage() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceIntPercentage() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43594,7 +43090,6 @@ class NodeSocketIntFactor : public NodeSocketStandard {
 public:
 	NodeSocketIntFactor(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketIntFactor() : NodeSocketStandard(0) { }
-	~NodeSocketIntFactor() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43609,7 +43104,6 @@ class NodeSocketInterfaceIntFactor : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceIntFactor(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceIntFactor() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceIntFactor() { Py_DECREF(pyobjref); }
 
 	int default_value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "default_value")
@@ -43640,7 +43134,6 @@ class NodeSocketBool : public NodeSocketStandard {
 public:
 	NodeSocketBool(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketBool() : NodeSocketStandard(0) { }
-	~NodeSocketBool() { Py_DECREF(pyobjref); }
 
 	bool default_value() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "default_value")
@@ -43655,7 +43148,6 @@ class NodeSocketInterfaceBool : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceBool(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceBool() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceBool() { Py_DECREF(pyobjref); }
 
 	bool default_value() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "default_value")
@@ -43670,7 +43162,6 @@ class NodeSocketVector : public NodeSocketStandard {
 public:
 	NodeSocketVector(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVector() : NodeSocketStandard(0) { }
-	~NodeSocketVector() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43685,7 +43176,6 @@ class NodeSocketInterfaceVector : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceVector(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVector() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVector() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43716,7 +43206,6 @@ class NodeSocketVectorTranslation : public NodeSocketStandard {
 public:
 	NodeSocketVectorTranslation(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVectorTranslation() : NodeSocketStandard(0) { }
-	~NodeSocketVectorTranslation() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43731,7 +43220,6 @@ class NodeSocketInterfaceVectorTranslation : public NodeSocketInterfaceStandard 
 public:
 	NodeSocketInterfaceVectorTranslation(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVectorTranslation() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVectorTranslation() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43762,7 +43250,6 @@ class NodeSocketVectorDirection : public NodeSocketStandard {
 public:
 	NodeSocketVectorDirection(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVectorDirection() : NodeSocketStandard(0) { }
-	~NodeSocketVectorDirection() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43777,7 +43264,6 @@ class NodeSocketInterfaceVectorDirection : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceVectorDirection(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVectorDirection() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVectorDirection() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43808,7 +43294,6 @@ class NodeSocketVectorVelocity : public NodeSocketStandard {
 public:
 	NodeSocketVectorVelocity(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVectorVelocity() : NodeSocketStandard(0) { }
-	~NodeSocketVectorVelocity() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43823,7 +43308,6 @@ class NodeSocketInterfaceVectorVelocity : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceVectorVelocity(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVectorVelocity() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVectorVelocity() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43854,7 +43338,6 @@ class NodeSocketVectorAcceleration : public NodeSocketStandard {
 public:
 	NodeSocketVectorAcceleration(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVectorAcceleration() : NodeSocketStandard(0) { }
-	~NodeSocketVectorAcceleration() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43869,7 +43352,6 @@ class NodeSocketInterfaceVectorAcceleration : public NodeSocketInterfaceStandard
 public:
 	NodeSocketInterfaceVectorAcceleration(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVectorAcceleration() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVectorAcceleration() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43900,7 +43382,6 @@ class NodeSocketVectorEuler : public NodeSocketStandard {
 public:
 	NodeSocketVectorEuler(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVectorEuler() : NodeSocketStandard(0) { }
-	~NodeSocketVectorEuler() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43915,7 +43396,6 @@ class NodeSocketInterfaceVectorEuler : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceVectorEuler(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVectorEuler() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVectorEuler() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43946,7 +43426,6 @@ class NodeSocketVectorXYZ : public NodeSocketStandard {
 public:
 	NodeSocketVectorXYZ(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVectorXYZ() : NodeSocketStandard(0) { }
-	~NodeSocketVectorXYZ() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43961,7 +43440,6 @@ class NodeSocketInterfaceVectorXYZ : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceVectorXYZ(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceVectorXYZ() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceVectorXYZ() { Py_DECREF(pyobjref); }
 
 	VFLOAT3 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 3)
@@ -43992,7 +43470,6 @@ class NodeSocketColor : public NodeSocketStandard {
 public:
 	NodeSocketColor(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketColor() : NodeSocketStandard(0) { }
-	~NodeSocketColor() { Py_DECREF(pyobjref); }
 
 	VFLOAT4 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 4)
@@ -44007,7 +43484,6 @@ class NodeSocketInterfaceColor : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceColor(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceColor() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceColor() { Py_DECREF(pyobjref); }
 
 	VFLOAT4 default_value() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "default_value", 4)
@@ -44022,7 +43498,6 @@ class NodeSocketString : public NodeSocketStandard {
 public:
 	NodeSocketString(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketString() : NodeSocketStandard(0) { }
-	~NodeSocketString() { Py_DECREF(pyobjref); }
 
 	std::string default_value() {
 		STRING_TYPE_GETTER("default_value", resstr)
@@ -44037,7 +43512,6 @@ class NodeSocketInterfaceString : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceString(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceString() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceString() { Py_DECREF(pyobjref); }
 
 	std::string default_value() {
 		STRING_TYPE_GETTER("default_value", resstr)
@@ -44052,28 +43526,24 @@ class NodeSocketShader : public NodeSocketStandard {
 public:
 	NodeSocketShader(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketShader() : NodeSocketStandard(0) { }
-	~NodeSocketShader() { Py_DECREF(pyobjref); }
 };
 
 class NodeSocketInterfaceShader : public NodeSocketInterfaceStandard {
 public:
 	NodeSocketInterfaceShader(PyObject* pyobj) : NodeSocketInterfaceStandard(pyobj) {}
 	NodeSocketInterfaceShader() : NodeSocketInterfaceStandard(0) { }
-	~NodeSocketInterfaceShader() { Py_DECREF(pyobjref); }
 };
 
 class NodeSocketVirtual : public NodeSocketStandard {
 public:
 	NodeSocketVirtual(PyObject* pyobj) : NodeSocketStandard(pyobj) {}
 	NodeSocketVirtual() : NodeSocketStandard(0) { }
-	~NodeSocketVirtual() { Py_DECREF(pyobjref); }
 };
 
 class CompositorNodeTree : public NodeTree {
 public:
 	CompositorNodeTree(PyObject* pyobj) : NodeTree(pyobj) {}
 	CompositorNodeTree() : NodeTree(0) { }
-	~CompositorNodeTree() { Py_DECREF(pyobjref); }
 
 	enum node_quality_items_enum {
 		node_quality_items_HIGH = 0,	
@@ -44173,21 +43643,18 @@ class ShaderNodeTree : public NodeTree {
 public:
 	ShaderNodeTree(PyObject* pyobj) : NodeTree(pyobj) {}
 	ShaderNodeTree() : NodeTree(0) { }
-	~ShaderNodeTree() { Py_DECREF(pyobjref); }
 };
 
 class TextureNodeTree : public NodeTree {
 public:
 	TextureNodeTree(PyObject* pyobj) : NodeTree(pyobj) {}
 	TextureNodeTree() : NodeTree(0) { }
-	~TextureNodeTree() { Py_DECREF(pyobjref); }
 };
 
 class NodeFrame : public NodeInternal {
 public:
 	NodeFrame(PyObject* pyobj) : NodeInternal(pyobj) {}
 	NodeFrame() : NodeInternal(0) { }
-	~NodeFrame() { Py_DECREF(pyobjref); }
 
 	Text text();
 
@@ -44229,7 +43696,6 @@ class NodeGroup : public NodeInternal {
 public:
 	NodeGroup(PyObject* pyobj) : NodeInternal(pyobj) {}
 	NodeGroup() : NodeInternal(0) { }
-	~NodeGroup() { Py_DECREF(pyobjref); }
 
 	NodeTree node_tree() {
 		CLASS_TYPES_GETTER(NodeTree, "node_tree")
@@ -44261,7 +43727,6 @@ class NodeGroupInput : public NodeInternal {
 public:
 	NodeGroupInput(PyObject* pyobj) : NodeInternal(pyobj) {}
 	NodeGroupInput() : NodeInternal(0) { }
-	~NodeGroupInput() { Py_DECREF(pyobjref); }
 
 	PropertyGroup interface_value() {
 		CLASS_TYPES_GETTER(PropertyGroup, "interface")
@@ -44289,7 +43754,6 @@ class NodeGroupOutput : public NodeInternal {
 public:
 	NodeGroupOutput(PyObject* pyobj) : NodeInternal(pyobj) {}
 	NodeGroupOutput() : NodeInternal(0) { }
-	~NodeGroupOutput() { Py_DECREF(pyobjref); }
 
 	PropertyGroup interface_value() {
 		CLASS_TYPES_GETTER(PropertyGroup, "interface")
@@ -44325,7 +43789,6 @@ class NodeReroute : public NodeInternal {
 public:
 	NodeReroute(PyObject* pyobj) : NodeInternal(pyobj) {}
 	NodeReroute() : NodeInternal(0) { }
-	~NodeReroute() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44349,7 +43812,6 @@ class ShaderNodeOutput : public ShaderNode {
 public:
 	ShaderNodeOutput(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeOutput() : ShaderNode(0) { }
-	~ShaderNodeOutput() { Py_DECREF(pyobjref); }
 
 	bool is_active_output() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_active_output")
@@ -44381,7 +43843,6 @@ class ShaderNodeMaterial : public ShaderNode {
 public:
 	ShaderNodeMaterial(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeMaterial() : ShaderNode(0) { }
-	~ShaderNodeMaterial() { Py_DECREF(pyobjref); }
 
 	Material material() {
 		CLASS_TYPES_GETTER(Material, "material")
@@ -44433,7 +43894,6 @@ class ShaderNodeRGB : public ShaderNode {
 public:
 	ShaderNodeRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeRGB() : ShaderNode(0) { }
-	~ShaderNodeRGB() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44457,7 +43917,6 @@ class ShaderNodeValue : public ShaderNode {
 public:
 	ShaderNodeValue(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeValue() : ShaderNode(0) { }
-	~ShaderNodeValue() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44481,7 +43940,6 @@ class ShaderNodeMixRGB : public ShaderNode {
 public:
 	ShaderNodeMixRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeMixRGB() : ShaderNode(0) { }
-	~ShaderNodeMixRGB() { Py_DECREF(pyobjref); }
 
 	enum ramp_blend_items_enum {
 		ramp_blend_items_MIX = 0,	
@@ -44561,7 +44019,6 @@ class ShaderNodeValToRGB : public ShaderNode {
 public:
 	ShaderNodeValToRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeValToRGB() : ShaderNode(0) { }
-	~ShaderNodeValToRGB() { Py_DECREF(pyobjref); }
 
 	ColorRamp color_ramp() {
 		CLASS_TYPES_GETTER(ColorRamp, "color_ramp")
@@ -44589,7 +44046,6 @@ class ShaderNodeRGBToBW : public ShaderNode {
 public:
 	ShaderNodeRGBToBW(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeRGBToBW() : ShaderNode(0) { }
-	~ShaderNodeRGBToBW() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44613,7 +44069,6 @@ class ShaderNodeTexture : public ShaderNode {
 public:
 	ShaderNodeTexture(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexture() : ShaderNode(0) { }
-	~ShaderNodeTexture() { Py_DECREF(pyobjref); }
 
 	Texture texture() {
 		CLASS_TYPES_GETTER(Texture, "texture")
@@ -44649,7 +44104,6 @@ class ShaderNodeNormal : public ShaderNode {
 public:
 	ShaderNodeNormal(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeNormal() : ShaderNode(0) { }
-	~ShaderNodeNormal() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44673,7 +44127,6 @@ class ShaderNodeGamma : public ShaderNode {
 public:
 	ShaderNodeGamma(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeGamma() : ShaderNode(0) { }
-	~ShaderNodeGamma() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44697,7 +44150,6 @@ class ShaderNodeBrightContrast : public ShaderNode {
 public:
 	ShaderNodeBrightContrast(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBrightContrast() : ShaderNode(0) { }
-	~ShaderNodeBrightContrast() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44721,7 +44173,6 @@ class ShaderNodeGeometry : public ShaderNode {
 public:
 	ShaderNodeGeometry(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeGeometry() : ShaderNode(0) { }
-	~ShaderNodeGeometry() { Py_DECREF(pyobjref); }
 
 	std::string uv_layer() {
 		STRING_TYPE_GETTER("uv_layer", resstr)
@@ -44761,7 +44212,6 @@ class ShaderNodeMapping : public ShaderNode {
 public:
 	ShaderNodeMapping(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeMapping() : ShaderNode(0) { }
-	~ShaderNodeMapping() { Py_DECREF(pyobjref); }
 
 	enum prop_vect_type_items_enum {
 		prop_vect_type_items_TEXTURE = 1,	
@@ -44867,7 +44317,6 @@ class ShaderNodeVectorCurve : public ShaderNode {
 public:
 	ShaderNodeVectorCurve(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeVectorCurve() : ShaderNode(0) { }
-	~ShaderNodeVectorCurve() { Py_DECREF(pyobjref); }
 
 	CurveMapping mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "mapping")
@@ -44895,7 +44344,6 @@ class ShaderNodeRGBCurve : public ShaderNode {
 public:
 	ShaderNodeRGBCurve(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeRGBCurve() : ShaderNode(0) { }
-	~ShaderNodeRGBCurve() { Py_DECREF(pyobjref); }
 
 	CurveMapping mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "mapping")
@@ -44923,7 +44371,6 @@ class ShaderNodeCameraData : public ShaderNode {
 public:
 	ShaderNodeCameraData(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeCameraData() : ShaderNode(0) { }
-	~ShaderNodeCameraData() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -44947,7 +44394,6 @@ class ShaderNodeLampData : public ShaderNode {
 public:
 	ShaderNodeLampData(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeLampData() : ShaderNode(0) { }
-	~ShaderNodeLampData() { Py_DECREF(pyobjref); }
 
 	Object lamp_object();
 
@@ -44973,7 +44419,6 @@ class ShaderNodeMath : public ShaderNode {
 public:
 	ShaderNodeMath(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeMath() : ShaderNode(0) { }
-	~ShaderNodeMath() { Py_DECREF(pyobjref); }
 
 	enum node_math_items_enum {
 		node_math_items_ADD = 0,	
@@ -45046,7 +44491,6 @@ class ShaderNodeVectorMath : public ShaderNode {
 public:
 	ShaderNodeVectorMath(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeVectorMath() : ShaderNode(0) { }
-	~ShaderNodeVectorMath() { Py_DECREF(pyobjref); }
 
 	enum node_vec_math_items_enum {
 		node_vec_math_items_ADD = 0,	
@@ -45098,7 +44542,6 @@ class ShaderNodeSqueeze : public ShaderNode {
 public:
 	ShaderNodeSqueeze(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeSqueeze() : ShaderNode(0) { }
-	~ShaderNodeSqueeze() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45122,7 +44565,6 @@ class ShaderNodeExtendedMaterial : public ShaderNode {
 public:
 	ShaderNodeExtendedMaterial(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeExtendedMaterial() : ShaderNode(0) { }
-	~ShaderNodeExtendedMaterial() { Py_DECREF(pyobjref); }
 
 	Material material() {
 		CLASS_TYPES_GETTER(Material, "material")
@@ -45174,7 +44616,6 @@ class ShaderNodeInvert : public ShaderNode {
 public:
 	ShaderNodeInvert(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeInvert() : ShaderNode(0) { }
-	~ShaderNodeInvert() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45198,7 +44639,6 @@ class ShaderNodeSeparateRGB : public ShaderNode {
 public:
 	ShaderNodeSeparateRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeSeparateRGB() : ShaderNode(0) { }
-	~ShaderNodeSeparateRGB() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45222,7 +44662,6 @@ class ShaderNodeCombineRGB : public ShaderNode {
 public:
 	ShaderNodeCombineRGB(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeCombineRGB() : ShaderNode(0) { }
-	~ShaderNodeCombineRGB() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45246,7 +44685,6 @@ class ShaderNodeHueSaturation : public ShaderNode {
 public:
 	ShaderNodeHueSaturation(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeHueSaturation() : ShaderNode(0) { }
-	~ShaderNodeHueSaturation() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45270,7 +44708,6 @@ class ShaderNodeOutputMaterial : public ShaderNode {
 public:
 	ShaderNodeOutputMaterial(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeOutputMaterial() : ShaderNode(0) { }
-	~ShaderNodeOutputMaterial() { Py_DECREF(pyobjref); }
 
 	bool is_active_output() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_active_output")
@@ -45302,7 +44739,6 @@ class ShaderNodeOutputLamp : public ShaderNode {
 public:
 	ShaderNodeOutputLamp(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeOutputLamp() : ShaderNode(0) { }
-	~ShaderNodeOutputLamp() { Py_DECREF(pyobjref); }
 
 	bool is_active_output() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_active_output")
@@ -45334,7 +44770,6 @@ class ShaderNodeOutputWorld : public ShaderNode {
 public:
 	ShaderNodeOutputWorld(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeOutputWorld() : ShaderNode(0) { }
-	~ShaderNodeOutputWorld() { Py_DECREF(pyobjref); }
 
 	bool is_active_output() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_active_output")
@@ -45366,7 +44801,6 @@ class ShaderNodeOutputLineStyle : public ShaderNode {
 public:
 	ShaderNodeOutputLineStyle(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeOutputLineStyle() : ShaderNode(0) { }
-	~ShaderNodeOutputLineStyle() { Py_DECREF(pyobjref); }
 
 	bool is_active_output() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_active_output")
@@ -45454,7 +44888,6 @@ class ShaderNodeFresnel : public ShaderNode {
 public:
 	ShaderNodeFresnel(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeFresnel() : ShaderNode(0) { }
-	~ShaderNodeFresnel() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45478,7 +44911,6 @@ class ShaderNodeLayerWeight : public ShaderNode {
 public:
 	ShaderNodeLayerWeight(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeLayerWeight() : ShaderNode(0) { }
-	~ShaderNodeLayerWeight() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45502,7 +44934,6 @@ class ShaderNodeMixShader : public ShaderNode {
 public:
 	ShaderNodeMixShader(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeMixShader() : ShaderNode(0) { }
-	~ShaderNodeMixShader() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45526,7 +44957,6 @@ class ShaderNodeAddShader : public ShaderNode {
 public:
 	ShaderNodeAddShader(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeAddShader() : ShaderNode(0) { }
-	~ShaderNodeAddShader() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45550,7 +44980,6 @@ class ShaderNodeAttribute : public ShaderNode {
 public:
 	ShaderNodeAttribute(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeAttribute() : ShaderNode(0) { }
-	~ShaderNodeAttribute() { Py_DECREF(pyobjref); }
 
 	std::string attribute_name() {
 		STRING_TYPE_GETTER("attribute_name", resstr)
@@ -45582,7 +45011,6 @@ class ShaderNodeAmbientOcclusion : public ShaderNode {
 public:
 	ShaderNodeAmbientOcclusion(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeAmbientOcclusion() : ShaderNode(0) { }
-	~ShaderNodeAmbientOcclusion() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45606,7 +45034,6 @@ class ShaderNodeBackground : public ShaderNode {
 public:
 	ShaderNodeBackground(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBackground() : ShaderNode(0) { }
-	~ShaderNodeBackground() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45630,7 +45057,6 @@ class ShaderNodeHoldout : public ShaderNode {
 public:
 	ShaderNodeHoldout(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeHoldout() : ShaderNode(0) { }
-	~ShaderNodeHoldout() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45654,7 +45080,6 @@ class ShaderNodeBsdfAnisotropic : public ShaderNode {
 public:
 	ShaderNodeBsdfAnisotropic(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfAnisotropic() : ShaderNode(0) { }
-	~ShaderNodeBsdfAnisotropic() { Py_DECREF(pyobjref); }
 
 	enum node_anisotropic_items_enum {
 		node_anisotropic_items_BECKMANN = 0,	
@@ -45703,7 +45128,6 @@ class ShaderNodeBsdfDiffuse : public ShaderNode {
 public:
 	ShaderNodeBsdfDiffuse(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfDiffuse() : ShaderNode(0) { }
-	~ShaderNodeBsdfDiffuse() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45727,7 +45151,6 @@ class ShaderNodeBsdfGlossy : public ShaderNode {
 public:
 	ShaderNodeBsdfGlossy(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfGlossy() : ShaderNode(0) { }
-	~ShaderNodeBsdfGlossy() { Py_DECREF(pyobjref); }
 
 	enum node_glossy_items_enum {
 		node_glossy_items_SHARP = 1,	
@@ -45777,7 +45200,6 @@ class ShaderNodeBsdfGlass : public ShaderNode {
 public:
 	ShaderNodeBsdfGlass(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfGlass() : ShaderNode(0) { }
-	~ShaderNodeBsdfGlass() { Py_DECREF(pyobjref); }
 
 	enum node_glass_items_enum {
 		node_glass_items_SHARP = 1,	
@@ -45826,7 +45248,6 @@ class ShaderNodeBsdfRefraction : public ShaderNode {
 public:
 	ShaderNodeBsdfRefraction(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfRefraction() : ShaderNode(0) { }
-	~ShaderNodeBsdfRefraction() { Py_DECREF(pyobjref); }
 
 	enum node_glass_items_enum {
 		node_glass_items_SHARP = 1,	
@@ -45875,7 +45296,6 @@ class ShaderNodeBsdfTranslucent : public ShaderNode {
 public:
 	ShaderNodeBsdfTranslucent(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfTranslucent() : ShaderNode(0) { }
-	~ShaderNodeBsdfTranslucent() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45899,7 +45319,6 @@ class ShaderNodeBsdfTransparent : public ShaderNode {
 public:
 	ShaderNodeBsdfTransparent(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfTransparent() : ShaderNode(0) { }
-	~ShaderNodeBsdfTransparent() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45923,7 +45342,6 @@ class ShaderNodeBsdfVelvet : public ShaderNode {
 public:
 	ShaderNodeBsdfVelvet(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfVelvet() : ShaderNode(0) { }
-	~ShaderNodeBsdfVelvet() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -45947,7 +45365,6 @@ class ShaderNodeBsdfToon : public ShaderNode {
 public:
 	ShaderNodeBsdfToon(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfToon() : ShaderNode(0) { }
-	~ShaderNodeBsdfToon() { Py_DECREF(pyobjref); }
 
 	enum node_toon_items_enum {
 		node_toon_items_DIFFUSE = 0,	
@@ -45995,7 +45412,6 @@ class ShaderNodeBsdfHair : public ShaderNode {
 public:
 	ShaderNodeBsdfHair(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBsdfHair() : ShaderNode(0) { }
-	~ShaderNodeBsdfHair() { Py_DECREF(pyobjref); }
 
 	enum node_hair_items_enum {
 		node_hair_items_Reflection = 0,	
@@ -46043,7 +45459,6 @@ class ShaderNodeSubsurfaceScattering : public ShaderNode {
 public:
 	ShaderNodeSubsurfaceScattering(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeSubsurfaceScattering() : ShaderNode(0) { }
-	~ShaderNodeSubsurfaceScattering() { Py_DECREF(pyobjref); }
 
 	enum prop_subsurface_falloff_items_enum {
 		prop_subsurface_falloff_items_CUBIC = 1,	
@@ -46091,7 +45506,6 @@ class ShaderNodeVolumeAbsorption : public ShaderNode {
 public:
 	ShaderNodeVolumeAbsorption(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeVolumeAbsorption() : ShaderNode(0) { }
-	~ShaderNodeVolumeAbsorption() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46115,7 +45529,6 @@ class ShaderNodeVolumeScatter : public ShaderNode {
 public:
 	ShaderNodeVolumeScatter(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeVolumeScatter() : ShaderNode(0) { }
-	~ShaderNodeVolumeScatter() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46139,7 +45552,6 @@ class ShaderNodeEmission : public ShaderNode {
 public:
 	ShaderNodeEmission(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeEmission() : ShaderNode(0) { }
-	~ShaderNodeEmission() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46163,7 +45575,6 @@ class ShaderNodeNewGeometry : public ShaderNode {
 public:
 	ShaderNodeNewGeometry(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeNewGeometry() : ShaderNode(0) { }
-	~ShaderNodeNewGeometry() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46187,7 +45598,6 @@ class ShaderNodeLightPath : public ShaderNode {
 public:
 	ShaderNodeLightPath(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeLightPath() : ShaderNode(0) { }
-	~ShaderNodeLightPath() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46211,7 +45621,6 @@ class ShaderNodeLightFalloff : public ShaderNode {
 public:
 	ShaderNodeLightFalloff(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeLightFalloff() : ShaderNode(0) { }
-	~ShaderNodeLightFalloff() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46235,7 +45644,6 @@ class ShaderNodeObjectInfo : public ShaderNode {
 public:
 	ShaderNodeObjectInfo(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeObjectInfo() : ShaderNode(0) { }
-	~ShaderNodeObjectInfo() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46259,7 +45667,6 @@ class ShaderNodeParticleInfo : public ShaderNode {
 public:
 	ShaderNodeParticleInfo(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeParticleInfo() : ShaderNode(0) { }
-	~ShaderNodeParticleInfo() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46283,7 +45690,6 @@ class ShaderNodeHairInfo : public ShaderNode {
 public:
 	ShaderNodeHairInfo(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeHairInfo() : ShaderNode(0) { }
-	~ShaderNodeHairInfo() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46307,7 +45713,6 @@ class ShaderNodeWireframe : public ShaderNode {
 public:
 	ShaderNodeWireframe(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeWireframe() : ShaderNode(0) { }
-	~ShaderNodeWireframe() { Py_DECREF(pyobjref); }
 
 	bool use_pixel_size() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_pixel_size")
@@ -46339,7 +45744,6 @@ class ShaderNodeWavelength : public ShaderNode {
 public:
 	ShaderNodeWavelength(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeWavelength() : ShaderNode(0) { }
-	~ShaderNodeWavelength() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46363,7 +45767,6 @@ class ShaderNodeBlackbody : public ShaderNode {
 public:
 	ShaderNodeBlackbody(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBlackbody() : ShaderNode(0) { }
-	~ShaderNodeBlackbody() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -46387,7 +45790,6 @@ class ShaderNodeBump : public ShaderNode {
 public:
 	ShaderNodeBump(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeBump() : ShaderNode(0) { }
-	~ShaderNodeBump() { Py_DECREF(pyobjref); }
 
 	bool invert() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "invert")
@@ -46419,7 +45821,6 @@ class ShaderNodeNormalMap : public ShaderNode {
 public:
 	ShaderNodeNormalMap(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeNormalMap() : ShaderNode(0) { }
-	~ShaderNodeNormalMap() { Py_DECREF(pyobjref); }
 
 	enum prop_space_items_enum {
 		prop_space_items_TANGENT = 0,	
@@ -46478,7 +45879,6 @@ class ShaderNodeTangent : public ShaderNode {
 public:
 	ShaderNodeTangent(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTangent() : ShaderNode(0) { }
-	~ShaderNodeTangent() { Py_DECREF(pyobjref); }
 
 	enum prop_direction_type_items_enum {
 		prop_direction_type_items_RADIAL = 0,	
@@ -46559,7 +45959,6 @@ class ShaderNodeScript : public ShaderNode {
 public:
 	ShaderNodeScript(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeScript() : ShaderNode(0) { }
-	~ShaderNodeScript() { Py_DECREF(pyobjref); }
 
 	Text script();
 
@@ -46641,7 +46040,6 @@ class ShaderNodeTexImage : public ShaderNode {
 public:
 	ShaderNodeTexImage(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexImage() : ShaderNode(0) { }
-	~ShaderNodeTexImage() { Py_DECREF(pyobjref); }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
@@ -46765,7 +46163,6 @@ class ShaderNodeTexEnvironment : public ShaderNode {
 public:
 	ShaderNodeTexEnvironment(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexEnvironment() : ShaderNode(0) { }
-	~ShaderNodeTexEnvironment() { Py_DECREF(pyobjref); }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
@@ -46853,7 +46250,6 @@ class ShaderNodeTexSky : public ShaderNode {
 public:
 	ShaderNodeTexSky(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexSky() : ShaderNode(0) { }
-	~ShaderNodeTexSky() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -46933,7 +46329,6 @@ class ShaderNodeTexGradient : public ShaderNode {
 public:
 	ShaderNodeTexGradient(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexGradient() : ShaderNode(0) { }
-	~ShaderNodeTexGradient() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -46994,7 +46389,6 @@ class ShaderNodeTexNoise : public ShaderNode {
 public:
 	ShaderNodeTexNoise(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexNoise() : ShaderNode(0) { }
-	~ShaderNodeTexNoise() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47026,7 +46420,6 @@ class ShaderNodeTexMagic : public ShaderNode {
 public:
 	ShaderNodeTexMagic(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexMagic() : ShaderNode(0) { }
-	~ShaderNodeTexMagic() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47066,7 +46459,6 @@ class ShaderNodeTexWave : public ShaderNode {
 public:
 	ShaderNodeTexWave(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexWave() : ShaderNode(0) { }
-	~ShaderNodeTexWave() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47122,7 +46514,6 @@ class ShaderNodeTexMusgrave : public ShaderNode {
 public:
 	ShaderNodeTexMusgrave(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexMusgrave() : ShaderNode(0) { }
-	~ShaderNodeTexMusgrave() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47181,7 +46572,6 @@ class ShaderNodeTexVoronoi : public ShaderNode {
 public:
 	ShaderNodeTexVoronoi(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexVoronoi() : ShaderNode(0) { }
-	~ShaderNodeTexVoronoi() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47237,7 +46627,6 @@ class ShaderNodeTexChecker : public ShaderNode {
 public:
 	ShaderNodeTexChecker(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexChecker() : ShaderNode(0) { }
-	~ShaderNodeTexChecker() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47269,7 +46658,6 @@ class ShaderNodeTexBrick : public ShaderNode {
 public:
 	ShaderNodeTexBrick(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexBrick() : ShaderNode(0) { }
-	~ShaderNodeTexBrick() { Py_DECREF(pyobjref); }
 
 	TexMapping texture_mapping() {
 		CLASS_TYPES_GETTER(TexMapping, "texture_mapping")
@@ -47333,7 +46721,6 @@ class ShaderNodeTexCoord : public ShaderNode {
 public:
 	ShaderNodeTexCoord(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeTexCoord() : ShaderNode(0) { }
-	~ShaderNodeTexCoord() { Py_DECREF(pyobjref); }
 
 	Object object_value();
 
@@ -47367,7 +46754,6 @@ class ShaderNodeVectorTransform : public ShaderNode {
 public:
 	ShaderNodeVectorTransform(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeVectorTransform() : ShaderNode(0) { }
-	~ShaderNodeVectorTransform() { Py_DECREF(pyobjref); }
 
 	enum prop_vect_type_items_enum {
 		prop_vect_type_items_POINT = 1,	
@@ -47449,7 +46835,6 @@ class ShaderNodeSeparateHSV : public ShaderNode {
 public:
 	ShaderNodeSeparateHSV(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeSeparateHSV() : ShaderNode(0) { }
-	~ShaderNodeSeparateHSV() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47473,7 +46858,6 @@ class ShaderNodeCombineHSV : public ShaderNode {
 public:
 	ShaderNodeCombineHSV(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeCombineHSV() : ShaderNode(0) { }
-	~ShaderNodeCombineHSV() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47497,7 +46881,6 @@ class ShaderNodeUVMap : public ShaderNode {
 public:
 	ShaderNodeUVMap(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeUVMap() : ShaderNode(0) { }
-	~ShaderNodeUVMap() { Py_DECREF(pyobjref); }
 
 	bool from_dupli() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "from_dupli")
@@ -47537,7 +46920,6 @@ class ShaderNodeUVAlongStroke : public ShaderNode {
 public:
 	ShaderNodeUVAlongStroke(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeUVAlongStroke() : ShaderNode(0) { }
-	~ShaderNodeUVAlongStroke() { Py_DECREF(pyobjref); }
 
 	bool use_tips() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_tips")
@@ -47569,7 +46951,6 @@ class ShaderNodeSeparateXYZ : public ShaderNode {
 public:
 	ShaderNodeSeparateXYZ(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeSeparateXYZ() : ShaderNode(0) { }
-	~ShaderNodeSeparateXYZ() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47593,7 +46974,6 @@ class ShaderNodeCombineXYZ : public ShaderNode {
 public:
 	ShaderNodeCombineXYZ(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeCombineXYZ() : ShaderNode(0) { }
-	~ShaderNodeCombineXYZ() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47617,7 +46997,6 @@ class CompositorNodeViewer : public CompositorNode {
 public:
 	CompositorNodeViewer(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeViewer() : CompositorNode(0) { }
-	~CompositorNodeViewer() { Py_DECREF(pyobjref); }
 
 	enum tileorder_items_enum {
 		tileorder_items_CENTEROUT = 0,	
@@ -47691,7 +47070,6 @@ class CompositorNodeRGB : public CompositorNode {
 public:
 	CompositorNodeRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeRGB() : CompositorNode(0) { }
-	~CompositorNodeRGB() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47715,7 +47093,6 @@ class CompositorNodeValue : public CompositorNode {
 public:
 	CompositorNodeValue(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeValue() : CompositorNode(0) { }
-	~CompositorNodeValue() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47739,7 +47116,6 @@ class CompositorNodeMixRGB : public CompositorNode {
 public:
 	CompositorNodeMixRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMixRGB() : CompositorNode(0) { }
-	~CompositorNodeMixRGB() { Py_DECREF(pyobjref); }
 
 	enum ramp_blend_items_enum {
 		ramp_blend_items_MIX = 0,	
@@ -47819,7 +47195,6 @@ class CompositorNodeValToRGB : public CompositorNode {
 public:
 	CompositorNodeValToRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeValToRGB() : CompositorNode(0) { }
-	~CompositorNodeValToRGB() { Py_DECREF(pyobjref); }
 
 	ColorRamp color_ramp() {
 		CLASS_TYPES_GETTER(ColorRamp, "color_ramp")
@@ -47847,7 +47222,6 @@ class CompositorNodeRGBToBW : public CompositorNode {
 public:
 	CompositorNodeRGBToBW(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeRGBToBW() : CompositorNode(0) { }
-	~CompositorNodeRGBToBW() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47871,7 +47245,6 @@ class CompositorNodeNormal : public CompositorNode {
 public:
 	CompositorNodeNormal(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeNormal() : CompositorNode(0) { }
-	~CompositorNodeNormal() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -47895,7 +47268,6 @@ class CompositorNodeCurveVec : public CompositorNode {
 public:
 	CompositorNodeCurveVec(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCurveVec() : CompositorNode(0) { }
-	~CompositorNodeCurveVec() { Py_DECREF(pyobjref); }
 
 	CurveMapping mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "mapping")
@@ -47923,7 +47295,6 @@ class CompositorNodeCurveRGB : public CompositorNode {
 public:
 	CompositorNodeCurveRGB(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCurveRGB() : CompositorNode(0) { }
-	~CompositorNodeCurveRGB() { Py_DECREF(pyobjref); }
 
 	CurveMapping mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "mapping")
@@ -47951,7 +47322,6 @@ class CompositorNodeAlphaOver : public CompositorNode {
 public:
 	CompositorNodeAlphaOver(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeAlphaOver() : CompositorNode(0) { }
-	~CompositorNodeAlphaOver() { Py_DECREF(pyobjref); }
 
 	bool use_premultiply() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_premultiply")
@@ -47991,7 +47361,6 @@ class CompositorNodeBlur : public CompositorNode {
 public:
 	CompositorNodeBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeBlur() : CompositorNode(0) { }
-	~CompositorNodeBlur() { Py_DECREF(pyobjref); }
 
 	bool use_variable_size() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_variable_size")
@@ -48142,7 +47511,6 @@ class CompositorNodeFilter : public CompositorNode {
 public:
 	CompositorNodeFilter(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeFilter() : CompositorNode(0) { }
-	~CompositorNodeFilter() { Py_DECREF(pyobjref); }
 
 	enum node_filter_items_enum {
 		node_filter_items_SOFTEN = 0,	
@@ -48195,7 +47563,6 @@ class CompositorNodeMapValue : public CompositorNode {
 public:
 	CompositorNodeMapValue(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMapValue() : CompositorNode(0) { }
-	~CompositorNodeMapValue() { Py_DECREF(pyobjref); }
 
 	std::array<float, 1> offset() {
 		PRIMITIVE_TYPES_ARRAY_GETTER(float, (float)PyFloat_AsDouble(item), "offset", 1)
@@ -48267,7 +47634,6 @@ class CompositorNodeMapRange : public CompositorNode {
 public:
 	CompositorNodeMapRange(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMapRange() : CompositorNode(0) { }
-	~CompositorNodeMapRange() { Py_DECREF(pyobjref); }
 
 	bool use_clamp() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_clamp")
@@ -48299,7 +47665,6 @@ class CompositorNodeTime : public CompositorNode {
 public:
 	CompositorNodeTime(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeTime() : CompositorNode(0) { }
-	~CompositorNodeTime() { Py_DECREF(pyobjref); }
 
 	CurveMapping curve() {
 		CLASS_TYPES_GETTER(CurveMapping, "curve")
@@ -48343,7 +47708,6 @@ class CompositorNodeVecBlur : public CompositorNode {
 public:
 	CompositorNodeVecBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeVecBlur() : CompositorNode(0) { }
-	~CompositorNodeVecBlur() { Py_DECREF(pyobjref); }
 
 	int samples() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "samples")
@@ -48407,7 +47771,6 @@ class CompositorNodeSepRGBA : public CompositorNode {
 public:
 	CompositorNodeSepRGBA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSepRGBA() : CompositorNode(0) { }
-	~CompositorNodeSepRGBA() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -48431,7 +47794,6 @@ class CompositorNodeSepHSVA : public CompositorNode {
 public:
 	CompositorNodeSepHSVA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSepHSVA() : CompositorNode(0) { }
-	~CompositorNodeSepHSVA() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -48455,7 +47817,6 @@ class CompositorNodeSetAlpha : public CompositorNode {
 public:
 	CompositorNodeSetAlpha(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSetAlpha() : CompositorNode(0) { }
-	~CompositorNodeSetAlpha() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -48479,7 +47840,6 @@ class CompositorNodeHueSat : public CompositorNode {
 public:
 	CompositorNodeHueSat(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeHueSat() : CompositorNode(0) { }
-	~CompositorNodeHueSat() { Py_DECREF(pyobjref); }
 
 	float color_hue() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "color_hue")
@@ -48527,7 +47887,6 @@ class CompositorNodeImage : public CompositorNode {
 public:
 	CompositorNodeImage(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeImage() : CompositorNode(0) { }
-	~CompositorNodeImage() { Py_DECREF(pyobjref); }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
@@ -48665,7 +48024,6 @@ class CompositorNodeRLayers : public CompositorNode {
 public:
 	CompositorNodeRLayers(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeRLayers() : CompositorNode(0) { }
-	~CompositorNodeRLayers() { Py_DECREF(pyobjref); }
 
 	Scene scene();
 
@@ -48714,7 +48072,6 @@ class CompositorNodeComposite : public CompositorNode {
 public:
 	CompositorNodeComposite(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeComposite() : CompositorNode(0) { }
-	~CompositorNodeComposite() { Py_DECREF(pyobjref); }
 
 	bool use_alpha() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_alpha")
@@ -48746,7 +48103,6 @@ class CompositorNodeOutputFile : public CompositorNode {
 public:
 	CompositorNodeOutputFile(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeOutputFile() : CompositorNode(0) { }
-	~CompositorNodeOutputFile() { Py_DECREF(pyobjref); }
 
 	std::string base_path() {
 		STRING_TYPE_GETTER("base_path", resstr)
@@ -48792,7 +48148,6 @@ class CompositorNodeTexture : public CompositorNode {
 public:
 	CompositorNodeTexture(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeTexture() : CompositorNode(0) { }
-	~CompositorNodeTexture() { Py_DECREF(pyobjref); }
 
 	Texture texture() {
 		CLASS_TYPES_GETTER(Texture, "texture")
@@ -48828,7 +48183,6 @@ class CompositorNodeTranslate : public CompositorNode {
 public:
 	CompositorNodeTranslate(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeTranslate() : CompositorNode(0) { }
-	~CompositorNodeTranslate() { Py_DECREF(pyobjref); }
 
 	bool use_relative() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_relative")
@@ -48886,7 +48240,6 @@ class CompositorNodeZcombine : public CompositorNode {
 public:
 	CompositorNodeZcombine(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeZcombine() : CompositorNode(0) { }
-	~CompositorNodeZcombine() { Py_DECREF(pyobjref); }
 
 	bool use_alpha() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_alpha")
@@ -48926,7 +48279,6 @@ class CompositorNodeCombRGBA : public CompositorNode {
 public:
 	CompositorNodeCombRGBA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCombRGBA() : CompositorNode(0) { }
-	~CompositorNodeCombRGBA() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -48950,7 +48302,6 @@ class CompositorNodeDilateErode : public CompositorNode {
 public:
 	CompositorNodeDilateErode(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDilateErode() : CompositorNode(0) { }
-	~CompositorNodeDilateErode() { Py_DECREF(pyobjref); }
 
 	enum mode_items_enum {
 		mode_items_STEP = 0,	
@@ -49044,7 +48395,6 @@ class CompositorNodeInpaint : public CompositorNode {
 public:
 	CompositorNodeInpaint(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeInpaint() : CompositorNode(0) { }
-	~CompositorNodeInpaint() { Py_DECREF(pyobjref); }
 
 	int distance() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "distance")
@@ -49076,7 +48426,6 @@ class CompositorNodeDespeckle : public CompositorNode {
 public:
 	CompositorNodeDespeckle(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDespeckle() : CompositorNode(0) { }
-	~CompositorNodeDespeckle() { Py_DECREF(pyobjref); }
 
 	float threshold() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "threshold")
@@ -49116,7 +48465,6 @@ class CompositorNodeRotate : public CompositorNode {
 public:
 	CompositorNodeRotate(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeRotate() : CompositorNode(0) { }
-	~CompositorNodeRotate() { Py_DECREF(pyobjref); }
 
 	enum node_sampler_type_items_enum {
 		node_sampler_type_items_NEAREST = 0,	
@@ -49165,7 +48513,6 @@ class CompositorNodeScale : public CompositorNode {
 public:
 	CompositorNodeScale(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeScale() : CompositorNode(0) { }
-	~CompositorNodeScale() { Py_DECREF(pyobjref); }
 
 	enum space_items_enum {
 		space_items_RELATIVE = 0,	
@@ -49256,7 +48603,6 @@ class CompositorNodeSepYCCA : public CompositorNode {
 public:
 	CompositorNodeSepYCCA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSepYCCA() : CompositorNode(0) { }
-	~CompositorNodeSepYCCA() { Py_DECREF(pyobjref); }
 
 	enum node_ycc_items_enum {
 		node_ycc_items_ITUBT601 = 0,	
@@ -49305,7 +48651,6 @@ class CompositorNodeCombYCCA : public CompositorNode {
 public:
 	CompositorNodeCombYCCA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCombYCCA() : CompositorNode(0) { }
-	~CompositorNodeCombYCCA() { Py_DECREF(pyobjref); }
 
 	enum node_ycc_items_enum {
 		node_ycc_items_ITUBT601 = 0,	
@@ -49354,7 +48699,6 @@ class CompositorNodeSepYUVA : public CompositorNode {
 public:
 	CompositorNodeSepYUVA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSepYUVA() : CompositorNode(0) { }
-	~CompositorNodeSepYUVA() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -49378,7 +48722,6 @@ class CompositorNodeCombYUVA : public CompositorNode {
 public:
 	CompositorNodeCombYUVA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCombYUVA() : CompositorNode(0) { }
-	~CompositorNodeCombYUVA() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -49402,7 +48745,6 @@ class CompositorNodeDiffMatte : public CompositorNode {
 public:
 	CompositorNodeDiffMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDiffMatte() : CompositorNode(0) { }
-	~CompositorNodeDiffMatte() { Py_DECREF(pyobjref); }
 
 	float tolerance() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "tolerance")
@@ -49442,7 +48784,6 @@ class CompositorNodeColorSpill : public CompositorNode {
 public:
 	CompositorNodeColorSpill(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeColorSpill() : CompositorNode(0) { }
-	~CompositorNodeColorSpill() { Py_DECREF(pyobjref); }
 
 	enum channel_items_enum {
 		channel_items_R = 1,	
@@ -49580,7 +48921,6 @@ class CompositorNodeChromaMatte : public CompositorNode {
 public:
 	CompositorNodeChromaMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeChromaMatte() : CompositorNode(0) { }
-	~CompositorNodeChromaMatte() { Py_DECREF(pyobjref); }
 
 	float tolerance() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "tolerance")
@@ -49644,7 +48984,6 @@ class CompositorNodeChannelMatte : public CompositorNode {
 public:
 	CompositorNodeChannelMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeChannelMatte() : CompositorNode(0) { }
-	~CompositorNodeChannelMatte() { Py_DECREF(pyobjref); }
 
 	enum color_space_items_enum {
 		color_space_items_RGB = 1,	
@@ -49767,7 +49106,6 @@ class CompositorNodeFlip : public CompositorNode {
 public:
 	CompositorNodeFlip(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeFlip() : CompositorNode(0) { }
-	~CompositorNodeFlip() { Py_DECREF(pyobjref); }
 
 	enum node_flip_items_enum {
 		node_flip_items_X = 0,	
@@ -49816,7 +49154,6 @@ class CompositorNodeSplitViewer : public CompositorNode {
 public:
 	CompositorNodeSplitViewer(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSplitViewer() : CompositorNode(0) { }
-	~CompositorNodeSplitViewer() { Py_DECREF(pyobjref); }
 
 	enum axis_items_enum {
 		axis_items_X = 0,	
@@ -49872,7 +49209,6 @@ class CompositorNodeMapUV : public CompositorNode {
 public:
 	CompositorNodeMapUV(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMapUV() : CompositorNode(0) { }
-	~CompositorNodeMapUV() { Py_DECREF(pyobjref); }
 
 	int alpha() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "alpha")
@@ -49904,7 +49240,6 @@ class CompositorNodeIDMask : public CompositorNode {
 public:
 	CompositorNodeIDMask(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeIDMask() : CompositorNode(0) { }
-	~CompositorNodeIDMask() { Py_DECREF(pyobjref); }
 
 	int index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "index")
@@ -49944,7 +49279,6 @@ class CompositorNodeDoubleEdgeMask : public CompositorNode {
 public:
 	CompositorNodeDoubleEdgeMask(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDoubleEdgeMask() : CompositorNode(0) { }
-	~CompositorNodeDoubleEdgeMask() { Py_DECREF(pyobjref); }
 
 	enum InnerEdgeMode_items_enum {
 		InnerEdgeMode_items_ALL = 0,	
@@ -50016,7 +49350,6 @@ class CompositorNodeDefocus : public CompositorNode {
 public:
 	CompositorNodeDefocus(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDefocus() : CompositorNode(0) { }
-	~CompositorNodeDefocus() { Py_DECREF(pyobjref); }
 
 	Scene scene();
 
@@ -50135,7 +49468,6 @@ class CompositorNodeDisplace : public CompositorNode {
 public:
 	CompositorNodeDisplace(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDisplace() : CompositorNode(0) { }
-	~CompositorNodeDisplace() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -50159,7 +49491,6 @@ class CompositorNodeCombHSVA : public CompositorNode {
 public:
 	CompositorNodeCombHSVA(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCombHSVA() : CompositorNode(0) { }
-	~CompositorNodeCombHSVA() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -50183,7 +49514,6 @@ class CompositorNodeMath : public CompositorNode {
 public:
 	CompositorNodeMath(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMath() : CompositorNode(0) { }
-	~CompositorNodeMath() { Py_DECREF(pyobjref); }
 
 	enum node_math_items_enum {
 		node_math_items_ADD = 0,	
@@ -50256,7 +49586,6 @@ class CompositorNodeLumaMatte : public CompositorNode {
 public:
 	CompositorNodeLumaMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeLumaMatte() : CompositorNode(0) { }
-	~CompositorNodeLumaMatte() { Py_DECREF(pyobjref); }
 
 	float limit_max() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "limit_max")
@@ -50296,7 +49625,6 @@ class CompositorNodeBrightContrast : public CompositorNode {
 public:
 	CompositorNodeBrightContrast(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeBrightContrast() : CompositorNode(0) { }
-	~CompositorNodeBrightContrast() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -50320,7 +49648,6 @@ class CompositorNodeGamma : public CompositorNode {
 public:
 	CompositorNodeGamma(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeGamma() : CompositorNode(0) { }
-	~CompositorNodeGamma() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -50344,7 +49671,6 @@ class CompositorNodeInvert : public CompositorNode {
 public:
 	CompositorNodeInvert(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeInvert() : CompositorNode(0) { }
-	~CompositorNodeInvert() { Py_DECREF(pyobjref); }
 
 	bool invert_rgb() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "invert_rgb")
@@ -50384,7 +49710,6 @@ class CompositorNodeNormalize : public CompositorNode {
 public:
 	CompositorNodeNormalize(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeNormalize() : CompositorNode(0) { }
-	~CompositorNodeNormalize() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -50408,7 +49733,6 @@ class CompositorNodeCrop : public CompositorNode {
 public:
 	CompositorNodeCrop(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCrop() : CompositorNode(0) { }
-	~CompositorNodeCrop() { Py_DECREF(pyobjref); }
 
 	bool use_crop_size() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_crop_size")
@@ -50512,7 +49836,6 @@ class CompositorNodeDBlur : public CompositorNode {
 public:
 	CompositorNodeDBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDBlur() : CompositorNode(0) { }
-	~CompositorNodeDBlur() { Py_DECREF(pyobjref); }
 
 	int iterations() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "iterations")
@@ -50600,7 +49923,6 @@ class CompositorNodeBilateralblur : public CompositorNode {
 public:
 	CompositorNodeBilateralblur(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeBilateralblur() : CompositorNode(0) { }
-	~CompositorNodeBilateralblur() { Py_DECREF(pyobjref); }
 
 	int iterations() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "iterations")
@@ -50648,7 +49970,6 @@ class CompositorNodePremulKey : public CompositorNode {
 public:
 	CompositorNodePremulKey(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodePremulKey() : CompositorNode(0) { }
-	~CompositorNodePremulKey() { Py_DECREF(pyobjref); }
 
 	enum type_items_enum {
 		type_items_STRAIGHT_TO_PREMUL = 0,	
@@ -50696,7 +50017,6 @@ class CompositorNodeGlare : public CompositorNode {
 public:
 	CompositorNodeGlare(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeGlare() : CompositorNode(0) { }
-	~CompositorNodeGlare() { Py_DECREF(pyobjref); }
 
 	enum type_items_enum {
 		type_items_GHOSTS = 3,	
@@ -50843,7 +50163,6 @@ class CompositorNodeTonemap : public CompositorNode {
 public:
 	CompositorNodeTonemap(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeTonemap() : CompositorNode(0) { }
-	~CompositorNodeTonemap() { Py_DECREF(pyobjref); }
 
 	enum type_items_enum {
 		type_items_RD_PHOTORECEPTOR = 1,	
@@ -50947,7 +50266,6 @@ class CompositorNodeLensdist : public CompositorNode {
 public:
 	CompositorNodeLensdist(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeLensdist() : CompositorNode(0) { }
-	~CompositorNodeLensdist() { Py_DECREF(pyobjref); }
 
 	bool use_projector() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_projector")
@@ -50995,7 +50313,6 @@ class CompositorNodeLevels : public CompositorNode {
 public:
 	CompositorNodeLevels(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeLevels() : CompositorNode(0) { }
-	~CompositorNodeLevels() { Py_DECREF(pyobjref); }
 
 	enum channel_items_enum {
 		channel_items_COMBINED_RGB = 1,	
@@ -51046,7 +50363,6 @@ class CompositorNodeColorMatte : public CompositorNode {
 public:
 	CompositorNodeColorMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeColorMatte() : CompositorNode(0) { }
-	~CompositorNodeColorMatte() { Py_DECREF(pyobjref); }
 
 	float color_hue() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "color_hue")
@@ -51094,7 +50410,6 @@ class CompositorNodeDistanceMatte : public CompositorNode {
 public:
 	CompositorNodeDistanceMatte(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeDistanceMatte() : CompositorNode(0) { }
-	~CompositorNodeDistanceMatte() { Py_DECREF(pyobjref); }
 
 	enum color_space_items_enum {
 		color_space_items_RGB = 1,	
@@ -51158,7 +50473,6 @@ class CompositorNodeColorBalance : public CompositorNode {
 public:
 	CompositorNodeColorBalance(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeColorBalance() : CompositorNode(0) { }
-	~CompositorNodeColorBalance() { Py_DECREF(pyobjref); }
 
 	enum type_items_enum {
 		type_items_LIFT_GAMMA_GAIN = 0,	
@@ -51254,7 +50568,6 @@ class CompositorNodeHueCorrect : public CompositorNode {
 public:
 	CompositorNodeHueCorrect(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeHueCorrect() : CompositorNode(0) { }
-	~CompositorNodeHueCorrect() { Py_DECREF(pyobjref); }
 
 	CurveMapping mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "mapping")
@@ -51282,7 +50595,6 @@ class CompositorNodeMovieClip : public CompositorNode {
 public:
 	CompositorNodeMovieClip(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMovieClip() : CompositorNode(0) { }
-	~CompositorNodeMovieClip() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -51308,7 +50620,6 @@ class CompositorNodeTransform : public CompositorNode {
 public:
 	CompositorNodeTransform(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeTransform() : CompositorNode(0) { }
-	~CompositorNodeTransform() { Py_DECREF(pyobjref); }
 
 	enum node_sampler_type_items_enum {
 		node_sampler_type_items_NEAREST = 0,	
@@ -51357,7 +50668,6 @@ class CompositorNodeStabilize : public CompositorNode {
 public:
 	CompositorNodeStabilize(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeStabilize() : CompositorNode(0) { }
-	~CompositorNodeStabilize() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -51408,7 +50718,6 @@ class CompositorNodeMovieDistortion : public CompositorNode {
 public:
 	CompositorNodeMovieDistortion(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMovieDistortion() : CompositorNode(0) { }
-	~CompositorNodeMovieDistortion() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -51458,7 +50767,6 @@ class CompositorNodeBoxMask : public CompositorNode {
 public:
 	CompositorNodeBoxMask(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeBoxMask() : CompositorNode(0) { }
-	~CompositorNodeBoxMask() { Py_DECREF(pyobjref); }
 
 	enum node_masktype_items_enum {
 		node_masktype_items_ADD = 0,	
@@ -51548,7 +50856,6 @@ class CompositorNodeEllipseMask : public CompositorNode {
 public:
 	CompositorNodeEllipseMask(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeEllipseMask() : CompositorNode(0) { }
-	~CompositorNodeEllipseMask() { Py_DECREF(pyobjref); }
 
 	enum node_masktype_items_enum {
 		node_masktype_items_ADD = 0,	
@@ -51638,7 +50945,6 @@ class CompositorNodeBokehImage : public CompositorNode {
 public:
 	CompositorNodeBokehImage(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeBokehImage() : CompositorNode(0) { }
-	~CompositorNodeBokehImage() { Py_DECREF(pyobjref); }
 
 	float angle() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "angle")
@@ -51702,7 +51008,6 @@ class CompositorNodeBokehBlur : public CompositorNode {
 public:
 	CompositorNodeBokehBlur(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeBokehBlur() : CompositorNode(0) { }
-	~CompositorNodeBokehBlur() { Py_DECREF(pyobjref); }
 
 	bool use_variable_size() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_variable_size")
@@ -51742,7 +51047,6 @@ class CompositorNodeSwitch : public CompositorNode {
 public:
 	CompositorNodeSwitch(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSwitch() : CompositorNode(0) { }
-	~CompositorNodeSwitch() { Py_DECREF(pyobjref); }
 
 	bool check() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "check")
@@ -51774,7 +51078,6 @@ class CompositorNodeSwitchView : public CompositorNode {
 public:
 	CompositorNodeSwitchView(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSwitchView() : CompositorNode(0) { }
-	~CompositorNodeSwitchView() { Py_DECREF(pyobjref); }
 
 	bool check() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "check")
@@ -51806,7 +51109,6 @@ class CompositorNodeColorCorrection : public CompositorNode {
 public:
 	CompositorNodeColorCorrection(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeColorCorrection() : CompositorNode(0) { }
-	~CompositorNodeColorCorrection() { Py_DECREF(pyobjref); }
 
 	bool red() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "red")
@@ -52030,7 +51332,6 @@ class CompositorNodeMask : public CompositorNode {
 public:
 	CompositorNodeMask(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeMask() : CompositorNode(0) { }
-	~CompositorNodeMask() { Py_DECREF(pyobjref); }
 
 	Mask mask();
 
@@ -52137,7 +51438,6 @@ class CompositorNodeKeyingScreen : public CompositorNode {
 public:
 	CompositorNodeKeyingScreen(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeKeyingScreen() : CompositorNode(0) { }
-	~CompositorNodeKeyingScreen() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -52171,7 +51471,6 @@ class CompositorNodeKeying : public CompositorNode {
 public:
 	CompositorNodeKeying(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeKeying() : CompositorNode(0) { }
-	~CompositorNodeKeying() { Py_DECREF(pyobjref); }
 
 	float screen_balance() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "screen_balance")
@@ -52311,7 +51610,6 @@ class CompositorNodeTrackPos : public CompositorNode {
 public:
 	CompositorNodeTrackPos(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeTrackPos() : CompositorNode(0) { }
-	~CompositorNodeTrackPos() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -52387,7 +51685,6 @@ class CompositorNodePixelate : public CompositorNode {
 public:
 	CompositorNodePixelate(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodePixelate() : CompositorNode(0) { }
-	~CompositorNodePixelate() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -52411,7 +51708,6 @@ class CompositorNodePlaneTrackDeform : public CompositorNode {
 public:
 	CompositorNodePlaneTrackDeform(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodePlaneTrackDeform() : CompositorNode(0) { }
-	~CompositorNodePlaneTrackDeform() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -52477,7 +51773,6 @@ class CompositorNodeCornerPin : public CompositorNode {
 public:
 	CompositorNodeCornerPin(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeCornerPin() : CompositorNode(0) { }
-	~CompositorNodeCornerPin() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -52501,7 +51796,6 @@ class CompositorNodeSunBeams : public CompositorNode {
 public:
 	CompositorNodeSunBeams(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeSunBeams() : CompositorNode(0) { }
-	~CompositorNodeSunBeams() { Py_DECREF(pyobjref); }
 
 	VFLOAT2 source() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "source", 2)
@@ -52541,7 +51835,6 @@ class TextureNodeOutput : public TextureNode {
 public:
 	TextureNodeOutput(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeOutput() : TextureNode(0) { }
-	~TextureNodeOutput() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -52573,7 +51866,6 @@ class TextureNodeChecker : public TextureNode {
 public:
 	TextureNodeChecker(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeChecker() : TextureNode(0) { }
-	~TextureNodeChecker() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -52597,7 +51889,6 @@ class TextureNodeTexture : public TextureNode {
 public:
 	TextureNodeTexture(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexture() : TextureNode(0) { }
-	~TextureNodeTexture() { Py_DECREF(pyobjref); }
 
 	Texture texture() {
 		CLASS_TYPES_GETTER(Texture, "texture")
@@ -52633,7 +51924,6 @@ class TextureNodeBricks : public TextureNode {
 public:
 	TextureNodeBricks(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeBricks() : TextureNode(0) { }
-	~TextureNodeBricks() { Py_DECREF(pyobjref); }
 
 	float offset() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "offset")
@@ -52689,7 +51979,6 @@ class TextureNodeMath : public TextureNode {
 public:
 	TextureNodeMath(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeMath() : TextureNode(0) { }
-	~TextureNodeMath() { Py_DECREF(pyobjref); }
 
 	enum node_math_items_enum {
 		node_math_items_ADD = 0,	
@@ -52762,7 +52051,6 @@ class TextureNodeMixRGB : public TextureNode {
 public:
 	TextureNodeMixRGB(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeMixRGB() : TextureNode(0) { }
-	~TextureNodeMixRGB() { Py_DECREF(pyobjref); }
 
 	enum ramp_blend_items_enum {
 		ramp_blend_items_MIX = 0,	
@@ -52842,7 +52130,6 @@ class TextureNodeRGBToBW : public TextureNode {
 public:
 	TextureNodeRGBToBW(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeRGBToBW() : TextureNode(0) { }
-	~TextureNodeRGBToBW() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -52866,7 +52153,6 @@ class TextureNodeValToRGB : public TextureNode {
 public:
 	TextureNodeValToRGB(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeValToRGB() : TextureNode(0) { }
-	~TextureNodeValToRGB() { Py_DECREF(pyobjref); }
 
 	ColorRamp color_ramp() {
 		CLASS_TYPES_GETTER(ColorRamp, "color_ramp")
@@ -52894,7 +52180,6 @@ class TextureNodeImage : public TextureNode {
 public:
 	TextureNodeImage(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeImage() : TextureNode(0) { }
-	~TextureNodeImage() { Py_DECREF(pyobjref); }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
@@ -52926,7 +52211,6 @@ class TextureNodeCurveRGB : public TextureNode {
 public:
 	TextureNodeCurveRGB(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeCurveRGB() : TextureNode(0) { }
-	~TextureNodeCurveRGB() { Py_DECREF(pyobjref); }
 
 	CurveMapping mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "mapping")
@@ -52954,7 +52238,6 @@ class TextureNodeInvert : public TextureNode {
 public:
 	TextureNodeInvert(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeInvert() : TextureNode(0) { }
-	~TextureNodeInvert() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -52978,7 +52261,6 @@ class TextureNodeHueSaturation : public TextureNode {
 public:
 	TextureNodeHueSaturation(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeHueSaturation() : TextureNode(0) { }
-	~TextureNodeHueSaturation() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53002,7 +52284,6 @@ class TextureNodeCurveTime : public TextureNode {
 public:
 	TextureNodeCurveTime(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeCurveTime() : TextureNode(0) { }
-	~TextureNodeCurveTime() { Py_DECREF(pyobjref); }
 
 	CurveMapping curve() {
 		CLASS_TYPES_GETTER(CurveMapping, "curve")
@@ -53046,7 +52327,6 @@ class TextureNodeRotate : public TextureNode {
 public:
 	TextureNodeRotate(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeRotate() : TextureNode(0) { }
-	~TextureNodeRotate() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53070,7 +52350,6 @@ class TextureNodeViewer : public TextureNode {
 public:
 	TextureNodeViewer(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeViewer() : TextureNode(0) { }
-	~TextureNodeViewer() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53094,7 +52373,6 @@ class TextureNodeTranslate : public TextureNode {
 public:
 	TextureNodeTranslate(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTranslate() : TextureNode(0) { }
-	~TextureNodeTranslate() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53118,7 +52396,6 @@ class TextureNodeCoordinates : public TextureNode {
 public:
 	TextureNodeCoordinates(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeCoordinates() : TextureNode(0) { }
-	~TextureNodeCoordinates() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53142,7 +52419,6 @@ class TextureNodeDistance : public TextureNode {
 public:
 	TextureNodeDistance(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeDistance() : TextureNode(0) { }
-	~TextureNodeDistance() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53166,7 +52442,6 @@ class TextureNodeCompose : public TextureNode {
 public:
 	TextureNodeCompose(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeCompose() : TextureNode(0) { }
-	~TextureNodeCompose() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53190,7 +52465,6 @@ class TextureNodeDecompose : public TextureNode {
 public:
 	TextureNodeDecompose(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeDecompose() : TextureNode(0) { }
-	~TextureNodeDecompose() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53214,7 +52488,6 @@ class TextureNodeValToNor : public TextureNode {
 public:
 	TextureNodeValToNor(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeValToNor() : TextureNode(0) { }
-	~TextureNodeValToNor() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53238,7 +52511,6 @@ class TextureNodeScale : public TextureNode {
 public:
 	TextureNodeScale(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeScale() : TextureNode(0) { }
-	~TextureNodeScale() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53262,7 +52534,6 @@ class TextureNodeAt : public TextureNode {
 public:
 	TextureNodeAt(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeAt() : TextureNode(0) { }
-	~TextureNodeAt() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53286,7 +52557,6 @@ class TextureNodeTexVoronoi : public TextureNode {
 public:
 	TextureNodeTexVoronoi(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexVoronoi() : TextureNode(0) { }
-	~TextureNodeTexVoronoi() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53310,7 +52580,6 @@ class TextureNodeTexBlend : public TextureNode {
 public:
 	TextureNodeTexBlend(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexBlend() : TextureNode(0) { }
-	~TextureNodeTexBlend() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53334,7 +52603,6 @@ class TextureNodeTexMagic : public TextureNode {
 public:
 	TextureNodeTexMagic(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexMagic() : TextureNode(0) { }
-	~TextureNodeTexMagic() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53358,7 +52626,6 @@ class TextureNodeTexMarble : public TextureNode {
 public:
 	TextureNodeTexMarble(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexMarble() : TextureNode(0) { }
-	~TextureNodeTexMarble() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53382,7 +52649,6 @@ class TextureNodeTexClouds : public TextureNode {
 public:
 	TextureNodeTexClouds(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexClouds() : TextureNode(0) { }
-	~TextureNodeTexClouds() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53406,7 +52672,6 @@ class TextureNodeTexWood : public TextureNode {
 public:
 	TextureNodeTexWood(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexWood() : TextureNode(0) { }
-	~TextureNodeTexWood() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53430,7 +52695,6 @@ class TextureNodeTexMusgrave : public TextureNode {
 public:
 	TextureNodeTexMusgrave(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexMusgrave() : TextureNode(0) { }
-	~TextureNodeTexMusgrave() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53454,7 +52718,6 @@ class TextureNodeTexNoise : public TextureNode {
 public:
 	TextureNodeTexNoise(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexNoise() : TextureNode(0) { }
-	~TextureNodeTexNoise() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53478,7 +52741,6 @@ class TextureNodeTexStucci : public TextureNode {
 public:
 	TextureNodeTexStucci(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexStucci() : TextureNode(0) { }
-	~TextureNodeTexStucci() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53502,7 +52764,6 @@ class TextureNodeTexDistNoise : public TextureNode {
 public:
 	TextureNodeTexDistNoise(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeTexDistNoise() : TextureNode(0) { }
-	~TextureNodeTexDistNoise() { Py_DECREF(pyobjref); }
 
 	bool is_registered_node_type() {
 		PYTHON_FUNCTION_CALL("is_registered_node_type")
@@ -53526,7 +52787,6 @@ class ShaderNodeGroup : public ShaderNode {
 public:
 	ShaderNodeGroup(PyObject* pyobj) : ShaderNode(pyobj) {}
 	ShaderNodeGroup() : ShaderNode(0) { }
-	~ShaderNodeGroup() { Py_DECREF(pyobjref); }
 
 	NodeTree node_tree() {
 		CLASS_TYPES_GETTER(NodeTree, "node_tree")
@@ -53558,7 +52818,6 @@ class CompositorNodeGroup : public CompositorNode {
 public:
 	CompositorNodeGroup(PyObject* pyobj) : CompositorNode(pyobj) {}
 	CompositorNodeGroup() : CompositorNode(0) { }
-	~CompositorNodeGroup() { Py_DECREF(pyobjref); }
 
 	NodeTree node_tree() {
 		CLASS_TYPES_GETTER(NodeTree, "node_tree")
@@ -53590,7 +52849,6 @@ class TextureNodeGroup : public TextureNode {
 public:
 	TextureNodeGroup(PyObject* pyobj) : TextureNode(pyobj) {}
 	TextureNodeGroup() : TextureNode(0) { }
-	~TextureNodeGroup() { Py_DECREF(pyobjref); }
 
 	NodeTree node_tree() {
 		CLASS_TYPES_GETTER(NodeTree, "node_tree")
@@ -53622,7 +52880,6 @@ class NodeCustomGroup : public Node {
 public:
 	NodeCustomGroup(PyObject* pyobj) : Node(pyobj) {}
 	NodeCustomGroup() : Node(0) { }
-	~NodeCustomGroup() { Py_DECREF(pyobjref); }
 
 	NodeTree node_tree() {
 		CLASS_TYPES_GETTER(NodeTree, "node_tree")
@@ -53633,11 +52890,10 @@ public:
 	}
 };
 
-class NodeOutputFileSlotFile : public pyUniplug {
+class NodeOutputFileSlotFile : public pyObjRef {
 public:
-	NodeOutputFileSlotFile(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeOutputFileSlotFile() : pyUniplug(0) { }
-	~NodeOutputFileSlotFile() { Py_DECREF(pyobjref); }
+	NodeOutputFileSlotFile(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeOutputFileSlotFile() : pyObjRef(0) { }
 
 	bool use_node_format() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_node_format")
@@ -53658,11 +52914,10 @@ public:
 	}
 };
 
-class NodeOutputFileSlotLayer : public pyUniplug {
+class NodeOutputFileSlotLayer : public pyObjRef {
 public:
-	NodeOutputFileSlotLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeOutputFileSlotLayer() : pyUniplug(0) { }
-	~NodeOutputFileSlotLayer() { Py_DECREF(pyobjref); }
+	NodeOutputFileSlotLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeOutputFileSlotLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -53673,11 +52928,10 @@ public:
 	}
 };
 
-class NodeInstanceHash : public pyUniplug {
+class NodeInstanceHash : public pyObjRef {
 public:
-	NodeInstanceHash(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeInstanceHash() : pyUniplug(0) { }
-	~NodeInstanceHash() { Py_DECREF(pyobjref); }
+	NodeInstanceHash(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeInstanceHash() : pyObjRef(0) { }
 
 };
 
@@ -53685,7 +52939,6 @@ class Object : public ID {
 public:
 	Object(PyObject* pyobj) : ID(pyobj) {}
 	Object() : ID(0) { }
-	~Object() { Py_DECREF(pyobjref); }
 
 	ID data() {
 		CLASS_TYPES_GETTER(ID, "data")
@@ -54688,11 +53941,10 @@ public:
 	}
 };
 
-class GameObjectSettings : public pyUniplug {
+class GameObjectSettings : public pyObjRef {
 public:
-	GameObjectSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GameObjectSettings() : pyUniplug(0) { }
-	~GameObjectSettings() { Py_DECREF(pyobjref); }
+	GameObjectSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GameObjectSettings() : pyObjRef(0) { }
 
 	std::map<std::string, Sensor> sensors();
 
@@ -55113,11 +54365,10 @@ public:
 	}
 };
 
-class ObjectBase : public pyUniplug {
+class ObjectBase : public pyObjRef {
 public:
-	ObjectBase(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ObjectBase() : pyUniplug(0) { }
-	~ObjectBase() { Py_DECREF(pyobjref); }
+	ObjectBase(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ObjectBase() : pyObjRef(0) { }
 
 	Object object_value() {
 		CLASS_TYPES_GETTER(Object, "object")
@@ -55150,11 +54401,10 @@ public:
 	void layers_from_view(SpaceView3D view);
 };
 
-class VertexGroup : public pyUniplug {
+class VertexGroup : public pyObjRef {
 public:
-	VertexGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
-	VertexGroup() : pyUniplug(0) { }
-	~VertexGroup() { Py_DECREF(pyobjref); }
+	VertexGroup(PyObject* pyobj) : pyObjRef(pyobj) {}
+	VertexGroup() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -55217,11 +54467,10 @@ public:
 	}
 };
 
-class MaterialSlot : public pyUniplug {
+class MaterialSlot : public pyObjRef {
 public:
-	MaterialSlot(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaterialSlot() : pyUniplug(0) { }
-	~MaterialSlot() { Py_DECREF(pyobjref); }
+	MaterialSlot(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaterialSlot() : pyObjRef(0) { }
 
 	Material material() {
 		CLASS_TYPES_GETTER(Material, "material")
@@ -55260,11 +54509,10 @@ public:
 	}
 };
 
-class DupliObject : public pyUniplug {
+class DupliObject : public pyObjRef {
 public:
-	DupliObject(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DupliObject() : pyUniplug(0) { }
-	~DupliObject() { Py_DECREF(pyobjref); }
+	DupliObject(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DupliObject() : pyObjRef(0) { }
 
 	Object object_value() {
 		CLASS_TYPES_GETTER(Object, "object")
@@ -55348,11 +54596,10 @@ public:
 	}
 };
 
-class LodLevel : public pyUniplug {
+class LodLevel : public pyObjRef {
 public:
-	LodLevel(PyObject* pyobj) : pyUniplug(pyobj) {}
-	LodLevel() : pyUniplug(0) { }
-	~LodLevel() { Py_DECREF(pyobjref); }
+	LodLevel(PyObject* pyobj) : pyObjRef(pyobj) {}
+	LodLevel() : pyObjRef(0) { }
 
 	float distance() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "distance")
@@ -55399,11 +54646,10 @@ public:
 	}
 };
 
-class PointCache : public pyUniplug {
+class PointCache : public pyObjRef {
 public:
-	PointCache(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PointCache() : pyUniplug(0) { }
-	~PointCache() { Py_DECREF(pyobjref); }
+	PointCache(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PointCache() : pyObjRef(0) { }
 
 	int frame_start() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "frame_start")
@@ -55547,11 +54793,10 @@ public:
 	}
 };
 
-class CollisionSettings : public pyUniplug {
+class CollisionSettings : public pyObjRef {
 public:
-	CollisionSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	CollisionSettings() : pyUniplug(0) { }
-	~CollisionSettings() { Py_DECREF(pyobjref); }
+	CollisionSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	CollisionSettings() : pyObjRef(0) { }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -55650,11 +54895,10 @@ public:
 	}
 };
 
-class EffectorWeights : public pyUniplug {
+class EffectorWeights : public pyObjRef {
 public:
-	EffectorWeights(PyObject* pyobj) : pyUniplug(pyobj) {}
-	EffectorWeights() : pyUniplug(0) { }
-	~EffectorWeights() { Py_DECREF(pyobjref); }
+	EffectorWeights(PyObject* pyobj) : pyObjRef(pyobj) {}
+	EffectorWeights() : pyObjRef(0) { }
 
 	bool apply_to_hair_growing() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "apply_to_hair_growing")
@@ -55789,11 +55033,10 @@ public:
 	}
 };
 
-class FieldSettings : public pyUniplug {
+class FieldSettings : public pyObjRef {
 public:
-	FieldSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FieldSettings() : pyUniplug(0) { }
-	~FieldSettings() { Py_DECREF(pyobjref); }
+	FieldSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FieldSettings() : pyObjRef(0) { }
 
 	enum field_type_items_enum {
 		field_type_items_NONE = 0,	
@@ -56307,11 +55550,10 @@ public:
 	}
 };
 
-class GameSoftBodySettings : public pyUniplug {
+class GameSoftBodySettings : public pyObjRef {
 public:
-	GameSoftBodySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GameSoftBodySettings() : pyUniplug(0) { }
-	~GameSoftBodySettings() { Py_DECREF(pyobjref); }
+	GameSoftBodySettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GameSoftBodySettings() : pyObjRef(0) { }
 
 	float linear_stiffness() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "linear_stiffness")
@@ -56402,11 +55644,10 @@ public:
 	}
 };
 
-class SoftBodySettings : public pyUniplug {
+class SoftBodySettings : public pyObjRef {
 public:
-	SoftBodySettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SoftBodySettings() : pyUniplug(0) { }
-	~SoftBodySettings() { Py_DECREF(pyobjref); }
+	SoftBodySettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SoftBodySettings() : pyObjRef(0) { }
 
 	float friction() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "friction")
@@ -56784,11 +56025,10 @@ public:
 	}
 };
 
-class PackedFile : public pyUniplug {
+class PackedFile : public pyObjRef {
 public:
-	PackedFile(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PackedFile() : pyUniplug(0) { }
-	~PackedFile() { Py_DECREF(pyobjref); }
+	PackedFile(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PackedFile() : pyObjRef(0) { }
 
 	int size() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "size")
@@ -56807,11 +56047,10 @@ public:
 	}
 };
 
-class PaletteColor : public pyUniplug {
+class PaletteColor : public pyObjRef {
 public:
-	PaletteColor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PaletteColor() : pyUniplug(0) { }
-	~PaletteColor() { Py_DECREF(pyobjref); }
+	PaletteColor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PaletteColor() : pyObjRef(0) { }
 
 	VFLOAT3 color() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "color", 3)
@@ -56842,18 +56081,16 @@ class Palette : public ID {
 public:
 	Palette(PyObject* pyobj) : ID(pyobj) {}
 	Palette() : ID(0) { }
-	~Palette() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, PaletteColor> colors() {
 		MAP_TYPE_GETTER("colors", PaletteColor)
 	}
 };
 
-class ParticleTarget : public pyUniplug {
+class ParticleTarget : public pyObjRef {
 public:
-	ParticleTarget(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleTarget() : pyUniplug(0) { }
-	~ParticleTarget() { Py_DECREF(pyobjref); }
+	ParticleTarget(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleTarget() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -56925,11 +56162,10 @@ public:
 	}
 };
 
-class SPHFluidSettings : public pyUniplug {
+class SPHFluidSettings : public pyObjRef {
 public:
-	SPHFluidSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SPHFluidSettings() : pyUniplug(0) { }
-	~SPHFluidSettings() { Py_DECREF(pyobjref); }
+	SPHFluidSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SPHFluidSettings() : pyObjRef(0) { }
 
 	enum sph_solver_items_enum {
 		sph_solver_items_DDR = 0,	
@@ -57108,11 +56344,10 @@ public:
 	}
 };
 
-class ParticleHairKey : public pyUniplug {
+class ParticleHairKey : public pyObjRef {
 public:
-	ParticleHairKey(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleHairKey() : pyUniplug(0) { }
-	~ParticleHairKey() { Py_DECREF(pyobjref); }
+	ParticleHairKey(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleHairKey() : pyObjRef(0) { }
 
 	float time() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "time")
@@ -57149,11 +56384,10 @@ public:
 	VFLOAT3 co_object(Object object_value, ParticleSystemModifier modifier, Particle particle);
 };
 
-class ParticleKey : public pyUniplug {
+class ParticleKey : public pyObjRef {
 public:
-	ParticleKey(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleKey() : pyUniplug(0) { }
-	~ParticleKey() { Py_DECREF(pyobjref); }
+	ParticleKey(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleKey() : pyObjRef(0) { }
 
 	VFLOAT3 location() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "location", 3)
@@ -57196,19 +56430,17 @@ public:
 	}
 };
 
-class ChildParticle : public pyUniplug {
+class ChildParticle : public pyObjRef {
 public:
-	ChildParticle(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ChildParticle() : pyUniplug(0) { }
-	~ChildParticle() { Py_DECREF(pyobjref); }
+	ChildParticle(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ChildParticle() : pyObjRef(0) { }
 
 };
 
-class Particle : public pyUniplug {
+class Particle : public pyObjRef {
 public:
-	Particle(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Particle() : pyUniplug(0) { }
-	~Particle() { Py_DECREF(pyobjref); }
+	Particle(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Particle() : pyObjRef(0) { }
 
 	VFLOAT3 location() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "location", 3)
@@ -57364,11 +56596,10 @@ public:
 	}
 };
 
-class ParticleDupliWeight : public pyUniplug {
+class ParticleDupliWeight : public pyObjRef {
 public:
-	ParticleDupliWeight(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleDupliWeight() : pyUniplug(0) { }
-	~ParticleDupliWeight() { Py_DECREF(pyobjref); }
+	ParticleDupliWeight(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleDupliWeight() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -57387,11 +56618,10 @@ public:
 	}
 };
 
-class ParticleSystem : public pyUniplug {
+class ParticleSystem : public pyObjRef {
 public:
-	ParticleSystem(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleSystem() : pyUniplug(0) { }
-	~ParticleSystem() { Py_DECREF(pyobjref); }
+	ParticleSystem(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleSystem() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -57783,7 +57013,6 @@ class ParticleSettingsTextureSlot : public TextureSlot {
 public:
 	ParticleSettingsTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
 	ParticleSettingsTextureSlot() : TextureSlot(0) { }
-	~ParticleSettingsTextureSlot() { Py_DECREF(pyobjref); }
 
 	enum texco_items_enum {
 		texco_items_GLOBAL = 8,	
@@ -58141,7 +57370,6 @@ class ParticleSettings : public ID {
 public:
 	ParticleSettings(PyObject* pyobj) : ID(pyobj) {}
 	ParticleSettings() : ID(0) { }
-	~ParticleSettings() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, ParticleSettingsTextureSlot> texture_slots() {
 		MAP_TYPE_GETTER("texture_slots", ParticleSettingsTextureSlot)
@@ -59832,11 +59060,10 @@ public:
 	}
 };
 
-class Pose : public pyUniplug {
+class Pose : public pyObjRef {
 public:
-	Pose(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Pose() : pyUniplug(0) { }
-	~Pose() { Py_DECREF(pyobjref); }
+	Pose(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Pose() : pyObjRef(0) { }
 
 	std::map<std::string, PoseBone> bones();
 
@@ -59873,11 +59100,10 @@ public:
 	}
 };
 
-class PoseBone : public pyUniplug {
+class PoseBone : public pyObjRef {
 public:
-	PoseBone(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PoseBone() : pyUniplug(0) { }
-	~PoseBone() { Py_DECREF(pyobjref); }
+	PoseBone(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PoseBone() : pyObjRef(0) { }
 
 	std::map<std::string, Constraint> constraints() {
 		MAP_TYPE_GETTER("constraints", Constraint)
@@ -60253,11 +59479,10 @@ public:
 	}
 };
 
-class IKParam : public pyUniplug {
+class IKParam : public pyObjRef {
 public:
-	IKParam(PyObject* pyobj) : pyUniplug(pyobj) {}
-	IKParam() : pyUniplug(0) { }
-	~IKParam() { Py_DECREF(pyobjref); }
+	IKParam(PyObject* pyobj) : pyObjRef(pyobj) {}
+	IKParam() : pyObjRef(0) { }
 
 	enum prop_iksolver_items_enum {
 		prop_iksolver_items_LEGACY = 0,	
@@ -60288,7 +59513,6 @@ class Itasc : public IKParam {
 public:
 	Itasc(PyObject* pyobj) : IKParam(pyobj) {}
 	Itasc() : IKParam(0) { }
-	~Itasc() { Py_DECREF(pyobjref); }
 
 	float precision() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "precision")
@@ -60444,11 +59668,10 @@ public:
 	}
 };
 
-class BoneGroup : public pyUniplug {
+class BoneGroup : public pyObjRef {
 public:
-	BoneGroup(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BoneGroup() : pyUniplug(0) { }
-	~BoneGroup() { Py_DECREF(pyobjref); }
+	BoneGroup(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BoneGroup() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -60513,11 +59736,10 @@ public:
 	ThemeBoneColorSet colors();
 };
 
-class GameProperty : public pyUniplug {
+class GameProperty : public pyObjRef {
 public:
-	GameProperty(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GameProperty() : pyUniplug(0) { }
-	~GameProperty() { Py_DECREF(pyobjref); }
+	GameProperty(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GameProperty() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -60567,7 +59789,6 @@ class GameBooleanProperty : public GameProperty {
 public:
 	GameBooleanProperty(PyObject* pyobj) : GameProperty(pyobj) {}
 	GameBooleanProperty() : GameProperty(0) { }
-	~GameBooleanProperty() { Py_DECREF(pyobjref); }
 
 	bool value() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "value")
@@ -60582,7 +59803,6 @@ class GameIntProperty : public GameProperty {
 public:
 	GameIntProperty(PyObject* pyobj) : GameProperty(pyobj) {}
 	GameIntProperty() : GameProperty(0) { }
-	~GameIntProperty() { Py_DECREF(pyobjref); }
 
 	int value() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "value")
@@ -60597,7 +59817,6 @@ class GameFloatProperty : public GameProperty {
 public:
 	GameFloatProperty(PyObject* pyobj) : GameProperty(pyobj) {}
 	GameFloatProperty() : GameProperty(0) { }
-	~GameFloatProperty() { Py_DECREF(pyobjref); }
 
 	float value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "value")
@@ -60612,7 +59831,6 @@ class GameTimerProperty : public GameProperty {
 public:
 	GameTimerProperty(PyObject* pyobj) : GameProperty(pyobj) {}
 	GameTimerProperty() : GameProperty(0) { }
-	~GameTimerProperty() { Py_DECREF(pyobjref); }
 
 	float value() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "value")
@@ -60627,7 +59845,6 @@ class GameStringProperty : public GameProperty {
 public:
 	GameStringProperty(PyObject* pyobj) : GameProperty(pyobj) {}
 	GameStringProperty() : GameProperty(0) { }
-	~GameStringProperty() { Py_DECREF(pyobjref); }
 
 	std::string value() {
 		STRING_TYPE_GETTER("value", resstr)
@@ -60638,11 +59855,10 @@ public:
 	}
 };
 
-class RenderEngine : public pyUniplug {
+class RenderEngine : public pyObjRef {
 public:
-	RenderEngine(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderEngine() : pyUniplug(0) { }
-	~RenderEngine() { Py_DECREF(pyobjref); }
+	RenderEngine(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderEngine() : pyObjRef(0) { }
 
 	bool is_animation() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_animation")
@@ -60880,11 +60096,10 @@ public:
 	bool support_display_space_shader(Scene scene);
 };
 
-class RenderResult : public pyUniplug {
+class RenderResult : public pyObjRef {
 public:
-	RenderResult(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderResult() : pyUniplug(0) { }
-	~RenderResult() { Py_DECREF(pyobjref); }
+	RenderResult(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderResult() : pyObjRef(0) { }
 
 	int resolution_x() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "resolution_x")
@@ -60911,11 +60126,10 @@ public:
 	}
 };
 
-class RenderView : public pyUniplug {
+class RenderView : public pyObjRef {
 public:
-	RenderView(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderView() : pyUniplug(0) { }
-	~RenderView() { Py_DECREF(pyobjref); }
+	RenderView(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderView() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -60926,11 +60140,10 @@ public:
 	}
 };
 
-class RenderLayer : public pyUniplug {
+class RenderLayer : public pyObjRef {
 public:
-	RenderLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderLayer() : pyUniplug(0) { }
-	~RenderLayer() { Py_DECREF(pyobjref); }
+	RenderLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -61371,11 +60584,10 @@ public:
 	}
 };
 
-class RenderPass : public pyUniplug {
+class RenderPass : public pyObjRef {
 public:
-	RenderPass(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderPass() : pyUniplug(0) { }
-	~RenderPass() { Py_DECREF(pyobjref); }
+	RenderPass(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderPass() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -61494,11 +60706,10 @@ public:
 	}
 };
 
-class BakePixel : public pyUniplug {
+class BakePixel : public pyObjRef {
 public:
-	BakePixel(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BakePixel() : pyUniplug(0) { }
-	~BakePixel() { Py_DECREF(pyobjref); }
+	BakePixel(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BakePixel() : pyObjRef(0) { }
 
 	int primitive_id() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "primitive_id")
@@ -61561,11 +60772,10 @@ public:
 	}
 };
 
-class RigidBodyWorld : public pyUniplug {
+class RigidBodyWorld : public pyObjRef {
 public:
-	RigidBodyWorld(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RigidBodyWorld() : pyUniplug(0) { }
-	~RigidBodyWorld() { Py_DECREF(pyobjref); }
+	RigidBodyWorld(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RigidBodyWorld() : pyObjRef(0) { }
 
 	Group group() {
 		CLASS_TYPES_GETTER(Group, "group")
@@ -61646,11 +60856,10 @@ public:
 	}
 };
 
-class RigidBodyObject : public pyUniplug {
+class RigidBodyObject : public pyObjRef {
 public:
-	RigidBodyObject(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RigidBodyObject() : pyUniplug(0) { }
-	~RigidBodyObject() { Py_DECREF(pyobjref); }
+	RigidBodyObject(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RigidBodyObject() : pyObjRef(0) { }
 
 	enum rigidbody_object_type_items_enum {
 		rigidbody_object_type_items_ACTIVE = 0,	
@@ -61851,11 +61060,10 @@ public:
 	}
 };
 
-class RigidBodyConstraint : public pyUniplug {
+class RigidBodyConstraint : public pyObjRef {
 public:
-	RigidBodyConstraint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RigidBodyConstraint() : pyUniplug(0) { }
-	~RigidBodyConstraint() { Py_DECREF(pyobjref); }
+	RigidBodyConstraint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RigidBodyConstraint() : pyObjRef(0) { }
 
 	enum rigidbody_constraint_type_items_enum {
 		rigidbody_constraint_type_items_FIXED = 8,	
@@ -62212,7 +61420,6 @@ class Scene : public ID {
 public:
 	Scene(PyObject* pyobj) : ID(pyobj) {}
 	Scene() : ID(0) { }
-	~Scene() { Py_DECREF(pyobjref); }
 
 	Object camera() {
 		CLASS_TYPES_GETTER(Object, "camera")
@@ -62609,11 +61816,10 @@ public:
 	}
 };
 
-class ToolSettings : public pyUniplug {
+class ToolSettings : public pyObjRef {
 public:
-	ToolSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ToolSettings() : pyUniplug(0) { }
-	~ToolSettings() { Py_DECREF(pyobjref); }
+	ToolSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ToolSettings() : pyObjRef(0) { }
 
 	Sculpt sculpt();
 
@@ -63351,11 +62557,10 @@ public:
 	MeshStatVis statvis();
 };
 
-class UnifiedPaintSettings : public pyUniplug {
+class UnifiedPaintSettings : public pyObjRef {
 public:
-	UnifiedPaintSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UnifiedPaintSettings() : pyUniplug(0) { }
-	~UnifiedPaintSettings() { Py_DECREF(pyobjref); }
+	UnifiedPaintSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UnifiedPaintSettings() : pyObjRef(0) { }
 
 	bool use_unified_size() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_unified_size")
@@ -63462,11 +62667,10 @@ public:
 	}
 };
 
-class MeshStatVis : public pyUniplug {
+class MeshStatVis : public pyObjRef {
 public:
-	MeshStatVis(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MeshStatVis() : pyUniplug(0) { }
-	~MeshStatVis() { Py_DECREF(pyobjref); }
+	MeshStatVis(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MeshStatVis() : pyObjRef(0) { }
 
 	enum stat_type_enum {
 		stat_type_OVERHANG = 0,	
@@ -63596,11 +62800,10 @@ public:
 	}
 };
 
-class UnitSettings : public pyUniplug {
+class UnitSettings : public pyObjRef {
 public:
-	UnitSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UnitSettings() : pyUniplug(0) { }
-	~UnitSettings() { Py_DECREF(pyobjref); }
+	UnitSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UnitSettings() : pyObjRef(0) { }
 
 	enum unit_systems_enum {
 		unit_systems_NONE = 0,	
@@ -63668,11 +62871,10 @@ public:
 	}
 };
 
-class Stereo3dFormat : public pyUniplug {
+class Stereo3dFormat : public pyObjRef {
 public:
-	Stereo3dFormat(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Stereo3dFormat() : pyUniplug(0) { }
-	~Stereo3dFormat() { Py_DECREF(pyobjref); }
+	Stereo3dFormat(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Stereo3dFormat() : pyObjRef(0) { }
 
 	enum stereo3d_display_items_enum {
 		stereo3d_display_items_ANAGLYPH = 0,	
@@ -63775,11 +62977,10 @@ public:
 	}
 };
 
-class ImageFormatSettings : public pyUniplug {
+class ImageFormatSettings : public pyObjRef {
 public:
-	ImageFormatSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ImageFormatSettings() : pyUniplug(0) { }
-	~ImageFormatSettings() { Py_DECREF(pyobjref); }
+	ImageFormatSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ImageFormatSettings() : pyObjRef(0) { }
 
 	enum image_type_items_enum {
 		image_type_items_BMP = 20,	
@@ -64056,11 +63257,10 @@ public:
 	}
 };
 
-class SceneGameData : public pyUniplug {
+class SceneGameData : public pyObjRef {
 public:
-	SceneGameData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SceneGameData() : pyUniplug(0) { }
-	~SceneGameData() { Py_DECREF(pyobjref); }
+	SceneGameData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SceneGameData() : pyObjRef(0) { }
 
 	int resolution_x() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "resolution_x")
@@ -64897,11 +64097,10 @@ public:
 	}
 };
 
-class SceneGameRecastData : public pyUniplug {
+class SceneGameRecastData : public pyObjRef {
 public:
-	SceneGameRecastData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SceneGameRecastData() : pyUniplug(0) { }
-	~SceneGameRecastData() { Py_DECREF(pyobjref); }
+	SceneGameRecastData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SceneGameRecastData() : pyObjRef(0) { }
 
 	float cell_size() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "cell_size")
@@ -65008,11 +64207,10 @@ public:
 	}
 };
 
-class TransformOrientation : public pyUniplug {
+class TransformOrientation : public pyObjRef {
 public:
-	TransformOrientation(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TransformOrientation() : pyUniplug(0) { }
-	~TransformOrientation() { Py_DECREF(pyobjref); }
+	TransformOrientation(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TransformOrientation() : pyObjRef(0) { }
 
 	std::array<float, 9> matrix() {
 		PRIMITIVE_TYPES_ARRAY_GETTER(float, (float)PyFloat_AsDouble(item), "matrix", 9)
@@ -65035,7 +64233,6 @@ class SelectedUvElement : public PropertyGroup {
 public:
 	SelectedUvElement(PyObject* pyobj) : PropertyGroup(pyobj) {}
 	SelectedUvElement() : PropertyGroup(0) { }
-	~SelectedUvElement() { Py_DECREF(pyobjref); }
 
 	int element_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "element_index")
@@ -65054,11 +64251,10 @@ public:
 	}
 };
 
-class DisplaySafeAreas : public pyUniplug {
+class DisplaySafeAreas : public pyObjRef {
 public:
-	DisplaySafeAreas(PyObject* pyobj) : pyUniplug(pyobj) {}
-	DisplaySafeAreas() : pyUniplug(0) { }
-	~DisplaySafeAreas() { Py_DECREF(pyobjref); }
+	DisplaySafeAreas(PyObject* pyobj) : pyObjRef(pyobj) {}
+	DisplaySafeAreas() : pyObjRef(0) { }
 
 	VFLOAT2 title() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "title", 2)
@@ -65093,11 +64289,10 @@ public:
 	}
 };
 
-class FFmpegSettings : public pyUniplug {
+class FFmpegSettings : public pyObjRef {
 public:
-	FFmpegSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FFmpegSettings() : pyUniplug(0) { }
-	~FFmpegSettings() { Py_DECREF(pyobjref); }
+	FFmpegSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FFmpegSettings() : pyObjRef(0) { }
 
 	enum ffmpeg_format_items_enum {
 		ffmpeg_format_items_MPEG1 = 0,	
@@ -65321,11 +64516,10 @@ public:
 	}
 };
 
-class RenderSettings : public pyUniplug {
+class RenderSettings : public pyObjRef {
 public:
-	RenderSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RenderSettings() : pyUniplug(0) { }
-	~RenderSettings() { Py_DECREF(pyobjref); }
+	RenderSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RenderSettings() : pyObjRef(0) { }
 
 	ImageFormatSettings image_settings() {
 		CLASS_TYPES_GETTER(ImageFormatSettings, "image_settings")
@@ -66551,11 +65745,10 @@ public:
 	}
 };
 
-class BakeSettings : public pyUniplug {
+class BakeSettings : public pyObjRef {
 public:
-	BakeSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BakeSettings() : pyUniplug(0) { }
-	~BakeSettings() { Py_DECREF(pyobjref); }
+	BakeSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BakeSettings() : pyObjRef(0) { }
 
 	std::string cage_object() {
 		STRING_TYPE_GETTER("cage_object", resstr)
@@ -66742,11 +65935,10 @@ public:
 	}
 };
 
-class SceneRenderLayer : public pyUniplug {
+class SceneRenderLayer : public pyObjRef {
 public:
-	SceneRenderLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SceneRenderLayer() : pyUniplug(0) { }
-	~SceneRenderLayer() { Py_DECREF(pyobjref); }
+	SceneRenderLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SceneRenderLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -67199,11 +66391,10 @@ public:
 	FreestyleSettings freestyle_settings();
 };
 
-class FreestyleLineSet : public pyUniplug {
+class FreestyleLineSet : public pyObjRef {
 public:
-	FreestyleLineSet(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FreestyleLineSet() : pyUniplug(0) { }
-	~FreestyleLineSet() { Py_DECREF(pyobjref); }
+	FreestyleLineSet(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FreestyleLineSet() : pyObjRef(0) { }
 
 	FreestyleLineStyle linestyle() {
 		CLASS_TYPES_GETTER(FreestyleLineStyle, "linestyle")
@@ -67575,11 +66766,10 @@ public:
 	}
 };
 
-class FreestyleModuleSettings : public pyUniplug {
+class FreestyleModuleSettings : public pyObjRef {
 public:
-	FreestyleModuleSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FreestyleModuleSettings() : pyUniplug(0) { }
-	~FreestyleModuleSettings() { Py_DECREF(pyobjref); }
+	FreestyleModuleSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FreestyleModuleSettings() : pyObjRef(0) { }
 
 	Text script();
 
@@ -67592,11 +66782,10 @@ public:
 	}
 };
 
-class FreestyleSettings : public pyUniplug {
+class FreestyleSettings : public pyObjRef {
 public:
-	FreestyleSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FreestyleSettings() : pyUniplug(0) { }
-	~FreestyleSettings() { Py_DECREF(pyobjref); }
+	FreestyleSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FreestyleSettings() : pyObjRef(0) { }
 
 	std::map<std::string, FreestyleModuleSettings> modules() {
 		MAP_TYPE_GETTER("modules", FreestyleModuleSettings)
@@ -67711,11 +66900,10 @@ public:
 	}
 };
 
-class GPUSSAOSettings : public pyUniplug {
+class GPUSSAOSettings : public pyObjRef {
 public:
-	GPUSSAOSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPUSSAOSettings() : pyUniplug(0) { }
-	~GPUSSAOSettings() { Py_DECREF(pyobjref); }
+	GPUSSAOSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPUSSAOSettings() : pyObjRef(0) { }
 
 	float factor() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "factor")
@@ -67758,11 +66946,10 @@ public:
 	}
 };
 
-class GPUDOFSettings : public pyUniplug {
+class GPUDOFSettings : public pyObjRef {
 public:
-	GPUDOFSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPUDOFSettings() : pyUniplug(0) { }
-	~GPUDOFSettings() { Py_DECREF(pyobjref); }
+	GPUDOFSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPUDOFSettings() : pyObjRef(0) { }
 
 	float focus_distance() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "focus_distance")
@@ -67821,11 +67008,10 @@ public:
 	}
 };
 
-class GPUFXSettings : public pyUniplug {
+class GPUFXSettings : public pyObjRef {
 public:
-	GPUFXSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	GPUFXSettings() : pyUniplug(0) { }
-	~GPUFXSettings() { Py_DECREF(pyobjref); }
+	GPUFXSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	GPUFXSettings() : pyObjRef(0) { }
 
 	GPUDOFSettings dof() {
 		CLASS_TYPES_GETTER(GPUDOFSettings, "dof")
@@ -67852,11 +67038,10 @@ public:
 	}
 };
 
-class SceneRenderView : public pyUniplug {
+class SceneRenderView : public pyObjRef {
 public:
-	SceneRenderView(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SceneRenderView() : pyUniplug(0) { }
-	~SceneRenderView() { Py_DECREF(pyobjref); }
+	SceneRenderView(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SceneRenderView() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -67895,7 +67080,6 @@ class Screen : public ID {
 public:
 	Screen(PyObject* pyobj) : ID(pyobj) {}
 	Screen() : ID(0) { }
-	~Screen() { Py_DECREF(pyobjref); }
 
 	Scene scene() {
 		CLASS_TYPES_GETTER(Scene, "scene")
@@ -67992,11 +67176,10 @@ public:
 	}
 };
 
-class Area : public pyUniplug {
+class Area : public pyObjRef {
 public:
-	Area(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Area() : pyUniplug(0) { }
-	~Area() { Py_DECREF(pyobjref); }
+	Area(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Area() : pyObjRef(0) { }
 
 	std::map<std::string, Space> spaces();
 
@@ -68091,11 +67274,10 @@ public:
 	}
 };
 
-class Region : public pyUniplug {
+class Region : public pyObjRef {
 public:
-	Region(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Region() : pyUniplug(0) { }
-	~Region() { Py_DECREF(pyobjref); }
+	Region(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Region() : pyObjRef(0) { }
 
 	int id() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "id")
@@ -68174,11 +67356,10 @@ public:
 	}
 };
 
-class View2D : public pyUniplug {
+class View2D : public pyObjRef {
 public:
-	View2D(PyObject* pyobj) : pyUniplug(pyobj) {}
-	View2D() : pyUniplug(0) { }
-	~View2D() { Py_DECREF(pyobjref); }
+	View2D(PyObject* pyobj) : pyObjRef(pyobj) {}
+	View2D() : pyObjRef(0) { }
 
 	VFLOAT2 region_to_view(int x, int y) {
 		PYTHON_FUNCTION_ARGS_CALL("region_to_view", "ii", x, y)
@@ -68199,14 +67380,12 @@ class PaintCurve : public ID {
 public:
 	PaintCurve(PyObject* pyobj) : ID(pyobj) {}
 	PaintCurve() : ID(0) { }
-	~PaintCurve() { Py_DECREF(pyobjref); }
 };
 
-class Paint : public pyUniplug {
+class Paint : public pyObjRef {
 public:
-	Paint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Paint() : pyUniplug(0) { }
-	~Paint() { Py_DECREF(pyobjref); }
+	Paint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Paint() : pyObjRef(0) { }
 
 	Brush brush() {
 		CLASS_TYPES_GETTER(Brush, "brush")
@@ -68297,7 +67476,6 @@ class Sculpt : public Paint {
 public:
 	Sculpt(PyObject* pyobj) : Paint(pyobj) {}
 	Sculpt() : Paint(0) { }
-	~Sculpt() { Py_DECREF(pyobjref); }
 
 	std::array<int, 3> radial_symmetry() {
 		PRIMITIVE_TYPES_ARRAY_GETTER(int, PyLong_AsLong(item), "radial_symmetry", 3)
@@ -68482,14 +67660,12 @@ class UvSculpt : public Paint {
 public:
 	UvSculpt(PyObject* pyobj) : Paint(pyobj) {}
 	UvSculpt() : Paint(0) { }
-	~UvSculpt() { Py_DECREF(pyobjref); }
 };
 
 class VertexPaint : public Paint {
 public:
 	VertexPaint(PyObject* pyobj) : Paint(pyobj) {}
 	VertexPaint() : Paint(0) { }
-	~VertexPaint() { Py_DECREF(pyobjref); }
 
 	bool use_normal() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_normal")
@@ -68520,7 +67696,6 @@ class ImagePaint : public Paint {
 public:
 	ImagePaint(PyObject* pyobj) : Paint(pyobj) {}
 	ImagePaint() : Paint(0) { }
-	~ImagePaint() { Py_DECREF(pyobjref); }
 
 	bool use_occlude() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_occlude")
@@ -68686,11 +67861,10 @@ public:
 	}
 };
 
-class ParticleEdit : public pyUniplug {
+class ParticleEdit : public pyObjRef {
 public:
-	ParticleEdit(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleEdit() : pyUniplug(0) { }
-	~ParticleEdit() { Py_DECREF(pyobjref); }
+	ParticleEdit(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleEdit() : pyObjRef(0) { }
 
 	enum particle_edit_hair_brush_items_enum {
 		particle_edit_hair_brush_items_NONE = -1,	
@@ -68887,11 +68061,10 @@ public:
 	}
 };
 
-class ParticleBrush : public pyUniplug {
+class ParticleBrush : public pyObjRef {
 public:
-	ParticleBrush(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ParticleBrush() : pyUniplug(0) { }
-	~ParticleBrush() { Py_DECREF(pyobjref); }
+	ParticleBrush(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ParticleBrush() : pyObjRef(0) { }
 
 	int size() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "size")
@@ -68986,11 +68159,10 @@ public:
 	}
 };
 
-class Sensor : public pyUniplug {
+class Sensor : public pyObjRef {
 public:
-	Sensor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Sensor() : pyUniplug(0) { }
-	~Sensor() { Py_DECREF(pyobjref); }
+	Sensor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Sensor() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -69125,14 +68297,12 @@ class AlwaysSensor : public Sensor {
 public:
 	AlwaysSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	AlwaysSensor() : Sensor(0) { }
-	~AlwaysSensor() { Py_DECREF(pyobjref); }
 };
 
 class NearSensor : public Sensor {
 public:
 	NearSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	NearSensor() : Sensor(0) { }
-	~NearSensor() { Py_DECREF(pyobjref); }
 
 	std::string property() {
 		STRING_TYPE_GETTER("property", resstr)
@@ -69163,7 +68333,6 @@ class MouseSensor : public Sensor {
 public:
 	MouseSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	MouseSensor() : Sensor(0) { }
-	~MouseSensor() { Py_DECREF(pyobjref); }
 
 	enum mouse_event_items_enum {
 		mouse_event_items_LEFTCLICK = 1,	
@@ -69256,7 +68425,6 @@ class KeyboardSensor : public Sensor {
 public:
 	KeyboardSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	KeyboardSensor() : Sensor(0) { }
-	~KeyboardSensor() { Py_DECREF(pyobjref); }
 
 	enum event_type_items_enum {
 		event_type_items_NONE = 0,	
@@ -69509,7 +68677,6 @@ class PropertySensor : public Sensor {
 public:
 	PropertySensor(PyObject* pyobj) : Sensor(pyobj) {}
 	PropertySensor() : Sensor(0) { }
-	~PropertySensor() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_PROPEQUAL = 0,	
@@ -69576,7 +68743,6 @@ class ArmatureSensor : public Sensor {
 public:
 	ArmatureSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	ArmatureSensor() : Sensor(0) { }
-	~ArmatureSensor() { Py_DECREF(pyobjref); }
 
 	enum prop_type_items_enum {
 		prop_type_items_STATECHG = 0,	
@@ -69634,7 +68800,6 @@ class ActuatorSensor : public Sensor {
 public:
 	ActuatorSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	ActuatorSensor() : Sensor(0) { }
-	~ActuatorSensor() { Py_DECREF(pyobjref); }
 
 	std::string actuator() {
 		STRING_TYPE_GETTER("actuator", resstr)
@@ -69649,7 +68814,6 @@ class DelaySensor : public Sensor {
 public:
 	DelaySensor(PyObject* pyobj) : Sensor(pyobj) {}
 	DelaySensor() : Sensor(0) { }
-	~DelaySensor() { Py_DECREF(pyobjref); }
 
 	int delay() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "delay")
@@ -69680,7 +68844,6 @@ class CollisionSensor : public Sensor {
 public:
 	CollisionSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	CollisionSensor() : Sensor(0) { }
-	~CollisionSensor() { Py_DECREF(pyobjref); }
 
 	bool use_pulse() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_pulse")
@@ -69719,7 +68882,6 @@ class RadarSensor : public Sensor {
 public:
 	RadarSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	RadarSensor() : Sensor(0) { }
-	~RadarSensor() { Py_DECREF(pyobjref); }
 
 	std::string property() {
 		STRING_TYPE_GETTER("property", resstr)
@@ -69778,7 +68940,6 @@ class RandomSensor : public Sensor {
 public:
 	RandomSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	RandomSensor() : Sensor(0) { }
-	~RandomSensor() { Py_DECREF(pyobjref); }
 
 	int seed() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "seed")
@@ -69793,7 +68954,6 @@ class RaySensor : public Sensor {
 public:
 	RaySensor(PyObject* pyobj) : Sensor(pyobj) {}
 	RaySensor() : Sensor(0) { }
-	~RaySensor() { Py_DECREF(pyobjref); }
 
 	enum prop_ray_type_items_enum {
 		prop_ray_type_items_PROPERTY = 0,	
@@ -69884,7 +69044,6 @@ class MessageSensor : public Sensor {
 public:
 	MessageSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	MessageSensor() : Sensor(0) { }
-	~MessageSensor() { Py_DECREF(pyobjref); }
 
 	std::string subject() {
 		STRING_TYPE_GETTER("subject", resstr)
@@ -69899,7 +69058,6 @@ class JoystickSensor : public Sensor {
 public:
 	JoystickSensor(PyObject* pyobj) : Sensor(pyobj) {}
 	JoystickSensor() : Sensor(0) { }
-	~JoystickSensor() { Py_DECREF(pyobjref); }
 
 	int joystick_index() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "joystick_index")
@@ -70040,11 +69198,10 @@ public:
 	}
 };
 
-class SequenceColorBalanceData : public pyUniplug {
+class SequenceColorBalanceData : public pyObjRef {
 public:
-	SequenceColorBalanceData(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceColorBalanceData() : pyUniplug(0) { }
-	~SequenceColorBalanceData() { Py_DECREF(pyobjref); }
+	SequenceColorBalanceData(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceColorBalanceData() : pyObjRef(0) { }
 
 	VFLOAT3 lift() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "lift", 3)
@@ -70095,11 +69252,10 @@ public:
 	}
 };
 
-class SequenceElement : public pyUniplug {
+class SequenceElement : public pyObjRef {
 public:
-	SequenceElement(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceElement() : pyUniplug(0) { }
-	~SequenceElement() { Py_DECREF(pyobjref); }
+	SequenceElement(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceElement() : pyObjRef(0) { }
 
 	std::string filename() {
 		STRING_TYPE_GETTER("filename", resstr)
@@ -70126,11 +69282,10 @@ public:
 	}
 };
 
-class SequenceProxy : public pyUniplug {
+class SequenceProxy : public pyObjRef {
 public:
-	SequenceProxy(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceProxy() : pyUniplug(0) { }
-	~SequenceProxy() { Py_DECREF(pyobjref); }
+	SequenceProxy(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceProxy() : pyObjRef(0) { }
 
 	std::string directory() {
 		STRING_TYPE_GETTER("directory", resstr)
@@ -70268,14 +69423,12 @@ class SequenceColorBalance : public SequenceColorBalanceData {
 public:
 	SequenceColorBalance(PyObject* pyobj) : SequenceColorBalanceData(pyobj) {}
 	SequenceColorBalance() : SequenceColorBalanceData(0) { }
-	~SequenceColorBalance() { Py_DECREF(pyobjref); }
 };
 
-class SequenceCrop : public pyUniplug {
+class SequenceCrop : public pyObjRef {
 public:
-	SequenceCrop(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceCrop() : pyUniplug(0) { }
-	~SequenceCrop() { Py_DECREF(pyobjref); }
+	SequenceCrop(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceCrop() : pyObjRef(0) { }
 
 	int max_y() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "max_y")
@@ -70310,11 +69463,10 @@ public:
 	}
 };
 
-class SequenceTransform : public pyUniplug {
+class SequenceTransform : public pyObjRef {
 public:
-	SequenceTransform(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceTransform() : pyUniplug(0) { }
-	~SequenceTransform() { Py_DECREF(pyobjref); }
+	SequenceTransform(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceTransform() : pyObjRef(0) { }
 
 	int offset_x() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "offset_x")
@@ -70333,11 +69485,10 @@ public:
 	}
 };
 
-class Sequence : public pyUniplug {
+class Sequence : public pyObjRef {
 public:
-	Sequence(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Sequence() : pyUniplug(0) { }
-	~Sequence() { Py_DECREF(pyobjref); }
+	Sequence(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Sequence() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -70600,11 +69751,10 @@ public:
 	}
 };
 
-class SequenceEditor : public pyUniplug {
+class SequenceEditor : public pyObjRef {
 public:
-	SequenceEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceEditor() : pyUniplug(0) { }
-	~SequenceEditor() { Py_DECREF(pyobjref); }
+	SequenceEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceEditor() : pyObjRef(0) { }
 
 	std::map<std::string, Sequence> sequences() {
 		MAP_TYPE_GETTER("sequences", Sequence)
@@ -70683,7 +69833,6 @@ class ImageSequence : public Sequence {
 public:
 	ImageSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	ImageSequence() : Sequence(0) { }
-	~ImageSequence() { Py_DECREF(pyobjref); }
 
 	std::string directory() {
 		STRING_TYPE_GETTER("directory", resstr)
@@ -70882,7 +70031,6 @@ class MetaSequence : public Sequence {
 public:
 	MetaSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	MetaSequence() : Sequence(0) { }
-	~MetaSequence() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, Sequence> sequences() {
 		MAP_TYPE_GETTER("sequences", Sequence)
@@ -71033,7 +70181,6 @@ class SceneSequence : public Sequence {
 public:
 	SceneSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	SceneSequence() : Sequence(0) { }
-	~SceneSequence() { Py_DECREF(pyobjref); }
 
 	Scene scene() {
 		CLASS_TYPES_GETTER(Scene, "scene")
@@ -71196,7 +70343,6 @@ class MovieSequence : public Sequence {
 public:
 	MovieSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	MovieSequence() : Sequence(0) { }
-	~MovieSequence() { Py_DECREF(pyobjref); }
 
 	int mpeg_preseek() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "mpeg_preseek")
@@ -71411,7 +70557,6 @@ class MovieClipSequence : public Sequence {
 public:
 	MovieClipSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	MovieClipSequence() : Sequence(0) { }
-	~MovieClipSequence() { Py_DECREF(pyobjref); }
 
 	bool undistort() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "undistort")
@@ -71562,7 +70707,6 @@ class MaskSequence : public Sequence {
 public:
 	MaskSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	MaskSequence() : Sequence(0) { }
-	~MaskSequence() { Py_DECREF(pyobjref); }
 
 	Mask mask();
 
@@ -71699,7 +70843,6 @@ class SoundSequence : public Sequence {
 public:
 	SoundSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	SoundSequence() : Sequence(0) { }
-	~SoundSequence() { Py_DECREF(pyobjref); }
 
 	Sound sound();
 
@@ -71764,7 +70907,6 @@ class EffectSequence : public Sequence {
 public:
 	EffectSequence(PyObject* pyobj) : Sequence(pyobj) {}
 	EffectSequence() : Sequence(0) { }
-	~EffectSequence() { Py_DECREF(pyobjref); }
 
 	bool use_deinterlace() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_deinterlace")
@@ -71895,7 +71037,6 @@ class AddSequence : public EffectSequence {
 public:
 	AddSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	AddSequence() : EffectSequence(0) { }
-	~AddSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -71918,7 +71059,6 @@ class AdjustmentSequence : public EffectSequence {
 public:
 	AdjustmentSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	AdjustmentSequence() : EffectSequence(0) { }
-	~AdjustmentSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -71949,7 +71089,6 @@ class AlphaOverSequence : public EffectSequence {
 public:
 	AlphaOverSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	AlphaOverSequence() : EffectSequence(0) { }
-	~AlphaOverSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -71972,7 +71111,6 @@ class AlphaUnderSequence : public EffectSequence {
 public:
 	AlphaUnderSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	AlphaUnderSequence() : EffectSequence(0) { }
-	~AlphaUnderSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -71995,7 +71133,6 @@ class ColorSequence : public EffectSequence {
 public:
 	ColorSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	ColorSequence() : EffectSequence(0) { }
-	~ColorSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72018,7 +71155,6 @@ class CrossSequence : public EffectSequence {
 public:
 	CrossSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	CrossSequence() : EffectSequence(0) { }
-	~CrossSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72041,7 +71177,6 @@ class GammaCrossSequence : public EffectSequence {
 public:
 	GammaCrossSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	GammaCrossSequence() : EffectSequence(0) { }
-	~GammaCrossSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72064,7 +71199,6 @@ class GlowSequence : public EffectSequence {
 public:
 	GlowSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	GlowSequence() : EffectSequence(0) { }
-	~GlowSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72131,7 +71265,6 @@ class MulticamSequence : public EffectSequence {
 public:
 	MulticamSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	MulticamSequence() : EffectSequence(0) { }
-	~MulticamSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72170,7 +71303,6 @@ class MultiplySequence : public EffectSequence {
 public:
 	MultiplySequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	MultiplySequence() : EffectSequence(0) { }
-	~MultiplySequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72193,7 +71325,6 @@ class OverDropSequence : public EffectSequence {
 public:
 	OverDropSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	OverDropSequence() : EffectSequence(0) { }
-	~OverDropSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72216,7 +71347,6 @@ class SpeedControlSequence : public EffectSequence {
 public:
 	SpeedControlSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	SpeedControlSequence() : EffectSequence(0) { }
-	~SpeedControlSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72259,7 +71389,6 @@ class SubtractSequence : public EffectSequence {
 public:
 	SubtractSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	SubtractSequence() : EffectSequence(0) { }
-	~SubtractSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72282,7 +71411,6 @@ class TransformSequence : public EffectSequence {
 public:
 	TransformSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	TransformSequence() : EffectSequence(0) { }
-	~TransformSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72398,7 +71526,6 @@ class WipeSequence : public EffectSequence {
 public:
 	WipeSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	WipeSequence() : EffectSequence(0) { }
-	~WipeSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72483,7 +71610,6 @@ class GaussianBlurSequence : public EffectSequence {
 public:
 	GaussianBlurSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	GaussianBlurSequence() : EffectSequence(0) { }
-	~GaussianBlurSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72518,7 +71644,6 @@ class TextSequence : public EffectSequence {
 public:
 	TextSequence(PyObject* pyobj) : EffectSequence(pyobj) {}
 	TextSequence() : EffectSequence(0) { }
-	~TextSequence() { Py_DECREF(pyobjref); }
 
 	int input_count() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "input_count")
@@ -72586,11 +71711,10 @@ public:
 	}
 };
 
-class SequenceModifier : public pyUniplug {
+class SequenceModifier : public pyObjRef {
 public:
-	SequenceModifier(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SequenceModifier() : pyUniplug(0) { }
-	~SequenceModifier() { Py_DECREF(pyobjref); }
+	SequenceModifier(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SequenceModifier() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -72678,7 +71802,6 @@ class ColorBalanceModifier : public SequenceModifier {
 public:
 	ColorBalanceModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
 	ColorBalanceModifier() : SequenceModifier(0) { }
-	~ColorBalanceModifier() { Py_DECREF(pyobjref); }
 
 	SequenceColorBalanceData color_balance() {
 		CLASS_TYPES_GETTER(SequenceColorBalanceData, "color_balance")
@@ -72697,7 +71820,6 @@ class CurvesModifier : public SequenceModifier {
 public:
 	CurvesModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
 	CurvesModifier() : SequenceModifier(0) { }
-	~CurvesModifier() { Py_DECREF(pyobjref); }
 
 	CurveMapping curve_mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "curve_mapping")
@@ -72708,7 +71830,6 @@ class HueCorrectModifier : public SequenceModifier {
 public:
 	HueCorrectModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
 	HueCorrectModifier() : SequenceModifier(0) { }
-	~HueCorrectModifier() { Py_DECREF(pyobjref); }
 
 	CurveMapping curve_mapping() {
 		CLASS_TYPES_GETTER(CurveMapping, "curve_mapping")
@@ -72719,7 +71840,6 @@ class BrightContrastModifier : public SequenceModifier {
 public:
 	BrightContrastModifier(PyObject* pyobj) : SequenceModifier(pyobj) {}
 	BrightContrastModifier() : SequenceModifier(0) { }
-	~BrightContrastModifier() { Py_DECREF(pyobjref); }
 
 	float bright() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "bright")
@@ -72738,11 +71858,10 @@ public:
 	}
 };
 
-class SmokeDomainSettings : public pyUniplug {
+class SmokeDomainSettings : public pyObjRef {
 public:
-	SmokeDomainSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SmokeDomainSettings() : pyUniplug(0) { }
-	~SmokeDomainSettings() { Py_DECREF(pyobjref); }
+	SmokeDomainSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SmokeDomainSettings() : pyObjRef(0) { }
 
 	int resolution_max() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "resolution_max")
@@ -73095,11 +72214,10 @@ public:
 	}
 };
 
-class SmokeFlowSettings : public pyUniplug {
+class SmokeFlowSettings : public pyObjRef {
 public:
-	SmokeFlowSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SmokeFlowSettings() : pyUniplug(0) { }
-	~SmokeFlowSettings() { Py_DECREF(pyobjref); }
+	SmokeFlowSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SmokeFlowSettings() : pyObjRef(0) { }
 
 	float density() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "density")
@@ -73336,11 +72454,10 @@ public:
 	}
 };
 
-class SmokeCollSettings : public pyUniplug {
+class SmokeCollSettings : public pyObjRef {
 public:
-	SmokeCollSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SmokeCollSettings() : pyUniplug(0) { }
-	~SmokeCollSettings() { Py_DECREF(pyobjref); }
+	SmokeCollSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SmokeCollSettings() : pyObjRef(0) { }
 
 	enum smoke_coll_type_items_enum {
 		smoke_coll_type_items_COLLSTATIC = 0,	
@@ -73368,11 +72485,10 @@ public:
 	}
 };
 
-class Space : public pyUniplug {
+class Space : public pyObjRef {
 public:
-	Space(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Space() : pyUniplug(0) { }
-	~Space() { Py_DECREF(pyobjref); }
+	Space(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Space() : pyObjRef(0) { }
 
 	enum space_type_items_enum {
 		space_type_items_EMPTY = 0,	
@@ -73427,7 +72543,6 @@ class SpaceImageEditor : public Space {
 public:
 	SpaceImageEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceImageEditor() : Space(0) { }
-	~SpaceImageEditor() { Py_DECREF(pyobjref); }
 
 	Image image() {
 		CLASS_TYPES_GETTER(Image, "image")
@@ -73686,11 +72801,10 @@ public:
 	}
 };
 
-class SpaceUVEditor : public pyUniplug {
+class SpaceUVEditor : public pyObjRef {
 public:
-	SpaceUVEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	SpaceUVEditor() : pyUniplug(0) { }
-	~SpaceUVEditor() { Py_DECREF(pyobjref); }
+	SpaceUVEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	SpaceUVEditor() : pyObjRef(0) { }
 
 	enum sticky_mode_items_enum {
 		sticky_mode_items_DISABLED = 1,	
@@ -73860,7 +72974,6 @@ class SpaceSequenceEditor : public Space {
 public:
 	SpaceSequenceEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceSequenceEditor() : Space(0) { }
-	~SpaceSequenceEditor() { Py_DECREF(pyobjref); }
 
 	enum view_type_items_enum {
 		view_type_items_SEQUENCER = 1,	
@@ -74129,7 +73242,6 @@ class SpaceTextEditor : public Space {
 public:
 	SpaceTextEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceTextEditor() : Space(0) { }
-	~SpaceTextEditor() { Py_DECREF(pyobjref); }
 
 	Text text();
 
@@ -74277,11 +73389,10 @@ public:
 	}
 };
 
-class FileSelectParams : public pyUniplug {
+class FileSelectParams : public pyObjRef {
 public:
-	FileSelectParams(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FileSelectParams() : pyUniplug(0) { }
-	~FileSelectParams() { Py_DECREF(pyobjref); }
+	FileSelectParams(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FileSelectParams() : pyObjRef(0) { }
 
 	std::string title() {
 		STRING_TYPE_GETTER("title", resstr)
@@ -74489,11 +73600,10 @@ public:
 	}
 };
 
-class FileBrowserFSMenuEntry : public pyUniplug {
+class FileBrowserFSMenuEntry : public pyObjRef {
 public:
-	FileBrowserFSMenuEntry(PyObject* pyobj) : pyUniplug(pyobj) {}
-	FileBrowserFSMenuEntry() : pyUniplug(0) { }
-	~FileBrowserFSMenuEntry() { Py_DECREF(pyobjref); }
+	FileBrowserFSMenuEntry(PyObject* pyobj) : pyObjRef(pyobj) {}
+	FileBrowserFSMenuEntry() : pyObjRef(0) { }
 
 	std::string path() {
 		STRING_TYPE_GETTER("path", resstr)
@@ -74532,7 +73642,6 @@ class SpaceFileBrowser : public Space {
 public:
 	SpaceFileBrowser(PyObject* pyobj) : Space(pyobj) {}
 	SpaceFileBrowser() : Space(0) { }
-	~SpaceFileBrowser() { Py_DECREF(pyobjref); }
 
 	FileSelectParams params_value() {
 		CLASS_TYPES_GETTER(FileSelectParams, "params")
@@ -74595,7 +73704,6 @@ class SpaceOutliner : public Space {
 public:
 	SpaceOutliner(PyObject* pyobj) : Space(pyobj) {}
 	SpaceOutliner() : Space(0) { }
-	~SpaceOutliner() { Py_DECREF(pyobjref); }
 
 	enum display_mode_items_enum {
 		display_mode_items_ALL_SCENES = 0,	
@@ -74672,11 +73780,10 @@ public:
 	}
 };
 
-class BackgroundImage : public pyUniplug {
+class BackgroundImage : public pyObjRef {
 public:
-	BackgroundImage(PyObject* pyobj) : pyUniplug(pyobj) {}
-	BackgroundImage() : pyUniplug(0) { }
-	~BackgroundImage() { Py_DECREF(pyobjref); }
+	BackgroundImage(PyObject* pyobj) : pyObjRef(pyobj) {}
+	BackgroundImage() : pyObjRef(0) { }
 
 	enum bgpic_source_items_enum {
 		bgpic_source_items_IMAGE = 0,	
@@ -74886,7 +73993,6 @@ class SpaceView3D : public Space {
 public:
 	SpaceView3D(PyObject* pyobj) : Space(pyobj) {}
 	SpaceView3D() : Space(0) { }
-	~SpaceView3D() { Py_DECREF(pyobjref); }
 
 	Object camera() {
 		CLASS_TYPES_GETTER(Object, "camera")
@@ -75532,11 +74638,10 @@ public:
 	}
 };
 
-class RegionView3D : public pyUniplug {
+class RegionView3D : public pyObjRef {
 public:
-	RegionView3D(PyObject* pyobj) : pyUniplug(pyobj) {}
-	RegionView3D() : pyUniplug(0) { }
-	~RegionView3D() { Py_DECREF(pyobjref); }
+	RegionView3D(PyObject* pyobj) : pyObjRef(pyobj) {}
+	RegionView3D() : pyObjRef(0) { }
 
 	bool lock_rotation() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "lock_rotation")
@@ -75668,7 +74773,6 @@ class SpaceProperties : public Space {
 public:
 	SpaceProperties(PyObject* pyobj) : Space(pyobj) {}
 	SpaceProperties() : Space(0) { }
-	~SpaceProperties() { Py_DECREF(pyobjref); }
 
 	enum buttons_context_items_enum {
 		buttons_context_items_SCENE = 1,	
@@ -75783,7 +74887,6 @@ class SpaceDopeSheetEditor : public Space {
 public:
 	SpaceDopeSheetEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceDopeSheetEditor() : Space(0) { }
-	~SpaceDopeSheetEditor() { Py_DECREF(pyobjref); }
 
 	Action action() {
 		CLASS_TYPES_GETTER(Action, "action")
@@ -75917,7 +75020,6 @@ class SpaceGraphEditor : public Space {
 public:
 	SpaceGraphEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceGraphEditor() : Space(0) { }
-	~SpaceGraphEditor() { Py_DECREF(pyobjref); }
 
 	enum mode_items_enum {
 		mode_items_FCURVES = 0,	
@@ -76125,7 +75227,6 @@ class SpaceNLA : public Space {
 public:
 	SpaceNLA(PyObject* pyobj) : Space(pyobj) {}
 	SpaceNLA() : Space(0) { }
-	~SpaceNLA() { Py_DECREF(pyobjref); }
 
 	bool show_seconds() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_seconds")
@@ -76196,7 +75297,6 @@ class SpaceTimeline : public Space {
 public:
 	SpaceTimeline(PyObject* pyobj) : Space(pyobj) {}
 	SpaceTimeline() : Space(0) { }
-	~SpaceTimeline() { Py_DECREF(pyobjref); }
 
 	bool show_frame_indicator() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_frame_indicator")
@@ -76275,7 +75375,6 @@ class SpaceConsole : public Space {
 public:
 	SpaceConsole(PyObject* pyobj) : Space(pyobj) {}
 	SpaceConsole() : Space(0) { }
-	~SpaceConsole() { Py_DECREF(pyobjref); }
 
 	int font_size() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "font_size")
@@ -76322,11 +75421,10 @@ public:
 	std::map<std::string, ConsoleLine> scrollback();
 };
 
-class ConsoleLine : public pyUniplug {
+class ConsoleLine : public pyObjRef {
 public:
-	ConsoleLine(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ConsoleLine() : pyUniplug(0) { }
-	~ConsoleLine() { Py_DECREF(pyobjref); }
+	ConsoleLine(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ConsoleLine() : pyObjRef(0) { }
 
 	std::string body() {
 		STRING_TYPE_GETTER("body", resstr)
@@ -76375,7 +75473,6 @@ class SpaceInfo : public Space {
 public:
 	SpaceInfo(PyObject* pyobj) : Space(pyobj) {}
 	SpaceInfo() : Space(0) { }
-	~SpaceInfo() { Py_DECREF(pyobjref); }
 
 	bool show_report_debug() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_report_debug")
@@ -76422,7 +75519,6 @@ class SpaceUserPreferences : public Space {
 public:
 	SpaceUserPreferences(PyObject* pyobj) : Space(pyobj) {}
 	SpaceUserPreferences() : Space(0) { }
-	~SpaceUserPreferences() { Py_DECREF(pyobjref); }
 
 	enum filter_type_items_enum {
 		filter_type_items_NAME = 0,	
@@ -76457,11 +75553,10 @@ public:
 	}
 };
 
-class NodeTreePath : public pyUniplug {
+class NodeTreePath : public pyObjRef {
 public:
-	NodeTreePath(PyObject* pyobj) : pyUniplug(pyobj) {}
-	NodeTreePath() : pyUniplug(0) { }
-	~NodeTreePath() { Py_DECREF(pyobjref); }
+	NodeTreePath(PyObject* pyobj) : pyObjRef(pyobj) {}
+	NodeTreePath() : pyObjRef(0) { }
 
 	NodeTree node_tree() {
 		CLASS_TYPES_GETTER(NodeTree, "node_tree")
@@ -76472,7 +75567,6 @@ class SpaceNodeEditor : public Space {
 public:
 	SpaceNodeEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceNodeEditor() : Space(0) { }
-	~SpaceNodeEditor() { Py_DECREF(pyobjref); }
 
 	enum dummy_items_enum {
 		dummy_items_DUMMY = 0	
@@ -76677,7 +75771,6 @@ class SpaceLogicEditor : public Space {
 public:
 	SpaceLogicEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceLogicEditor() : Space(0) { }
-	~SpaceLogicEditor() { Py_DECREF(pyobjref); }
 
 	bool show_sensors_selected_objects() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_sensors_selected_objects")
@@ -76772,7 +75865,6 @@ class SpaceClipEditor : public Space {
 public:
 	SpaceClipEditor(PyObject* pyobj) : Space(pyobj) {}
 	SpaceClipEditor() : Space(0) { }
-	~SpaceClipEditor() { Py_DECREF(pyobjref); }
 
 	MovieClip clip();
 
@@ -77168,7 +76260,6 @@ class Speaker : public ID {
 public:
 	Speaker(PyObject* pyobj) : ID(pyobj) {}
 	Speaker() : ID(0) { }
-	~Speaker() { Py_DECREF(pyobjref); }
 
 	bool muted() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "muted")
@@ -77273,11 +76364,10 @@ public:
 	}
 };
 
-class TextLine : public pyUniplug {
+class TextLine : public pyObjRef {
 public:
-	TextLine(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TextLine() : pyUniplug(0) { }
-	~TextLine() { Py_DECREF(pyobjref); }
+	TextLine(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TextLine() : pyObjRef(0) { }
 
 	std::string body() {
 		STRING_TYPE_GETTER("body", resstr)
@@ -77292,7 +76382,6 @@ class Text : public ID {
 public:
 	Text(PyObject* pyobj) : ID(pyobj) {}
 	Text() : ID(0) { }
-	~Text() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -77387,11 +76476,10 @@ public:
 	}
 };
 
-class TimelineMarker : public pyUniplug {
+class TimelineMarker : public pyObjRef {
 public:
-	TimelineMarker(PyObject* pyobj) : pyUniplug(pyobj) {}
-	TimelineMarker() : pyUniplug(0) { }
-	~TimelineMarker() { Py_DECREF(pyobjref); }
+	TimelineMarker(PyObject* pyobj) : pyObjRef(pyobj) {}
+	TimelineMarker() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -77426,7 +76514,6 @@ class Sound : public ID {
 public:
 	Sound(PyObject* pyobj) : ID(pyobj) {}
 	Sound() : ID(0) { }
-	~Sound() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -77483,11 +76570,10 @@ public:
 	}
 };
 
-class UILayout : public pyUniplug {
+class UILayout : public pyObjRef {
 public:
-	UILayout(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UILayout() : pyUniplug(0) { }
-	~UILayout() { Py_DECREF(pyobjref); }
+	UILayout(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UILayout() : pyObjRef(0) { }
 
 	bool active() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "active")
@@ -78454,11 +77540,10 @@ public:
 	}
 };
 
-class Panel : public pyUniplug {
+class Panel : public pyObjRef {
 public:
-	Panel(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Panel() : pyUniplug(0) { }
-	~Panel() { Py_DECREF(pyobjref); }
+	Panel(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Panel() : pyObjRef(0) { }
 
 	UILayout layout() {
 		CLASS_TYPES_GETTER(UILayout, "layout")
@@ -78616,11 +77701,10 @@ public:
 
 };
 
-class UIList : public pyUniplug {
+class UIList : public pyObjRef {
 public:
-	UIList(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UIList() : pyUniplug(0) { }
-	~UIList() { Py_DECREF(pyobjref); }
+	UIList(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UIList() : pyObjRef(0) { }
 
 	std::string bl_idname() {
 		STRING_TYPE_GETTER("bl_idname", resstr)
@@ -78705,11 +77789,10 @@ public:
 
 };
 
-class Header : public pyUniplug {
+class Header : public pyObjRef {
 public:
-	Header(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Header() : pyUniplug(0) { }
-	~Header() { Py_DECREF(pyobjref); }
+	Header(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Header() : pyObjRef(0) { }
 
 	UILayout layout() {
 		CLASS_TYPES_GETTER(UILayout, "layout")
@@ -78765,11 +77848,10 @@ public:
 
 };
 
-class Menu : public pyUniplug {
+class Menu : public pyObjRef {
 public:
-	Menu(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Menu() : pyUniplug(0) { }
-	~Menu() { Py_DECREF(pyobjref); }
+	Menu(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Menu() : pyObjRef(0) { }
 
 	UILayout layout() {
 		CLASS_TYPES_GETTER(UILayout, "layout")
@@ -78809,11 +77891,10 @@ public:
 
 };
 
-class ThemeFontStyle : public pyUniplug {
+class ThemeFontStyle : public pyObjRef {
 public:
-	ThemeFontStyle(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeFontStyle() : pyUniplug(0) { }
-	~ThemeFontStyle() { Py_DECREF(pyobjref); }
+	ThemeFontStyle(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeFontStyle() : pyObjRef(0) { }
 
 	int points() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "points")
@@ -78888,11 +77969,10 @@ public:
 	}
 };
 
-class ThemeStyle : public pyUniplug {
+class ThemeStyle : public pyObjRef {
 public:
-	ThemeStyle(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeStyle() : pyUniplug(0) { }
-	~ThemeStyle() { Py_DECREF(pyobjref); }
+	ThemeStyle(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeStyle() : pyObjRef(0) { }
 
 	ThemeFontStyle panel_title() {
 		CLASS_TYPES_GETTER(ThemeFontStyle, "panel_title")
@@ -78907,11 +77987,10 @@ public:
 	}
 };
 
-class ThemeWidgetColors : public pyUniplug {
+class ThemeWidgetColors : public pyObjRef {
 public:
-	ThemeWidgetColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeWidgetColors() : pyUniplug(0) { }
-	~ThemeWidgetColors() { Py_DECREF(pyobjref); }
+	ThemeWidgetColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeWidgetColors() : pyObjRef(0) { }
 
 	VFLOAT3 outline() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "outline", 3)
@@ -78986,11 +78065,10 @@ public:
 	}
 };
 
-class ThemeWidgetStateColors : public pyUniplug {
+class ThemeWidgetStateColors : public pyObjRef {
 public:
-	ThemeWidgetStateColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeWidgetStateColors() : pyUniplug(0) { }
-	~ThemeWidgetStateColors() { Py_DECREF(pyobjref); }
+	ThemeWidgetStateColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeWidgetStateColors() : pyObjRef(0) { }
 
 	VFLOAT3 inner_anim() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "inner_anim", 3)
@@ -79049,11 +78127,10 @@ public:
 	}
 };
 
-class ThemePanelColors : public pyUniplug {
+class ThemePanelColors : public pyObjRef {
 public:
-	ThemePanelColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemePanelColors() : pyUniplug(0) { }
-	~ThemePanelColors() { Py_DECREF(pyobjref); }
+	ThemePanelColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemePanelColors() : pyObjRef(0) { }
 
 	VFLOAT4 header() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "header", 4)
@@ -79088,11 +78165,10 @@ public:
 	}
 };
 
-class ThemeGradientColors : public pyUniplug {
+class ThemeGradientColors : public pyObjRef {
 public:
-	ThemeGradientColors(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeGradientColors() : pyUniplug(0) { }
-	~ThemeGradientColors() { Py_DECREF(pyobjref); }
+	ThemeGradientColors(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeGradientColors() : pyObjRef(0) { }
 
 	bool show_grad() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_grad")
@@ -79119,11 +78195,10 @@ public:
 	}
 };
 
-class ThemeUserInterface : public pyUniplug {
+class ThemeUserInterface : public pyObjRef {
 public:
-	ThemeUserInterface(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeUserInterface() : pyUniplug(0) { }
-	~ThemeUserInterface() { Py_DECREF(pyobjref); }
+	ThemeUserInterface(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeUserInterface() : pyObjRef(0) { }
 
 	ThemeWidgetColors wcol_regular() {
 		CLASS_TYPES_GETTER(ThemeWidgetColors, "wcol_regular")
@@ -79266,11 +78341,10 @@ public:
 	}
 };
 
-class ThemeSpaceGeneric : public pyUniplug {
+class ThemeSpaceGeneric : public pyObjRef {
 public:
-	ThemeSpaceGeneric(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeSpaceGeneric() : pyUniplug(0) { }
-	~ThemeSpaceGeneric() { Py_DECREF(pyobjref); }
+	ThemeSpaceGeneric(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeSpaceGeneric() : pyObjRef(0) { }
 
 	VFLOAT3 back() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "back", 3)
@@ -79397,11 +78471,10 @@ public:
 	}
 };
 
-class ThemeSpaceGradient : public pyUniplug {
+class ThemeSpaceGradient : public pyObjRef {
 public:
-	ThemeSpaceGradient(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeSpaceGradient() : pyUniplug(0) { }
-	~ThemeSpaceGradient() { Py_DECREF(pyobjref); }
+	ThemeSpaceGradient(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeSpaceGradient() : pyObjRef(0) { }
 
 	ThemeGradientColors gradients() {
 		CLASS_TYPES_GETTER(ThemeGradientColors, "gradients")
@@ -79524,11 +78597,10 @@ public:
 	}
 };
 
-class ThemeSpaceListGeneric : public pyUniplug {
+class ThemeSpaceListGeneric : public pyObjRef {
 public:
-	ThemeSpaceListGeneric(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeSpaceListGeneric() : pyUniplug(0) { }
-	~ThemeSpaceListGeneric() { Py_DECREF(pyobjref); }
+	ThemeSpaceListGeneric(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeSpaceListGeneric() : pyObjRef(0) { }
 
 	VFLOAT3 list() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "list", 3)
@@ -79563,11 +78635,10 @@ public:
 	}
 };
 
-class ThemeView3D : public pyUniplug {
+class ThemeView3D : public pyObjRef {
 public:
-	ThemeView3D(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeView3D() : pyUniplug(0) { }
-	~ThemeView3D() { Py_DECREF(pyobjref); }
+	ThemeView3D(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeView3D() : pyObjRef(0) { }
 
 	ThemeSpaceGradient space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGradient, "space")
@@ -80086,11 +79157,10 @@ public:
 	}
 };
 
-class ThemeGraphEditor : public pyUniplug {
+class ThemeGraphEditor : public pyObjRef {
 public:
-	ThemeGraphEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeGraphEditor() : pyUniplug(0) { }
-	~ThemeGraphEditor() { Py_DECREF(pyobjref); }
+	ThemeGraphEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeGraphEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -80309,11 +79379,10 @@ public:
 	}
 };
 
-class ThemeFileBrowser : public pyUniplug {
+class ThemeFileBrowser : public pyObjRef {
 public:
-	ThemeFileBrowser(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeFileBrowser() : pyUniplug(0) { }
-	~ThemeFileBrowser() { Py_DECREF(pyobjref); }
+	ThemeFileBrowser(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeFileBrowser() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -80364,11 +79433,10 @@ public:
 	}
 };
 
-class ThemeNLAEditor : public pyUniplug {
+class ThemeNLAEditor : public pyObjRef {
 public:
-	ThemeNLAEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeNLAEditor() : pyUniplug(0) { }
-	~ThemeNLAEditor() { Py_DECREF(pyobjref); }
+	ThemeNLAEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeNLAEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -80515,11 +79583,10 @@ public:
 	}
 };
 
-class ThemeDopeSheet : public pyUniplug {
+class ThemeDopeSheet : public pyObjRef {
 public:
-	ThemeDopeSheet(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeDopeSheet() : pyUniplug(0) { }
-	~ThemeDopeSheet() { Py_DECREF(pyobjref); }
+	ThemeDopeSheet(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeDopeSheet() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -80714,11 +79781,10 @@ public:
 	}
 };
 
-class ThemeImageEditor : public pyUniplug {
+class ThemeImageEditor : public pyObjRef {
 public:
-	ThemeImageEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeImageEditor() : pyUniplug(0) { }
-	~ThemeImageEditor() { Py_DECREF(pyobjref); }
+	ThemeImageEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeImageEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81045,11 +80111,10 @@ public:
 	}
 };
 
-class ThemeSequenceEditor : public pyUniplug {
+class ThemeSequenceEditor : public pyObjRef {
 public:
-	ThemeSequenceEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeSequenceEditor() : pyUniplug(0) { }
-	~ThemeSequenceEditor() { Py_DECREF(pyobjref); }
+	ThemeSequenceEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeSequenceEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81208,22 +80273,20 @@ public:
 	}
 };
 
-class ThemeProperties : public pyUniplug {
+class ThemeProperties : public pyObjRef {
 public:
-	ThemeProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeProperties() : pyUniplug(0) { }
-	~ThemeProperties() { Py_DECREF(pyobjref); }
+	ThemeProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeProperties() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
 	}
 };
 
-class ThemeTextEditor : public pyUniplug {
+class ThemeTextEditor : public pyObjRef {
 public:
-	ThemeTextEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeTextEditor() : pyUniplug(0) { }
-	~ThemeTextEditor() { Py_DECREF(pyobjref); }
+	ThemeTextEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeTextEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81318,11 +80381,10 @@ public:
 	}
 };
 
-class ThemeTimeline : public pyUniplug {
+class ThemeTimeline : public pyObjRef {
 public:
-	ThemeTimeline(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeTimeline() : pyUniplug(0) { }
-	~ThemeTimeline() { Py_DECREF(pyobjref); }
+	ThemeTimeline(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeTimeline() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81361,11 +80423,10 @@ public:
 	}
 };
 
-class ThemeNodeEditor : public pyUniplug {
+class ThemeNodeEditor : public pyObjRef {
 public:
-	ThemeNodeEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeNodeEditor() : pyUniplug(0) { }
-	~ThemeNodeEditor() { Py_DECREF(pyobjref); }
+	ThemeNodeEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeNodeEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81592,11 +80653,10 @@ public:
 	}
 };
 
-class ThemeOutliner : public pyUniplug {
+class ThemeOutliner : public pyObjRef {
 public:
-	ThemeOutliner(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeOutliner() : pyUniplug(0) { }
-	~ThemeOutliner() { Py_DECREF(pyobjref); }
+	ThemeOutliner(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeOutliner() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81619,11 +80679,10 @@ public:
 	}
 };
 
-class ThemeInfo : public pyUniplug {
+class ThemeInfo : public pyObjRef {
 public:
-	ThemeInfo(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeInfo() : pyUniplug(0) { }
-	~ThemeInfo() { Py_DECREF(pyobjref); }
+	ThemeInfo(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeInfo() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81710,22 +80769,20 @@ public:
 	}
 };
 
-class ThemeUserPreferences : public pyUniplug {
+class ThemeUserPreferences : public pyObjRef {
 public:
-	ThemeUserPreferences(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeUserPreferences() : pyUniplug(0) { }
-	~ThemeUserPreferences() { Py_DECREF(pyobjref); }
+	ThemeUserPreferences(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeUserPreferences() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
 	}
 };
 
-class ThemeConsole : public pyUniplug {
+class ThemeConsole : public pyObjRef {
 public:
-	ThemeConsole(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeConsole() : pyUniplug(0) { }
-	~ThemeConsole() { Py_DECREF(pyobjref); }
+	ThemeConsole(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeConsole() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -81780,22 +80837,20 @@ public:
 	}
 };
 
-class ThemeLogicEditor : public pyUniplug {
+class ThemeLogicEditor : public pyObjRef {
 public:
-	ThemeLogicEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeLogicEditor() : pyUniplug(0) { }
-	~ThemeLogicEditor() { Py_DECREF(pyobjref); }
+	ThemeLogicEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeLogicEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
 	}
 };
 
-class ThemeClipEditor : public pyUniplug {
+class ThemeClipEditor : public pyObjRef {
 public:
-	ThemeClipEditor(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeClipEditor() : pyUniplug(0) { }
-	~ThemeClipEditor() { Py_DECREF(pyobjref); }
+	ThemeClipEditor(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeClipEditor() : pyObjRef(0) { }
 
 	ThemeSpaceGeneric space() {
 		CLASS_TYPES_GETTER(ThemeSpaceGeneric, "space")
@@ -82006,11 +81061,10 @@ public:
 	}
 };
 
-class ThemeBoneColorSet : public pyUniplug {
+class ThemeBoneColorSet : public pyObjRef {
 public:
-	ThemeBoneColorSet(PyObject* pyobj) : pyUniplug(pyobj) {}
-	ThemeBoneColorSet() : pyUniplug(0) { }
-	~ThemeBoneColorSet() { Py_DECREF(pyobjref); }
+	ThemeBoneColorSet(PyObject* pyobj) : pyObjRef(pyobj) {}
+	ThemeBoneColorSet() : pyObjRef(0) { }
 
 	VFLOAT3 normal() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "normal", 3)
@@ -82045,11 +81099,10 @@ public:
 	}
 };
 
-class Theme : public pyUniplug {
+class Theme : public pyObjRef {
 public:
-	Theme(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Theme() : pyUniplug(0) { }
-	~Theme() { Py_DECREF(pyobjref); }
+	Theme(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Theme() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -82178,11 +81231,10 @@ public:
 	}
 };
 
-class UserSolidLight : public pyUniplug {
+class UserSolidLight : public pyObjRef {
 public:
-	UserSolidLight(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserSolidLight() : pyUniplug(0) { }
-	~UserSolidLight() { Py_DECREF(pyobjref); }
+	UserSolidLight(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserSolidLight() : pyObjRef(0) { }
 
 	bool use() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use")
@@ -82217,11 +81269,10 @@ public:
 	}
 };
 
-class WalkNavigation : public pyUniplug {
+class WalkNavigation : public pyObjRef {
 public:
-	WalkNavigation(PyObject* pyobj) : pyUniplug(pyobj) {}
-	WalkNavigation() : pyUniplug(0) { }
-	~WalkNavigation() { Py_DECREF(pyobjref); }
+	WalkNavigation(PyObject* pyobj) : pyObjRef(pyobj) {}
+	WalkNavigation() : pyObjRef(0) { }
 
 	float mouse_speed() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "mouse_speed")
@@ -82288,11 +81339,10 @@ public:
 	}
 };
 
-class UserPreferences : public pyUniplug {
+class UserPreferences : public pyObjRef {
 public:
-	UserPreferences(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserPreferences() : pyUniplug(0) { }
-	~UserPreferences() { Py_DECREF(pyobjref); }
+	UserPreferences(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserPreferences() : pyObjRef(0) { }
 
 	enum user_pref_sections_enum {
 		user_pref_sections_INTERFACE = 0,	
@@ -82346,11 +81396,10 @@ public:
 	UserPreferencesSystem system();
 };
 
-class UserPreferencesView : public pyUniplug {
+class UserPreferencesView : public pyObjRef {
 public:
-	UserPreferencesView(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserPreferencesView() : pyUniplug(0) { }
-	~UserPreferencesView() { Py_DECREF(pyobjref); }
+	UserPreferencesView(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserPreferencesView() : pyObjRef(0) { }
 
 	bool show_tooltips() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_tooltips")
@@ -82741,11 +81790,10 @@ public:
 	}
 };
 
-class UserPreferencesEdit : public pyUniplug {
+class UserPreferencesEdit : public pyObjRef {
 public:
-	UserPreferencesEdit(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserPreferencesEdit() : pyUniplug(0) { }
-	~UserPreferencesEdit() { Py_DECREF(pyobjref); }
+	UserPreferencesEdit(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserPreferencesEdit() : pyObjRef(0) { }
 
 	enum material_link_items_enum {
 		material_link_items_OBDATA = 0,	
@@ -83138,11 +82186,10 @@ public:
 	}
 };
 
-class UserPreferencesInput : public pyUniplug {
+class UserPreferencesInput : public pyObjRef {
 public:
-	UserPreferencesInput(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserPreferencesInput() : pyUniplug(0) { }
-	~UserPreferencesInput() { Py_DECREF(pyobjref); }
+	UserPreferencesInput(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserPreferencesInput() : pyObjRef(0) { }
 
 	enum select_mouse_items_enum {
 		select_mouse_items_LEFT = 16384,	
@@ -83526,11 +82573,10 @@ public:
 	}
 };
 
-class UserPreferencesFilePaths : public pyUniplug {
+class UserPreferencesFilePaths : public pyObjRef {
 public:
-	UserPreferencesFilePaths(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserPreferencesFilePaths() : pyUniplug(0) { }
-	~UserPreferencesFilePaths() { Py_DECREF(pyobjref); }
+	UserPreferencesFilePaths(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserPreferencesFilePaths() : pyObjRef(0) { }
 
 	bool show_hidden_files_datablocks() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "show_hidden_files_datablocks")
@@ -83753,11 +82799,10 @@ public:
 	}
 };
 
-class UserPreferencesSystem : public pyUniplug {
+class UserPreferencesSystem : public pyObjRef {
 public:
-	UserPreferencesSystem(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UserPreferencesSystem() : pyUniplug(0) { }
-	~UserPreferencesSystem() { Py_DECREF(pyobjref); }
+	UserPreferencesSystem(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UserPreferencesSystem() : pyObjRef(0) { }
 
 	bool use_international_fonts() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_international_fonts")
@@ -84419,11 +83464,10 @@ public:
 	}
 };
 
-class Addon : public pyUniplug {
+class Addon : public pyObjRef {
 public:
-	Addon(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Addon() : pyUniplug(0) { }
-	~Addon() { Py_DECREF(pyobjref); }
+	Addon(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Addon() : pyObjRef(0) { }
 
 	std::string module() {
 		STRING_TYPE_GETTER("module", resstr)
@@ -84436,11 +83480,10 @@ public:
 	AddonPreferences preferences();
 };
 
-class AddonPreferences : public pyUniplug {
+class AddonPreferences : public pyObjRef {
 public:
-	AddonPreferences(PyObject* pyobj) : pyUniplug(pyobj) {}
-	AddonPreferences() : pyUniplug(0) { }
-	~AddonPreferences() { Py_DECREF(pyobjref); }
+	AddonPreferences(PyObject* pyobj) : pyObjRef(pyobj) {}
+	AddonPreferences() : pyObjRef(0) { }
 
 	std::string bl_idname() {
 		STRING_TYPE_GETTER("bl_idname", resstr)
@@ -84451,11 +83494,10 @@ public:
 	}
 };
 
-class PathCompare : public pyUniplug {
+class PathCompare : public pyObjRef {
 public:
-	PathCompare(PyObject* pyobj) : pyUniplug(pyobj) {}
-	PathCompare() : pyUniplug(0) { }
-	~PathCompare() { Py_DECREF(pyobjref); }
+	PathCompare(PyObject* pyobj) : pyObjRef(pyobj) {}
+	PathCompare() : pyObjRef(0) { }
 
 	std::string path() {
 		STRING_TYPE_GETTER("path", resstr)
@@ -84478,7 +83520,6 @@ class VectorFont : public ID {
 public:
 	VectorFont(PyObject* pyobj) : ID(pyobj) {}
 	VectorFont() : ID(0) { }
-	~VectorFont() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -84519,11 +83560,10 @@ public:
 	}
 };
 
-class Operator : public pyUniplug {
+class Operator : public pyObjRef {
 public:
-	Operator(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Operator() : pyUniplug(0) { }
-	~Operator() { Py_DECREF(pyobjref); }
+	Operator(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Operator() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -84641,19 +83681,17 @@ public:
 
 };
 
-class OperatorProperties : public pyUniplug {
+class OperatorProperties : public pyObjRef {
 public:
-	OperatorProperties(PyObject* pyobj) : pyUniplug(pyobj) {}
-	OperatorProperties() : pyUniplug(0) { }
-	~OperatorProperties() { Py_DECREF(pyobjref); }
+	OperatorProperties(PyObject* pyobj) : pyObjRef(pyobj) {}
+	OperatorProperties() : pyObjRef(0) { }
 
 };
 
-class OperatorOptions : public pyUniplug {
+class OperatorOptions : public pyObjRef {
 public:
-	OperatorOptions(PyObject* pyobj) : pyUniplug(pyobj) {}
-	OperatorOptions() : pyUniplug(0) { }
-	~OperatorOptions() { Py_DECREF(pyobjref); }
+	OperatorOptions(PyObject* pyobj) : pyObjRef(pyobj) {}
+	OperatorOptions() : pyObjRef(0) { }
 
 	bool is_grab_cursor() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_grab_cursor")
@@ -84684,7 +83722,6 @@ class OperatorMousePath : public PropertyGroup {
 public:
 	OperatorMousePath(PyObject* pyobj) : PropertyGroup(pyobj) {}
 	OperatorMousePath() : PropertyGroup(0) { }
-	~OperatorMousePath() { Py_DECREF(pyobjref); }
 
 	VFLOAT2 loc() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "loc", 2)
@@ -84707,7 +83744,6 @@ class OperatorFileListElement : public PropertyGroup {
 public:
 	OperatorFileListElement(PyObject* pyobj) : PropertyGroup(pyobj) {}
 	OperatorFileListElement() : PropertyGroup(0) { }
-	~OperatorFileListElement() { Py_DECREF(pyobjref); }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -84718,11 +83754,10 @@ public:
 	}
 };
 
-class Macro : public pyUniplug {
+class Macro : public pyObjRef {
 public:
-	Macro(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Macro() : pyUniplug(0) { }
-	~Macro() { Py_DECREF(pyobjref); }
+	Macro(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Macro() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -84826,22 +83861,20 @@ public:
 
 };
 
-class OperatorMacro : public pyUniplug {
+class OperatorMacro : public pyObjRef {
 public:
-	OperatorMacro(PyObject* pyobj) : pyUniplug(pyobj) {}
-	OperatorMacro() : pyUniplug(0) { }
-	~OperatorMacro() { Py_DECREF(pyobjref); }
+	OperatorMacro(PyObject* pyobj) : pyObjRef(pyobj) {}
+	OperatorMacro() : pyObjRef(0) { }
 
 	OperatorProperties properties() {
 		CLASS_TYPES_GETTER(OperatorProperties, "properties")
 	}
 };
 
-class Event : public pyUniplug {
+class Event : public pyObjRef {
 public:
-	Event(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Event() : pyUniplug(0) { }
-	~Event() { Py_DECREF(pyobjref); }
+	Event(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Event() : pyObjRef(0) { }
 
 	std::string ascii() {
 		STRING_TYPE_GETTER("ascii", resstr)
@@ -85206,11 +84239,10 @@ public:
 	}
 };
 
-class Timer : public pyUniplug {
+class Timer : public pyObjRef {
 public:
-	Timer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Timer() : pyUniplug(0) { }
-	~Timer() { Py_DECREF(pyobjref); }
+	Timer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Timer() : pyObjRef(0) { }
 
 	float time_step() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "time_step")
@@ -85237,33 +84269,30 @@ public:
 	}
 };
 
-class UIPopupMenu : public pyUniplug {
+class UIPopupMenu : public pyObjRef {
 public:
-	UIPopupMenu(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UIPopupMenu() : pyUniplug(0) { }
-	~UIPopupMenu() { Py_DECREF(pyobjref); }
+	UIPopupMenu(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UIPopupMenu() : pyObjRef(0) { }
 
 	UILayout layout() {
 		CLASS_TYPES_GETTER(UILayout, "layout")
 	}
 };
 
-class UIPieMenu : public pyUniplug {
+class UIPieMenu : public pyObjRef {
 public:
-	UIPieMenu(PyObject* pyobj) : pyUniplug(pyobj) {}
-	UIPieMenu() : pyUniplug(0) { }
-	~UIPieMenu() { Py_DECREF(pyobjref); }
+	UIPieMenu(PyObject* pyobj) : pyObjRef(pyobj) {}
+	UIPieMenu() : pyObjRef(0) { }
 
 	UILayout layout() {
 		CLASS_TYPES_GETTER(UILayout, "layout")
 	}
 };
 
-class Window : public pyUniplug {
+class Window : public pyObjRef {
 public:
-	Window(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Window() : pyUniplug(0) { }
-	~Window() { Py_DECREF(pyobjref); }
+	Window(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Window() : pyObjRef(0) { }
 
 	Screen screen() {
 		CLASS_TYPES_GETTER(Screen, "screen")
@@ -85348,11 +84377,10 @@ public:
 	}
 };
 
-class Stereo3dDisplay : public pyUniplug {
+class Stereo3dDisplay : public pyObjRef {
 public:
-	Stereo3dDisplay(PyObject* pyobj) : pyUniplug(pyobj) {}
-	Stereo3dDisplay() : pyUniplug(0) { }
-	~Stereo3dDisplay() { Py_DECREF(pyobjref); }
+	Stereo3dDisplay(PyObject* pyobj) : pyObjRef(pyobj) {}
+	Stereo3dDisplay() : pyObjRef(0) { }
 
 	enum stereo3d_display_items_enum {
 		stereo3d_display_items_ANAGLYPH = 0,	
@@ -85452,7 +84480,6 @@ class WindowManager : public ID {
 public:
 	WindowManager(PyObject* pyobj) : ID(pyobj) {}
 	WindowManager() : ID(0) { }
-	~WindowManager() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, Operator> operators() {
 		MAP_TYPE_GETTER("operators", Operator)
@@ -86134,11 +85161,10 @@ public:
 	}
 };
 
-class KeyConfig : public pyUniplug {
+class KeyConfig : public pyObjRef {
 public:
-	KeyConfig(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyConfig() : pyUniplug(0) { }
-	~KeyConfig() { Py_DECREF(pyobjref); }
+	KeyConfig(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyConfig() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -86159,11 +85185,10 @@ public:
 	}
 };
 
-class KeyMap : public pyUniplug {
+class KeyMap : public pyObjRef {
 public:
-	KeyMap(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyMap() : pyUniplug(0) { }
-	~KeyMap() { Py_DECREF(pyobjref); }
+	KeyMap(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyMap() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -86289,11 +85314,10 @@ public:
 	void restore_item_to_default(KeyMapItem item);
 };
 
-class KeyMapItem : public pyUniplug {
+class KeyMapItem : public pyObjRef {
 public:
-	KeyMapItem(PyObject* pyobj) : pyUniplug(pyobj) {}
-	KeyMapItem() : pyUniplug(0) { }
-	~KeyMapItem() { Py_DECREF(pyobjref); }
+	KeyMapItem(PyObject* pyobj) : pyObjRef(pyobj) {}
+	KeyMapItem() : pyObjRef(0) { }
 
 	std::string idname() {
 		STRING_TYPE_GETTER("idname", resstr)
@@ -86708,7 +85732,6 @@ class World : public ID {
 public:
 	World(PyObject* pyobj) : ID(pyobj) {}
 	World() : ID(0) { }
-	~World() { Py_DECREF(pyobjref); }
 
 	AnimData animation_data() {
 		CLASS_TYPES_GETTER(AnimData, "animation_data")
@@ -86809,11 +85832,10 @@ public:
 	}
 };
 
-class WorldLighting : public pyUniplug {
+class WorldLighting : public pyObjRef {
 public:
-	WorldLighting(PyObject* pyobj) : pyUniplug(pyobj) {}
-	WorldLighting() : pyUniplug(0) { }
-	~WorldLighting() { Py_DECREF(pyobjref); }
+	WorldLighting(PyObject* pyobj) : pyObjRef(pyobj) {}
+	WorldLighting() : pyObjRef(0) { }
 
 	bool use_ambient_occlusion() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_ambient_occlusion")
@@ -87058,11 +86080,10 @@ public:
 	}
 };
 
-class WorldMistSettings : public pyUniplug {
+class WorldMistSettings : public pyObjRef {
 public:
-	WorldMistSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	WorldMistSettings() : pyUniplug(0) { }
-	~WorldMistSettings() { Py_DECREF(pyobjref); }
+	WorldMistSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	WorldMistSettings() : pyObjRef(0) { }
 
 	bool use_mist() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_mist")
@@ -87134,7 +86155,6 @@ class WorldTextureSlot : public TextureSlot {
 public:
 	WorldTextureSlot(PyObject* pyobj) : TextureSlot(pyobj) {}
 	WorldTextureSlot() : TextureSlot(0) { }
-	~WorldTextureSlot() { Py_DECREF(pyobjref); }
 
 	bool use_map_blend() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_map_blend")
@@ -87238,7 +86258,6 @@ class MovieClip : public ID {
 public:
 	MovieClip(PyObject* pyobj) : ID(pyobj) {}
 	MovieClip() : ID(0) { }
-	~MovieClip() { Py_DECREF(pyobjref); }
 
 	std::string filepath() {
 		STRING_TYPE_GETTER("filepath", resstr)
@@ -87341,11 +86360,10 @@ public:
 	}
 };
 
-class MovieClipProxy : public pyUniplug {
+class MovieClipProxy : public pyObjRef {
 public:
-	MovieClipProxy(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieClipProxy() : pyUniplug(0) { }
-	~MovieClipProxy() { Py_DECREF(pyobjref); }
+	MovieClipProxy(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieClipProxy() : pyObjRef(0) { }
 
 	bool build_25() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "build_25")
@@ -87479,11 +86497,10 @@ public:
 	}
 };
 
-class MovieClipUser : public pyUniplug {
+class MovieClipUser : public pyObjRef {
 public:
-	MovieClipUser(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieClipUser() : pyUniplug(0) { }
-	~MovieClipUser() { Py_DECREF(pyobjref); }
+	MovieClipUser(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieClipUser() : pyObjRef(0) { }
 
 	int frame_current() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "frame_current")
@@ -87529,19 +86546,17 @@ public:
 	}
 };
 
-class MovieClipScopes : public pyUniplug {
+class MovieClipScopes : public pyObjRef {
 public:
-	MovieClipScopes(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieClipScopes() : pyUniplug(0) { }
-	~MovieClipScopes() { Py_DECREF(pyobjref); }
+	MovieClipScopes(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieClipScopes() : pyObjRef(0) { }
 
 };
 
-class MovieTrackingSettings : public pyUniplug {
+class MovieTrackingSettings : public pyObjRef {
 public:
-	MovieTrackingSettings(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingSettings() : pyUniplug(0) { }
-	~MovieTrackingSettings() { Py_DECREF(pyobjref); }
+	MovieTrackingSettings(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingSettings() : pyObjRef(0) { }
 
 	enum speed_items_enum {
 		speed_items_FASTEST = 0,	
@@ -87837,11 +86852,10 @@ public:
 	}
 };
 
-class MovieTrackingCamera : public pyUniplug {
+class MovieTrackingCamera : public pyObjRef {
 public:
-	MovieTrackingCamera(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingCamera() : pyUniplug(0) { }
-	~MovieTrackingCamera() { Py_DECREF(pyobjref); }
+	MovieTrackingCamera(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingCamera() : pyObjRef(0) { }
 
 	enum distortion_model_items_enum {
 		distortion_model_items_POLYNOMIAL = 0,	
@@ -87972,11 +86986,10 @@ public:
 	}
 };
 
-class MovieTrackingMarker : public pyUniplug {
+class MovieTrackingMarker : public pyObjRef {
 public:
-	MovieTrackingMarker(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingMarker() : pyUniplug(0) { }
-	~MovieTrackingMarker() { Py_DECREF(pyobjref); }
+	MovieTrackingMarker(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingMarker() : pyObjRef(0) { }
 
 	VFLOAT2 co() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "co", 2)
@@ -88043,11 +87056,10 @@ public:
 	}
 };
 
-class MovieTrackingTrack : public pyUniplug {
+class MovieTrackingTrack : public pyObjRef {
 public:
-	MovieTrackingTrack(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingTrack() : pyUniplug(0) { }
-	~MovieTrackingTrack() { Py_DECREF(pyobjref); }
+	MovieTrackingTrack(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingTrack() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -88310,11 +87322,10 @@ public:
 	}
 };
 
-class MovieTrackingPlaneMarker : public pyUniplug {
+class MovieTrackingPlaneMarker : public pyObjRef {
 public:
-	MovieTrackingPlaneMarker(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingPlaneMarker() : pyUniplug(0) { }
-	~MovieTrackingPlaneMarker() { Py_DECREF(pyobjref); }
+	MovieTrackingPlaneMarker(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingPlaneMarker() : pyObjRef(0) { }
 
 	int frame() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "frame")
@@ -88341,11 +87352,10 @@ public:
 	}
 };
 
-class MovieTrackingPlaneTrack : public pyUniplug {
+class MovieTrackingPlaneTrack : public pyObjRef {
 public:
-	MovieTrackingPlaneTrack(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingPlaneTrack() : pyUniplug(0) { }
-	~MovieTrackingPlaneTrack() { Py_DECREF(pyobjref); }
+	MovieTrackingPlaneTrack(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingPlaneTrack() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -88388,11 +87398,10 @@ public:
 	}
 };
 
-class MovieTrackingStabilization : public pyUniplug {
+class MovieTrackingStabilization : public pyObjRef {
 public:
-	MovieTrackingStabilization(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingStabilization() : pyUniplug(0) { }
-	~MovieTrackingStabilization() { Py_DECREF(pyobjref); }
+	MovieTrackingStabilization(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingStabilization() : pyObjRef(0) { }
 
 	bool use_2d_stabilization() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "use_2d_stabilization")
@@ -88492,11 +87501,10 @@ public:
 	}
 };
 
-class MovieReconstructedCamera : public pyUniplug {
+class MovieReconstructedCamera : public pyObjRef {
 public:
-	MovieReconstructedCamera(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieReconstructedCamera() : pyUniplug(0) { }
-	~MovieReconstructedCamera() { Py_DECREF(pyobjref); }
+	MovieReconstructedCamera(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieReconstructedCamera() : pyObjRef(0) { }
 
 	int frame() {
 		PRIMITIVE_TYPES_GETTER(int, PyLong_AsLong(val), "frame")
@@ -88523,11 +87531,10 @@ public:
 	}
 };
 
-class MovieTrackingReconstruction : public pyUniplug {
+class MovieTrackingReconstruction : public pyObjRef {
 public:
-	MovieTrackingReconstruction(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingReconstruction() : pyUniplug(0) { }
-	~MovieTrackingReconstruction() { Py_DECREF(pyobjref); }
+	MovieTrackingReconstruction(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingReconstruction() : pyObjRef(0) { }
 
 	bool is_valid() {
 		PRIMITIVE_TYPES_GETTER(bool, PyLong_AsLong(val)==1, "is_valid")
@@ -88550,11 +87557,10 @@ public:
 	}
 };
 
-class MovieTrackingObject : public pyUniplug {
+class MovieTrackingObject : public pyObjRef {
 public:
-	MovieTrackingObject(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingObject() : pyUniplug(0) { }
-	~MovieTrackingObject() { Py_DECREF(pyobjref); }
+	MovieTrackingObject(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingObject() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -88609,11 +87615,10 @@ public:
 	}
 };
 
-class MovieTrackingDopesheet : public pyUniplug {
+class MovieTrackingDopesheet : public pyObjRef {
 public:
-	MovieTrackingDopesheet(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTrackingDopesheet() : pyUniplug(0) { }
-	~MovieTrackingDopesheet() { Py_DECREF(pyobjref); }
+	MovieTrackingDopesheet(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTrackingDopesheet() : pyObjRef(0) { }
 
 	enum sort_items_enum {
 		sort_items_NAME = 0,	
@@ -88666,11 +87671,10 @@ public:
 	}
 };
 
-class MovieTracking : public pyUniplug {
+class MovieTracking : public pyObjRef {
 public:
-	MovieTracking(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MovieTracking() : pyUniplug(0) { }
-	~MovieTracking() { Py_DECREF(pyobjref); }
+	MovieTracking(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MovieTracking() : pyObjRef(0) { }
 
 	MovieTrackingSettings settings() {
 		CLASS_TYPES_GETTER(MovieTrackingSettings, "settings")
@@ -88713,11 +87717,10 @@ public:
 	}
 };
 
-class MaskParent : public pyUniplug {
+class MaskParent : public pyObjRef {
 public:
-	MaskParent(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskParent() : pyUniplug(0) { }
-	~MaskParent() { Py_DECREF(pyobjref); }
+	MaskParent(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskParent() : pyObjRef(0) { }
 
 	ID id() {
 		CLASS_TYPES_GETTER(ID, "id")
@@ -88787,11 +87790,10 @@ public:
 	}
 };
 
-class MaskSplinePointUW : public pyUniplug {
+class MaskSplinePointUW : public pyObjRef {
 public:
-	MaskSplinePointUW(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskSplinePointUW() : pyUniplug(0) { }
-	~MaskSplinePointUW() { Py_DECREF(pyobjref); }
+	MaskSplinePointUW(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskSplinePointUW() : pyObjRef(0) { }
 
 	float u() {
 		PRIMITIVE_TYPES_GETTER(float, (float)PyFloat_AsDouble(val), "u")
@@ -88818,11 +87820,10 @@ public:
 	}
 };
 
-class MaskSplinePoint : public pyUniplug {
+class MaskSplinePoint : public pyObjRef {
 public:
-	MaskSplinePoint(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskSplinePoint() : pyUniplug(0) { }
-	~MaskSplinePoint() { Py_DECREF(pyobjref); }
+	MaskSplinePoint(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskSplinePoint() : pyObjRef(0) { }
 
 	VFLOAT2 handle_left() {
 		POD_VECTOR_TYPES_GETTER(FLOAT, (float)PyFloat_AsDouble(item), "handle_left", 2)
@@ -88916,11 +87917,10 @@ public:
 	}
 };
 
-class MaskSpline : public pyUniplug {
+class MaskSpline : public pyObjRef {
 public:
-	MaskSpline(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskSpline() : pyUniplug(0) { }
-	~MaskSpline() { Py_DECREF(pyobjref); }
+	MaskSpline(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskSpline() : pyObjRef(0) { }
 
 	enum spline_offset_mode_items_enum {
 		spline_offset_mode_items_EVEN = 0,	
@@ -88999,11 +87999,10 @@ public:
 	}
 };
 
-class MaskLayer : public pyUniplug {
+class MaskLayer : public pyObjRef {
 public:
-	MaskLayer(PyObject* pyobj) : pyUniplug(pyobj) {}
-	MaskLayer() : pyUniplug(0) { }
-	~MaskLayer() { Py_DECREF(pyobjref); }
+	MaskLayer(PyObject* pyobj) : pyObjRef(pyobj) {}
+	MaskLayer() : pyObjRef(0) { }
 
 	std::string name() {
 		STRING_TYPE_GETTER("name", resstr)
@@ -89145,7 +88144,6 @@ class Mask : public ID {
 public:
 	Mask(PyObject* pyobj) : ID(pyobj) {}
 	Mask() : ID(0) { }
-	~Mask() { Py_DECREF(pyobjref); }
 
 	std::map<std::string, MaskLayer> layers() {
 		MAP_TYPE_GETTER("layers", MaskLayer)
