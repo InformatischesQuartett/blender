@@ -2368,7 +2368,7 @@ static void rna_generate_header_output_structs_cpp(FILE *f, FunctionDefRNA *dfun
 
 				fprintf(f, "%s;", rna_safe_id(dp->prop->identifier));
 
-				if (dp->prop->description && dp->prop->description[0])
+				if (!no_comments && dp->prop->description && dp->prop->description[0])
 					fprintf(f, "\t/**< %s */\n", dp->prop->description);
 				else
 					fprintf(f, "\n");
@@ -4486,7 +4486,8 @@ static const char *cpp_classes_uniplug = ""
 "\n"
 "#define CLASS_TYPES_GETTER(stype, sidentifier)\\\n"
 "	PyObject *val = PyObject_GetAttrString(pyobjref, sidentifier);\\\n"
-"	stype restype(val);\\\n"
+"	stype restype;\\\n"
+"	restype.set_pyobjref(val);\\\n"
 "	Py_CLEAR(val);\\\n"
 "	return restype;\n"
 "\n"
@@ -4499,7 +4500,8 @@ static const char *cpp_classes_uniplug = ""
 "		PyObject *str = PyUnicode_AsUTF8String(keyobj);\\\n"
 "		std::string key = PyBytes_AsString(str);\\\n"
 "		PyObject *item = PySequence_GetItem(seqval, i);\\\n"
-"		stype value = stype(item);\\\n"
+"		stype value;\\\n"
+"		value.set_pyobjref(item);\\\n"
 "		resmap.insert(std::pair<std::string, stype>(key, value));\\\n"
 "		Py_CLEAR(item);\\\n"
 "		Py_CLEAR(str);\\\n"
@@ -4530,7 +4532,8 @@ static const char *cpp_classes_uniplug = ""
 "	PyObject *pyobj = PyObject_CallMethod(pyobjref, sidentifier, sconv, __VA_ARGS__);\n"
 "\n"
 "#define CLASS_TYPES_RETURN(stype)\\\n"
-"	stype restype(pyobj);\\\n"
+"	stype restype;\\\n"
+"	restype.set_pyobjref(pyobj);\\\n"
 "	Py_CLEAR(pyobj);\\\n"
 "	return restype;\n"
 "\n"
@@ -4551,7 +4554,8 @@ static const char *cpp_classes_uniplug = ""
 "	stype sidentifier##_res = sconv;\\\n"
 "\n"
 "#define CLASS_TYPES_CONV(sidentifier, stype)\\\n"
-"	stype sidentifier##_res(sidentifier##_obj);\\\n"
+"	stype sidentifier##_res;\\\n"
+"	sidentifier##_res.set_pyobjref(sidentifier##_obj);\\\n"
 "\n"
 "#define STRING_TYPE_CONV(sidentifier)\\\n"
 "	PyObject *sidentifier##_str_obj = PyUnicode_AsUTF8String(sidentifier##_obj);\\\n"
@@ -4587,11 +4591,10 @@ static const char *cpp_classes_uniplug_main = ""
 "	PyObject *pyobjref;\n"
 "\n"
 "	pyObjRef() {};\n"
-"	pyObjRef(PyObject* pyobj) : pyobjref(pyobj) { Py_XINCREF(pyobj); }\n"
-"	pyObjRef(const pyObjRef &obj) : pyobjref(obj.pyobjref) { Py_XINCREF(obj.pyobjref); }\n"
+"	pyObjRef(PyObject* pyobj) { set_pyobjref(pyobj); }\n"
+"	pyObjRef(const pyObjRef &obj) { set_pyobjref(obj.pyobjref); }\n"
 "	pyObjRef& operator = (const pyObjRef& obj) {\n"
-"		Py_XINCREF(obj.pyobjref);\n"
-"		pyobjref = obj.pyobjref;\n"
+"		set_pyobjref(obj.pyobjref);\n"
 "		return *this;\n"
 "	}\n"
 "\n"
@@ -4603,13 +4606,17 @@ static const char *cpp_classes_uniplug_main = ""
 "	PyObject* get_pyobjref() {\n"
 "		return pyobjref;\n"
 "	}\n"
+"	void set_pyobjref(PyObject* ref) {\n"
+"		Py_XINCREF(ref); \n"
+"		pyobjref = ref;\n"
+"	}\n"
 "};\n"
 "\n"
 "class pyUniplug : public pyObjRef {\n"
 "public:\n"
 "	pyUniplug() { pyobjref = PyImport_ImportModule(\"bpy\"); }\n"
 "\n"
-"	void print(std::string msg) {\n"
+"	static void print(std::string msg) {\n"
 "		std::string prmsg = \"print('\" + msg + \"')\";\n"
 "		PyRun_SimpleString(prmsg.c_str());\n"
 "	}\n"
@@ -4958,10 +4965,12 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f, FILE *fswig
 
 		fprintf(f, "class %s : public %s {\n", srna->identifier, 
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyObjRef");
-		fprintf(f, "public:\n");
 
+		fprintf(f, "protected:\n");
 		fprintf(f, "\t%s(PyObject* pyobj) : %s(pyobj) {}\n", srna->identifier,
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyObjRef");
+
+		fprintf(f, "public:\n");
 		fprintf(f, "\t%s() : %s(0) { }\n", srna->identifier,
 			(srna->base) ? rna_safe_id(srna->base->identifier) : "pyObjRef");
 
@@ -5126,7 +5135,9 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f, FILE *fsw
 				fprintf(f, "\t/**************** pyUniplug ****************/\n\n");
 
 			fprintf(f, "\tContext pyUniplug::context() {\n");
-			fprintf(f, "\t\treturn Context(PyObject_GetAttrString(pyobjref, \"context\"));\n");
+			fprintf(f, "\t\tContext ctx;\n");
+			fprintf(f, "\t\tctx.set_pyobjref(PyObject_GetAttrString(pyobjref, \"context\"));\n");
+			fprintf(f, "\t\treturn ctx;");
 			fprintf(f, "\t}\n\n");
 		}
 
