@@ -1789,6 +1789,63 @@ static int rna_parameter_type_is_declared(PropertyRNA *prop)
 	return 1;
 }
 
+static int rna_is_map_implemented(PropertyDefRNA *dp, FILE *fswig)
+{
+	CollectionPropertyRNA *cprop = (CollectionPropertyRNA *)dp->prop;
+
+	StructDefRNA *ds;
+	PropertyDefRNA *odp;
+	FunctionDefRNA *dfunc;
+
+	for (ds = DefRNA.structs.first; ds; ds = ds->cont.next) {
+		int break_loop = 0;
+
+		for (odp = ds->cont.properties.first; odp; odp = odp->next) {
+			if (odp == dp) { break_loop = 1; break; }
+			if (odp->prop->type == PROP_COLLECTION && (STREQ(odp->prop->identifier, dp->prop->identifier))) return 1;
+		}
+
+		for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next) {
+			for (odp = dfunc->cont.properties.first; odp; odp = odp->next) {
+				if (odp == dp) { break_loop = 1; break; }
+				if (odp->prop->type == PROP_COLLECTION && ((CollectionPropertyRNA *)odp->prop) == cprop) return 1;
+			}
+
+			if (break_loop) break;
+		}
+
+		if (break_loop) break;
+	}
+
+	return 0;	
+}
+
+static void rna_generate_swig_map_interface(PropertyDefRNA *dp, FILE *fswig)
+{
+	CollectionPropertyRNA *cprop = (CollectionPropertyRNA *)dp->prop;
+	const char* objtype = (const char*)cprop->item_type;
+
+	rewind(fswig);
+	char line[255];
+
+	while (fgets(line, 255, fswig) != NULL) {
+		unsigned char *str = strstr(line, objtype);
+
+		if (str) {
+			const unsigned char pre = *(str - 1);
+			const unsigned char post = *(str + strlen(objtype));
+
+			if (pre == '(' && post == ')') {
+				fseek(fswig, 0L, SEEK_END);
+				return;
+			}
+		}
+	}
+
+	fseek(fswig, 0L, SEEK_END);
+	fprintf(fswig, "%%std_templates(%s);\n", objtype);
+}
+
 static int rna_is_enum_implemented(StructDefRNA *ds, PropertyDefRNA *dp, FILE *f)
 {
 	EnumPropertyRNA *eprop = (EnumPropertyRNA *)dp->prop;
@@ -1892,7 +1949,7 @@ static int rna_is_vector_pod(PropertyRNA *prop)
 	return (len >= 2 && len <= 4) || len == 16;
 }
 
-static void rna_def_property_funcs_header_cpp(FILE *f, StructDefRNA *ds, PropertyDefRNA *dp, int impl, int last)
+static void rna_def_property_funcs_header_cpp(FILE *f, FILE *fswig, StructDefRNA *ds, PropertyDefRNA *dp, int impl, int last)
 {
 	StructRNA *srna = ds->srna;
 
@@ -2226,6 +2283,8 @@ static void rna_def_property_funcs_header_cpp(FILE *f, StructDefRNA *ds, Propert
 				const char* objtype = (const char*)cprop->item_type;
 				StructRNA *retsrna = rna_find_struct(objtype);
 
+				rna_generate_swig_map_interface(dp, fswig);
+
 				if (!impl && (!retsrna->isdeclared)) {
 					prop->isimplemented = 0;
 
@@ -2359,7 +2418,7 @@ static void rna_def_struct_function_comment_cpp(FILE *f, FunctionDefRNA *dfunc,
 	fprintf(f, "\t */\n");
 }
 
-static void rna_def_struct_function_prototype_cpp(FILE *f, StructDefRNA *ds, FunctionDefRNA *dfunc,
+static void rna_def_struct_function_prototype_cpp(FILE *f, FILE *fswig, StructDefRNA *ds, FunctionDefRNA *dfunc,
 	const char *namespace, int close_prototype)
 {
 	PropertyDefRNA *dp;
@@ -2374,6 +2433,16 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructDefRNA *ds, Fun
 		for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
 			if (dp->prop != func->c_ret && dp->prop->type == PROP_ENUM)
 				rna_generate_header_enum_cpp(ds, dp, f);
+	}
+
+	// fusee_build: post all maps to the swig interface file
+	if (fusee_build && !(namespace && namespace[0])) {
+		if (dfunc->func->c_ret && dfunc->func->c_ret->type == PROP_COLLECTION)
+			rna_generate_swig_map_interface(rna_find_parameter_def(dfunc->func->c_ret), fswig);
+
+		for (dp = dfunc->cont.properties.first; dp; dp = dp->next)
+			if (dp->prop != func->c_ret && dp->prop->type == PROP_COLLECTION)
+				rna_generate_swig_map_interface(dp, fswig);
 	}
 
 	// fusee_build: fix return type / build struct
@@ -2520,7 +2589,7 @@ static void rna_def_struct_function_prototype_cpp(FILE *f, StructDefRNA *ds, Fun
 		fprintf(f, ";\n");
 }
 
-static void rna_def_struct_function_header_cpp(FILE *f, StructDefRNA *ds, FunctionDefRNA *dfunc)
+static void rna_def_struct_function_header_cpp(FILE *f, FILE *fswig, StructDefRNA *ds, FunctionDefRNA *dfunc)
 {
 	StructRNA *srna = ds->srna;
 
@@ -2531,7 +2600,7 @@ static void rna_def_struct_function_header_cpp(FILE *f, StructDefRNA *ds, Functi
 		fprintf(f, "\n\t/* %s */\n", func->description);
 #endif
 
-		rna_def_struct_function_prototype_cpp(f, ds, dfunc, NULL, 1);
+		rna_def_struct_function_prototype_cpp(f, fswig, ds, dfunc, NULL, 1);
 	}
 }
 
@@ -2691,7 +2760,7 @@ static void rna_def_struct_function_call_impl_cpp(FILE *f, StructRNA *srna, Func
 	fprintf(f, ");\n");
 }
 
-static void rna_def_struct_function_impl_cpp(FILE *f, StructDefRNA *ds, FunctionDefRNA *dfunc, int impl, int last)
+static void rna_def_struct_function_impl_cpp(FILE *f, FILE *fswig, StructDefRNA *ds, FunctionDefRNA *dfunc, int impl, int last)
 {
 	StructRNA *srna = ds->srna;
 
@@ -2715,7 +2784,7 @@ static void rna_def_struct_function_impl_cpp(FILE *f, StructDefRNA *ds, Function
 			isdecl &= rna_parameter_type_is_declared(dp->prop);
 	}
 
-	rna_def_struct_function_prototype_cpp(f, ds, dfunc, (fusee_build && !impl) ? NULL : srna->identifier, !isdecl);
+	rna_def_struct_function_prototype_cpp(f, fswig, ds, dfunc, (fusee_build && !impl) ? NULL : srna->identifier, !isdecl);
 
 	if (fusee_build) {
 		func->isdeclared = 1;
@@ -4859,7 +4928,7 @@ static int rna_is_collection_functions_struct(const char **collection_structs, c
 	return found;
 }
 
-static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
+static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f, FILE *fswig)
 {
 	StructRNA *srna = ds->srna;
 	PropertyDefRNA *dp;
@@ -4902,23 +4971,23 @@ static void rna_generate_header_class_cpp(StructDefRNA *ds, FILE *f)
 
 	for (dp = ds->cont.properties.first; dp; dp = dp->next)
 		if (!fusee_build || ((!STREQ(dp->prop->identifier, "rna_properties")) && (!STREQ(dp->prop->identifier, "rna_type"))))
-			rna_def_property_funcs_header_cpp(f, ds, dp, 0, (dp == ds->cont.properties.last && ds->functions.first == NULL));
+			rna_def_property_funcs_header_cpp(f, fswig, ds, dp, 0, (dp == ds->cont.properties.last && ds->functions.first == NULL));
 
 	if (!fusee_build && (ds->functions.first != NULL))
 		fprintf(f, "\n");
 
 	for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
 		if (!fusee_build)
-			rna_def_struct_function_header_cpp(f, ds, dfunc);
+			rna_def_struct_function_header_cpp(f, fswig, ds, dfunc);
 		else {
 			dfunc->func->isdeclared = 0;
-			rna_def_struct_function_impl_cpp(f, ds, dfunc, 0, dfunc == ds->functions.last);
+			rna_def_struct_function_impl_cpp(f, fswig, ds, dfunc, 0, dfunc == ds->functions.last);
 		}
 
 	fprintf(f, "};\n\n");
 }
 
-static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
+static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f, FILE *fswig)
 {
 	StructDefRNA *ds;
 	PropertyDefRNA *dp;
@@ -5007,13 +5076,13 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 				srna2 = ds2->srna;
 
 				if (rna_is_collection_functions_struct(collection_func_structs, srna2->identifier)) {
-					rna_generate_header_class_cpp(ds2, f);
+					rna_generate_header_class_cpp(ds2, f, fswig);
 				}
 			}
 		}
 
 		if (!rna_is_collection_functions_struct(collection_func_structs, srna->identifier))
-			rna_generate_header_class_cpp(ds, f);
+			rna_generate_header_class_cpp(ds, f, fswig);
 	}
 
 	fprintf(f, "} /* namespace %s */\n", fusee_build ? "UniplugBL" : "BL");
@@ -5042,7 +5111,7 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 			fprintf(f, "\n");
 
 			for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
-				rna_def_struct_function_impl_cpp(f, ds, dfunc, 0, dfunc == ds->functions.last);
+				rna_def_struct_function_impl_cpp(f, fswig, ds, dfunc, 0, dfunc == ds->functions.last);
 
 			fprintf(f, "\n");
 		}
@@ -5075,13 +5144,13 @@ static void rna_generate_header_cpp(BlenderRNA *UNUSED(brna), FILE *f)
 						found = 1;
 					}
 
-					rna_def_property_funcs_header_cpp(f, ds, dp, 1, 0);
+					rna_def_property_funcs_header_cpp(f, fswig, ds, dp, 1, 0);
 				}
 			}
 
 			for (dfunc = ds->functions.first; dfunc; dfunc = dfunc->cont.next)
 				if (!dfunc->func->isimplemented)
-					rna_def_struct_function_impl_cpp(f, ds, dfunc, 1, 0);
+					rna_def_struct_function_impl_cpp(f, fswig, ds, dfunc, 1, 0);
 		}
 	}
 
@@ -5102,8 +5171,13 @@ static int rna_preprocess(const char *outfile)
 {
 	BlenderRNA *brna;
 	StructDefRNA *ds;
+
 	FILE *file;
+	FILE *fswig;
+
 	char deffile[4096];
+	char defswigf[4096];
+
 	int i, status;
 	const char *deps[3]; /* expand as needed */
 
@@ -5208,9 +5282,26 @@ static int rna_preprocess(const char *outfile)
 			status = 1;
 		}
 		else {
-			rna_generate_header_cpp(brna, file);
-			fclose(file);
-			status = (DefRNA.error != 0);
+			if (fusee_build) {
+				strcpy(defswigf, outfile);
+				strcat(defswigf, "uniplug_blender_api_swig.i");
+				fswig = fopen(defswigf, "w+");
+			}
+
+			if (!fusee_build || defswigf) {
+				rna_generate_header_cpp(brna, file, fswig);
+
+				fclose(file);
+
+				if (fusee_build)
+					fclose(fswig);
+
+				status = (DefRNA.error != 0);
+			}
+			else {
+				fprintf(stderr, "Unable to open file: %s\n", defswigf);
+				status = 1;
+			}
 		}
 	}
 
